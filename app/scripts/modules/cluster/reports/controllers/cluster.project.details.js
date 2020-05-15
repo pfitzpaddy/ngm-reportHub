@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper','$translate','$filter', function ( $scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser, ngmClusterHelper,$translate,$filter) {
+	.controller('ClusterProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper','$translate','$filter', 'ngmClusterDownloads', function ( $scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser, ngmClusterHelper, $translate, $filter, ngmClusterDownloads) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -104,19 +104,25 @@ angular.module('ngmReportHub')
 							// 		}
 							// 	}
 							// },{
-								type: 'csv',
-								color: 'light-blue lighten-4',
+								// type: 'csv',
+								type: 'client',
+								color: 'blue lighten-1',
 								icon: 'assignment',
-								hover: $filter('translate')('download')+' ' + $scope.report.project.project_title + ' '+ $filter('translate')('as')+' CSV',
+								hover: $filter('translate')('download') + ' ' + $scope.report.project.project_title + ' '+ $filter('translate')('as')+' Excel',
+								// request: {
+								// 	method: 'POST',
+								// 	url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
+								// 	data: {
+								// 		report:  $scope.report.report,
+								// 		details: 'projects',
+								// 		query : { project_id : $scope.report.project.id },
+								// 		csv : true
+								// 	}
+								// },
 								request: {
-									method: 'POST',
-									url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
-									data: {
-										report:  $scope.report.report,
-										details: 'projects',
-										query : { project_id : $scope.report.project.id },
-										csv : true
-									}
+									filename: $filter('limitTo')($scope.report.project.project_title, 180) + '_plan-extracted-' + moment().format('YYYY-MM-DDTHHmm') + '.xlsx',
+									mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+									function: () => ngmClusterDownloads.downloadProjectPlan($scope.report.project),
 								},
 								metrics: {
 									method: 'POST',
@@ -127,7 +133,7 @@ angular.module('ngmReportHub')
 										email: $scope.report.user.email,
 										dashboard: $scope.report.project.project_title,
 										theme: 'cluster_project_details',
-										format: 'csv',
+										format: 'xlsx',
 										url: $location.$$path
 									}
 								}
@@ -152,6 +158,29 @@ angular.module('ngmReportHub')
 										email: $scope.report.user.email,
 										dashboard: $scope.report.project.project_title,
 										theme: 'cluster_project_lists',
+										format: 'xlsx',
+										url: $location.$$path
+									}
+								}
+							},{
+								type: 'client',
+								color: 'blue lighten-2',
+								icon: 'description',
+								hover: $filter('translate')('download_populations_lists'),
+								request: {
+									filename: 'population_groups_lists' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) + '.xlsx',
+									mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+									function: () => ngmClusterDownloads.downloadPopulationsLists($scope.report.project, $scope.report.project.project_start_date, $scope.report.project.project_end_date)
+								},
+								metrics: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: $scope.report.project.project_title,
+										theme: 'population_groups_lists_' + $scope.report.user.cluster_id,
 										format: 'xlsx',
 										url: $location.$$path
 									}
@@ -210,16 +239,46 @@ angular.module('ngmReportHub')
 
 		// if 'new' create empty project
 		if( $route.current.params.project === 'new' ) {
-
-			// get new project
-			var project = ngmClusterHelper.getNewProject( ngmUser.get() );
-
-			// set summary
-			$scope.report.setProjectDetails( project );
-			setTimeout(() => {
-				$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
-			}, 0);
-
+			if ($route.current.params.copy_project_id){
+				M.toast({ html: 'Copying Project....', displayLength: 6000, classes: 'note' });
+				$timeout(function () {
+					ngmData.get({
+						method: 'POST',
+						url: ngmAuth.LOCATION + '/api/cluster/project/getProject',
+						data: {
+							id: $route.current.params.copy_project_id
+						}
+					}).then(function (data) {
+						if (!data.id) {
+							M.toast({ html: 'Project Copy Fail!', displayLength: 4000, classes: 'error' });
+							M.toast({ html: ' Set to New Blank Project!', displayLength: 4000, classes: 'note' });
+							var project = ngmClusterHelper.getNewProject(ngmUser.get());
+							// set summary
+							$scope.report.setProjectDetails(project);
+							setTimeout(() => {
+								$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+							}, 0);
+						}else{
+							var newProject_default = ngmClusterHelper.getNewProject(ngmUser.get());
+							var project = ngmClusterHelper.cleanCopyProject(data, newProject_default);
+							$scope.report.setProjectDetails(project);
+							setTimeout(() => {
+								$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+							}, 0);
+							M.toast({ html: 'Copy Project Successs!', displayLength: 4000, classes: 'success' });
+						}
+					})
+				},4000)
+				
+			}else{
+				// get new project
+				var project = ngmClusterHelper.getNewProject( ngmUser.get() );
+				// set summary
+				$scope.report.setProjectDetails( project );
+				setTimeout(() => {
+					$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+				}, 0);
+			}
 		} else {
 
 			// return project
@@ -233,6 +292,7 @@ angular.module('ngmReportHub')
 				// assign data
 				if ( data.id ){
 					$scope.report.setProjectDetails( data );
+					
 					setTimeout(() => {
 						$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
 					}, 0);

@@ -151,6 +151,14 @@
 						</div>
 					</div>
 
+					<div ng-if="beneficiary.cluster_id === 'wash' && project.definition.admin0pcode === 'AF'" class="row"
+						ng-style="($root.rtl) && { 'padding':'5px 25px 5px 0px' } || { 'padding':'5px 0px 5px 25px' }">
+						<p><i class="material-icons left" style="color: #e57373">info</i></p>
+						<p style="color: #e57373;font-weight:500">
+							If Covid-19 Response, Please select in Details!
+						</p>
+					</div>
+
 					<!-- mpc_delivery_type_id -->
 					<div ng-if="detailBeneficiaries[$index] && project.definition.admin0pcode === 'AF' &&
 												ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] &&
@@ -555,6 +563,30 @@
 
 								</div>
 
+
+
+								<div ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ]['response'] && ngmClusterBeneficiaries.form[ 0 ][ $index ]['response'].length">
+									<div class="row" ng-init="list_response = ngmClusterBeneficiaries.form[ 0 ][ $index ]['response']">
+										<div class="input-field col s12 m6 l6">
+											<label class="active">Activity Response</label>
+										</div>
+									</div>
+									<div class="row" style="margin-bottom: 20px; margin-left:0px;margin-right:0px;
+										border: 1px dotted rgb(158, 158, 158);">
+										<div class="input-field col s12 m6 l6"
+											ng-repeat="s in ngmClusterBeneficiaries.form[ 0 ][ $index ]['response']">
+											<p>
+												<label class="checkbox-label" for="{{s.response_id}}">
+													<input type="checkbox" class="filled-in" id="{{s.response_id}}"
+														ng-checked="ngmClusterBeneficiaries.checkSpecific(s.response_id,beneficiary,list_response)"
+														ng-click="ngmClusterBeneficiaries.setSpecific(s.response_id,beneficiary,list_response)"
+														ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+													<span style="left: .75rem;">{{s.response_name}}</span>
+												</label>
+											</p>
+										</div>
+									</div>
+								</div>
 
 								<!-- MPC -->
 								<!-- mpc_delivery_type_id, mpc_mechanism_type_id, mpc_package_type_id, mpc_transfer_type_id -->

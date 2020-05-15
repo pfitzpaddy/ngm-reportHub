@@ -16,8 +16,8 @@ angular.module('ngmReportHub')
 			'$timeout',
 			'ngmAuth',
 			'ngmData',
-			'ngmUser','$translate','$filter',
-	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter ) {
+			'ngmUser','$translate','$filter', 'ngmClusterDownloads',
+	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser, $translate, $filter, ngmClusterDownloads ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -26,7 +26,7 @@ angular.module('ngmReportHub')
 
 		// init empty model
 		$scope.model = $scope.$parent.ngm.dashboard.model;
-		
+
 		// empty Project
 		$scope.report = {
 
@@ -50,7 +50,8 @@ angular.module('ngmReportHub')
 				method: 'POST',
 				url: ngmAuth.LOCATION + '/api/getOrganization',
 				data: {
-					'organization_id': $route.current.params.organization_id
+					'organization_id': $route.current.params.organization_id,
+					'warehouses': true
 				}
 			},
 
@@ -70,7 +71,7 @@ angular.module('ngmReportHub')
 				$scope.report.title = $scope.report.organization.organization + ' | ' + $scope.report.definition.admin0name.toUpperCase().substring(0, 3) + ' | '+$filter('translate')('stock_report');
 				$scope.report.report = $scope.report.organization.organization + '_' + moment.utc( [ $scope.report.definition.report_year, $scope.report.definition.report_month, 1 ] ).format('MMMM, YYYY');
 				// set report for downloads
-				$scope.report.filename = $scope.report.definition.organization  + '_' + moment( $scope.report.definition.report_month ).format( 'MMMM' ) + '_Stocks_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
+				$scope.report.filename = $scope.report.definition.organization  + '_' + moment( $scope.report.definition.reporting_period ).format( 'MMMM' ) + '_Stocks_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 				// report dashboard model
 				$scope.model = {
@@ -115,6 +116,29 @@ angular.module('ngmReportHub')
 										dashboard: $scope.report.title,
 										theme: 'monthly_stock_report' + $scope.report.user.cluster_id,
 										format: 'csv',
+										url: $location.$$path
+									}
+								}
+							},{
+								type: 'client',
+								color: 'blue lighten-2',
+								icon: 'description',
+								hover: $filter('translate')('download_stock_lists'),
+								request: {
+									filename: 'stock_lists' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) + '.xlsx',
+									mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+									function: () => ngmClusterDownloads.downloadStockLists($scope.report.organization.admin0pcode, $scope.report.organization.warehouses)
+								},
+								metrics: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: $scope.report.title,
+										theme: 'monthly_stock_report_lists_' + $scope.report.user.cluster_id,
+										format: 'xlsx',
 										url: $location.$$path
 									}
 								}

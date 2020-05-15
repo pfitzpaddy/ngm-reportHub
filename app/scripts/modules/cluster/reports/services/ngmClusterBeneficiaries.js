@@ -6,6 +6,20 @@
  *
  */
 angular.module( 'ngmReportHub' )
+	// filter activity by active date
+	.filter('filterActiveDate', [ '$filter', function ( $filter ) {
+		return function (data, list) {
+			if (data) {
+				let newData = data.filter(function (d) {
+					let isActive = list.filter(function (a) {
+						return a.cluster_id === d.cluster_id && a.activity_type_id === d.activity_type_id;
+					});
+					return isActive.length;
+				})
+				return newData;
+			}
+		}
+	}])
 	// filter active type
 	.filter('filterActiveTypes', [ '$filter', function ( $filter ) {
 		return function( data, beneficiary ) {
@@ -27,7 +41,7 @@ angular.module( 'ngmReportHub' )
 			if ( data ) {
 				var list = data.filter(function( d ) {
 					if ( !beneficiary.id ) {
-						return d.active && 
+						return d.active &&
 										d.cluster_id === beneficiary.cluster_id &&
 										d.activity_type_id === beneficiary.activity_type_id;
 					} else {
@@ -45,7 +59,7 @@ angular.module( 'ngmReportHub' )
 			if ( data ) {
 				var list = data.filter(function( d ) {
 					if ( !beneficiary.id ) {
-						return d.active && 
+						return d.active &&
 										d.cluster_id === beneficiary.cluster_id &&
 										d.activity_type_id === beneficiary.activity_type_id &&
 										d.activity_description_id === beneficiary.activity_description_id;
@@ -240,7 +254,7 @@ angular.module( 'ngmReportHub' )
 					beneficiary.total_male += ((beneficiary.boys === null || beneficiary.boys === undefined || beneficiary.boys === NaN || beneficiary.boys < 0 || beneficiary.boys === '') ? 0 : beneficiary.boys) +
 						((beneficiary.men === null || beneficiary.men === undefined || beneficiary.men === NaN || beneficiary.men < 0 || beneficiary.men === '') ? 0 : beneficiary.men) +
 						((beneficiary.elderly_men === null || beneficiary.elderly_men === undefined || beneficiary.elderly_men === NaN || beneficiary.elderly_men < 0 || beneficiary.elderly_men === '') ? 0 : beneficiary.elderly_men);
-					
+
 					beneficiary.total_female += ((beneficiary.girls === null || beneficiary.girls === undefined || beneficiary.girls === NaN || beneficiary.girls < 0 || beneficiary.girls === '') ? 0 : beneficiary.girls) +
 						((beneficiary.women === null || beneficiary.women === undefined || beneficiary.women === NaN || beneficiary.women < 0 || beneficiary.women === '') ? 0 : beneficiary.women) +
 						((beneficiary.elderly_women === null || beneficiary.elderly_women === undefined || beneficiary.elderly_women === NaN || beneficiary.elderly_women < 0 || beneficiary.elderly_women === '') ? 0 : beneficiary.elderly_women);
@@ -530,10 +544,57 @@ angular.module( 'ngmReportHub' )
 					ngmClusterBeneficiaries.form[$parent][$index] = angular.copy( ngmClusterBeneficiaries.defaults.form );
 				}
 
+				// set details
+				if ( !ngmClusterBeneficiaries.form[ $parent ][ $index ][ 'display_details' ] &&
+							ngmClusterBeneficiaries.form[ $parent ][ $index ][ 'details' ] &&
+							ngmClusterBeneficiaries.form[ $parent ][ $index ][ 'details' ].length ) {
+					// set details from activities.csv
+					beneficiary.details = ngmClusterBeneficiaries.form[ $parent ][ $index ].details;
+				} else {
+					// remove if exists
+					if ( beneficiary.details ) {
+						beneficiary.details = [];
+					}
+				}
+        
+				// set default form on activity missing
+				if ( typeof ngmClusterBeneficiaries.form[$parent][$index] === 'undefined' ) {
+					ngmClusterBeneficiaries.form[$parent][$index] = angular.copy( ngmClusterBeneficiaries.defaults.form );
+				}
+
 				// should form be displayed
 				if ( ngmClusterBeneficiaries.form[$parent][$index] ) {
- 							ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
+ 					ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
 				}
+				// if beneficiary.response exist then check ngmClusterBeneficiaries.form[$parent][$index]['exist']
+				if (beneficiary.response && beneficiary.response.length>0){
+
+					if (!ngmClusterBeneficiaries.form[$parent][$index]['response']){
+						temp_list = []
+					}else{
+						var temp_list = ngmClusterBeneficiaries.form[$parent][$index]['response'];
+					}
+					var count_missing = 0;
+					angular.forEach(beneficiary.response,(e) => {
+						missing_index = temp_list.findIndex( value => value.response_id === e.response_id);
+						// if response_id is not in the temp list then push missing response_id to temp list
+						if (missing_index < 0) {
+							temp_list.push(e);
+							count_missing += 1;
+						}
+					});
+					if (count_missing > 0) {
+						// set ngmClusterBeneficiaries.form[$parent][$index]['response'] same as temp list if some of response_id is missing
+						ngmClusterBeneficiaries.form[$parent][$index]['response'] = temp_list;
+					}
+				}
+
+				// should form be displayed
+				if ( ngmClusterBeneficiaries.form[$parent][$index] ) {
+ 					ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
+				}
+
+
 
 			},
 
@@ -791,21 +852,7 @@ angular.module( 'ngmReportHub' )
 									$data.women >= 0 &&
 									$data.elderly_men >= 0 &&
 									$data.elderly_women >= 0 ) {
-
-							if ( $data.cluster_id === 'esnfi' ) {
-								if ( $data.activity_description_id === 'loose_items' ) {
-									if ( $data.partial_kits && $data.partial_kits.length >= 1 && $data.households >= 1 ) {
-										disabled = false;
-									}
-									if ( $data.kit_details && $data.kit_details.length >= 1 && $data.households >= 1 ) {
-										disabled = false;
-									}
-								} else if ( $data.households >= 1 ) {
-									disabled = false;
-								}
-							} else {
-								disabled = false;
-							}
+							disabled = false;
 						}
 						break;
 
@@ -866,7 +913,43 @@ angular.module( 'ngmReportHub' )
 					disabled = false
 				}
 				return disabled;
-			}
+			},
+			setSpecific: function(id,beneficiary,list){
+				var list_project = list;
+
+				if (!beneficiary.response) {
+					beneficiary.response = [];
+				}
+				if (document.getElementById(id).checked) {
+					selected = $filter('filter')(list_project, { response_id: id }, true);
+					if(selected.length){
+						beneficiary.response.push(selected[0]);
+					}
+
+				} else {
+					if (beneficiary.response.length > 0) {
+						index = beneficiary.response.findIndex(value => value.response_id === id);
+						if (index > -1) {
+							beneficiary.response.splice(index, 1);
+						}
+					} else {
+						beneficiary.response = [];
+
+					}
+				}
+			},
+			checkSpecific: function (id,beneficiary,list) {
+				if (!beneficiary.response) {
+					return false
+				} else {
+					index = beneficiary.response.findIndex(value => value.response_id === id);
+					if (index > -1) {
+						return true
+					} else {
+						return false
+					}
+				}
+			},
 
 		};
 

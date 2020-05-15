@@ -11,6 +11,50 @@
 
 </script>
 
+<style>
+	.file-report-btn{
+		position:absolute; right:30px; top:20px;
+	}
+
+	.close-uplod-btn {
+		background-color: red;
+		color: #fff;
+		font-size: 30px;
+	}
+	.dropzone {
+		margin: 0 20px 0 20px;
+	}
+	.percent-upload {
+		display: none;
+	}
+	#close-preview-file.modal,#remove-modal.modal {
+		width: auto !important;
+		right: auto !important;
+		left: 50% !important;
+		transform: translateX(-50%) !important;
+	}
+
+	.remove-upload.btn-floating{
+		position: absolute;
+		top: -14px;
+		right:-12px;
+		z-index: 20;
+		width: 30px;
+	height: 30px;
+	line-height: 30px;
+		cursor: pointer !important;
+	}
+	.remove-upload.btn-floating i{
+		font-size: 20px;
+		line-height: 30px;
+	}
+	.dropzone .dz-preview .dz-details{
+		padding: 3em 1em;
+		color:#000000;
+		background: rgba(255,255,255, 0.2) !important;
+	}
+</style>
+
 <!-- bind html -->
 <div class="row" window-size>
 	<div class="col s12 m12 l12">
@@ -20,6 +64,10 @@
 					<h5 class="report-work-title white-text">
 						<i class="material-icons left">location_on</i>{{'warehouse_locations'|translate}}
 					</h5>
+					<button ng-if="config.organization.admin0pcode ==='AF'" class="right waves-effect waves-light btn file-report-btn"
+						ng-click="report.uploadFileReport.openModal('upload-file-warehouse')">
+						<i class="material-icons mirror left">publish</i>Import Warehouse
+					</button>
 				</li>
 				<li class="collection-item avatar">
 
@@ -147,10 +195,10 @@
 									<h5 class="report-selected-locations">{{ report.organization.warehouses.length }} {{'selected_warehouses'|translate}}</h5>
 								</div>
 
-								<div class="row" ng-repeat="warehouse in report.organization.warehouses">
+								<div class="row" ng-repeat="warehouse in report.organization.warehouses track by $index">
 
 									<div class="row" id="ngm-health-warehouse-{{ $index }}">
-										<div class="col s9 m10 l11 left">
+										<div class="col s9 m10 l10 left">
 
 								    	<!-- admin2 -->
 								    	<h5 class="report-location-title" ng-class="{'truncate':windowWidth < 450 }" ng-if="!report.options.list.admin3.length">
@@ -164,12 +212,118 @@
 														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.admin3name }}, {{ warehouse.site_name }} {{ warehouse.cluster }}
 											</h5>
 										</div>
-										<div class="col s3 m2 l1 right" style="padding-top:15px;" ng-style="($root.rtl) && { 'padding-left':'34px' } || { 'padding-right':'34px' }">
-											<button class="waves-effect waves-light btn-floating red lighten-2 right"
+										<div class="col s3 m2 l2" style="padding-top:15px;" ng-style="($root.rtl) && { 'padding-left':'44px' } || { 'padding-right':'48px' }">
+											<button class="waves-effect waves-light btn-floating lighten-2"
+												ng-if="detailWarehouse[$index]"
+												ng-click="report.saveUpdatedLocation($index)"
+												ng-disabled="disableButton || !report.canEdit"
+												title="Save {{ warehouse.admin1name }} Warehouse {{ warehouse.site_name }}"
+											><i class="material-icons">save</i>
+											</button>
+											<button class="waves-effect waves-light btn-floating red lighten-2"
+												ng-if="detailWarehouse[$index] && warehouse.id"
+												ng-disabled="disableButton || !report.canEdit"
+												title="Remove {{ warehouse.admin1name }} Warehouse {{ warehouse.site_name }}"
+												ng-click="report.removeLocationModal( $index )"><i class="material-icons">delete</i>
+											</button>
+											<button class="waves-effect waves-light btn-floating blue lighten-2"
+												ng-if="detailWarehouse[$index] && !warehouse.id"
+												ng-disabled="disableButton || !report.canEdit"
 												title="Remove {{ warehouse.admin1name }} Warehouse {{ warehouse.site_name }}"
 												ng-click="report.removeLocationModal( $index )"><i class="material-icons">clear</i>
-									    	</button>
+											</button>
+											<button class="waves-effect waves-light btn-floating lighten-2 right"
+												title="Edit {{ warehouse.admin1name }} Warehouse {{ warehouse.site_name }}"
+												ng-disabled="disableButton"
+												ng-click="report.openDetailWareHouse($index)"
+												ng-class="{'rotate': detailWarehouse[$index]}"><i class="material-icons">keyboard_arrow_down</i>
+												<md-tooltip md-direction="right">
+													{{ 'Minimize'|translate }}
+												</md-tooltip>
+												<md-tooltip md-direction="right">
+													{{ 'Click to Expand'|translate }}
+												</md-tooltip>
+											</button>
 										</div>
+									</div>
+
+									<div ng-if="detailWarehouse[$index]" class="card-panel" ng-style="($root.rtl) && { 'margin-left':'40px' } || { 'margin-right':'40px' }">
+											<div class="row" ng-if="!report.options.list.admin3.length">
+												<!-- admin1type_name -->
+												<div class="input-field col s12 m4">
+													<select materialize-select watch id="ngm-warehouse-admin1pcode-{{ $index }}"
+														name="ngm-warehouse-admin1pcode-{{ $index }}" class="validate" ng-model="warehouse.admin1pcode"
+														ng-options="item.admin1pcode as item.admin1name for item in report.options.list.admin1 | filter : { inactive: '!true' }"
+														ng-change="report.updateLocationWarehouse(warehouse,'admin1pcode');ngmClusterBeneficiaries.inputChange( 'ngm-warehouse-admin1pcode-{{ $index }}" ng-disabled="!report.canEdit">
+														<option value="" disabled>{{ 'select' | translate }}</option>
+													</select>
+													<label for="ngm-warehouse-admin1pcode-{{ $index }}" class="active"
+														style="transform:translateY(-10%)">{{ report.options.list.admin1[0].admin1type_name }}*</label>
+												</div>
+												
+												<!-- admin2type_name -->
+												<div class="input-field col s12 m4">
+													<select materialize-select watch id="ngm-warehouse-admin2pcode-{{ $index }}"
+														name="ngm-warehouse-admin2pcode-{{ $index }}" class="validate" ng-model="warehouse.admin2pcode"
+														ng-options="item.admin2pcode as item.admin2name for item in report.options.list.admin2 | filter: { admin1pcode: warehouse.admin1pcode }"
+														ng-change="report.updateLocationWarehouse(warehouse,'admin2pcode');ngmClusterBeneficiaries.inputChange( 'ngm-warehouse-admin2pcode-{{ $index }}" ng-disabled=" !report.canEdit || !warehouse.admin1pcode">
+														<option value="" disabled>{{ 'select' | translate }}</option>
+													</select>
+													<label for="ngm-warehouse-admin2pcode-{{ $index }}" class="active" style="transform:translateY(-10%)">
+														{{ report.options.list.admin2[0].admin2type_name }} *</label>
+												</div>
+												<div class="input-field col s12 m4">
+													<input id="ngm-warehouse_name-{{ $index }}" type="text" placeholder="Site Name" ng-model="warehouse.site_name"
+														ng-disabled="!report.canEdit || !warehouse.admin2pcode"
+														class="validate" 
+														ng-change="ngmClusterBeneficiaries.inputChange( 'ngm-warehouse_name-{{ $index }}' )">
+													<label for="ngm-warehouse_name-{{ $index }}" class="active" style="transform:translateY(-120%)">{{'warehouse_name'|translate}} *</label>
+												</div>
+											</div>
+
+											<div class="row" ng-if="report.options.list.admin3.length">
+												<!-- admin1type_name -->
+												<div class="input-field col s12 m3">
+													<select materialize-select watch id="ngm-warehouse-admin1pcode-{{ $index }}"
+														name="ngm-warehouse-admin1pcode-{{ $index }}" class="validate" ng-model="warehouse.admin1pcode"
+														ng-options="item.admin1pcode as item.admin1name for item in report.options.list.admin1 | filter : { inactive: '!true' }"
+														ng-change="report.updateLocationWarehouse(warehouse,'admin1pcode')ngmClusterBeneficiaries.inputChange( 'ngm-warehouse-admin1pcode-{{ $index }}" ng-disabled="!report.canEdit">
+														<option value="" disabled>{{ 'select' | translate }}</option>
+													</select>
+													<label for="ngm-warehouse-admin1pcode-{{ $index }}" class="active"
+														style="transform:translateY(-10%)">{{ report.options.list.admin1[0].admin1type_name }}*</label>
+												</div>
+											
+												<!-- admin2type_name -->
+												<div class="input-field col s12 m3">
+													<select materialize-select watch id="ngm-warehouse-admin2pcode-{{ $index }}"
+														name="ngm-warehouse-admin2pcode-{{ $index }}" class="validate" ng-model="warehouse.admin2pcode"
+														ng-options="item.admin2pcode as item.admin2name for item in report.options.list.admin2 | filter: { admin1pcode: warehouse.admin1pcode }"
+														ng-change="report.updateLocationWarehouse(warehouse,'admin2pcode');ngmClusterBeneficiaries.inputChange( 'ngm-warehouse-admin2pcode-{{ $index }}" ng-disabled=" !report.canEdit || !warehouse.admin1pcode">
+														<option value="" disabled>{{ 'select' | translate }}</option>
+													</select>
+													<label for="ngm-warehouse-admin2pcode-{{ $index }}" class="active" style="transform:translateY(-10%)">
+														{{ report.options.list.admin2[0].admin2type_name }} *</label>
+												</div>
+												<!-- admin3type_name -->
+												<div class="input-field col s12 m3">
+													<select materialize-select watch id="ngm-warehouse-admin3pcode-{{ $index }}"
+														name="ngm-warehouse-admin3pcode-{{ $index }}" class="validate" ng-model="warehouse.admin3pcode"
+														ng-options="item.admin3pcode as item.admin3name for item in report.options.list.admin3 | filter: { admin1pcode: warehouse.admin1pcode }"
+														ng-change="report.updateLocationWarehouse(warehouse,'admin3pcode');ngmClusterBeneficiaries.inputChange( 'ngm-warehouse-admin3pcode-{{ $index }}' )" ng-disabled=" !report.canEdit || !warehouse.admin2pcode">
+														<option value="" disabled>{{ 'select' | translate }}</option>
+													</select>
+													<label for="ngm-warehouse-admin2pcode-{{ $index }}" class="active" style="transform:translateY(-10%)">
+														{{ report.options.list.admin3[0].admin3type_name }} *</label>
+												</div>
+												<div class="input-field col s12 m4">
+													<input id="ngm-warehouse_name-{{ $index }}" type="text" placeholder="Site Name" ng-model="warehouse.site_name"
+														ng-disabled="!report.canEdit || !warehouse.admin2pcode" class="validate"
+														ng-change="ngmClusterBeneficiaries.inputChange( 'ngm-warehouse_name-{{ $index }}' )">
+													<label for="ngm-warehouse_name-{{ $index }}" class="active"
+														style="transform:translateY(-120%)">{{'warehouse_name'|translate}} *</label>
+												</div>
+											</div>
 									</div>
 
 								</div>

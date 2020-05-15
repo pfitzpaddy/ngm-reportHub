@@ -16,8 +16,8 @@ angular.module('ngmReportHub')
 			'$timeout',
 			'ngmAuth',
 			'ngmData',
-			'ngmUser','$translate','$filter',
-	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter ) {
+			'ngmUser', '$translate', '$filter', 'ngmClusterDownloads',
+	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate, $filter, ngmClusterDownloads ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -77,7 +77,7 @@ angular.module('ngmReportHub')
 				$scope.report.definition = data[1].data;
 
 				// set report for downloads
-				$scope.report.report = $scope.report.project.organization + '_' + $scope.report.project.cluster + '_' + $scope.report.project.project_title.replace(/\ /g, '_') + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
+				$scope.report.report = moment($scope.report.reporting_period).format('MMMM YYYY').replace(/\ /g, '_').toLowerCase() + '_' + $filter('limitTo')($scope.report.project.project_title.replace(/\ /g, '_'), 180) + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 
 				// project title
@@ -189,6 +189,29 @@ angular.module('ngmReportHub')
 										email: $scope.report.user.email,
 										dashboard: $scope.report.project.project_title,
 										theme: 'cluster_report_lists_' + $scope.report.user.cluster_id,
+										format: 'xlsx',
+										url: $location.$$path
+									}
+								}
+							},{
+								type: 'client',
+								color: 'blue lighten-2',
+								icon: 'description',
+								hover: $filter('translate')('download_populations_lists'),
+								request: {
+									filename: 'population_groups_lists' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) + '.xlsx',
+									mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+									function: () => ngmClusterDownloads.downloadPopulationsLists($scope.report.project, moment($scope.report.definition.reporting_period).startOf('month'), moment($scope.report.definition.reporting_period).endOf('month'))
+								},
+								metrics: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: $scope.report.project.project_title,
+										theme: 'population_groups_lists_' + $scope.report.user.cluster_id,
 										format: 'xlsx',
 										url: $location.$$path
 									}

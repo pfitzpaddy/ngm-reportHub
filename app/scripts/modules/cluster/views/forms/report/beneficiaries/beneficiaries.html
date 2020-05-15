@@ -190,6 +190,15 @@
 				</div>
 			</div>
 
+			
+			<div ng-if="beneficiary.cluster_id === 'wash' && project.definition.admin0pcode === 'AF'" class="row"
+				ng-style="($root.rtl) && { 'padding':'5px 21px 5px 0px' } || { 'padding':'5px 0px 5px 21px' }">
+				<p><i class="material-icons left" style="color: #e57373">info</i></p>
+				<p style="color: #e57373;font-weight:500">
+					If Covid-19 Response, Please select in Details!
+				</p>
+			</div>
+
 
 			<!-- CARD PANEL -->
 			<div dir="ltr" class="card-panel"
@@ -211,7 +220,7 @@
 											ng-model="beneficiary.activity_type_id"
 											ng-options="a_t.activity_type_id as a_t.activity_type_name
 																		for a_t in project.definition.activity_type |
-																		filterActiveTypes:beneficiary"
+																		filterActiveTypes:beneficiary | filterActiveDate: project.lists.activity_types"
 											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
 											ngmClusterBeneficiaries.inputChange( 'ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !project.definition.activity_type"
@@ -263,7 +272,7 @@
 											ng-model="beneficiary.activity_type_id"
 											ng-options="a_t.activity_type_id as a_t.activity_type_name
 																		for a_t in project.definition.activity_type |
-																		filterActiveTypes:beneficiary"
+																		filterActiveTypes:beneficiary | filterActiveDate: project.lists.activity_types"
 											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
 												ngmClusterBeneficiaries.inputChange( 'ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 											ng-disabled="project.definition.project_status === 'complete' ||
@@ -808,6 +817,29 @@
 
 					</div>
 
+					<div ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'] && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'].length">
+						<div class="row">
+							<div class="input-field col s12 m6 l6">
+								<label class="active">Activity Response</label>
+							</div>
+						</div>
+						<div class="row" style="margin-bottom: 20px; margin-left:0px;margin-right:0px;
+		border: 1px dotted rgb(158, 158, 158);">
+							<div class="input-field col s12 m6 l6" ng-repeat="s in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response']">
+								<p>
+									<label class="checkbox-label" for="{{s.response_id}}">
+										<input type="checkbox" 
+										class="filled-in" 
+										id="{{s.response_id}}" 
+										ng-checked="ngmClusterBeneficiaries.checkSpecific(s.response_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'])" 
+										ng-click="ngmClusterBeneficiaries.setSpecific(s.response_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'])"
+										ng-disabled="project.definition.project_status === 'complete' || !project.canEdit || project.report.report_status === 'complete'" />
+										<span style="left: .75rem;">{{s.response_name}}</span>
+									</label>
+								</p>
+							</div>
+						</div>
+					</div>
 
 
 
@@ -1119,7 +1151,7 @@
 						</div>
 
 						<!-- add vulnerable_populations -->
-						<div class="row" style="margin-left:20px;padding-top: 5px;">
+						<div class="row" style="margin-left:110px;padding-top: 5px;">
 							<button class="btn blue lighten-2"
 											ng-if="beneficiary.vulnerable_populations.length !==
 															ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'vulnerable_populations' ].length &&
@@ -1726,6 +1758,28 @@
 						</div>
 					</div>
 
+					<!-- model1 meta checkbox COvid19 -->
+					<!-- <div class="row">
+						<div class="input-field col s12 m6 l6">
+							<p>
+								<label class="checkbox-label" for="regular">
+									<input type="checkbox" class="filled-in" id="regular" ng-checked="" ng-click=""
+										ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+									<span style="left: .75rem;">Regular</span>
+								</label>
+							</p>
+						</div>
+						<div class="input-field col s12 m6 l6">
+							<p>
+								<label class="checkbox-label" for="covid19">
+									<input type="checkbox" class="filled-in" id="covid19" ng-checked="" ng-click=""
+										ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+									<span style="left: .75rem;">Covid-19 Response</span>
+								</label>
+							</p>
+						</div>
+					</div> -->
+
 
 					<!-- ACTIVITY START DATE -->
 					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'activity_date' ]">
@@ -1745,8 +1799,8 @@
 
 					<!-- DETAILS ( display if todo and in activities.csv ) -->
 					<div class="row"
-								ng-init="ngmClusterDetails.initDetails( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );"
-								ng-if="project.report.report_status === 'todo' && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ]">
+								ng-if="project.report.report_status === 'todo' && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'display_details' ]"
+								ng-init="ngmClusterDetails.initDetails( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );">
 
 						<!-- get template -->
 						<div class="row" ng-repeat="detail in beneficiary.details">
@@ -1770,8 +1824,10 @@
 
 					<!-- DETAILS ( display if complete and length )  -->
 					<div class="row"
-								ng-init="ngmClusterDetails.initDetails( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );"
-								ng-if="project.report.report_status === 'complete' && beneficiary.details.length">
+					ng-if="project.report.report_status === 'complete' &&
+									beneficiary.details.length &&
+									ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'display_details' ]"
+								ng-init="ngmClusterDetails.initDetails( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );">
 
 						<!-- get template -->
 						<div class="row" ng-repeat="detail in beneficiary.details">

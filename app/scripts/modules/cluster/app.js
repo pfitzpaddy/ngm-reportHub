@@ -272,7 +272,7 @@ angular
 				}
 			})
 			// project details
-			.when( '/cluster/projects/details/:project', {
+			.when( '/cluster/projects/details/:project/:copy_project_id?', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectDetailsCtrl',
 				resolve: {
@@ -503,7 +503,12 @@ angular
 						const admin0pcode = userInitRouteParams.includes('admin0pcode') && user && user.admin0pcode ? user.admin0pcode.toLowerCase() : 'all';
 						const cluster_id = userInitRouteParams.includes('cluster_id') && user && user.cluster_id ? user.cluster_id.toLowerCase() : 'all';
 						const organization_tag = userInitRouteParams.includes('organization_tag') && user && user.organization_tag ? user.organization_tag.toLowerCase() : 'all';
-						const url = '/cluster/5w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/all/' + organization_tag + '/all/2018-01-01/' + moment().format('YYYY-MM-DD');
+						const year_by_admin0pcode = {
+							'AF': moment().subtract(2, 'M').year().toString(),
+							'default': '2018'
+						};
+						const year = year_by_admin0pcode[user.admin0pcode] || year_by_admin0pcode['default'];
+						const url = '/cluster/5w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/all/' + organization_tag + '/all/' + year + '-01-01/' + moment().format('YYYY-MM-DD');
 						$location.path( url );
 					}]
 				},

@@ -118,7 +118,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 													|| moment.utc(config.project.project_end_date).endOf('month') < moment.utc(config.report.reporting_period).startOf('month'),
 
 				// lists ( project, mpc transfers )
-				lists: ngmClusterLists.setLists( config.project, 10 ),
+				lists: ngmClusterLists.setLists( config.project, moment(config.report.reporting_period).startOf('month'), moment(config.report.reporting_period).endOf('month'), 10 ),
 
 
 				/**** TEMPLATES ****/
@@ -394,7 +394,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							if(missing_org.length>0){
 								var org = missing_org.join(',')
 								message_implementing_partners = { label: false, property: 'implementing_partners', reason: 'Organitazion Not in the List ( ' + org + ' )' };
-								beneficiary.implementing_partners = $scope.project.report.locations[$parent].implementing_partners;							
+								beneficiary.implementing_partners = $scope.project.report.locations[$parent].implementing_partners;
 							}
 						}else{
 							 beneficiary.implementing_partners = $scope.project.report.locations[$parent].implementing_partners;
@@ -419,7 +419,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs($scope.project.lists, $parent, $scope.project.report.locations[$parent].beneficiaries.length - 1, beneficiary);
 
-					
+
 					// unit
 					if (beneficiary.unit_type_name && ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['unit_type_id']) {
 						selected_unit = $filter('filter')(ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['unit_type_id'], { unit_type_name: beneficiary.unit_type_name }, true);
@@ -454,7 +454,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							$scope.messageFromfile[$indexFile].push(message_implementing_partners)
 						}
 					}
-							
+
 					ngmClusterBeneficiaries.updateBeneficiaires(beneficiary)
 				},
 
@@ -1142,12 +1142,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 									'Created':'createdAt',
 									'Last Update':'updatedAt'
 								}
-								if(ext === 'csv'){							
+								if(ext === 'csv'){
 									var file = drop_zone.getAcceptedFiles()[0],
 										read = new FileReader();
 
 									read.readAsBinaryString(file);
-									
+
 									read.onloadend = function () {
 										var csv_string = read.result
 										csv_array= Papa.parse(csv_string).data;
@@ -1167,7 +1167,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 												$('#message-monthly-file').modal('open');
 												$("#switch_btn_file").attr("disabled", false);
 											},1000)
-											return 
+											return
 										};
 										var values=[];
 										values_obj=[];
@@ -1221,7 +1221,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 										// 			csv_array[i][k] = parseInt(csv_array[i][k]);
 										// 		}
 										// 		objt[atribute_headers[k]] = csv_array[i][k];
-										// 	}											
+										// 	}
 										// 	objt = $scope.project.addMissingAttributeFromFile(objt);
 										// 	values.push(objt);
 										// }
@@ -1235,8 +1235,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 												document.querySelector(".percent-upload").style.display = 'block';
 												var count_error = 0;
 												for (var x = 0; x < values.length; x++) {
-													index = $scope.project.report.locations.findIndex(j => (j.site_implementation_name === values[x].site_implementation_name) &&
-																									 (j.site_type_name === values[x].site_type_name) &&
+													index = $scope.project.report.locations.findIndex(j => ((j.site_implementation_name ? j.site_implementation_name : "") === values[x].site_implementation_name) &&
+																									((j.site_type_name ? j.site_type_name : "") === values[x].site_type_name) &&
 																									 (j.site_name === values[x].site_name) &&
 																									 (j.admin1name === values[x].admin1name) &&
 																									 (j.admin2name === values[x].admin2name) &&
@@ -1256,7 +1256,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 																obj.reason += ', ' + values[x].site_name
 															}
 															obj.reason += ', ' + values[x].site_implementation_name + ', ' + values[x].site_type_name
-																
+
 															$scope.messageFromfile[x].push(obj)
 														}
 														if (!values[x].cluster_id){
@@ -1275,14 +1275,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 															$scope.messageFromfile[x].push(obj)
 														}
 														count_error += 1;
-															
+
 													} else {
 														$scope.project.setBeneficiaryFromFile(index, values[x],x);
 													}
 												}
-	
+
 										}
-										
+
 										$timeout(function () {
 											document.querySelector(".percent-upload").style.display = 'none';
 											$('#upload-monthly-file').modal('close');
@@ -1341,7 +1341,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 												M.toast({ html: info, displayLength: 4000, classes: 'note' });
 											}
 
-											
+
 											// reset error message
 											$scope.messageFromfile = [];
 											$("#upload_file").attr("disabled", true);
@@ -1359,7 +1359,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 										wb.xlsx.load(data).then(workbook => {
 											const book = [];
 											const book_obj = [];
-											
+
 											workbook.eachSheet((sheet,index) => {
 												// get only the first sheet
 												if(index === 1){
@@ -1370,7 +1370,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 													book.push(sh);
 												}
 											});
-											
+
 											if (book[0][0].indexOf('Activity Type')<0) {
 												var previews = document.querySelectorAll(".dz-preview");
 												previews.forEach(function (preview) {
@@ -1405,36 +1405,36 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 											for(var index=0;index<book_obj.length;index++){
 												obj_true ={};
 												angular.forEach(book_obj[index],function(value,key){
-													
+
 													atribute_name = attribute_headers_obj[key];
 													obj_true[atribute_name] = value;
-													
+
 												})
 												obj_true = $scope.project.addMissingAttributeFromFile(obj_true);
 												result.push(obj_true);
 											}
-											
+
 											// get value from excel file
 											// for(var i=0;i<book.length;i++){
-												
+
 											// 	headerst = atribute_headers;
 											// 	for(var j=1;j<book[i].length;j++){
 											// 		var objt = {};
-													
+
 											// 		for (var k = 0; k < headerst.length; k++) {
 											// 			if (book[i][j][k+1] === undefined){
 											// 				objt[headerst[k]] = "";
 											// 			}else{
 											// 				objt[headerst[k]] = book[i][j][k+1];
-											// 			}														
+											// 			}
 											// 		}
 											// 		objt = $scope.project.addMissingAttributeFromFile(objt);
-													
+
 											// 		result.push(objt);
 											// 	}
 
-												
-												
+
+
 											// }
 											var previews = document.querySelectorAll(".dz-preview");
 											previews.forEach(function (preview) {
@@ -1446,17 +1446,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 											if (result.length > 0) {
 												var count_error = 0
 												for (var x = 0; x < result.length; x++) {
-													index = $scope.project.report.locations.findIndex(j => (j.site_implementation_name === result[x].site_implementation_name) &&
-																									 (j.site_type_name === result[x].site_type_name) &&
-																										   (j.site_type_name === result[x].site_type_name) && 
-																									 (j.site_type_name === result[x].site_type_name) &&
-																										   (j.site_type_name === result[x].site_type_name) && 
-																									 (j.site_type_name === result[x].site_type_name) &&
+													index = $scope.project.report.locations.findIndex(j => ((j.site_implementation_name ? j.site_implementation_name : "") === result[x].site_implementation_name) &&
+																									((j.site_type_name ? j.site_type_name : "") === result[x].site_type_name) &&
 																									 (j.site_name === result[x].site_name) &&
 																									 (j.admin1name === result[x].admin1name) &&
 																									 (j.admin2name === result[x].admin2name) &&
 																									 (j.admin3name? (j.admin3name === result[x].admin3name): true))
-																									 
+
 													if (index < 0 || (!result[x].activity_type_id) || (!result[x].activity_description_id) || (!result[x].cluster_id)) {
 														if(!$scope.messageFromfile[x]){
 															$scope.messageFromfile[x]=[]
@@ -1494,7 +1490,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 														$scope.project.setBeneficiaryFromFile(index, result[x],x);
 													}
 												}
-											} 
+											}
 											$timeout(function () {
 													document.querySelector(".percent-upload").style.display = 'none';
 													$('#upload-monthly-file').modal('close');
@@ -1502,9 +1498,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 													$scope.project.activePrevReportButton();
 
 													var message_temp ='';
-													
+
 													for(var z=0;z< $scope.messageFromfile.length;z++){
-														
+
 														if ($scope.messageFromfile[z].length){
 															for (var y = 0; y < $scope.messageFromfile[z].length;y++){
 
@@ -1523,7 +1519,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 																	message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
 																}
 																message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterValidation.fieldNameBeneficiaryMonthlyReport()[field] + ' : ' + reason + '\n';
-																
+
 															}
 														}
 
@@ -1547,7 +1543,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 															M.toast({ html: 'Some Row Succeccfully added !', displayLength: 2000, classes: 'success' });
 															M.toast({ html: info, displayLength: 4000, classes: 'note' });
 														}
-														
+
 													}else{
 														var info = $filter('translate')('save_to_apply_changes');
 														M.toast({ html: 'Import File Success!', displayLength: 2000, classes: 'success' });
@@ -1559,10 +1555,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 												$("#delete_file").attr("disabled", true);
 												$("#switch_btn_file").attr("disabled", false);
 												}, 2000)
-											
+
 										})
 									})
-								}	
+								}
 							});
 
 							document.getElementById('delete_file').addEventListener("click", function () {
@@ -1571,34 +1567,34 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 							// when add file
 							drop_zone.on("addedfile", function (file) {
-								
+
 								document.querySelector(".dz-default.dz-message").style.display = 'none';
 								var ext = file.name.split('.').pop();
 								//change preview if not image/*
 									$(file.previewElement).find(".dz-image img").attr("src", "images/elsedoc.png");
 									$("#upload_file").attr("disabled", false);
 									$("#delete_file").attr("disabled", false);
-									
+
 							});
 
 							// when remove file
 							drop_zone.on("removedfile", function (file) {
-								
+
 								if (drop_zone.files.length < 1) {
 									// upload_file and delete_file is ID for button upload and cancel
 									$("#upload_file").attr("disabled", true);
 									$("#delete_file").attr("disabled", true);
-									
+
 									document.querySelector(".dz-default.dz-message").style.display = 'block';
 									$('.dz-default.dz-message').html(`<i class="medium material-icons" style="color:#009688;">publish</i> <br/>` + $filter('translate')('drag_files_here_or_click_button_to_upload') + ' <br/> Please upload file with extention .csv or xlxs !');
 								}
-								
+
 								if ((drop_zone.files.length < 2) && (drop_zone.files.length > 0)) {
 									document.querySelector(".dz-default.dz-message").style.display = 'none';
 									$("#upload_file").attr("disabled", false);
 									$("#delete_file").attr("disabled", false);
 									document.getElementById("upload_file").style.pointerEvents = "auto";
-									document.getElementById("delete_file").style.pointerEvents = "auto";						
+									document.getElementById("delete_file").style.pointerEvents = "auto";
 
 								}
 							});
@@ -1625,7 +1621,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 					},
 					uploadText:function(){
-						
+
 						document.querySelector("#ngm-input-string").style.display = 'none';
 						document.querySelector(".percent-upload").style.display = 'block';
 						$("#input_string").attr("disabled", true);
@@ -1692,8 +1688,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						if ($scope.project.report.text_input){
 							csv_array = Papa.parse($scope.project.report.text_input).data;
 							if (csv_array[0].indexOf('Activity Type') < 0) {
-								
-								
+
+
 								$timeout(function () {
 									$scope.project.report.messageWarning = 'Incorect Input! \n' + 'Header is Not Found';
 									$('#upload-monthly-file').modal('close');
@@ -1745,11 +1741,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							}
 
 							if (values.length > 0) {
-								
+
 								var count_error = 0;
 								for (var x = 0; x < values.length; x++) {
-									index = $scope.project.report.locations.findIndex(j => (j.site_implementation_name === values[x].site_implementation_name) &&
-										(j.site_type_name === values[x].site_type_name) &&
+									index = $scope.project.report.locations.findIndex(j => ((j.site_implementation_name ? j.site_implementation_name : "") === values[x].site_implementation_name) &&
+									 ((j.site_type_name ? j.site_type_name : "") === values[x].site_type_name) &&
 										(j.site_name === values[x].site_name) &&
 										(j.admin1name === values[x].admin1name) &&
 										(j.admin2name === values[x].admin2name) &&
@@ -1801,7 +1797,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								document.querySelector(".percent-upload").style.display = 'none';
 								$('#upload-monthly-file').modal('close');
 								$scope.project.report.text_input ='';
-								
+
 								$scope.project.activePrevReportButton();
 
 								var message_temp = '';
@@ -1856,12 +1852,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 									M.toast({ html: info, displayLength: 4000, classes: 'note' });
 								}
 
-								
+
 								document.querySelector("#input-string-area").style.display = 'block';
 							}, 2000)
-							
-							
-							
+
+
+
 						}else{
 							$timeout(function(){
 								document.querySelector("#ngm-input-string").style.display = 'block';
@@ -1871,7 +1867,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								$("#switch_btn_text").attr("disabled", false);
 								M.toast({ html: 'Please Type something!', displayLength: 2000, classes: 'success' });
 							},2000)
-							
+
 						}
 						// reset error message
 						$scope.messageFromfile = [];
@@ -1887,7 +1883,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							obj.cluster_id = selected_cluster[0].cluster_id;
 						}
 					}
-					
+
 					// activity
 					if (obj.activity_type_name){
 						selected_act = $filter('filter')($scope.project.definition.activity_type, { activity_type_name: obj.activity_type_name }, true);
@@ -1943,7 +1939,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}
 
 					// delivery type
-					if (obj.delivery_type_name){ 
+					if (obj.delivery_type_name){
 						selected_delivery = $filter('filter')($scope.project.lists.delivery_types, { delivery_type_name: obj.delivery_type_name }, true)
 						if (selected_delivery.length) {
 							obj.delivery_type_id = selected_delivery[0].delivery_type_id
@@ -1969,12 +1965,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							obj.site_implementation_id = selected_site_implementation[0].site_implementation_id;
 						}
 					}
-					
+
 
 					// transfer value
 					if (obj.transfer_type_value) {
 						selected_transfer = $filter('filter')($scope.project.lists.transfers, { transfer_type_value: obj.transfer_type_value }, true)
-						
+
 						if (selected_transfer.length){
 							obj.transfer_type_id = selected_transfer[0].transfer_type_id;
 						}
@@ -2035,7 +2031,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// update project details of report + locations + beneficiaries
 					$scope.project.report =
 							ngmClusterHelper.getCleanReport( $scope.project.definition, $scope.project.report );
-					
+
 
 
 					// msg
@@ -2129,7 +2125,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				$scope.project.getDocument();
 			})
 
-			
+
 	}
 
 ]);

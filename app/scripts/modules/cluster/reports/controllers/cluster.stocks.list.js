@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterOrganizationStocksListCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser','$translate','$filter', function ($scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter) {
+	.controller('ClusterOrganizationStocksListCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser','$translate','$filter', 'ngmClusterDownloads', function ($scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter, ngmClusterDownloads) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -42,7 +42,8 @@ angular.module('ngmReportHub')
 					method: 'POST',
 					url: ngmAuth.LOCATION + '/api/getOrganization',
 					data: {
-						'organization_id': organization_id
+						'organization_id': organization_id,
+						'warehouses': true
 					}
 				}
 			},
@@ -89,6 +90,33 @@ angular.module('ngmReportHub')
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate',
 							'title': $filter('translate')('stock_reports_for')+ ' ' + $scope.report.organization.organization  + ', ' + $scope.report.organization.admin0name+ ' '+year
+						},
+						download: {
+							'class': 'col s12 m3 l3 hide-on-small-only',
+							downloads: [{
+								type: 'client',
+								color: 'blue lighten-2',
+								icon: 'description',
+								hover: $filter('translate')('download_warehouses'),
+								request: {
+									filename: $scope.report.organization.organization_tag + '_warehouses' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) + '.xlsx',
+									mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+									function: () => ngmClusterDownloads.downloadStockWarehouses($scope.report.organization.warehouses)
+								},
+								metrics: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: 'warehouses',
+										theme: 'warehouses_lists',
+										format: 'xlsx',
+										url: $location.$$path
+									}
+								}
+							}]
 						}
 					},
 					menu: [],
@@ -191,6 +219,9 @@ angular.module('ngmReportHub')
 
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
+				setTimeout(() => {
+					$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+				}, 0);
 
 			}
 

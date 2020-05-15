@@ -84,6 +84,89 @@
 	</div>
 </div>
 
+<!-- import file modal -->
+<div id="upload-monthly-file-project" class="modal">
+	<div class="modal-footer" style=" padding-top: 1px; padding-right: 1px; ">
+		<a class=" modal-action waves-effect waves-green right close-button" style="margin-top:0px"
+			ng-click="project.uploadFileReport.closeModal('upload-monthly-file-financial')">
+			<i class="material-icons modal-action modal-close close-uplod-btn">clear</i></a>
+	</div>
+	<div class="modal-content">
+
+
+		<div class="row" ng-if="!inputString">
+			<div id="dropzone">
+				<form ng-dropzone dropzone="dropzone" dropzone-config="project.uploadFileReport.uploadFileConfig"
+					enctype="multipart/form-data" class="dropzone needsclick dz-clickable">
+					<div class="fallback">
+						<input name="file" type="file" multiple />
+					</div>
+					<div id="dropzone-message" class="center"></div>
+					<div class="percent-upload">
+						<div class=" percentage center" style="font-weight: 400;font-size: 48px; margin-top:30px;">
+						</div>
+						<div class="dz-progress progress">
+							<div class="indeterminate dz-upload" data-dz-uploadprogress>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="center" style="margin-top: 10px">
+				<button id="upload_file" class="btn" ng-click="project.setCategoryFile('detail')">{{'submit'|translate}}</button>
+				<div id="delete_file" class="btn red">{{'cancel_mayus'|translate}}</div>
+				<button ng-if="false" id="switch_btn_file" ng-click="project.switchInputFile()" class="btn blue"> Input data</button>
+			</div>
+		</div>
+		<div class="row" ng-if="inputString">
+			<div id='input-string-area' class="input-field col s12 m12 l12">
+				<div class="percent-upload">
+					<div class=" percentage center" style="font-weight: 400;font-size: 48px; margin-top:30px;">
+					</div>
+					<div class="dz-progress progress">
+						<div class="indeterminate dz-upload" data-dz-uploadprogress>
+						</div>
+					</div>
+				</div>
+				<textarea id="ngm-input-string" type="text" class="validate materialize-textarea" name="input-string"
+					ng-model="project.text_input" rows="2000" style="max-height:20rem !important;overflow-y: auto;">
+												</textarea>
+				<label for="ngm-input-string" style="margin-top: -15px;">Select table in Excel, copy to clipboard, and
+					past it here</label>
+			</div>
+			<div class="center" style="margin-top: 10px">
+				<button id="input_string" class="btn"
+					ng-click="project.uploadFileReport.uploadText('detail')">{{'submit'|translate}}</button>
+				<div id="close_input_string" class="btn red modal-action modal-close">{{'cancel_mayus'|translate}}</div>
+				<button id="switch_btn_text" ng-click="project.switchInputFile()" class="btn blue"> upload file</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- message warning modal for import file -->
+<div id="message-file-project" class="modal">
+	<div class="modal-footer" style=" padding-top: 1px; padding-right: 1px; ">
+		<a class=" modal-action waves-effect waves-green right close-button" style="margin-top:0px">
+			<i class="material-icons modal-action modal-close close-uplod-btn">clear</i></a>
+	</div>
+	<div class="modal-content" style="padding-top: 0px;">
+
+		<div class="center">
+			<i class="material-icons" style="color:#ff9800">error</i>
+		</div>
+		<div class="row">
+
+			<textarea id="ngm-missing-value" type="text" class="validate materialize-textarea" name="message-warning"
+				ng-model="project.messageWarning" readonly
+				style="border-bottom-width: 0px; text-align: left;font-size: 1rem !important;min-height: 10rem !important;overflow-y: auto;font-weight: 600;padding-left: 100px;">
+			</textarea>
+			<div class="center" style="margin-top: 10px">
+				<button id="copy_content" class="btn" ng-click="project.copyToClipBoard()"><i
+						class="material-icons">content_copy</i></button>
+			</div>
+		</div>
+	</div>
+</div>
 <!-- list/cancel btn -->
 <div class="row" ng-if="project.definition.project_status === 'new'">
 	<div class="col s12 m12 l12">
