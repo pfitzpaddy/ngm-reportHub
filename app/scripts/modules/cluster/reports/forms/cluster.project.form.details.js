@@ -38,6 +38,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 		'ngmClusterHelperCol',
 		'ngmCbBeneficiaries',
 		'ngmClusterDocument',
+		'ngmClusterImportFile',
 		'config',
 		'$translate',
 
@@ -63,6 +64,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				ngmClusterHelperCol,
 				ngmCbBeneficiaries,
 				ngmClusterDocument,
+				ngmClusterImportFile,
 				config,
 				$translate ){
 			// set to $scope
@@ -72,6 +74,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 			$scope.ngmCbLocations = ngmCbLocations;
 			$scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 			$scope.ngmClusterDocument = ngmClusterDocument;
+			$scope.ngmClusterImportFile = ngmClusterImportFile;
 
 			//ngmClusterHelperCol
 
@@ -1093,82 +1096,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						drop_zone.removeAllFiles(true);
 						M.toast({ html: $filter('translate')('cancel_to_upload_file'), displayLength: 2000, classes: 'note' });
 					},
-					obj_header_detail_new:{
-						'Project ID': 'id',
-						'Project Status': 'project_status',
-						'Project Details': 'project_details',
-						'Focal Point': 'name',
-						'Email': 'email',
-						'Phone': 'phone',
-						'Project Title': 'project_title',
-						'Project Description': 'project_description',
-						'HRP Project Code': 'project_hrp_code',
-						'Project Start Date': 'project_start_date',
-						'Project End Date': 'project_end_date',
-						'Project Budget': 'project_budget',
-						'Project Budget Currency': 'project_budget_currency',
-						'Project Donors': 'project_donor',
-						'Implementing Partners': 'implementing_partners',
-						'URL': 'url'
-					},
-					obj_header_activity_type:{
-						'Cluster':'cluster',
-						'Activity Type':'activity_type_name',
-					},
-					obj_header_location:{
-						'Country': 'admin0name',
-						'Admin1 Pcode': 'admin1pcode',
-						'Admin1 Name': 'admin1name',
-						'Admin2 Pcode': 'admin2pcode',
-						'Admin2 Name': 'admin2name',
-						'Admin3 Pcode': 'admin3pcode',
-						'Admin3 Name': 'admin3name',
-						'Site Implementation': 'site_implementation_name',
-						'Site Type': 'site_type_name',
-						'Location Name': 'site_name',
-						'Implementing Partners': 'implementing_partners',
-						'Reporter': 'username',
-					},
-					obj_header_beneficiary:{
-						'Cluster': 'cluster',
-						'Activity Type': 'activity_type_name',
-						'Activity Description': 'activity_description_name',
-						'Activity Details': 'activity_detail_name',
-						'Indicator': 'indicator_name',
-						'Beneficiary Type': 'beneficiary_type_name',
-						'HRP Beneficiary Type': 'hrp_beneficiary_type_name',
-						'Beneficiary Category': 'beneficiary_category_name',
-						'Amount': 'units',
-						'Unit Types': 'unit_type_name',
-						'Cash Transfers': 'transfer_type_value',
-						'Cash Delivery Types': 'mpc_delivery_type_name',
-						'Cash Mechanism Types': 'mpc_mechanism_type_name',
-						'Package Type': 'package_type_name',
-						'Households': 'households',
-						'Families': 'families',
-						'Boys': 'boys',
-						'Girls': 'girls',
-						'Men': 'men',
-						'Women': 'women',
-						'Elderly Men': 'elderly_men',
-						'Elderly Women': 'elderly_women',
-						'Total': 'total_beneficiaries',
-					},
 					uploadFileConfig: {
-						previewTemplate: `	<div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
-																			<div class="dz-image">
-																				<img data-dz-thumbnail>
-																			</div>
-																			<div class="dz-details">
-																				<div class="dz-size">
-																					<span data-dz-size>
-																				</div>
-																				<div class="dz-filename">
-																					<span data-dz-name></span>
-																				</div>
-																			</div>
-																			<div data-dz-remove class=" remove-upload btn-floating red" style="margin-left:35%; "><i class="material-icons">clear</i></div>
-																		</div>`,
+						previewTemplate: ngmClusterImportFile.templatePreview(),
 						completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">' + $filter('translate')('complete') + '</h5><br/><h5 style="font-weight:100;"><div id="add_doc" class="btn"><i class="small material-icons">add_circle</i></div></h5></div>',
 						acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 						maxFiles: 1,
@@ -1263,42 +1192,24 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 												return;
 											}
 
-											function transform_to_obj(array,header) {
-												var transform_array = [];
-												for (var y = 1; y < array.length; y++) {
-													var obj = {}
-													for (var z = 1; z < array[y].length; z++) {
-														if (array[y][z] === undefined) {
-															array[y][z] = "";
-														}
-														// obj[array[0][z]] = array[y][z];
-														attribute = header[array[0][z]]
-														obj[attribute] = array[y][z];
-													}
-													transform_array.push(obj)
-												}
-
-												
-
-												return transform_array;
-											}
 
 											for (var x = 0; x < book.length; x++) {
 												
 												header = {};
 												if(x === 0){
-													header = $scope.project.uploadFileReport.obj_header_detail_new;
+													header = ngmClusterImportFile.listheaderAttributeInFile('detail');//$scope.project.uploadFileReport.obj_header_detail_new;
 												}
 												if(x === 1){
-													header = $scope.project.uploadFileReport.obj_header_activity_type;
+													header = ngmClusterImportFile.listheaderAttributeInFile('activity_type');//$scope.project.uploadFileReport.obj_header_activity_type;
 												}
 												if (x === 2) {
-													header = $scope.project.uploadFileReport.obj_header_beneficiary;
+													header = ngmClusterImportFile.listheaderAttributeInFile('target_beneficiary');//$scope.project.uploadFileReport.obj_header_beneficiary;
 												}
 												if (x === 3) {
-													header = $scope.project.uploadFileReport.obj_header_location;
+													header = ngmClusterImportFile.listheaderAttributeInFile('target_location');//$scope.project.uploadFileReport.obj_header_location;
 												}
-												book[x] = transform_to_obj(book[x],header);
+												// book[x] = transform_to_obj(book[x],header);
+												book[x] =ngmClusterImportFile.transform_to_obj(book[x], header);
 
 											}
 											
@@ -1858,19 +1769,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}
 					
 					return obj
-				},
-				copyToClipBoard: function () {
-					/* Get the text field */
-					var copyText = document.getElementById("ngm-missing-value");
-
-					/* Select the text field */
-					copyText.select();
-					copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-					/* Copy the text inside the text field */
-					document.execCommand("copy");
-
-					M.toast({ html: 'Copy too Clipboard', displayLength: 1000, classes: 'note' });
 				},
 				switchInputFile: function () {
 					$scope.inputString = !$scope.inputString;

@@ -29,14 +29,16 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
     'ngmData',
     'ngmClusterHelper',
 		'ngmClusterLists',
-		'ngmClusterFinancial',
+    'ngmClusterFinancial',
+    'ngmClusterImportFile',
     'config',
     '$translate',
-		function ($scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, ngmClusterFinancial, config,$translate ){
+    function ($scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, ngmClusterFinancial, ngmClusterImportFile, config,$translate ){
 
       // project
 
-			//budget_funds
+      //budget_funds
+      $scope.ngmClusterImportFile = ngmClusterImportFile;
 			$scope.ngmClusterFinancial = ngmClusterFinancial;
       if($scope.config.project.admin0pcode === 'COL'){
         financial_html = 'financials-COL.html';
@@ -642,49 +644,8 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
             drop_zone.removeAllFiles(true);
             M.toast({ html: $filter('translate')('cancel_to_upload_file'), displayLength: 2000, classes: 'note' });
           },
-          obj_header: {
-            'Cluster':'cluster',
-            'Organization':'organization',
-            'Country':'admin0name',
-            'Project Title':'project_title',
-            'Project Description':'project_description',
-            'HRP Project Code':'project_hrp_code',
-            'Project Budget':'project_budget',
-            'Project Budget Currency':'project_budget_currency',
-            'Project Donor':'project_donor_name',
-            'Donor Grant ID':'grant_id',
-            'Currency Recieved':'currency_id',
-            'Ammount Received':'project_budget_amount_recieved',
-            'Contribution Status':'contribution_status',
-            'Date of Payment':'project_budget_date_recieved',
-            'Incoming Funds':'budget_funds_name',
-            'Financial Programming':'financial_programming_name',
-            'Multi-Year Funding':'multi_year_funding_name',
-            'Funding Per Year':'multi_year_array',
-            'Reported on FTS':'reported_on_fts_name',
-            'FTS ID':'fts_record_id',
-            'Email':'email',
-            'createdAt':'createdAt',
-            'Comments':'comments',
-            'Activity Type': 'activity_type_name',
-            'Funding Per Year': 'multi_year_array',
-            'Activity Description':'activity_description_name'
-          },
           uploadFileConfig: {
-            previewTemplate: `	<div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
-																			<div class="dz-image">
-																				<img data-dz-thumbnail>
-																			</div>
-																			<div class="dz-details">
-																				<div class="dz-size">
-																					<span data-dz-size>
-																				</div>
-																				<div class="dz-filename">
-																					<span data-dz-name></span>
-																				</div>
-																			</div>
-																			<div data-dz-remove class=" remove-upload btn-floating red" style="margin-left:35%; "><i class="material-icons">clear</i></div>
-																		</div>`,
+            previewTemplate: ngmClusterImportFile.templatePreview(),
             completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">' + $filter('translate')('complete') + '</h5><br/><h5 style="font-weight:100;"><div id="add_doc" class="btn"><i class="small material-icons">add_circle</i></div></h5></div>',
             acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv',
             maxFiles: 1,
@@ -707,7 +668,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
                 $("#delete_file").attr("disabled", true);
                 $("#switch_btn_file").attr("disabled", true);
                 var ext = drop_zone.getAcceptedFiles()[0].name.split('.').pop();
-                attribute_headers_obj = $scope.project.uploadFileReport.obj_header;
+                attribute_headers_obj = ngmClusterImportFile.listheaderAttributeInFile('financial');//$scope.project.uploadFileReport.obj_header;
                 if (ext === 'csv') {
                   var file = drop_zone.getAcceptedFiles()[0],
                     read = new FileReader();
@@ -738,19 +699,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
                     var values = [];
                     values_obj = [];
                     // get value and change to object
-                    for (var y = 1; y < csv_array.length; y++) {
-                      var obj = {}
-                      for (var z = 0; z < csv_array[y].length; z++) {
-                        if (csv_array[0][z] === 'Project Budget' ||
-                          csv_array[0][z] === 'Ammount Received'
-                          ) {
-                          csv_array[y][z] = parseInt(csv_array[y][z]);
-                        }
-
-                        obj[csv_array[0][z]] = csv_array[y][z];
-                      }
-                      values_obj.push(obj)
-                    }
+                    values_obj = ngmClusterImportFile.setCsvValueToArrayofObject(csv_array);
                     // map the header to the attribute name
                     for (var index = 0; index < values_obj.length; index++) {
                       obj_true = {};
@@ -811,31 +760,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
                       var message_temp = '';
 
-                      for (var z = 0; z < $scope.messageFromfile.length; z++) {
-                        if ($scope.messageFromfile[z].length) {
-                          for (var y = 0; y < $scope.messageFromfile[z].length; y++) {
-
-                            var field = $scope.messageFromfile[z][y].property;
-                            var reason = $scope.messageFromfile[z][y].reason;
-                            var error_label = $scope.messageFromfile[z][y].label;
-                            if (error_label) {
-                              $timeout(function () {
-                                $(error_label).addClass('error');
-                              }, 0)
-                            }
-                            if (field === 'activity_type_id' || field === 'project_donor_id') {
-                              message_temp += 'For Incorrect Activity Type or Project Donor \nPlease check spelling, or verify that this is a correct value for this report! \n'
-                            }
-                            else {
-                              message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
-                            }
-                            message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterFinancial.fieldBudget()[field] + ' : ' + reason + '\n';
-
-                          }
-                        }
-
-                      }
-
+                      message_temp = ngmClusterImportFile.setMessageFromFile($scope.messageFromfile, ngmClusterFinancial.fieldBudget(), 'financial', 'message-monthly-file-financial')
                       if (message_temp !== '') {
 
                         $scope.project.messageWarning = message_temp;
@@ -878,7 +803,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
                     var result = []
                     wb.xlsx.load(data).then(workbook => {
                       const book = [];
-                      const book_obj = [];
+                      var book_obj = [];
 
                       workbook.eachSheet((sheet, index) => {
                         // get only the first sheet
@@ -909,18 +834,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
                         return
                       };
                       // get value and change to object
-                      for (var x = 0; x < book.length; x++) {
-                        for (var y = 1; y < book[x].length; y++) {
-                          var obj = {}
-                          for (var z = 1; z < book[x][y].length; z++) {
-                            if (book[x][y][z] === undefined) {
-                              book[x][y][z] = "";
-                            }
-                            obj[book[x][0][z]] = book[x][y][z];
-                          }
-                          book_obj.push(obj)
-                        }
-                      }
+                      book_obj = ngmClusterImportFile.setExcelValueToArrayofObject(book);
                       // map the header to the attribute name
                       for (var index = 0; index < book_obj.length; index++) {
                         obj_true = {};
@@ -980,32 +894,8 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
                         var message_temp = '';
 
-                        for (var z = 0; z < $scope.messageFromfile.length; z++) {
 
-                          if ($scope.messageFromfile[z].length) {
-                            for (var y = 0; y < $scope.messageFromfile[z].length; y++) {
-
-                              var field = $scope.messageFromfile[z][y].property;
-                              var reason = $scope.messageFromfile[z][y].reason;
-                              var error_label = $scope.messageFromfile[z][y].label;
-                              if (error_label) {
-                                $timeout(function(){
-                                  $(error_label).addClass('error');
-                                },0)
-                                
-                              }
-                              if (field === 'activity_type_id' || field === 'project_donor_id') {
-                                message_temp += 'For Incorrect Activity Type or Project Donor \nPlease check spelling, or verify that this is a correct value for this report! \n'
-                              }
-                              else {
-                                message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
-                              }
-                              message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterFinancial.fieldBudget()[field] + ' : ' + reason + '\n';
-
-                            }
-                          }
-
-                        }
+                        message_temp = ngmClusterImportFile.setMessageFromFile($scope.messageFromfile, ngmClusterFinancial.fieldBudget(), 'financial', 'message-monthly-file-financial')
 
                         if (message_temp !== '') {
 
@@ -1110,7 +1000,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
             $("#input_string").attr("disabled", true);
             $("#close_input_string").attr("disabled", true);
             $("#switch_btn_text").attr("disabled", true);
-            attribute_headers_obj = $scope.project.uploadFileReport.obj_header;
+            attribute_headers_obj = ngmClusterImportFile.listheaderAttributeInFile('financial');//$scope.project.uploadFileReport.obj_header;
             if ($scope.project.text_input) {
               csv_array = Papa.parse($scope.project.text_input).data;
               if (csv_array[0].indexOf('Activity Type') < 0) {
@@ -1131,19 +1021,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
               };
               var values = [];
               values_obj = [];
-              // get value and change to object
-              for (var y = 1; y < csv_array.length; y++) {
-                var obj = {}
-                for (var z = 0; z < csv_array[y].length; z++) {
-                  if (csv_array[0][z] === 'Project Budget' ||
-                    csv_array[0][z] === 'Ammount Received') {
-                    csv_array[y][z] = parseInt(csv_array[y][z]);
-                  }
-
-                  obj[csv_array[0][z]] = csv_array[y][z];
-                }
-                values_obj.push(obj)
-              }
+              values_obj = ngmClusterImportFile.setCsvValueToArrayofObject(csv_array);
               // map the header to the attribute name
               for (var index = 0; index < values_obj.length; index++) {
                 obj_true = {};
@@ -1191,31 +1069,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
               var message_temp = '';
 
-              for (var z = 0; z < $scope.messageFromfile.length; z++) {
-                if ($scope.messageFromfile[z].length) {
-                  for (var y = 0; y < $scope.messageFromfile[z].length; y++) {
-
-                    var field = $scope.messageFromfile[z][y].property;
-                    var reason = $scope.messageFromfile[z][y].reason;
-                    var error_label = $scope.messageFromfile[z][y].label;
-                    if (error_label) {
-                      $timeout(function () {
-                        $(error_label).addClass('error');
-                      }, 0)
-                    }
-                    if (field === 'activity_type_id' || field === 'project_donor_id') {
-                      message_temp += 'For Incorrect Activity Type or Project Donor \nPlease check spelling, or verify that this is a correct value for this report! \n'
-                    }
-                    else {
-                      message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
-                    }
-                    message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterFinancial.fieldBudget()[field] + ' : ' + reason + '\n';
-
-                  }
-                }
-
-              }
-
+              message_temp = ngmClusterImportFile.setMessageFromFile($scope.messageFromfile, ngmClusterFinancial.fieldBudget(), 'financial', 'message-monthly-file-financial')
               $timeout(function () {
                 document.querySelector("#ngm-input-string").style.display = 'block';
                 document.querySelector(".percent-upload").style.display = 'none';
@@ -1350,19 +1204,6 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
           return obj
 
-        },
-        copyToClipBoard: function () {
-          /* Get the text field */
-          var copyText = document.getElementById("ngm-missing-value");
-
-          /* Select the text field */
-          copyText.select();
-          copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-          /* Copy the text inside the text field */
-          document.execCommand("copy");
-
-          M.toast({ html: 'Copy too Clipboard', displayLength: 1000, classes: 'note' });
         },
         switchInputFile: function () {
           $scope.inputString = !$scope.inputString;

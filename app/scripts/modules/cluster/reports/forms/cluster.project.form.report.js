@@ -43,6 +43,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 		'ngmClusterHelperCol',
 		'ngmCbBeneficiaries',
 		'ngmClusterDocument',
+		'ngmClusterImportFile',
 		// 'NgTableParams',
 		'config','$translate','$filter',
 
@@ -73,6 +74,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			ngmClusterHelperCol,
 			ngmCbBeneficiaries,
 			ngmClusterDocument,
+			ngmClusterImportFile,
 			// NgTableParams,
 			config,$translate,$filter ){
 
@@ -93,6 +95,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			$scope.ngmClusterHelperCol = ngmClusterHelperCol;
 			$scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 			$scope.ngmClusterDocument = ngmClusterDocument;
+			$scope.ngmClusterImportFile = ngmClusterImportFile;
 			$scope.deactivedCopybutton = false;
 			$scope.messageFromfile = [];
 			$scope.inputString = false;
@@ -998,20 +1001,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						M.toast({ html: $filter('translate')('cancel_to_upload_file'), displayLength: 2000, classes: 'note' });
 					},
 					uploadFileConfig:{
-						previewTemplate: `	<div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
-																			<div class="dz-image">
-																				<img data-dz-thumbnail>
-																			</div>
-																			<div class="dz-details">
-																				<div class="dz-size">
-																					<span data-dz-size>
-																				</div>
-																				<div class="dz-filename">
-																					<span data-dz-name></span>
-																				</div>
-																			</div>
-																			<div data-dz-remove class=" remove-upload btn-floating red" style="margin-left:35%; "><i class="material-icons">clear</i></div>
-																		</div>`,
+						previewTemplate: ngmClusterImportFile.templatePreview(),
 						completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">' + $filter('translate')('complete') + '</h5><br/><h5 style="font-weight:100;"><div id="add_doc" class="btn"><i class="small material-icons">add_circle</i></div></h5></div>',
 						acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv',
 						maxFiles: 1,
@@ -1034,114 +1024,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								$("#delete_file").attr("disabled", true);
 								$("#switch_btn_file").attr("disabled", true);
 								var ext = drop_zone.getAcceptedFiles()[0].name.split('.').pop();
-								atribute_headers = [
-									'project_id',
-									'report_id',
-									'cluster',
-									'organization',
-									'username',
-									'email',
-									'project_hrp_code',
-									'project_title',
-									'project_code',
-									'admin0name',
-									'admin1pcode',
-									'admin1name',
-									'admin2pcode',
-									'admin2name',
-									'admin3pcode',
-									'admin3name',
-									'site_implementation_name',
-									'site_type_name',
-									'site_name',
-									'report_month',
-									'report_year',
-									'activity_type_name',
-									'activity_description_name',
-									'indicator_name',
-									'category_type_name',
-									'beneficiary_type_name',
-									'beneficiary_category_name',
-									'hrp_beneficiary_type_name',
-									'strategic_objective_name',
-									'strategic_objective_description',
-									'sector_objective_name',
-									'sector_objective_description',
-									'delivery_type_name',
-									'units',
-									'unit_type_name',
-									'transfer_type_value',
-									'mpc_delivery_type_id',
-									'households',
-									'families',
-									'boys',
-									'girls',
-									'men',
-									'women',
-									'elderly_men',
-									'elderly_women',
-									'total',
-									'createdAt',
-									'updatedAt'
-								]
-								attribute_headers_obj ={
-									'Project ID':'project_id',
-									'Report ID':'report_id',
-									'Target Location ID': 'target_location_reference_id',
-									'Cluster':'cluster',
-									'Organization':'organization',
-									'Focal Point':'username',
-									'Email':'email',
-									'HRP Code':'project_hrp_code',
-									'Project Title':'project_title',
-									'Project Code':'project_code',
-									'Project Donors': 'donors',
-									'Programme Partners':'programme_partners',
-									'Implementing Partners':'implementing_partners',
-									'Country':'admin0name',
-									'Admin1 Pcode':'admin1pcode',
-									'Admin1 Name':'admin1name',
-									'Admin2 Pcode':'admin2pcode',
-									'Admin2 Name':'admin2name',
-									'Admin3 Pcode':'admin3pcode',
-									'Admin3 Name':'admin3name',
-									'Site Implementation':'site_implementation_name',
-									'Site Type':'site_type_name',
-									'Location Name':'site_name',
-									'Report Month':'report_month',
-									'Report Year':'report_year',
-									'Activity Type':'activity_type_name',
-									'Activity Description':'activity_description_name',
-									'Activity Details': 'activity_detail_name',
-									'Indicator':'indicator_name',
-									'Category Type':'category_type_name',
-									'Beneficiary Type':'beneficiary_type_name',
-									'Beneficiary Category':'beneficiary_category_name',
-									'HRP Beneficiary Type':'hrp_beneficiary_type_name',
-									'Strategic Objective':'strategic_objective_name',
-									'Strategic Objective Description':'strategic_objective_description',
-									'Sector Objective':'sector_objective_name',
-									'Sector Objective Description':'sector_objective_description',
-									'Population':'delivery_type_name',
-									'Amount':'units',
-									'Unit Type':'unit_type_name',
-									'Cash Transfers':'transfer_type_value',
-									// 'Cash Delivery Type': 'mpc_delivery_type_id',
-									'Cash Delivery Type':'mpc_delivery_type_name',
-									'Cash Mechanism Type':'mpc_mechanism_type_name',
-									'Package Type': 'package_type_name',
-									'Households':'households',
-									'Families':'families',
-									'Boys':'boys',
-									'Girls':'girls',
-									'Men':'men',
-									'Women':'women',
-									'Elderly Men':'elderly_men',
-									'Elderly Women':'elderly_women',
-									'Total':'total_beneficiaries',
-									'Created':'createdAt',
-									'Last Update':'updatedAt'
-								}
+								var attribute_headers_obj = ngmClusterImportFile.listheaderAttributeInFile('monthly_report');
 								if(ext === 'csv'){
 									var file = drop_zone.getAcceptedFiles()[0],
 										read = new FileReader();
@@ -1172,27 +1055,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 										var values=[];
 										values_obj=[];
 										// get value and change to object
-										for (var y = 1; y < csv_array.length; y++) {
-											var obj = {}
-											for (var z = 0; z < csv_array[y].length; z++) {
-												if (csv_array[0][z] === 'Families' ||
-													csv_array[0][z] === 'Boys' ||
-													csv_array[0][z] === 'Girls' ||
-													csv_array[0][z] === 'Men' ||
-													csv_array[0][z] === 'Women' ||
-													csv_array[0][z] === 'Elderly Men' ||
-													csv_array[0][z] === 'Elderly Women' ||
-													csv_array[0][z] === 'Total' ||
-													csv_array[0][z] === 'Cash Transfers' ||
-													csv_array[0][z] === 'Amount' ||
-													csv_array[0][z] === 'Households'){
-													csv_array[y][z] = parseInt(csv_array[y][z]);
-													}
-
-												obj[csv_array[0][z]] = csv_array[y][z];
-											}
-											values_obj.push(obj)
-										}
+										values_obj = ngmClusterImportFile.setCsvValueToArrayofObject(csv_array);
 										// map the header to the attribute name
 										for (var index = 0; index < values_obj.length; index++) {
 											obj_true = {};
@@ -1205,26 +1068,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 											obj_true = $scope.project.addMissingAttributeFromFile(obj_true);
 											values.push(obj_true);
 										}
-										// get value from csc file
-										// for (var i = 1; i < csv_array.length; i++) {
-										// 	var objt = {};
-										// 	for (var k = 0; k < atribute_headers.length; k++) {
-										// 		if (atribute_headers[k] === 'transfer_type_value' || atribute_headers[k] === 'units' || atribute_headers[k] === 'households' ||
-										// 			atribute_headers[k] === 'families' ||
-										// 			atribute_headers[k] === 'boys' ||
-										// 			atribute_headers[k] === 'girls' ||
-										// 			atribute_headers[k] === 'men' ||
-										// 			atribute_headers[k] === 'women' ||
-										// 			atribute_headers[k] === 'elderly_men' ||
-										// 			atribute_headers[k] === 'elderly_women' ||
-										// 			atribute_headers[k] === 'total') {
-										// 			csv_array[i][k] = parseInt(csv_array[i][k]);
-										// 		}
-										// 		objt[atribute_headers[k]] = csv_array[i][k];
-										// 	}
-										// 	objt = $scope.project.addMissingAttributeFromFile(objt);
-										// 	values.push(objt);
-										// }
 
 										if(values.length >0 ){
 												var previews = document.querySelectorAll(".dz-preview");
@@ -1291,30 +1134,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 											var message_temp = '';
 
-											for (var z = 0; z < $scope.messageFromfile.length; z++) {
-												if ($scope.messageFromfile[z].length) {
-													for (var y = 0; y < $scope.messageFromfile[z].length; y++) {
 
-														var field = $scope.messageFromfile[z][y].property;
-														var reason = $scope.messageFromfile[z][y].reason;
-														var error_label = $scope.messageFromfile[z][y].label;
-														if (error_label) {
-															$(error_label).addClass('error');
-														}
-														if (field === 'location') {
-															message_temp += 'For Incorrect Location please check admin1 Name, admin2 Name, site type, site implementation, site name ! \n'
-														} else if (field === 'activity_type_id' || field === 'activity_description_id') {
-															message_temp += 'For Incorrect Activity Type or Activity Description \nPlease check spelling, or verify that this is a correct value for this report! \n'
-														}
-														else {
-															message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
-														}
-														message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterValidation.fieldNameBeneficiaryMonthlyReport()[field] + ' : ' + reason + '\n';
-
-													}
-												}
-
-											}
+											message_temp = ngmClusterImportFile.setMessageFromFile($scope.messageFromfile, ngmClusterValidation.fieldNameBeneficiaryMonthlyReport(), 'report', 'message-monthly-file')
 
 											if (message_temp !== '') {
 
@@ -1358,7 +1179,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 										var result = []
 										wb.xlsx.load(data).then(workbook => {
 											const book = [];
-											const book_obj = [];
+											var book_obj = [];
 
 											workbook.eachSheet((sheet,index) => {
 												// get only the first sheet
@@ -1389,18 +1210,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 												return
 											};
 											// get value and change to object
-											for (var x = 0; x < book.length; x++) {
-												for (var y = 1; y < book[x].length; y++) {
-													var obj={}
-													for (var z = 1; z < book[x][y].length;z++){
-														if ( book[x][y][z] === undefined){
-															book[x][y][z] = "";
-														}
-														obj[book[x][0][z]]=book[x][y][z];
-													}
-													book_obj.push(obj)
-												}
-											}
+											book_obj = ngmClusterImportFile.setExcelValueToArrayofObject(book);
 											// map the header to the attribute name
 											for(var index=0;index<book_obj.length;index++){
 												obj_true ={};
@@ -1414,28 +1224,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 												result.push(obj_true);
 											}
 
-											// get value from excel file
-											// for(var i=0;i<book.length;i++){
-
-											// 	headerst = atribute_headers;
-											// 	for(var j=1;j<book[i].length;j++){
-											// 		var objt = {};
-
-											// 		for (var k = 0; k < headerst.length; k++) {
-											// 			if (book[i][j][k+1] === undefined){
-											// 				objt[headerst[k]] = "";
-											// 			}else{
-											// 				objt[headerst[k]] = book[i][j][k+1];
-											// 			}
-											// 		}
-											// 		objt = $scope.project.addMissingAttributeFromFile(objt);
-
-											// 		result.push(objt);
-											// 	}
-
-
-
-											// }
 											var previews = document.querySelectorAll(".dz-preview");
 											previews.forEach(function (preview) {
 												preview.style.display = 'none';
@@ -1499,32 +1287,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 													var message_temp ='';
 
-													for(var z=0;z< $scope.messageFromfile.length;z++){
-
-														if ($scope.messageFromfile[z].length){
-															for (var y = 0; y < $scope.messageFromfile[z].length;y++){
-
-																var field = $scope.messageFromfile[z][y].property;
-																var reason = $scope.messageFromfile[z][y].reason;
-																var error_label = $scope.messageFromfile[z][y].label;
-																if(error_label){
-																	$(error_label).addClass('error');
-																}
-																if(field === 'location'){
-																	message_temp +='For Incorrect Location please check admin1 Name, admin2 name, site type, site implementation, site name ! \n'
-																} else if (field === 'activity_type_id' || field === 'activity_description_id'){
-																	message_temp += 'For Incorrect Activity Type or Activity Description \nPlease check spelling, or verify that this is a correct value for this report! \n'
-																}
-																else{
-																	message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
-																}
-																message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterValidation.fieldNameBeneficiaryMonthlyReport()[field] + ' : ' + reason + '\n';
-
-															}
-														}
-
-													}
-
+													message_temp = ngmClusterImportFile.setMessageFromFile($scope.messageFromfile, ngmClusterValidation.fieldNameBeneficiaryMonthlyReport(), 'report', 'message-monthly-file')
 													if(message_temp !== ''){
 
 														$scope.project.report.messageWarning = message_temp;
@@ -1627,64 +1390,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						$("#input_string").attr("disabled", true);
 						$("#close_input_string").attr("disabled", true);
 						$("#switch_btn_text").attr("disabled", true);
-						attribute_headers_obj = {
-							'Project ID': 'project_id',
-							'Report ID': 'report_id',
-							'Target Location ID':'target_location_reference_id',
-							'Cluster': 'cluster',
-							'Organization': 'organization',
-							'Focal Point': 'username',
-							'Email': 'email',
-							'HRP Code': 'project_hrp_code',
-							'Project Title': 'project_title',
-							'Project Code': 'project_code',
-							'Project Donors': 'donors',
-							'Programme Partners': 'programme_partners',
-							'Implementing Partners': 'implementing_partners',
-							'Country': 'admin0name',
-							'Admin1 Pcode': 'admin1pcode',
-							'Admin1 Name': 'admin1name',
-							'Admin2 Pcode': 'admin2pcode',
-							'Admin2 Name': 'admin2name',
-							'Admin3 Pcode': 'admin3pcode',
-							'Admin3 Name': 'admin3name',
-							'Site Implementation': 'site_implementation_name',
-							'Site Type': 'site_type_name',
-							'Location Name': 'site_name',
-							'Report Month': 'report_month',
-							'Report Year': 'report_year',
-							'Activity Type': 'activity_type_name',
-							'Activity Description': 'activity_description_name',
-							'Activity Details': 'activity_detail_name',
-							'Indicator': 'indicator_name',
-							'Category Type': 'category_type_name',
-							'Beneficiary Type': 'beneficiary_type_name',
-							'Beneficiary Category': 'beneficiary_category_name',
-							'HRP Beneficiary Type': 'hrp_beneficiary_type_name',
-							'Strategic Objective': 'strategic_objective_name',
-							'Strategic Objective Description': 'strategic_objective_description',
-							'Sector Objective': 'sector_objective_name',
-							'Sector Objective Description': 'sector_objective_description',
-							'Population': 'delivery_type_name',
-							'Amount': 'units',
-							'Unit Type': 'unit_type_name',
-							'Cash Transfers': 'transfer_type_value',
-							// 'Cash Delivery Type': 'mpc_delivery_type_id',
-							'Cash Delivery Type': 'mpc_delivery_type_name',
-							'Cash Mechanism Type': 'mpc_mechanism_type_name',
-							'Package Type': 'package_type_name',
-							'Households': 'households',
-							'Families': 'families',
-							'Boys': 'boys',
-							'Girls': 'girls',
-							'Men': 'men',
-							'Women': 'women',
-							'Elderly Men': 'elderly_men',
-							'Elderly Women': 'elderly_women',
-							'Total': 'total_beneficiaries',
-							'Created': 'createdAt',
-							'Last Update': 'updatedAt'
-						}
+						var attribute_headers_obj = ngmClusterImportFile.listheaderAttributeInFile('monthly_report');
 						if ($scope.project.report.text_input){
 							csv_array = Papa.parse($scope.project.report.text_input).data;
 							if (csv_array[0].indexOf('Activity Type') < 0) {
@@ -1706,27 +1412,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							var values = [];
 							values_obj = [];
 							// get value and change to object
-							for (var y = 1; y < csv_array.length; y++) {
-								var obj = {}
-								for (var z = 0; z < csv_array[y].length; z++) {
-									if (csv_array[0][z] === 'Families' ||
-										csv_array[0][z] === 'Boys' ||
-										csv_array[0][z] === 'Girls' ||
-										csv_array[0][z] === 'Men' ||
-										csv_array[0][z] === 'Women' ||
-										csv_array[0][z] === 'Elderly Men' ||
-										csv_array[0][z] === 'Elderly Women' ||
-										csv_array[0][z] === 'Total' ||
-										csv_array[0][z] === 'Cash Transfers' ||
-										csv_array[0][z] === 'Amount' ||
-										csv_array[0][z] === 'Households') {
-										csv_array[y][z] = parseInt(csv_array[y][z]);
-									}
-
-									obj[csv_array[0][z]] = csv_array[y][z];
-								}
-								values_obj.push(obj)
-							}
+							values_obj = ngmClusterImportFile.setCsvValueToArrayofObject(csv_array);
 							// map the header to the attribute name
 							for (var index = 0; index < values_obj.length; index++) {
 								obj_true = {};
@@ -1792,6 +1478,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 							}
 
+							var message_temp = '';
+							message_temp = ngmClusterImportFile.setMessageFromFile($scope.messageFromfile, ngmClusterValidation.fieldNameBeneficiaryMonthlyReport(), 'report', 'message-monthly-file')
 							$timeout(function () {
 								document.querySelector("#ngm-input-string").style.display = 'block';
 								document.querySelector(".percent-upload").style.display = 'none';
@@ -1799,33 +1487,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								$scope.project.report.text_input ='';
 
 								$scope.project.activePrevReportButton();
-
-								var message_temp = '';
-
-								for (var z = 0; z < $scope.messageFromfile.length; z++) {
-									if ($scope.messageFromfile[z].length) {
-										for (var y = 0; y < $scope.messageFromfile[z].length; y++) {
-
-											var field = $scope.messageFromfile[z][y].property;
-											var reason = $scope.messageFromfile[z][y].reason;
-											var error_label = $scope.messageFromfile[z][y].label;
-											if (error_label) {
-												$(error_label).addClass('error');
-											}
-											if (field === 'location') {
-												message_temp += 'For Incorrect Location please check admin1 Name, admin2 Name, site type, site implementation, site name ! \n'
-											} else if (field === 'activity_type_id' || field === 'activity_description_id') {
-												message_temp += 'For Incorrect Activity Type or Activity Description \nPlease check spelling, or verify that this is a correct value for this report! \n'
-											}
-											else {
-												message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
-											}
-											message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterValidation.fieldNameBeneficiaryMonthlyReport()[field] + ' : ' + reason + '\n';
-
-										}
-									}
-
-								}
 
 								if (message_temp !== '') {
 
@@ -1991,19 +1652,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}
 					return obj
 
-				},
-				copyToClipBoard:function(){
-					/* Get the text field */
-					var copyText = document.getElementById("ngm-missing-value");
-
-					/* Select the text field */
-					copyText.select();
-					copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-					/* Copy the text inside the text field */
-					document.execCommand("copy");
-
-					M.toast({ html: 'Copy too Clipboard', displayLength: 1000, classes: 'note' });
 				},
 				switchInputFile: function () {
 					$scope.inputString = !$scope.inputString;
