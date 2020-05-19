@@ -86,7 +86,7 @@ li {
 	        	<select id="ngm-country"
 	        					ng-options="location.admin0pcode as location.admin0name for location in panel.adminRegion | orderBy:'admin0name'"
 										ng-model="panel.user.admin0pcode"
-										ng-change="panel.clusterByCountry()">{{'select_country' | translate}}
+										ng-change="panel.clusterByCountry();panel.orgByCountry()">{{'select_country' | translate}}
 	        					<option value="">{{'select_country' | translate}}</option>
 
 	        					</select>
