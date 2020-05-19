@@ -30,8 +30,10 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
     'ngmClusterHelper',
     'ngmClusterLists', 'ngmLists',
     'ngmClusterValidation',
+    'ngmClusterImportFile',
     'config','$translate',
-    function ($scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, ngmLists, ngmClusterValidation, config,$translate ){
+    function ($scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, ngmLists, ngmClusterValidation, ngmClusterImportFile,config,$translate ){
+      $scope.ngmClusterImportFile = ngmClusterImportFile;
       $scope.messageFromfile = [];
       $scope.inputString = false;
       // project
@@ -673,51 +675,38 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             drop_zone.removeAllFiles(true);
             M.toast({ html: $filter('translate')('cancel_to_upload_file'), displayLength: 2000, classes: 'note' });
           },
-          obj_header: {
-            'Organization ID': 'organization_id',
-            'Report ID': 'report_id',
-            'Organization': 'organization',
-            'Username': 'username',
-            'Email': 'email',
-            'Country': 'admin0name',
-            'Admin1 Pcode': 'admin1pcode',
-            'Admin1 Name': 'admin1name',
-            'Admin2 Pcode': 'admin2pcode',
-            'Admin2 Name': 'admin2name',
-            'Admin3 Pcode': 'admin3pcode',
-            'Admin3 Name': 'admin3name',
-            'Warehouse Name': 'site_name',
-            'Stock Month': 'report_month',
-            'Stock Year': 'report_year',
-            'Cluster': 'cluster',
-            'Stock Type': 'stock_item_name',
-            'Stock Details': 'stock_details',
-            'Status': 'stock_status_name',
-            'No. in Stock': 'number_in_stock',
-            'No. in Pipeline': 'number_in_pipeline',
-            'Units': 'unit_type_name',
-            'Beneficiary Coverage': 'beneficiaries_covered',
-            'Targeted Group': 'stock_targeted_groups_name',
-            'Remarks': 'remarks',
-            'Created': 'createdAt',
-            'Last Update': 'updatedAt',
-            'Purpose':'stock_item_purpose_name'
-          },
+          // obj_header: {
+          //   'Organization ID': 'organization_id',
+          //   'Report ID': 'report_id',
+          //   'Organization': 'organization',
+          //   'Username': 'username',
+          //   'Email': 'email',
+          //   'Country': 'admin0name',
+          //   'Admin1 Pcode': 'admin1pcode',
+          //   'Admin1 Name': 'admin1name',
+          //   'Admin2 Pcode': 'admin2pcode',
+          //   'Admin2 Name': 'admin2name',
+          //   'Admin3 Pcode': 'admin3pcode',
+          //   'Admin3 Name': 'admin3name',
+          //   'Warehouse Name': 'site_name',
+          //   'Stock Month': 'report_month',
+          //   'Stock Year': 'report_year',
+          //   'Cluster': 'cluster',
+          //   'Stock Type': 'stock_item_name',
+          //   'Stock Details': 'stock_details',
+          //   'Status': 'stock_status_name',
+          //   'No. in Stock': 'number_in_stock',
+          //   'No. in Pipeline': 'number_in_pipeline',
+          //   'Units': 'unit_type_name',
+          //   'Beneficiary Coverage': 'beneficiaries_covered',
+          //   'Targeted Group': 'stock_targeted_groups_name',
+          //   'Remarks': 'remarks',
+          //   'Created': 'createdAt',
+          //   'Last Update': 'updatedAt',
+          //   'Purpose':'stock_item_purpose_name'
+          // },
           uploadFileConfig: {
-            previewTemplate: `	<div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
-																			<div class="dz-image">
-																				<img data-dz-thumbnail>
-																			</div>
-																			<div class="dz-details">
-																				<div class="dz-size">
-																					<span data-dz-size>
-																				</div>
-																				<div class="dz-filename">
-																					<span data-dz-name></span>
-																				</div>
-																			</div>
-																			<div data-dz-remove class=" remove-upload btn-floating red" style="margin-left:35%; "><i class="material-icons">clear</i></div>
-																		</div>`,
+            previewTemplate: ngmClusterImportFile.templatePreview(),
             completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">' + $filter('translate')('complete') + '</h5><br/><h5 style="font-weight:100;"><div id="add_doc" class="btn"><i class="small material-icons">add_circle</i></div></h5></div>',
             acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv',
             maxFiles: 1,
@@ -740,7 +729,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                 $("#delete_file").attr("disabled", true);
                 $("#switch_btn_file").attr("disabled", true);
                 var ext = drop_zone.getAcceptedFiles()[0].name.split('.').pop();
-                attribute_headers_obj = $scope.report.uploadFileReport.obj_header;
+                attribute_headers_obj = ngmClusterImportFile.listheaderAttributeInFile('stock');//$scope.report.uploadFileReport.obj_header;
                 if (ext === 'csv') {
                   var file = drop_zone.getAcceptedFiles()[0],
                     read = new FileReader();
@@ -772,20 +761,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                     var values = [];
                     values_obj = [];
                     // get value and change to object
-                    for (var y = 1; y < csv_array.length; y++) {
-                      var obj = {}
-                      for (var z = 0; z < csv_array[y].length; z++) {
-                        if (csv_array[0][z] === 'Beneficiary Coverage' ||
-                          csv_array[0][z] === 'No. in Pipeline' ||
-                          csv_array[0][z] === 'No. in Stock' ||
-                          csv_array[0][z] === 'Stock Year' ) {
-                          csv_array[y][z] = parseInt(csv_array[y][z]);
-                        }
-
-                        obj[csv_array[0][z]] = csv_array[y][z];
-                      }
-                      values_obj.push(obj)
-                    }
+                    values_obj = ngmClusterImportFile.setCsvValueToArrayofObject(csv_array);
                     // map the header to the attribute name
                     for (var index = 0; index < values_obj.length; index++) {
                       obj_true = {};
@@ -858,32 +834,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
 
                       var message_temp = '';
-
-                      for (var z = 0; z < $scope.messageFromfile.length; z++) {
-                        if ($scope.messageFromfile[z].length) {
-                          for (var y = 0; y < $scope.messageFromfile[z].length; y++) {
-
-                            var field = $scope.messageFromfile[z][y].property;
-                            var reason = $scope.messageFromfile[z][y].reason;
-                            var error_label = $scope.messageFromfile[z][y].label;
-                            if (error_label) {
-                              $(error_label).addClass('error');
-                            }
-                            if (field === 'location') {
-                              message_temp += 'For Incorrect Location please check admin1 Name, admin2 Name, site name ! \n'
-                            } else if (field === 'stock_item_type' || field ==='cluster_id') {
-                              message_temp += 'For Incorrect Stock Type or Cluster \nPlease check spelling, or verify that this is a correct value for this report! \n'
-                            }
-                            else {
-                              message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
-                            }
-                            message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterValidation.fieldNameStock()[field] + ' : ' + reason + '\n';
-
-                          }
-                        }
-
-                      }
-
+                      message_temp = ngmClusterImportFile.setMessageFromFile($scope.messageFromfile, ngmClusterValidation.fieldNameStock(), 'stock', 'message-monthly-file-stock')
                       if (message_temp !== '') {
 
                         $scope.report.report.messageWarning = message_temp;
@@ -926,7 +877,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                     var result = []
                     wb.xlsx.load(data).then(workbook => {
                       const book = [];
-                      const book_obj = [];
+                      var book_obj = [];
 
                       workbook.eachSheet((sheet, index) => {
                         // get only the first sheet
@@ -957,18 +908,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                         return
                       };
                       // get value and change to object
-                      for (var x = 0; x < book.length; x++) {
-                        for (var y = 1; y < book[x].length; y++) {
-                          var obj = {}
-                          for (var z = 1; z < book[x][y].length; z++) {
-                            if (book[x][y][z] === undefined) {
-                              book[x][y][z] = "";
-                            }
-                            obj[book[x][0][z]] = book[x][y][z];
-                          }
-                          book_obj.push(obj)
-                        }
-                      }
+                      book_obj = ngmClusterImportFile.setExcelValueToArrayofObject(book);
                       // map the header to the attribute name
                       for (var index = 0; index < book_obj.length; index++) {
                         obj_true = {};
@@ -1040,32 +980,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
                         var message_temp = '';
 
-                        for (var z = 0; z < $scope.messageFromfile.length; z++) {
-
-                          if ($scope.messageFromfile[z].length) {
-                            for (var y = 0; y < $scope.messageFromfile[z].length; y++) {
-
-                              var field = $scope.messageFromfile[z][y].property;
-                              var reason = $scope.messageFromfile[z][y].reason;
-                              var error_label = $scope.messageFromfile[z][y].label;
-                              if (error_label) {
-                                $(error_label).addClass('error');
-                              }
-                              if (field === 'location') {
-                                message_temp += 'For Incorrect Location please check admin1 Name, admin2 name, site type, site implementation, site name ! \n'
-                              } else if (field === 'stock_item_type' || field === 'cluster_id') {
-                                message_temp += 'For Incorrect Stock Type or Cluster \nPlease check spelling, or verify that this is a correct value for this report! \n'
-                              }
-                              else {
-                                message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
-                              }
-                              message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterValidation.fieldNameStock()[field] + ' : ' + reason + '\n';
-
-                            }
-                          }
-
-                        }
-
+                        message_temp = ngmClusterImportFile.setMessageFromFile($scope.messageFromfile, ngmClusterValidation.fieldNameStock(), 'stock', 'message-monthly-file-stock')
                         if (message_temp !== '') {
 
                           $scope.report.report.messageWarning = message_temp;
@@ -1168,7 +1083,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             $("#input_string").attr("disabled", true);
             $("#close_input_string").attr("disabled", true);
             $("#switch_btn_text").attr("disabled", true);
-            attribute_headers_obj = $scope.report.uploadFileReport.obj_header;
+            attribute_headers_obj = ngmClusterImportFile.listheaderAttributeInFile('stock');//$scope.report.uploadFileReport.obj_header;
             if ($scope.report.text_input) {
               csv_array = Papa.parse($scope.report.text_input).data;
               if (csv_array[0].indexOf('Stock Type') < 0) {
@@ -1189,21 +1104,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
               };
               var values = [];
               values_obj = [];
-              // get value and change to object
-              for (var y = 1; y < csv_array.length; y++) {
-                var obj = {}
-                for (var z = 0; z < csv_array[y].length; z++) {
-                  if (csv_array[0][z] === 'Beneficiary Coverage' ||
-                    csv_array[0][z] === 'No. in Pipeline' ||
-                    csv_array[0][z] === 'No. in Stock' ||
-                    csv_array[0][z] === 'Stock Year' ) {
-                    csv_array[y][z] = parseInt(csv_array[y][z]);
-                  }
-
-                  obj[csv_array[0][z]] = csv_array[y][z];
-                }
-                values_obj.push(obj)
-              }
+              values_obj = ngmClusterImportFile.setCsvValueToArrayofObject(csv_array);
               // map the header to the attribute name
               for (var index = 0; index < values_obj.length; index++) {
                 obj_true = {};
@@ -1266,31 +1167,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
               }
               // set warning if error exist
               var message_temp = '';
-              for (var z = 0; z < $scope.messageFromfile.length; z++) {
-                if ($scope.messageFromfile[z].length) {
-                  for (var y = 0; y < $scope.messageFromfile[z].length; y++) {
-
-                    var field = $scope.messageFromfile[z][y].property;
-                    var reason = $scope.messageFromfile[z][y].reason;
-                    var error_label = $scope.messageFromfile[z][y].label;
-                    if (error_label) {
-                      $(error_label).addClass('error');
-                    }
-                    if (field === 'location') {
-                      message_temp += 'For Incorrect Location please check admin1 Name, admin2 Name, site type, site implementation, site name ! \n'
-                    } else if (field === 'stock_item_type' || field === 'cluster_id') {
-                      message_temp += 'For Stock Type or Cluster \nPlease check spelling, or verify that this is a correct value for this report! \n'
-                    }
-                    else {
-                      message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
-                    }
-                    message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterValidation.fieldNameStock()[field] + ' : ' + reason + '\n';
-
-                  }
-                }
-
-              }
-
+              message_temp = ngmClusterImportFile.setMessageFromFile($scope.messageFromfile, ngmClusterValidation.fieldNameStock(), 'stock', 'message-monthly-file-stock')
               $timeout(function () {
                 document.querySelector("#ngm-input-string").style.display = 'block';
                 document.querySelector(".percent-upload").style.display = 'none';
@@ -1408,19 +1285,6 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           }
           
           return obj
-        },
-        copyToClipBoard: function () {
-          /* Get the text field */
-          var copyText = document.getElementById("ngm-missing-value-stock");
-
-          /* Select the text field */
-          copyText.select();
-          copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-          /* Copy the text inside the text field */
-          document.execCommand("copy");
-
-          M.toast({ html: 'Copy too Clipboard', displayLength: 1000, classes: 'note' });
         },
         switchInputFile: function () {
           $scope.inputString = !$scope.inputString;
