@@ -196,17 +196,17 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 								( $scope.panel.user && ( $scope.panel.user.admin0pcode && $scope.panel.user.admin0pcode === 'COL' ) ) ){
 
 						// new filter
-						var organizations = [];
+						// var organizations = [];
 
 						// filter CLUSTERS by country
 						$scope.panel.clusters.active = ngmClusterLists.getClusters('COL').filter( cluster=>cluster.registration!==false );
 
 						// filter ORGANIZATIONS by country
-						angular.forEach( $scope.panel.organizations_list, function( item ) {
-							if ( item.admin0pcode.indexOf('COL') !== -1 ) {
-								organizations.push(item);
-							}
-						});
+						// angular.forEach( $scope.panel.organizations_list, function( item ) {
+						// 	if ( item.admin0pcode.indexOf('COL') !== -1 ) {
+						// 		organizations.push(item);
+						// 	}
+						// });
 					}
 
 					// ALL
@@ -214,22 +214,34 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 								( $scope.panel.user && ( $scope.panel.user.admin0pcode && $scope.panel.user.admin0pcode !== 'COL' ) ) ){
 
 						// new filter
-						var organizations = [];
+						// var organizations = [];
 
 						// filter CLUSTERS by country
 						$scope.panel.clusters.active = ngmClusterLists.getClusters( country ).filter( cluster=>cluster.registration!==false );
 
 						// filter by country
-						angular.forEach( $scope.panel.organizations_list, function( item ) {
-							if (item.admin0pcode.indexOf('ALL') !== -1 || item.admin0pcode.indexOf('') !== -1) {
-								organizations.push(item);
-							}
-						});
+						// angular.forEach( $scope.panel.organizations_list, function( item ) {
+						// 	if (item.admin0pcode.indexOf('ALL') !== -1 || item.admin0pcode.indexOf('') !== -1) {
+						// 		organizations.push(item);
+						// 	}
+						// });
 					}
 
 					// set organizations
-					$scope.panel.organizations = organizations;
+					// $scope.panel.organizations = organizations;
 
+				},
+
+
+				orgByCountry:function(){
+					var country = $scope.panel && $scope.panel.user && $scope.panel.user.admin0pcode ? $scope.panel.user.admin0pcode : 'all'; 
+					
+					$scope.panel.organizations = $scope.panel.organizations.filter((x)=>{
+						if ((x.admin0pcode.indexOf(country) > -1) || (x.admin0pcode.indexOf('ALL') >-1 )){
+							return x
+						}
+
+					});
 				},
 
 
