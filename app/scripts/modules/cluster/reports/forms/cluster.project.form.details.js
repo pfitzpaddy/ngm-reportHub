@@ -229,7 +229,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				// for import from file
 				text_input: '',
 				messageWarning: '',
-				category_file: '',
 
 				// init lists
 				init: function() {
@@ -1087,10 +1086,17 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 				// Input From file
 				uploadFileReport: {
-					openModal: function (modal) {
+					openModal: function (modal,import_button) {
 						// $('#' + modal).openModal({ dismissible: false });
 						$('#' + modal).modal({ dismissible: false });
 						$('#' + modal).modal('open');
+						if(import_button === 'location'){
+							$scope.import_file_type = 'location'
+						}else if(import_button === 'beneficiary'){
+							$scope.import_file_type = 'beneficiary'
+						}else{
+							$scope.import_file_type = 'all';
+						}
 					},
 					closeModal: function (modal) {
 						drop_zone.removeAllFiles(true);
@@ -1123,241 +1129,376 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								
 								
 								
-								if (ext === 'csv') {
-								} else {
+								// if (ext === 'csv') {
+								// } else {
 									file = drop_zone.getAcceptedFiles()[0]
 									const wb = new ExcelJS.Workbook();
 									drop_zone.getAcceptedFiles()[0].arrayBuffer().then((data) => {
 										var result = []
-										wb.xlsx.load(data).then(workbook => {
-											const book = [];
-											const book_obj = [];
-											var project_detail=[];
-											var activity_types =[];
-											var target_beneficiaries =[]
-											var target_locations=[];
-											check_sheet = { 'Project Details': false, 'Activity Types': false, 'Target Beneficiaries': false, 'Target Locations':false};
-											var sheet_missing = 0;
-											var sheet_missing_msg =''
-											workbook.eachSheet((sheet, index) => {
+										var project_detail = [];
+										var activity_types = [];
+										var target_beneficiaries = []
+										var target_locations = [];
+										var count_error_project_detail = 0;
+											count_error_target_locations = 0;
+											count_error_target_beneficiaries = 0;
+										if($scope.import_file_type === 'all'){
+											wb.xlsx.load(data).then(workbook => {
+												const book = [];
+												const book_obj = [];
+												// var project_detail = [];
+												// var activity_types = [];
+												// var target_beneficiaries = []
+												// var target_locations = [];
+												check_sheet = { 'Project Details': false, 'Activity Types': false, 'Target Beneficiaries': false, 'Target Locations': false };
+												var sheet_missing = 0;
+												var sheet_missing_msg = ''
+												workbook.eachSheet((sheet, index) => {
 													const sh = [];
 													sheet.eachRow(row => {
 														sh.push(row.values);
 													});
-													if(sheet.name === 'Project Details'){
+													if (sheet.name === 'Project Details') {
 														book[0] = sh;
-														check_sheet['Project Details']= true;
+														check_sheet['Project Details'] = true;
 													};
-													if(sheet.name === 'Activity Types'){
+													if (sheet.name === 'Activity Types') {
 														book[1] = sh;
-														check_sheet['Activity Types']=true;
+														check_sheet['Activity Types'] = true;
 													};
-													if(sheet.name === 'Target Beneficiaries'){
+													if (sheet.name === 'Target Beneficiaries') {
 														book[2] = sh;
 														check_sheet['Target Beneficiaries'] = true;
 													};
-													if(sheet.name ==='Target Locations'){
-														book[3] = sh;
+													if (sheet.name === 'Target Locations') {
+														book[3] = sh
 														check_sheet['Target Locations'] = true;
 													};
 													// book.push(sh);
-											});
-											// check if all sheet all in there;
-											for(c in check_sheet){	 											
-												if(!check_sheet[c]){	
-													sheet_missing +=1
-													sheet_missing_msg += 'Sheet ' + c + ' Not Found \n'
+												});
+												// check if all sheet all in there;
+												for (c in check_sheet) {
+													if (!check_sheet[c]) {
+														sheet_missing += 1
+														sheet_missing_msg += 'Sheet ' + c + ' Not Found \n'
+													}
 												}
-											}
-											if (sheet_missing >0){
-												if(sheet_missing_msg !== ''){
-													sheet_missing_msg = 'Missing Sheet \n' + sheet_missing_msg + '\n' + 'Please do not forget to put required sheets!\n with extention xlsx as per template in project downloads \n( Project Details, Activity Types, Target Beneficiaries,Target Locations )';
-													$scope.project.messageWarning = sheet_missing_msg;
+												if (sheet_missing > 0) {
+													if (sheet_missing_msg !== '') {
+														sheet_missing_msg = 'Missing Sheet \n' + sheet_missing_msg + '\n' + 'Please do not forget to put required sheets!\n with extention xlsx as per template in project downloads \n( Project Details, Activity Types, Target Beneficiaries,Target Locations )';
+														$scope.project.messageWarning = sheet_missing_msg;
+													}
+													var previews = document.querySelectorAll(".dz-preview");
+													previews.forEach(function (preview) {
+														preview.style.display = 'none';
+													})
+													document.querySelector(".dz-default.dz-message").style.display = 'none';
+													document.querySelector(".percent-upload").style.display = 'block';
+													$timeout(function () {
+														document.querySelector(".percent-upload").style.display = 'none';
+														$('#upload-monthly-file-project').modal('close');
+														drop_zone.removeAllFiles(true);
+
+														$('#message-file-project').modal({ dismissible: false });
+														$('#message-file-project').modal('open');
+													}, 2000)
+
+													return;
 												}
-												var previews = document.querySelectorAll(".dz-preview");
-												previews.forEach(function (preview) {
-													preview.style.display = 'none';
-												})
-												document.querySelector(".dz-default.dz-message").style.display = 'none';
-												document.querySelector(".percent-upload").style.display = 'block';
-												$timeout(function () {
-													document.querySelector(".percent-upload").style.display = 'none';
-													$('#upload-monthly-file-project').modal('close');
-													drop_zone.removeAllFiles(true);
-
-													$('#message-file-project').modal({ dismissible: false });
-													$('#message-file-project').modal('open');
-												},2000)
-
-												return;
-											}
 
 
-											for (var x = 0; x < book.length; x++) {
-												
-												header = {};
-												if(x === 0){
-													header = ngmClusterImportFile.listheaderAttributeInFile('detail');//$scope.project.uploadFileReport.obj_header_detail_new;
+												for (var x = 0; x < book.length; x++) {
+
+													header = {};
+													if (x === 0) {
+														header = ngmClusterImportFile.listheaderAttributeInFile('detail');//$scope.project.uploadFileReport.obj_header_detail_new;
+													}
+													if (x === 1) {
+														header = ngmClusterImportFile.listheaderAttributeInFile('activity_type');//$scope.project.uploadFileReport.obj_header_activity_type;
+													}
+													if (x === 2) {
+														header = ngmClusterImportFile.listheaderAttributeInFile('target_beneficiary');//$scope.project.uploadFileReport.obj_header_beneficiary;
+													}
+													if (x === 3) {
+														header = ngmClusterImportFile.listheaderAttributeInFile('target_location');//$scope.project.uploadFileReport.obj_header_location;
+													}
+													// book[x] = transform_to_obj(book[x],header);
+													book[x] = ngmClusterImportFile.transform_to_obj(book[x], header);
+
 												}
-												if(x === 1){
-													header = ngmClusterImportFile.listheaderAttributeInFile('activity_type');//$scope.project.uploadFileReport.obj_header_activity_type;
-												}
-												if (x === 2) {
-													header = ngmClusterImportFile.listheaderAttributeInFile('target_beneficiary');//$scope.project.uploadFileReport.obj_header_beneficiary;
-												}
-												if (x === 3) {
-													header = ngmClusterImportFile.listheaderAttributeInFile('target_location');//$scope.project.uploadFileReport.obj_header_location;
-												}
-												// book[x] = transform_to_obj(book[x],header);
-												book[x] =ngmClusterImportFile.transform_to_obj(book[x], header);
 
-											}
-											
 
-											// ######## Separete into Project Detail, Target beneficiaries and Target Location
-											// project detail
-											project_detail = book[0];
-											project_detail[0]['activity_type'] = book[1];
-											project_detail[0] =$scope.project.addMissingAttributeProjectDetailFromFile(project_detail[0]);
-											project_detail[0] = angular.merge({}, $scope.project.definition, project_detail[0]);
-											var count_error_project_detail = 0;
+												// ######## Separete into Project Detail, Target beneficiaries and Target Location
+												// project detail
+												project_detail = book[0];
+												project_detail[0]['activity_type'] = book[1];
+												project_detail[0] = $scope.project.addMissingAttributeProjectDetailFromFile(project_detail[0]);
+												project_detail[0] = angular.merge({}, $scope.project.definition, project_detail[0]);
+												// var count_error_project_detail = 0;
 
-											if ($scope.messageFromfile.project_detail_message && !$scope.messageFromfile.project_detail_message[0]) { $scope.messageFromfile.project_detail_message[0]=[]}
-											
-											$scope.messageFromfile.project_detail_message[0] = ngmClusterValidation.validatiOnprojectDetailsFromFile(project_detail[0]);
-											if ((typeof project_detail[0].activity_type_check !== 'undefined') && (project_detail[0].activity_type.length > 0) && (project_detail[0].project_donor_check) && (project_detail[0].project_donor.length >0 )  )
-											{
-												delete project_detail[0].id;
-												delete project_detail[0].url;
-												$scope.project.definition = project_detail[0];
-											} else {
-												count_error_project_detail +=1;
-											}
-											// target beneficiaries
-											var count_error_target_beneficiaries = 0;
-											if(book[2].length){
-												angular.forEach(book[2],function(t_b){
-													target_beneficiaries.push($scope.project.addMissingTargetbeneficiaryFromFile(t_b));
-												})
-												for (var b = 0; b < target_beneficiaries.length; b++) {
-													if ((!target_beneficiaries[b].cluster_id) || (!target_beneficiaries[b].activity_type_id) || (!target_beneficiaries[b].activity_description_id)) {
-														if(!target_beneficiaries[b].cluster_id){
-															obj = { label: false, property: 'cluster_id', reason: 'Missing value' }
-														}
-														if(!target_beneficiaries[b].activity_type_id){
-															var obj = { label: false, property: 'activity_type_id', reason: 'missing value' };
-															if (target_beneficiaries[b].activity_type_name) {
-																obj.reason = 'not in the list'
+												if ($scope.messageFromfile.project_detail_message && !$scope.messageFromfile.project_detail_message[0]) { $scope.messageFromfile.project_detail_message[0] = [] }
+
+												$scope.messageFromfile.project_detail_message[0] = ngmClusterValidation.validatiOnprojectDetailsFromFile(project_detail[0]);
+												if ((typeof project_detail[0].activity_type_check !== 'undefined') && (project_detail[0].activity_type.length > 0) && (project_detail[0].project_donor_check) && (project_detail[0].project_donor.length > 0)) {
+													delete project_detail[0].id;
+													delete project_detail[0].url;
+													$scope.project.definition = project_detail[0];
+												} else {
+													count_error_project_detail += 1;
+												}
+												// target beneficiaries
+												if (book[2].length) {
+													angular.forEach(book[2], function (t_b) {
+														target_beneficiaries.push($scope.project.addMissingTargetbeneficiaryFromFile(t_b));
+													})
+													for (var b = 0; b < target_beneficiaries.length; b++) {
+														if ((!target_beneficiaries[b].cluster_id) || (!target_beneficiaries[b].activity_type_id) || (!target_beneficiaries[b].activity_description_id)) {
+															if (!$scope.messageFromfile.target_beneficiaries_message[b]) { $scope.messageFromfile.target_beneficiaries_message[b] = [] }
+															if (!target_beneficiaries[b].cluster_id) {
+																obj = { label: false, property: 'cluster_id', reason: 'Missing value' }
+																$scope.messageFromfile.target_beneficiaries_message[b].push(obj);
 															}
-														}
-														if(!target_beneficiaries[b].activity_description_id){
-															var obj = { label: false, property: 'activity_description_id', reason: 'missing value' };
-															if (target_beneficiaries[b].activity_description_name) {
-																obj.reason = 'not in the list'
+															if (!target_beneficiaries[b].activity_type_id) {
+																var obj = { label: false, property: 'activity_type_id', reason: 'missing value' };
+																if (target_beneficiaries[b].activity_type_name) {
+																	obj.reason = 'not in the list'
+																}
+																$scope.messageFromfile.target_beneficiaries_message[b].push(obj);
 															}
-														}
-														count_error_target_beneficiaries +=1
-													}else{
-														$scope.project.addBeneficiaryFromFile(target_beneficiaries[b],b)
-													}
-												}
-												
-											};
-											count_error_target_locations=0;
-											if (book[3].length){
-												angular.forEach(book[3], function (t_l) {
-													target_locations.push($scope.project.addMissingTargetlocationsFormFile(t_l))
-												})
-
-												for(var i=0;i<target_locations.length;i++){
-													
-													if((!target_locations[i].admin1name) || (!target_locations[i].admin1pcode)||
-													(!target_locations[i].admin2name) || (!target_locations[i].admin2pcode )){
-														if (!$scope.messageFromfile.target_locations_message[i]){$scope.messageFromfile.target_locations_message[i] = []}
-														if (!target_locations[i].admin1pcode) {
-															obj = { label: false, property: 'admin1pcode', reason: 'missing value' }
-															$scope.messageFromfile.target_locations_message[i].push(obj);
-														}
-														if (!target_locations[i].admin1name){
-															obj = { label: false, property: 'admin1name', reason: 'missing value' }
-															$scope.messageFromfile.target_locations_message[i].push(obj);
-														}
-														if (!target_locations[i].admin2pcode) {
-															obj = { label: false, property: 'admin2pcode', reason: 'missing value' }
-															$scope.messageFromfile.target_locations_message[i].push(obj);
-														}
-														if (!target_locations[i].admin2name) {
-															obj = { label: false, property: 'admin2name', reason: 'missing value' }
-															$scope.messageFromfile.target_locations_message[i].push(obj);
-														}
-
-														count_error_target_locations +=1
-
-													}else{
-														$scope.project.addLocationFormFile(target_locations[i],i)
-													}
-												}
-											}
-
-											var previews = document.querySelectorAll(".dz-preview");
-											previews.forEach(function (preview) {
-												preview.style.display = 'none';
-											})
-											document.querySelector(".dz-default.dz-message").style.display = 'none';
-											document.querySelector(".percent-upload").style.display = 'block';
-											$timeout(function () {
-												document.querySelector(".percent-upload").style.display = 'none';
-												$('#upload-monthly-file-project').modal('close');
-												drop_zone.removeAllFiles(true);
-
-
-												$scope.project.setMessageForImportFile($scope.messageFromfile, ngmClusterValidation.fieldProject())
-												
-												if ((count_error_project_detail > 0) || (count_error_target_beneficiaries > 0) || (count_error_target_locations>0)){
-													if (count_error_project_detail > 0){
-														M.toast({ html: 'Import Project Detail Fail!', displayLength: 4000, classes: 'error' });
-													}
-													if(count_error_target_beneficiaries >0){
-														if (count_error_target_beneficiaries === target_beneficiaries.length){
-															M.toast({ html: 'Import Target Beneficiaries Fail!', displayLength: 4000, classes: 'error' });
-														}else{
-															M.toast({ html: 'Some Row Target Beneficiaries Succeccfully added !', displayLength: 4000, classes: 'success' });
-														}
-													} 
-													
-													if (count_error_target_locations > 0){
-														if (count_error_target_locations === target_locations.length) {
-															M.toast({ html: 'Import Target Location Fail!', displayLength: 4000, classes: 'error' });
+															if (!target_beneficiaries[b].activity_description_id) {
+																var obj = { label: false, property: 'activity_description_id', reason: 'missing value' };
+																if (target_beneficiaries[b].activity_description_name) {
+																	obj.reason = 'not in the list'
+																}
+																$scope.messageFromfile.target_beneficiaries_message[b].push(obj);
+															}
+															count_error_target_beneficiaries += 1
 														} else {
-															M.toast({ html: 'Some Row Target Location Succeccfully added !', displayLength: 4000, classes: 'success' });
+															$scope.project.addBeneficiaryFromFile(target_beneficiaries[b], b)
+														}
+													}
+
+												};
+												// target_locations
+												if (book[3].length) {
+													angular.forEach(book[3], function (t_l) {
+														target_locations.push($scope.project.addMissingTargetlocationsFormFile(t_l))
+													})
+
+													for (var i = 0; i < target_locations.length; i++) {
+
+														if ((!target_locations[i].admin1name) || (!target_locations[i].admin1pcode) ||
+															(!target_locations[i].admin2name) || (!target_locations[i].admin2pcode)) {
+															if (!$scope.messageFromfile.target_locations_message[i]) { $scope.messageFromfile.target_locations_message[i] = [] }
+															if (!target_locations[i].admin1pcode) {
+																obj = { label: false, property: 'admin1pcode', reason: 'missing value' }
+																$scope.messageFromfile.target_locations_message[i].push(obj);
+															}
+															if (!target_locations[i].admin1name) {
+																obj = { label: false, property: 'admin1name', reason: 'missing value' }
+																$scope.messageFromfile.target_locations_message[i].push(obj);
+															}
+															if (!target_locations[i].admin2pcode) {
+																obj = { label: false, property: 'admin2pcode', reason: 'missing value' }
+																$scope.messageFromfile.target_locations_message[i].push(obj);
+															}
+															if (!target_locations[i].admin2name) {
+																obj = { label: false, property: 'admin2name', reason: 'missing value' }
+																$scope.messageFromfile.target_locations_message[i].push(obj);
+															}
+
+															count_error_target_locations += 1
+
+														} else {
+															$scope.project.addLocationFormFile(target_locations[i], i)
 														}
 													}
 												}
-												if ((count_error_project_detail < 1) || (count_error_target_beneficiaries < 1) || (count_error_target_locations < 1)){
-													if (count_error_project_detail < 1){
-														M.toast({ html: 'Import Project Detail Success!', displayLength: 4000, classes: 'success' });
-													}
-													if (count_error_target_beneficiaries < 1) { 
-														if (target_beneficiaries.length) {
-															M.toast({ html: 'Import Target Beneficiaries Success!', displayLength: 4000, classes: 'success' });
-														}
-													}
-													if (count_error_target_locations < 1) {
-														if (target_locations.length) {
-															M.toast({ html: 'Import Target Location Success!', displayLength: 4000, classes: 'success' });
-														}
-													 }
-												} 
-												// reset error message
-												$scope.messageFromfile = { project_detail_message: [], target_beneficiaries_message: [], target_locations_message: [] };
-												$("#upload_file").attr("disabled", true);
-												$("#delete_file").attr("disabled", true);
-												$("#switch_btn_file").attr("disabled", false);
-											}, 2000)
 
+											})
+										} else if ($scope.import_file_type === 'location'){
+											var location=[];
+											wb.xlsx.load(data).then(workbook => {
+												var temp_location = [];
+												workbook.eachSheet((sheet, index) => {
+													// get only the first sheet
+													// if (index === 1) {
+														const sh = [];
+														sheet.eachRow(row => {
+															sh.push(row.values);
+														});
+														if (index === 1) {
+															temp_location.push(sh);
+														}
+														// if user input excel file that contain sheet name Target Locations 
+														// it will be overwrite
+														if (sheet.name === 'Target Locations') {
+															temp_location[0] = sh;
+														};
+													// }
+												});
+												
+												var header = ngmClusterImportFile.listheaderAttributeInFile('target_location');
+												location = ngmClusterImportFile.transform_to_obj(temp_location[0], header);
+												if (location.length) {
+													angular.forEach(location, function (t_l) {
+														target_locations.push($scope.project.addMissingTargetlocationsFormFile(t_l))
+													})
+													
+													for (var i = 0; i < target_locations.length; i++) {
+
+														if ((!target_locations[i].admin1name) || (!target_locations[i].admin1pcode) ||
+															(!target_locations[i].admin2name) || (!target_locations[i].admin2pcode)) {
+															if (!$scope.messageFromfile.target_locations_message[i]) { $scope.messageFromfile.target_locations_message[i] = [] }
+															if (!target_locations[i].admin1pcode) {
+																obj = { label: false, property: 'admin1pcode', reason: 'missing value' }
+																$scope.messageFromfile.target_locations_message[i].push(obj);
+															}
+															if (!target_locations[i].admin1name) {
+																obj = { label: false, property: 'admin1name', reason: 'missing value' }
+																$scope.messageFromfile.target_locations_message[i].push(obj);
+															}
+															if (!target_locations[i].admin2pcode) {
+																obj = { label: false, property: 'admin2pcode', reason: 'missing value' }
+																$scope.messageFromfile.target_locations_message[i].push(obj);
+															}
+															if (!target_locations[i].admin2name) {
+																obj = { label: false, property: 'admin2name', reason: 'missing value' }
+																$scope.messageFromfile.target_locations_message[i].push(obj);
+															}
+
+															count_error_target_locations += 1
+
+														} else {
+															$scope.project.addLocationFormFile(target_locations[i], i)
+														}
+													}
+												}
+												
+											})
+										}else{
+
+											var beneficiaries = [];
+											wb.xlsx.load(data).then(workbook => {
+												var temp_beneficiaries = [];
+												workbook.eachSheet((sheet, index) => {
+													// get only the first sheet
+													// if (index === 1) {
+														const sh = [];
+														sheet.eachRow(row => {
+															sh.push(row.values);
+														});
+														if (index === 1) {
+															temp_beneficiaries.push(sh);
+														}
+
+														// if user input excel file that contain sheet name Target Locations 
+														// it will be overwrite
+														if (sheet.name === 'Target Beneficiaries') {
+															temp_beneficiaries[0] = sh;
+														};
+													// }
+												});
+
+												var header = ngmClusterImportFile.listheaderAttributeInFile('target_beneficiary');
+												beneficiaries = ngmClusterImportFile.transform_to_obj(temp_beneficiaries[0], header);
+
+												if (beneficiaries.length) {
+													angular.forEach(beneficiaries, function (t_l) {
+														target_beneficiaries.push($scope.project.addMissingTargetbeneficiaryFromFile(t_l))
+													})
+													
+													for (var b = 0; b < target_beneficiaries.length; b++) {
+														
+														if ((!target_beneficiaries[b].cluster_id) || (!target_beneficiaries[b].activity_type_id) || (!target_beneficiaries[b].activity_description_id)) {
+															if (!$scope.messageFromfile.target_beneficiaries_message[b]) { $scope.messageFromfile.target_beneficiaries_message[b] = [] }
+															if (!target_beneficiaries[b].cluster_id) {
+																obj = { label: false, property: 'cluster_id', reason: 'Missing value' }
+																$scope.messageFromfile.target_beneficiaries_message[b].push(obj);
+															}
+															if (!target_beneficiaries[b].activity_type_id) {
+																var obj = { label: false, property: 'activity_type_id', reason: 'missing value' };
+																if (target_beneficiaries[b].activity_type_name) {
+																	obj.reason = 'not in the list'
+																}
+																$scope.messageFromfile.target_beneficiaries_message[b].push(obj);
+															}
+															if (!target_beneficiaries[b].activity_description_id) {
+																var obj = { label: false, property: 'activity_description_id', reason: 'missing value' };
+																if (target_beneficiaries[b].activity_description_name) {
+																	obj.reason = 'not in the list'
+																}
+																$scope.messageFromfile.target_beneficiaries_message[b].push(obj);
+															}
+															count_error_target_beneficiaries += 1
+														} else {
+															$scope.project.addBeneficiaryFromFile(target_beneficiaries[b], b)
+														}
+													}
+												}
+
+
+											})
+
+										}
+										var previews = document.querySelectorAll(".dz-preview");
+										previews.forEach(function (preview) {
+											preview.style.display = 'none';
 										})
+										document.querySelector(".dz-default.dz-message").style.display = 'none';
+										document.querySelector(".percent-upload").style.display = 'block';
+										$timeout(function () {
+											document.querySelector(".percent-upload").style.display = 'none';
+											$('#upload-monthly-file-project').modal('close');
+											drop_zone.removeAllFiles(true);
+
+
+											$scope.project.setMessageForImportFile($scope.messageFromfile, ngmClusterValidation.fieldProject())
+
+											if ((count_error_project_detail > 0) || (count_error_target_beneficiaries > 0) || (count_error_target_locations > 0)) {
+												if (count_error_project_detail > 0) {
+													M.toast({ html: 'Import Project Detail Fail!', displayLength: 4000, classes: 'error' });
+												}
+												if (count_error_target_beneficiaries > 0) {
+													if (count_error_target_beneficiaries === target_beneficiaries.length) {
+														M.toast({ html: 'Import Target Beneficiaries Fail!', displayLength: 4000, classes: 'error' });
+													} else {
+														M.toast({ html: 'Some Row Target Beneficiaries Succeccfully added !', displayLength: 4000, classes: 'success' });
+													}
+												}
+
+												if (count_error_target_locations > 0) {
+													if (count_error_target_locations === target_locations.length) {
+														M.toast({ html: 'Import Target Location Fail!', displayLength: 4000, classes: 'error' });
+													} else {
+														M.toast({ html: 'Some Row Target Location Succeccfully added !', displayLength: 4000, classes: 'success' });
+													}
+												}
+											}
+											if ((count_error_project_detail < 1) || (count_error_target_beneficiaries < 1) || (count_error_target_locations < 1)) {
+												if (count_error_project_detail < 1 && ($scope.import_file_type === 'all')) {
+													M.toast({ html: 'Import Project Detail Success!', displayLength: 4000, classes: 'success' });
+												}
+												if (count_error_target_beneficiaries < 1 && ($scope.import_file_type === 'all' || $scope.import_file_type === 'beneficiary')) {
+													if (target_beneficiaries.length) {
+														M.toast({ html: 'Import Target Beneficiaries Success!', displayLength: 4000, classes: 'success' });
+													}
+												}
+												if (count_error_target_locations < 1 && ($scope.import_file_type === 'all' || $scope.import_file_type === 'location')) {
+													if (target_locations.length) {
+														M.toast({ html: 'Import Target Location Success!', displayLength: 4000, classes: 'success' });
+													}
+												}
+											}
+											// reset error message
+											$scope.messageFromfile = { project_detail_message: [], target_beneficiaries_message: [], target_locations_message: [] };
+											$("#upload_file").attr("disabled", true);
+											$("#delete_file").attr("disabled", true);
+											$("#switch_btn_file").attr("disabled", false);
+										}, 2000)
+										
 									})
-								}
+								// }
 							});
 
 							document.getElementById('delete_file').addEventListener("click", function () {
@@ -1385,7 +1526,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 									$("#delete_file").attr("disabled", true);
 
 									document.querySelector(".dz-default.dz-message").style.display = 'block';
-									$('.dz-default.dz-message').html(`<i class="medium material-icons" style="color:#009688;">publish</i> <br/>` + $filter('translate')('drag_files_here_or_click_button_to_upload') + ' <br/> Please upload file with extention .csv or xlxs !');
+									$('.dz-default.dz-message').html(`<i class="medium material-icons" style="color:#009688;">publish</i> <br/>` + $filter('translate')('drag_files_here_or_click_button_to_upload') + ' <br/> Please do not forget to put required sheets! <br/>with extention xlsx as per template in project downloads');
 								}
 
 								if ((drop_zone.files.length < 2) && (drop_zone.files.length > 0)) {
@@ -1419,6 +1560,195 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						},
 
 					},
+					uploadText: function () {
+
+						document.querySelector("#ngm-input-string").style.display = 'none';
+						document.querySelector(".percent-upload").style.display = 'block';
+						$("#input_string").attr("disabled", true);
+						$("#close_input_string").attr("disabled", true);
+						$("#switch_btn_text").attr("disabled", true);
+						var attribute_headers_obj = ngmClusterImportFile.listheaderAttributeInFile('monthly_report');
+						if ($scope.project.text_input) {
+							csv_array = Papa.parse($scope.project.text_input).data;
+							var header_must_exist ='';
+							if ($scope.import_file_type === 'location'){
+								 header_must_exist = 'Admin1 Pcode';
+								header = ngmClusterImportFile.listheaderAttributeInFile('target_location')
+							}
+							if ($scope.import_file_type === 'beneficiary') {
+								header_must_exist = 'Activity Type';
+								header = ngmClusterImportFile.listheaderAttributeInFile('target_beneficiary')
+							}
+
+							if (csv_array[0].indexOf(header_must_exist) < 0) {
+
+								$timeout(function () {
+									$scope.project.messageWarning = 'Incorect Input! \n' + 'Header is Not Found';
+									$('#upload-monthly-file-project').modal('close');
+									document.querySelector("#ngm-input-string").style.display = 'block';
+									document.querySelector(".percent-upload").style.display = 'none';
+									$('#message-file-project').modal({ dismissible: false });
+									$('#message-file-project').modal('open');
+									$scope.project.text_input = '';
+									document.querySelector("#input-string-area").style.display = 'block';
+									$scope.inputString = false;
+								}, 1000)
+								return
+							};
+
+							
+							var values = [];
+							values_obj = [];
+							var target_locations=[];
+							 	target_beneficiaries=[];
+								count_error_target_locations=0;
+								count_error_target_beneficiaries=0
+							// get value and change to object
+							values_obj = ngmClusterImportFile.setCsvValueToArrayofObject(csv_array);
+							 // map the header to the attribute name
+							for (var index = 0; index < values_obj.length; index++) {
+								obj_true = {};
+								angular.forEach(values_obj[index], function (value, key) {
+
+									atribute_name =header[key];
+									obj_true[atribute_name] = value;
+
+								})
+								values.push(obj_true);
+							}
+
+							if(values.length){
+								if ($scope.import_file_type === 'location') {
+									angular.forEach(values, function (t_l) {
+										target_locations.push($scope.project.addMissingTargetlocationsFormFile(t_l))
+									});
+
+									for (var i = 0; i < target_locations.length; i++) {
+
+										if ((!target_locations[i].admin1name) || (!target_locations[i].admin1pcode) ||
+											(!target_locations[i].admin2name) || (!target_locations[i].admin2pcode)) {
+											if (!$scope.messageFromfile.target_locations_message[i]) { $scope.messageFromfile.target_locations_message[i] = [] }
+											if (!target_locations[i].admin1pcode) {
+												obj = { label: false, property: 'admin1pcode', reason: 'missing value' }
+												$scope.messageFromfile.target_locations_message[i].push(obj);
+											}
+											if (!target_locations[i].admin1name) {
+												obj = { label: false, property: 'admin1name', reason: 'missing value' }
+												$scope.messageFromfile.target_locations_message[i].push(obj);
+											}
+											if (!target_locations[i].admin2pcode) {
+												obj = { label: false, property: 'admin2pcode', reason: 'missing value' }
+												$scope.messageFromfile.target_locations_message[i].push(obj);
+											}
+											if (!target_locations[i].admin2name) {
+												obj = { label: false, property: 'admin2name', reason: 'missing value' }
+												$scope.messageFromfile.target_locations_message[i].push(obj);
+											}
+
+											count_error_target_locations += 1
+
+										} else {
+											$scope.project.addLocationFormFile(target_locations[i], i)
+										}
+									}
+								}
+								if ($scope.import_file_type === 'beneficiary'){
+									angular.forEach(values, function (t_l) {
+										target_beneficiaries.push($scope.project.addMissingTargetbeneficiaryFromFile(t_l))
+									})
+
+									for (var b = 0; b < target_beneficiaries.length; b++) {
+
+										if ((!target_beneficiaries[b].cluster_id) || (!target_beneficiaries[b].activity_type_id) || (!target_beneficiaries[b].activity_description_id)) {
+											if (!$scope.messageFromfile.target_beneficiaries_message[b]) { $scope.messageFromfile.target_beneficiaries_message[b] = [] }
+											if (!target_beneficiaries[b].cluster_id) {
+												obj = { label: false, property: 'cluster_id', reason: 'Missing value' }
+												$scope.messageFromfile.target_beneficiaries_message[b].push(obj);
+											}
+											if (!target_beneficiaries[b].activity_type_id) {
+												var obj = { label: false, property: 'activity_type_id', reason: 'missing value' };
+												if (target_beneficiaries[b].activity_type_name) {
+													obj.reason = 'not in the list'
+												}
+												$scope.messageFromfile.target_beneficiaries_message[b].push(obj);
+											}
+											if (!target_beneficiaries[b].activity_description_id) {
+												var obj = { label: false, property: 'activity_description_id', reason: 'missing value' };
+												if (target_beneficiaries[b].activity_description_name) {
+													obj.reason = 'not in the list'
+												}
+												$scope.messageFromfile.target_beneficiaries_message[b].push(obj);
+											}
+											count_error_target_beneficiaries += 1
+										} else {
+											$scope.project.addBeneficiaryFromFile(target_beneficiaries[b], b)
+										}
+									}
+								}
+
+								
+							}
+
+							$scope.project.setMessageForImportFile($scope.messageFromfile, ngmClusterValidation.fieldProject())
+							$timeout(function () {
+								document.querySelector("#ngm-input-string").style.display = 'block';
+								document.querySelector(".percent-upload").style.display = 'none';
+								$('#upload-monthly-file-project').modal('close');
+								$scope.project.text_input = '';
+
+								if ( (count_error_target_beneficiaries > 0) || (count_error_target_locations > 0)) {
+									if (count_error_target_beneficiaries > 0) {
+										if (count_error_target_beneficiaries === target_beneficiaries.length) {
+											M.toast({ html: 'Import Target Beneficiaries Fail!', displayLength: 4000, classes: 'error' });
+										} else {
+											M.toast({ html: 'Some Row Target Beneficiaries Succeccfully added !', displayLength: 4000, classes: 'success' });
+										}
+									}
+
+									if (count_error_target_locations > 0) {
+										if (count_error_target_locations === target_locations.length) {
+											M.toast({ html: 'Import Target Location Fail!', displayLength: 4000, classes: 'error' });
+										} else {
+											M.toast({ html: 'Some Row Target Location Succeccfully added !', displayLength: 4000, classes: 'success' });
+										}
+									}
+								}
+								if ((count_error_target_beneficiaries < 1) || (count_error_target_locations < 1)) {
+									if (count_error_target_beneficiaries < 1 && ($scope.import_file_type === 'beneficiary')) {
+										if (target_beneficiaries.length) {
+											M.toast({ html: 'Import Target Beneficiaries Success!', displayLength: 4000, classes: 'success' });
+										}
+									}
+									if (count_error_target_locations < 1 && ( $scope.import_file_type === 'location')) {
+										if (target_locations.length) {
+											M.toast({ html: 'Import Target Location Success!', displayLength: 4000, classes: 'success' });
+										}
+									}
+								}
+								// reset error message
+								$scope.messageFromfile = { project_detail_message: [], target_beneficiaries_message: [], target_locations_message: [] };
+								document.querySelector("#input-string-area").style.display = 'block';
+								$scope.inputString = false;
+							}, 2000)
+
+							
+
+
+
+						} else {
+							$timeout(function () {
+								document.querySelector("#ngm-input-string").style.display = 'block';
+								document.querySelector(".percent-upload").style.display = 'none';
+								$("#close_input_string").attr("disabled", false);
+								$("#input_string").attr("disabled", false);
+								$("#switch_btn_text").attr("disabled", false);
+								M.toast({ html: 'Please Type something!', displayLength: 2000, classes: 'success' });
+							}, 2000)
+
+						}
+						// reset error message
+						$scope.messageFromfile = [];
+					}
 				},
 				addMissingAttributeFromFile: function (obj) {
 					if(obj.cluster){
@@ -1774,10 +2104,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					$scope.inputString = !$scope.inputString;
 					$scope.project.messageWarning = '';
 				},
-				// set type upload
-				setCategoryFile:function(type){
-					$scope.project.category_file = type;	
-				},
 				setMessageForImportFile:function(messageList,list_field){
 					var message_temp = ''
 					for(x in messageList){
@@ -1818,6 +2144,21 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								}
 
 							}
+							
+							$timeout(function () {
+								for (x in messageList) {
+									for (var y = 0; y < messageList[x].length; y++) {
+										if (messageList[x][y].length) {
+											for (var z = 0; z < messageList[x][y].length; z++) {
+												var error_label = messageList[x][y][z].label;
+												if (error_label) {
+													$(error_label).addClass('error');
+												}
+											}
+										}
+									}
+								}
+							}, 10)
 							
 						}
 					}
