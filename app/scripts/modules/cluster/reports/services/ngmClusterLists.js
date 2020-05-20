@@ -7685,6 +7685,16 @@ angular.module( 'ngmReportHub' )
             beneficiary_category_name: 'Disabled'
           }];
         }
+
+        if( admin0pcode == 'NG' ){
+          beneficiary_categories = [{
+            beneficiary_category_id: 'general',
+            beneficiary_category_name: 'General'
+          },{
+            beneficiary_category_id: 'disabled',
+            beneficiary_category_name: 'Disabled'
+          }];
+        }
         return beneficiary_categories;
 
       },
