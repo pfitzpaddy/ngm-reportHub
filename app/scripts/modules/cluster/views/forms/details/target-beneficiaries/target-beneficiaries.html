@@ -35,6 +35,10 @@
 						<h5 class="report-work-title white-text">
 							<i class="material-icons left">group</i>{{ 'target_population' | translate }}
 						</h5>
+						<button ng-if="project.definition.admin0pcode === 'AF' && project.definition.project_status !== 'complete'" class="right waves-effect waves-light btn file-report-btn"
+							ng-click="project.uploadFileReport.openModal('upload-monthly-file-project','beneficiary')" ng-class="{'add_space': project.definition.target_beneficiaries.length > 4, 'add_long':search_input=== true || project.filter}">
+							<i class="material-icons mirror left">publish</i>Import Beneficiaries
+						</button>
 					</div>
 					<div class="col s3 m5 l4 right" ng-if="project.definition.target_beneficiaries.length > 4">
 						<nav class="nav-list-search right" ng-class="{'focused':search_input=== true || project.filter }">
