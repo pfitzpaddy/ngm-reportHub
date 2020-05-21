@@ -1091,11 +1091,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$('#' + modal).modal({ dismissible: false });
 						$('#' + modal).modal('open');
 						if(import_button === 'location'){
-							$scope.import_file_type = 'location'
+							$scope.import_file_type = 'location';
+							$('.dz-default.dz-message').html(`<i class="medium material-icons" style="color:#009688;">publish</i> <br/>` + $filter('translate')('drag_files_here_or_click_button_to_upload') + ' <br/>  Please upload file with extention .csv or xlsx!  <br/> Use template and lists as per downloads <br/> For Target Location');
 						}else if(import_button === 'beneficiary'){
-							$scope.import_file_type = 'beneficiary'
+							$scope.import_file_type = 'beneficiary';
+							$('.dz-default.dz-message').html(`<i class="medium material-icons" style="color:#009688;">publish</i> <br/>` + $filter('translate')('drag_files_here_or_click_button_to_upload') + ' <br/> Please upload file with extention .csv or xlsx! <br/> Use template and lists as per downloads <br/> For Target Beneficiaries');
 						}else{
 							$scope.import_file_type = 'all';
+							$('.dz-default.dz-message').html($scope.project.uploadFileReport.uploadFileConfig.dictDefaultMessage)
 						}
 					},
 					closeModal: function (modal) {
@@ -1105,10 +1108,32 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					uploadFileConfig: {
 						previewTemplate: ngmClusterImportFile.templatePreview(),
 						completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">' + $filter('translate')('complete') + '</h5><br/><h5 style="font-weight:100;"><div id="add_doc" class="btn"><i class="small material-icons">add_circle</i></div></h5></div>',
-						acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+						acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv',
 						maxFiles: 1,
 						parallelUploads: 1,
 						url: ngmAuth.LOCATION + '/api/uploadGDrive',
+						accept: function (file, done) {
+							var ext = file.name.split('.').pop();
+							if ( $scope.import_file_type === 'all'
+								&& ext === 'csv'
+							) {
+								this.removeFile(file);
+								if (this.getQueuedFiles().length > 0) {
+									document.querySelector(".dz-default.dz-message").style.display = 'block';
+									$timeout(function () {
+										document.querySelector(".dz-default.dz-message").style.display = 'none';
+									}, 2000)
+								}
+								$('.dz-default.dz-message').html($scope.project.uploadFileReport.uploadFileConfig.notSupportedFile + '<br/> Import Project, Accept only file with extention .xlsx');
+								M.toast({ html: 'Import Project, Accept only file with extention .xlsx', displayLength: 4000, classes: 'error' });
+								$timeout(function () {
+									$('.dz-default.dz-message').html($scope.project.uploadFileReport.uploadFileConfig.dictDefaultMessage);
+									M.toast({ html: 'Please try upload your file again with extention .xlsx', displayLength: 4000, classes: 'note' });
+								}, 3000)
+							} else {
+								done();
+							}
+						},
 						dictDefaultMessage:
 							`<i class="medium material-icons" style="color:#009688;">publish</i> <br/>` + $filter('translate')('drag_files_here_or_click_button_to_upload') + ' <br/> Please do not forget to put required sheets! <br/>with extention xlsx as per template in project downloads',
 						notSupportedFile: `<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>` + $filter('translate')('not_supported_file_type') + ' ',
@@ -1129,8 +1154,171 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								
 								
 								
-								// if (ext === 'csv') {
-								// } else {
+								if (ext === 'csv') {
+									var file = drop_zone.getAcceptedFiles()[0],
+										read = new FileReader();
+
+									read.readAsBinaryString(file);
+
+									read.onloadend = function () {
+										var csv_string = read.result
+										csv_array = Papa.parse(csv_string).data;
+
+										if ($scope.import_file_type === 'location') {
+											header_must_exist = 'Admin1 Pcode';
+											header = ngmClusterImportFile.listheaderAttributeInFile('target_location')
+										}
+										if ($scope.import_file_type === 'beneficiary') {
+											header_must_exist = 'Activity Type';
+											header = ngmClusterImportFile.listheaderAttributeInFile('target_beneficiary')
+										}
+
+
+										var values = [];
+										values_obj = [];
+										var target_locations = [];
+										target_beneficiaries = [];
+										count_error_target_locations = 0;
+										count_error_target_beneficiaries = 0
+										// get value and change to object
+										values_obj = ngmClusterImportFile.setCsvValueToArrayofObject(csv_array);
+										// map the header to the attribute name
+										for (var index = 0; index < values_obj.length; index++) {
+											obj_true = {};
+											angular.forEach(values_obj[index], function (value, key) {
+
+												atribute_name = header[key];
+												obj_true[atribute_name] = value;
+
+											})
+											values.push(obj_true);
+										}
+
+										if (values.length) {
+											if ($scope.import_file_type === 'location') {
+												angular.forEach(values, function (t_l) {
+													target_locations.push($scope.project.addMissingTargetlocationsFormFile(t_l))
+												});
+
+												for (var i = 0; i < target_locations.length; i++) {
+
+													if ((!target_locations[i].admin1name) || (!target_locations[i].admin1pcode) ||
+														(!target_locations[i].admin2name) || (!target_locations[i].admin2pcode)) {
+														if (!$scope.messageFromfile.target_locations_message[i]) { $scope.messageFromfile.target_locations_message[i] = [] }
+														if (!target_locations[i].admin1pcode) {
+															obj = { label: false, property: 'admin1pcode', reason: 'missing value' }
+															$scope.messageFromfile.target_locations_message[i].push(obj);
+														}
+														if (!target_locations[i].admin1name) {
+															obj = { label: false, property: 'admin1name', reason: 'missing value' }
+															$scope.messageFromfile.target_locations_message[i].push(obj);
+														}
+														if (!target_locations[i].admin2pcode) {
+															obj = { label: false, property: 'admin2pcode', reason: 'missing value' }
+															$scope.messageFromfile.target_locations_message[i].push(obj);
+														}
+														if (!target_locations[i].admin2name) {
+															obj = { label: false, property: 'admin2name', reason: 'missing value' }
+															$scope.messageFromfile.target_locations_message[i].push(obj);
+														}
+
+														count_error_target_locations += 1
+
+													} else {
+														$scope.project.addLocationFormFile(target_locations[i], i)
+													}
+												}
+											}
+											if ($scope.import_file_type === 'beneficiary') {
+												angular.forEach(values, function (t_l) {
+													target_beneficiaries.push($scope.project.addMissingTargetbeneficiaryFromFile(t_l))
+												})
+
+												for (var b = 0; b < target_beneficiaries.length; b++) {
+
+													if ((!target_beneficiaries[b].cluster_id) || (!target_beneficiaries[b].activity_type_id) || (!target_beneficiaries[b].activity_description_id)) {
+														if (!$scope.messageFromfile.target_beneficiaries_message[b]) { $scope.messageFromfile.target_beneficiaries_message[b] = [] }
+														if (!target_beneficiaries[b].cluster_id) {
+															obj = { label: false, property: 'cluster_id', reason: 'Missing value' }
+															$scope.messageFromfile.target_beneficiaries_message[b].push(obj);
+														}
+														if (!target_beneficiaries[b].activity_type_id) {
+															var obj = { label: false, property: 'activity_type_id', reason: 'missing value' };
+															if (target_beneficiaries[b].activity_type_name) {
+																obj.reason = 'not in the list'
+															}
+															$scope.messageFromfile.target_beneficiaries_message[b].push(obj);
+														}
+														if (!target_beneficiaries[b].activity_description_id) {
+															var obj = { label: false, property: 'activity_description_id', reason: 'missing value' };
+															if (target_beneficiaries[b].activity_description_name) {
+																obj.reason = 'not in the list'
+															}
+															$scope.messageFromfile.target_beneficiaries_message[b].push(obj);
+														}
+														count_error_target_beneficiaries += 1
+													} else {
+														$scope.project.addBeneficiaryFromFile(target_beneficiaries[b], b)
+													}
+												}
+											}
+
+
+										}
+
+										var previews = document.querySelectorAll(".dz-preview");
+										previews.forEach(function (preview) {
+											preview.style.display = 'none';
+										})
+										document.querySelector(".dz-default.dz-message").style.display = 'none';
+										document.querySelector(".percent-upload").style.display = 'block';
+									
+										$timeout(function () {
+											document.querySelector(".percent-upload").style.display = 'none';
+											$('#upload-monthly-file-project').modal('close');
+											drop_zone.removeAllFiles(true);
+
+											$scope.project.setMessageForImportFile($scope.messageFromfile, ngmClusterValidation.fieldProject())
+											
+
+											if ((count_error_target_beneficiaries > 0) || (count_error_target_locations > 0)) {
+												if (count_error_target_beneficiaries > 0) {
+													if (count_error_target_beneficiaries === target_beneficiaries.length) {
+														M.toast({ html: 'Target Beneficiaries Import failed!', displayLength: 4000, classes: 'error' });
+													} else {
+														M.toast({ html: 'Some Target Beneficiaries Rows Succeccfully added!', displayLength: 4000, classes: 'success' });
+													}
+												}
+
+												if (count_error_target_locations > 0) {
+													if (count_error_target_locations === target_locations.length) {
+														M.toast({ html: 'Target Location Import failed!', displayLength: 4000, classes: 'error' });
+													} else {
+														M.toast({ html: 'Some Target Locations Rows Succeccfully added!', displayLength: 4000, classes: 'success' });
+													}
+												}
+											}
+											if ((count_error_target_beneficiaries < 1) || (count_error_target_locations < 1)) {
+												if (count_error_target_beneficiaries < 1 && ($scope.import_file_type === 'beneficiary')) {
+													if (target_beneficiaries.length) {
+														M.toast({ html: 'Import Target Beneficiaries Success!', displayLength: 4000, classes: 'success' });
+													}
+												}
+												if (count_error_target_locations < 1 && ($scope.import_file_type === 'location')) {
+													if (target_locations.length) {
+														M.toast({ html: 'Import Target Location Success!', displayLength: 4000, classes: 'success' });
+													}
+												}
+											}
+											// reset error message
+											$scope.messageFromfile = { project_detail_message: [], target_beneficiaries_message: [], target_locations_message: [] };
+											$("#upload_file").attr("disabled", true);
+											$("#delete_file").attr("disabled", true);
+											$("#switch_btn_file").attr("disabled", false);
+											
+										}, 2000)
+									}
+								} else {
 									file = drop_zone.getAcceptedFiles()[0]
 									const wb = new ExcelJS.Workbook();
 									drop_zone.getAcceptedFiles()[0].arrayBuffer().then((data) => {
@@ -1461,17 +1649,17 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 												}
 												if (count_error_target_beneficiaries > 0) {
 													if (count_error_target_beneficiaries === target_beneficiaries.length) {
-														M.toast({ html: 'Import Target Beneficiaries Fail!', displayLength: 4000, classes: 'error' });
+														M.toast({ html: 'Target Beneficiaries Import failed!', displayLength: 4000, classes: 'error' });
 													} else {
-														M.toast({ html: 'Some Row Target Beneficiaries Succeccfully added !', displayLength: 4000, classes: 'success' });
+														M.toast({ html: 'Some Target Beneficiaries Rows Succeccfully added!', displayLength: 4000, classes: 'success' });
 													}
 												}
 
 												if (count_error_target_locations > 0) {
 													if (count_error_target_locations === target_locations.length) {
-														M.toast({ html: 'Import Target Location Fail!', displayLength: 4000, classes: 'error' });
+														M.toast({ html: 'Target Location Import failed!', displayLength: 4000, classes: 'error' });
 													} else {
-														M.toast({ html: 'Some Row Target Location Succeccfully added !', displayLength: 4000, classes: 'success' });
+														M.toast({ html: 'Some Target Locations Rows Succeccfully added!', displayLength: 4000, classes: 'success' });
 													}
 												}
 											}
@@ -1498,7 +1686,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 										}, 2000)
 										
 									})
-								// }
+								}
 							});
 
 							document.getElementById('delete_file').addEventListener("click", function () {
@@ -1526,7 +1714,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 									$("#delete_file").attr("disabled", true);
 
 									document.querySelector(".dz-default.dz-message").style.display = 'block';
-									$('.dz-default.dz-message').html(`<i class="medium material-icons" style="color:#009688;">publish</i> <br/>` + $filter('translate')('drag_files_here_or_click_button_to_upload') + ' <br/> Please do not forget to put required sheets! <br/>with extention xlsx as per template in project downloads');
+									$('.dz-default.dz-message').html($scope.project.uploadFileReport.uploadFileConfig.dictDefaultMessage);//html(`<i class="medium material-icons" style="color:#009688;">publish</i> <br/>` + $filter('translate')('drag_files_here_or_click_button_to_upload') + ' <br/> Please do not forget to put required sheets! <br/>with extention xlsx as per template in project downloads');
 								}
 
 								if ((drop_zone.files.length < 2) && (drop_zone.files.length > 0)) {
@@ -1541,7 +1729,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 							drop_zone.on("maxfilesexceeded", function (file) {
 								document.querySelector(".dz-default.dz-message").style.display = 'none';
-								$('.dz-default.dz-message').html(`<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>` + 'Please, import just one file at the time and remove exceeded file');
+								$('.dz-default.dz-message').html($scope.project.uploadFileReport.uploadFileConfig.dictDefaultMessage);
+								// $('.dz-default.dz-message').html(`<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>` + 'Please, import just one file at the time and remove exceeded file');
 								document.querySelector(".dz-default.dz-message").style.display = 'block'
 								// Materialize.toast("Too many file to upload", 6000, "error")
 								M.toast({ html: "Too many file to upload", displayLength: 2000, classes: 'error' });
@@ -1699,17 +1888,17 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								if ( (count_error_target_beneficiaries > 0) || (count_error_target_locations > 0)) {
 									if (count_error_target_beneficiaries > 0) {
 										if (count_error_target_beneficiaries === target_beneficiaries.length) {
-											M.toast({ html: 'Import Target Beneficiaries Fail!', displayLength: 4000, classes: 'error' });
+											M.toast({ html: 'Target Beneficiaries Import failed!', displayLength: 4000, classes: 'error' });
 										} else {
-											M.toast({ html: 'Some Row Target Beneficiaries Succeccfully added !', displayLength: 4000, classes: 'success' });
+											M.toast({ html: 'Some Target Beneficiaries Rows Succeccfully added!', displayLength: 4000, classes: 'success' });
 										}
 									}
 
 									if (count_error_target_locations > 0) {
 										if (count_error_target_locations === target_locations.length) {
-											M.toast({ html: 'Import Target Location Fail!', displayLength: 4000, classes: 'error' });
+											M.toast({ html: 'Target Location Import failed!', displayLength: 4000, classes: 'error' });
 										} else {
-											M.toast({ html: 'Some Row Target Location Succeccfully added !', displayLength: 4000, classes: 'success' });
+											M.toast({ html: 'Some Target Locations Rows Succeccfully added!', displayLength: 4000, classes: 'success' });
 										}
 									}
 								}
