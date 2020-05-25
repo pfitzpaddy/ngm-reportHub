@@ -113,6 +113,12 @@ angular.module('ngmReportHub')
 						'active': 'euro',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/admin/euro'
+					},{
+						'title': 'WPRO',
+						'param': 'adminRpcode',
+						'active': 'wpro',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/admin/wpro'
 					}
 					]
 				}],
@@ -835,6 +841,13 @@ angular.module('ngmReportHub')
 								'active': 'col',
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': '/desk/#/cluster/admin/amer/col'
+							},
+							{
+								'title': 'Papua New Guinea',
+								'param': 'admin0pcode',
+								'active': 'pg',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/wpro/pg'
 							}]
 						},
 						'afro': {
@@ -943,6 +956,20 @@ angular.module('ngmReportHub')
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': '/desk/#/cluster/admin/amer/col'
 							},]
+						},
+						'wpro': {
+							'id': 'search-country',
+							'icon': 'person_pin',
+							'title': $filter('translate')('country'),
+
+							'class': 'teal lighten-1 white-text',
+							'rows': [{
+								'title': 'Papua New Guinea',
+								'param': 'admin0pcode',
+								'active': 'pg',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/wpro/pg'
+							}]
 						}
 					}
 					$scope.model.menu.push(menu[$scope.dashboard.adminRpcode]);

@@ -44,7 +44,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardLoginCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.isAnonymous();
 					}],
 				}
@@ -54,7 +54,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardRegisterCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.isAnonymous();
 					}],
 				}
@@ -64,7 +64,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardResetCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.isAnonymous();
 					}],
 				}
@@ -74,7 +74,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardForbiddenCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 							return !ngmAuth.isAuthenticated();
 					}],
 				}
@@ -84,17 +84,17 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardGuidesMenuCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 							return ngmAuth.grantPublicAccess();
 					}],
 				}
-			})		
+			})
 			// feedback
 			.when( '/cluster/guides/feedback', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardGuidesFeedbackCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 							return ngmAuth.grantPublicAccess();
 					}],
 				}
@@ -104,17 +104,17 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardGuidesScreenCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 							return ngmAuth.grantPublicAccess();
 					}],
 				}
-			})			
+			})
 			// organization
 			.when( '/cluster/organization', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterAppCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.isAuthenticated();
 					}],
 				}
@@ -134,7 +134,7 @@ angular
 			// 	templateUrl: '/views/app/dashboard.html',
 			// 	controller: 'ClusterOrganizationStocksListCtrl',
 			// 	resolve: {
-			// 		access: [ 'ngmAuth', function(ngmAuth) { 
+			// 		access: [ 'ngmAuth', function(ngmAuth) {
 			// 			return ngmAuth.isAuthenticated();
 			// 		}],
 			// 	}
@@ -157,7 +157,7 @@ angular
 			// 	controller: 'ClusterOrganizationStocksListCtrl',
 			// 	resolve: {
 			// 		access: [ 'ngmAuth', function( ngmAuth ) {
-			// 			return ngmAuth.isAuthenticated();     
+			// 			return ngmAuth.isAuthenticated();
 			// 		}],
 			// 	}
 			// })
@@ -198,7 +198,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterSyriaDashboard',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.isAuthenticated();
 					}],
 				}
@@ -213,7 +213,7 @@ angular
 			// 	templateUrl: '/views/app/dashboard.html',
 			// 	controller: 'ClusterProjectProjectsCtrl',
 			// 	resolve: {
-			// 		access: [ 'ngmAuth', function(ngmAuth) { 
+			// 		access: [ 'ngmAuth', function(ngmAuth) {
 			// 			return ngmAuth.isAuthenticated();
 			// 		}],
 			// 	}
@@ -223,7 +223,7 @@ angular
 			// 	redirectTo: '/cluster/projects/organization/:organization_id/all'
 			// })
 			// // project organization
-			// .when( '/cluster/projects/organization/:organization_id/:cluster_id', {				
+			// .when( '/cluster/projects/organization/:organization_id/:cluster_id', {
 			// 	templateUrl: '/views/app/dashboard.html',
 			// 	controller: 'ClusterProjectProjectsCtrl',
 			// 	resolve: {
@@ -239,9 +239,9 @@ angular
 			.when('/cluster/projects/list', {
 				resolve: {
 					access: ['$location', 'ngmUser', 'ngmAuth', function ($location, ngmUser, ngmAuth) {
-						
+
 						// redirect to user init route
-						const userInitRouteParams = ngmAuth.getRouteParams('PROJECT');						
+						const userInitRouteParams = ngmAuth.getRouteParams('PROJECT');
 						const user = ngmUser.get();
 						const adminRpcode = userInitRouteParams.includes('adminRpcode') && user && user.adminRpcode ? user.adminRpcode.toLowerCase() : 'all';
 						const admin0pcode = userInitRouteParams.includes('admin0pcode') && user && user.admin0pcode ? user.admin0pcode.toLowerCase() : 'all';
@@ -266,7 +266,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectSummaryCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.isAuthenticated();
 					}],
 				}
@@ -276,7 +276,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectDetailsCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.isAuthenticated();
 					}],
 				}
@@ -286,7 +286,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectReportsListCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.isAuthenticated();
 					}],
 				}
@@ -296,17 +296,17 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectReportCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function( ngmAuth ) { 
+					access: [ 'ngmAuth', function( ngmAuth ) {
 						return ngmAuth.isAuthenticated();
 					}],
 				}
-			})	
+			})
 			// project reports
 			.when( '/cluster/projects/report/:project/:report/:location_group', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectReportCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function( ngmAuth ) { 
+					access: [ 'ngmAuth', function( ngmAuth ) {
 						return ngmAuth.isAuthenticated();
 					}],
 				}
@@ -316,7 +316,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectReportGroupCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function( ngmAuth ) { 
+					access: [ 'ngmAuth', function( ngmAuth ) {
 						return ngmAuth.isAuthenticated();
 					}],
 				}
@@ -326,7 +326,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectFinancialsCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function( ngmAuth ) { 
+					access: [ 'ngmAuth', function( ngmAuth ) {
 						return ngmAuth.isAuthenticated();
 					}],
 				}
@@ -375,7 +375,7 @@ angular
 			.when( '/cluster/admin/all/all/wash', {
 				redirectTo: '/cluster/admin/all/all/all/wash/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
-			
+
 			// AFRO
 			.when( '/cluster/admin/afro', {
 				redirectTo: '/cluster/admin/afro/all/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
@@ -457,6 +457,14 @@ angular
 				redirectTo: '/cluster/admin/amer/col/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 
+			// WPRO
+			.when('/cluster/admin/wpro',{
+				redirectTo:'/cluster/admin/wpro/all/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/admin/wpro/pg',{
+				redirectTo: '/cluster/admin/wpro/pg/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+
 			// ADMIN
 			.when( '/cluster/admin/:adminRpcode/:admin0pcode/:cluster_id/:activity_type_id/:organization_tag/:report_type/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
@@ -476,7 +484,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardHctCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.grantPublicAccess();
 					}],
 				}
@@ -505,6 +513,7 @@ angular
 						const organization_tag = userInitRouteParams.includes('organization_tag') && user && user.organization_tag ? user.organization_tag.toLowerCase() : 'all';
 						const year_by_admin0pcode = {
 							'AF': moment().subtract(2, 'M').year().toString(),
+							'PG': moment().subtract(2, 'M').year().toString(),
 							'default': '2018'
 						};
 						const year = year_by_admin0pcode[user.admin0pcode] || year_by_admin0pcode['default'];
@@ -521,7 +530,7 @@ angular
 			.when( '/cluster/5w/hq/all', {
 				redirectTo: '/cluster/5w/hq/all/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
-			
+
 			// cluster dashboard AFRO
 			.when( '/cluster/5w/afro', {
 				redirectTo: '/cluster/5w/afro/all/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
@@ -552,7 +561,7 @@ angular
 			.when( '/cluster/5w/euro/ua', {
 				redirectTo: '/cluster/5w/euro/ua/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
-			
+
 			// cluster dashboard EMRO
 			.when( '/cluster/5w/emro', {
 				redirectTo: '/cluster/5w/emro/all/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
@@ -601,12 +610,23 @@ angular
 				redirectTo: '/cluster/5w/amer/col/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 
+			// WRPO
+			.when('/cluster/5w/wpro', {
+				redirectTo: '/cluster/5w/wpro/all/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when('/cluster/5w/wpro/all', {
+				redirectTo: '/cluster/5w/wpro/all/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when('/cluster/5w/wpro/pg',{
+				redirectTo: '/cluster/5w/wpro/pg/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
+			})
+
 			// health dashboard
 			.when( '/cluster/5w/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:cluster_id/:activity_type_id/:activity_description_id/:organization_tag/:beneficiaries/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardClusterCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 							return ngmAuth.grantPublicAccess();
 					}],
 				}
@@ -627,7 +647,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardHealthCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.grantPublicAccess();
 					}],
 				}
@@ -669,7 +689,7 @@ angular
 			.when( '/cluster/4wprojectplan/hq/all', {
 				redirectTo: '/cluster/4wprojectplan/hq/all/all/all/all/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
 			})
-			
+
 			// 4wdashboardprojectplan AMER
 			.when( '/cluster/4wprojectplan/amer', {
 				redirectTo: '/cluster/4wprojectplan/amer/all/all/all/all/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
@@ -712,7 +732,7 @@ angular
 			.when( '/cluster/4wprojectplan/euro/ua', {
 				redirectTo: '/cluster/4wprojectplan/euro/ua/all/all/all/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
 			})
-			
+
 			// cluster dashboard EMRO
 			.when( '/cluster/4wprojectplan/emro', {
 				redirectTo: '/cluster/4wprojectplan/emro/all/all/all/all/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
@@ -750,13 +770,24 @@ angular
 				redirectTo: '/cluster/4wprojectplan/searo/cb/all/all/all/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
 			})
 
+			// WPRO
+			.when( '/cluster/4wprojectplan/wpro', {
+				redirectTo: '/cluster/4wprojectplan/wpro/all/all/all/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/wpro/all', {
+				redirectTo: '/cluster/4wprojectplan/wpro/all/all/all/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/wpro/pg', {
+				redirectTo: '/cluster/4wprojectplan/wpro/pg/all/all/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
+			})
+
 			// health dashboard
 			.when( '/cluster/4wprojectplan/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:cluster_id/:activity_type/:organization_tag/:project_type_component/:hrpplan/:implementer_tag/:donor_tag/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'Dashboard4wProjectPlanCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.grantPublicAccess(); 
+					access: [ 'ngmAuth', function(ngmAuth) {
+							return ngmAuth.grantPublicAccess();
 					}],
 				}
 			})
@@ -767,7 +798,7 @@ angular
 			.when( '/cluster/dashboard4wplus/', {
 				redirectTo: '/cluster/dashboard4wplus'
 			})
-			
+
 			.when( '/cluster/dashboard4wplus//', {
 				redirectTo: '/cluster/dashboard4wplus'
 			})
@@ -795,7 +826,7 @@ angular
 			.when( '/cluster/dashboard4wplus/hq/all', {
 				redirectTo: '/cluster/dashboard4wplus/hq/all/all/all/all/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
 			})
-			
+
 			// 4wplus dashboard AMER
 			.when( '/cluster/dashboard4wplus/amer', {
 				redirectTo: '/cluster/dashboard4wplus/amer/all/all/all/all/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
@@ -838,7 +869,7 @@ angular
 			.when( '/cluster/dashboard4wplus/euro/ua', {
 				redirectTo: '/cluster/dashboard4wplus/euro/ua/all/all/all/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
 			})
-			
+
 			// cluster dashboard EMRO
 			.when( '/cluster/dashboard4wplus/emro', {
 				redirectTo: '/cluster/dashboard4wplus/emro/all/all/all/all/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
@@ -876,12 +907,23 @@ angular
 				redirectTo: '/cluster/dashboard4wplus/searo/cb/all/all/all/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
 			})
 
+			// WPRO
+			.when( '/cluster/dashboard4wplus/wpro', {
+				redirectTo: '/cluster/dashboard4wplus/wpro/all/all/all/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/dashboard4wplus/wpro/all', {
+				redirectTo: '/cluster/dashboard4wplus/wpro/all/all/all/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/dashboard4wplus/wpro/pg', {
+				redirectTo: '/cluster/dashboard4wplus/wpro/pg/all/all/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
+			})
+
 
 			.when( '/cluster/dashboard4wplus/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:cluster_id/:activity_type_id/:organization_tag/:project_type_component/:hrpplan/:implementer_tag/:donor_tag/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'Dashboard4wPlusCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 							return ngmAuth.grantPublicAccess();
 					}],
 				}
@@ -892,7 +934,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardForbiddenCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return !ngmAuth.isAuthenticated();
 					}],
 				}
