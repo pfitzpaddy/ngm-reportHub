@@ -103,8 +103,8 @@ angular.module( 'ngmReportHub' )
 						af: 'Afghanistan', bd: 'Bangladesh', cb: 'Cox Bazar',
 						cd: 'Democratic Republic of Congo', et: 'Ethiopia',
 						so: 'Somalia', ss: 'South Sudan', sy: 'Syria', ua: 'Ukraine',
-						ye: 'Yemen', ng: 'Nigeria', col: 'Colombia'
-					};				
+						ye: 'Yemen', ng: 'Nigeria', col: 'Colombia', pg: 'Papua New Guinea'
+					};
 					$scope.model.header.download.downloads[0].request.data.report = ''
 					$scope.model.header.title.title = '';
 					$scope.model.header.subtitle.title = ''

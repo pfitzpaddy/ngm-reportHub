@@ -33,7 +33,7 @@ angular.module('ngmReportHub')
 
 			// init empty model
 			$scope.model = $scope.$parent.ngm.dashboard.model;
-		
+
 
 			// create dews object
 			$scope.dashboard = {
@@ -59,7 +59,7 @@ angular.module('ngmReportHub')
 				// current report
 				report: $location.$$path.replace(/\//g, '_') + '-extracted-',
 
-		
+
 				// lists
 				lists: {
 					clusters: ngmClusterLists.getClusters( $route.current.params.admin0pcode ).filter(cluster=>cluster.filter!==false),
@@ -73,7 +73,7 @@ angular.module('ngmReportHub')
 				// filtered data
 				data: {
 					cluster: false,
-					admin1: false, 
+					admin1: false,
 					admin2: false,
 					admin3: false
 				},
@@ -115,6 +115,12 @@ angular.module('ngmReportHub')
 						'active': 'searo',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/4wprojectplan/searo/all'
+					},{
+						'title': 'WPRO',
+						'param': 'adminRpcode',
+						'active': 'wpro',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/4wprojectplan/wpro/all'
 					}
 					]
 				}],
@@ -149,7 +155,7 @@ angular.module('ngmReportHub')
 																	'/' + hrpplan +
 																	'/' + implementer+
 																	'/' + donor +
-																	'/returnee_undocumented+returnee_documented+refugee_pakistani' +																	
+																	'/returnee_undocumented+returnee_documented+refugee_pakistani' +
 																	'/' + $scope.dashboard.startDate+
 																	'/' + $scope.dashboard.endDate;
 					}
@@ -261,7 +267,7 @@ angular.module('ngmReportHub')
 
 
 
-					
+
 
 					// query depenging on role
 					switch ($scope.dashboard.role){
@@ -447,7 +453,7 @@ angular.module('ngmReportHub')
 
 					// rows
 					var orgRows = [],
-							clusterRows = [], 
+							clusterRows = [],
 							provinceRows = [],
 							districtRows = [],
 							yearRows = [],
@@ -563,6 +569,20 @@ angular.module('ngmReportHub')
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 										'href': '/desk/#/cluster/4wprojectplan/amer/col'
 									}]
+								},
+								'wpro': {
+									'id': 'search-country',
+									'icon': 'person_pin',
+									'title': $filter('translate')('country'),
+
+									'class': 'teal lighten-1 white-text',
+									'rows': [{
+										'title': 'Papua New Guinea',
+										'param': 'admin0pcode',
+										'active': 'pg',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/4wprojectplan/wpro/pg'
+									}]
 								}
 							}
 							$scope.model.menu.push(menu[$scope.dashboard.adminRpcode]);
@@ -574,7 +594,7 @@ angular.module('ngmReportHub')
 
 
 						/*if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
-						 						
+
 						 		$scope.dashboard.organization_tag = 'all';
 
 					       }else{
@@ -611,7 +631,7 @@ angular.module('ngmReportHub')
 							startDate = moment(new Date(d.year_id+'-01-01')).format('YYYY-MM-DD')
 
 							endDate = moment( d.year_id+'-12-31' ) .format( 'YYYY-MM-DD' );
-							
+
 
 							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type, $scope.dashboard.organization_tag, $scope.dashboard.project_type_component, $scope.dashboard.hrpplan, $scope.dashboard.implementer_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, startDate, endDate );
 
@@ -626,7 +646,7 @@ angular.module('ngmReportHub')
 								'active':d.year_id,
 								'class':'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': '/desk/#' + path,
-							
+
 							});
 
 						});
@@ -674,7 +694,7 @@ angular.module('ngmReportHub')
 							'rows': clusterRows
 						});
 
-						
+
 
 						// organizations
 						organizations.forEach(function( d, i ){
@@ -693,7 +713,7 @@ angular.module('ngmReportHub')
 
 						// organization & disable if public
 						//if ($scope.dashboard.menu_items.includes('organization_tag') && $scope.dashboard.user.username !== 'welcome') {
-				
+
 							$scope.model.menu.push({
 								'search': true,
 								'id': 'search-cluster-organization',
@@ -745,7 +765,7 @@ angular.module('ngmReportHub')
 					   		//console.log("PARTNERS ROWS: ",implementingPartnersRows);
 
 
-					   		$scope.model.menu.push({ 
+					   		$scope.model.menu.push({
 								'search': true,
 								'id': 'search-cluster-implementingpartners',
 								'icon': 'people',
@@ -759,11 +779,11 @@ angular.module('ngmReportHub')
 							var implementer_tag = $filter( 'filter' )( partners.data, { organization_tag: $scope.dashboard.implementer_tag } );
 							if ( implementer_tag.length ) {
 								$scope.dashboard.implementer_tag = implementer_tag[0].organization_tag;
-							
+
 							}
 						}
 
-					   
+
 
 					});
 
@@ -799,7 +819,7 @@ angular.module('ngmReportHub')
 					    		//console.log("DONORS ROWS: ",donorsRows);
 
 
-					   		$scope.model.menu.push({ 
+					   		$scope.model.menu.push({
 								'search': true,
 								'id': 'search-cluster-donorsproject',
 								'icon': 'attach_money',
@@ -813,7 +833,7 @@ angular.module('ngmReportHub')
 							var donor_tag = $filter( 'filter' )( donors.data, { project_donor_id: $scope.dashboard.donor_tag } );
 							if ( donor_tag.length ) {
 								$scope.dashboard.donor_tag = donor_tag[0].project_donor_id;
-							
+
 							}
 						}
 					});
@@ -831,7 +851,7 @@ angular.module('ngmReportHub')
 
 					   	});
 
-				
+
 					   	angular.forEach(activities.data , function(d,i){
 
 
@@ -850,8 +870,8 @@ angular.module('ngmReportHub')
 
 
 
-				
-							$scope.model.menu.push({ 
+
+							$scope.model.menu.push({
 								'search': true,
 								'id': 'search-cluster-activitytype',
 								'icon': 'supervisor_account',
@@ -874,7 +894,7 @@ angular.module('ngmReportHub')
 
 
 
-    				
+
 
 					   if($scope.dashboard.admin0pcode === 'col'){
 
@@ -939,7 +959,7 @@ angular.module('ngmReportHub')
 
 					    };
 
-					   
+
 					    //console.log("FECHA INICIO EN HRP OPTIONS: ",$scope.dashboard.startDate);
 					    angular.forEach( ishrpoptionsList, function(d,i){
 							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type, $scope.dashboard.organization_tag, $scope.dashboard.project_type_component, d.option_id, $scope.dashboard.implementer_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
@@ -1071,7 +1091,7 @@ angular.module('ngmReportHub')
 				setTitle: function(){
 					// title
 					$scope.dashboard.title = $filter('translate')('4W')
-				
+
 					// admin0
 					if ( $scope.dashboard.admin0pcode === 'all' ) {
 						$scope.dashboard.title = $filter('translate')('4W')+' | ' + $scope.dashboard.adminRpcode.toUpperCase()
@@ -1194,7 +1214,7 @@ angular.module('ngmReportHub')
 
 					if ($route.current.params.activity_type==='all'){
 						$scope.dashboard.activity_filename = '';
-					} 
+					}
 
 					if($scope.dashboard.admin0pcode === 'col'){
 						$scope.dashboard.finalnote = 'Nota: Los valores que requieran cambio de moneda de Pesos Colombianos (COP) a Dólar Estadounidense (USD) se calculan actualmente con tasa de cambio de $3.200 COP por cada $1 USD. Y los valores que requieran cambio de moneda de Euros (EUR) a Dólar Estadounidense (USD) se basan en la tasa de cambio del día.' + '</p>'
@@ -1202,12 +1222,12 @@ angular.module('ngmReportHub')
 					else{
 						$scope.dashboard.finalnote = '';
 					}
-					
 
 
 
-					$scope.dashboard.beneficiaries_row = [ 
-					
+
+					$scope.dashboard.beneficiaries_row = [
+
 					{
 								styleClass: 's12 m6 l6',
 								widgets: [{
@@ -1231,7 +1251,7 @@ angular.module('ngmReportHub')
 								request: $scope.dashboard.getRequest({ indicator: 'total_implementing_partners_4wdashboard_projectplan' })
 							}
 						}]
-					}/*, 
+					}/*,
 					{
 						styleClass: 's12 m12 l6',
 						widgets: [{
@@ -1246,7 +1266,7 @@ angular.module('ngmReportHub')
 					}*/
 					 ];
 
-					
+
 
 					// model
 					$scope.model = {
@@ -1406,7 +1426,7 @@ angular.module('ngmReportHub')
 												},
 												tooltip: {
 													enabled: false
-												}				
+												}
 											},
 											title: {
 													text: '',
@@ -1425,7 +1445,7 @@ angular.module('ngmReportHub')
 												dataLabels: {
 													enabled: false
 												},
-												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})												
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})
 																						}]
 										}
 									}
@@ -1458,7 +1478,7 @@ angular.module('ngmReportHub')
 												},
 												tooltip: {
 													enabled: false
-												}				
+												}
 											},
 											title: {
 													text: '',
@@ -1477,7 +1497,7 @@ angular.module('ngmReportHub')
 												dataLabels: {
 													enabled: false
 												},
-												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for: 'adult' })												
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for: 'adult' })
 											}]
 										}
 									}
@@ -1510,7 +1530,7 @@ angular.module('ngmReportHub')
 												},
 												tooltip: {
 													enabled: false
-												}				
+												}
 											},
 											title: {
 													text: '',
@@ -1529,7 +1549,7 @@ angular.module('ngmReportHub')
 												dataLabels: {
 													enabled: false
 												},
-												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for: 'elderly' })												
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for: 'elderly' })
 											}]
 										}
 									}
@@ -1649,7 +1669,7 @@ angular.module('ngmReportHub')
 												},
 												tooltip: {
 													enabled: false
-												}				
+												}
 											},
 											title: {
 													text: '',
@@ -1669,9 +1689,9 @@ angular.module('ngmReportHub')
 												dataLabels: {
 													enabled: false
 												},
-												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})												
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})
 																						}]
-										} 
+										}
 									}
 								}]
 							   },
@@ -1686,7 +1706,7 @@ angular.module('ngmReportHub')
 											//text: $filter('translate')('children'),
 											text: $filter('translate')('age_title_dashboard_graphic')+" (# - %)"
 										},
-										
+
 										display: {
 											label: true,
 											fractionSize: 1,
@@ -1713,7 +1733,7 @@ angular.module('ngmReportHub')
 													type:'category',
 										        title: {
 										            text: $filter('translate')('ages_mayus1')
-										        }, 
+										        },
 										        //categories: series.request[0].name
 										    	},
 												yAxis: {
@@ -1721,7 +1741,7 @@ angular.module('ngmReportHub')
 										            text: $filter('translate')('total_by_age_and_percent_of_total')
 										        }
 										    	}
-												
+
 											},
 											title: {
 													text: '',
@@ -1740,7 +1760,7 @@ angular.module('ngmReportHub')
 										               format: '#{point.yformat}<br>%{point.label:.1f}'
 										                //inside: true
 										            },
-												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'}),
 											}]
 										}
@@ -1758,7 +1778,7 @@ angular.module('ngmReportHub')
 											//text: $filter('translate')('children'),
 											text: $filter('translate')('type_mayus')+ " (# - %)"
 										},
-										
+
 										display: {
 											label: true,
 											fractionSize: 1,
@@ -1792,7 +1812,7 @@ angular.module('ngmReportHub')
 										            text: $filter('translate')('total_by_type_and_percent_of_total')
 										        }
 										    }
-												
+
 											},
 											title: {
 													text: '',
@@ -1812,7 +1832,7 @@ angular.module('ngmReportHub')
 
 										                //inside: true
 										            },
-												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryType', chart_for:'beneficiaryType'}),
 											}]
 										}
@@ -1830,7 +1850,7 @@ angular.module('ngmReportHub')
 											//text: $filter('translate')('children'),
 											text: $filter('translate')('cluster') + " (# - %)"
 										},
-										
+
 										display: {
 											label: true,
 											fractionSize: 1,
@@ -1864,7 +1884,7 @@ angular.module('ngmReportHub')
 										            text: $filter('translate')('total_by_cluster_and_percent_of_total')
 										        }
 										    }
-												
+
 											},
 											title: {
 													text: '',
@@ -1883,13 +1903,13 @@ angular.module('ngmReportHub')
 										               format: '#{point.yformat}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
-												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryCluster', chart_for:'beneficiaryCluster'}),
 											}]
 										}
 									}
 								}]
-							} 
+							}
 						]
 						},
 
@@ -1923,7 +1943,7 @@ angular.module('ngmReportHub')
 											//text: $filter('translate')('children'),
 											text: $filter('translate')('executor_organizations_mayus')+" TOP 5 (# - %)"
 										},
-										
+
 										display: {
 											label: true,
 											fractionSize: 1,
@@ -1957,7 +1977,7 @@ angular.module('ngmReportHub')
 										           text: $filter('translate')('total_by_organization_and_percent_of_total')
 										        }
 										    }
-												
+
 											},
 											title: {
 													text: '',
@@ -1976,7 +1996,7 @@ angular.module('ngmReportHub')
 										               format: '${point.yformat}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
-												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingExecutorOrg', chart_for:'financingExecutorOrg'}),
 											}]
 										}
@@ -1994,7 +2014,7 @@ angular.module('ngmReportHub')
 											//text: $filter('translate')('children'),
 											text: $filter('translate')('implementing_organizations_mayus')+ " TOP 5 (# - %)",
 										},
-										
+
 										display: {
 											label: true,
 											fractionSize: 1,
@@ -2028,7 +2048,7 @@ angular.module('ngmReportHub')
 										           text: $filter('translate')('total_by_implementing_partner_and_percent_of_total')
 										        }
 										    }
-												
+
 											},
 											title: {
 													text: '',
@@ -2047,7 +2067,7 @@ angular.module('ngmReportHub')
 										               format: '${point.yformat}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
-												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingOrgImplementing', chart_for:'financingOrgImplementing'}),
 											}]
 										}
@@ -2065,7 +2085,7 @@ angular.module('ngmReportHub')
 											//text: $filter('translate')('children'),
 											text: $filter('translate')('donors_mayus')+ " TOP 5 (# - %)",
 										},
-										
+
 										display: {
 											label: true,
 											fractionSize: 1,
@@ -2099,7 +2119,7 @@ angular.module('ngmReportHub')
 										           text: $filter('translate')('total_by_donor_and_percent_of_total')
 										        }
 										    }
-												
+
 											},
 											title: {
 													text: '',
@@ -2118,7 +2138,7 @@ angular.module('ngmReportHub')
 										               format: '${point.yformat} <br>{point.label:.1f}%'
 										                //inside: true
 										            },
-												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingDonor', chart_for:'financingDonor'}),
 											}]
 										}
@@ -2136,7 +2156,7 @@ angular.module('ngmReportHub')
 											//text: $filter('translate')('children'),
 											text: $filter('translate')('cluster')+" (# - %)"
 										},
-										
+
 										display: {
 											label: true,
 											fractionSize: 1,
@@ -2170,7 +2190,7 @@ angular.module('ngmReportHub')
 										            text: $filter('translate')('total_by_cluster_and_percent_of_total')
 										        }
 										    }
-												
+
 											},
 											title: {
 													text: '',
@@ -2189,7 +2209,7 @@ angular.module('ngmReportHub')
 										               format: '{point.label:.1f}<br>%'
 										                //inside: true
 										            },
-												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingCluster', chart_for:'financingCluster'}),
 											}]
 										}

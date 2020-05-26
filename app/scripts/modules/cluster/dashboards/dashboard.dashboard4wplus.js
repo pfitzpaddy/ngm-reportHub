@@ -116,6 +116,12 @@ angular.module('ngmReportHub')
 						'active': 'searo',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/dashboard4wplus/searo/all'
+					},{
+						'title': 'WPRO',
+						'param': 'adminRpcode',
+						'active': 'wpro',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/dashboard4wplus/wpro/all'
 					}
 					]
 				}],
@@ -533,6 +539,20 @@ angular.module('ngmReportHub')
 										'active': 'col',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 										'href': '/desk/#/cluster/dashboard4wplus/amer/col'
+									}]
+								},
+								'wpro': {
+									'id': 'search-country',
+									'icon': 'person_pin',
+									'title': $filter('translate')('country'),
+
+									'class': 'teal lighten-1 white-text',
+									'rows': [{
+										'title': 'Papua New Guinea',
+										'param': 'admin0pcode',
+										'active': 'pg',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/dashboard4wplus/wpro/pg'
 									}]
 								}
 							}
