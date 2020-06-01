@@ -34,6 +34,7 @@ angular
 		'ngm.widget.project.report',
 		'ngm.widget.organization.stocks.list',
 		'ngm.widget.organization.stock',
+		'ngm.widget.form.organization.list',
 		// modules
 		'ngmBangladesh',
 		'ngmCluster',
@@ -514,6 +515,7 @@ angular
 			openHome:false,
 			openDashboard:false,
 			openMinimize:true,
+			openAdmin:false,
 			minimizeToggle:function () {
 				$scope.ngm.openMinimize = ! $scope.ngm.openMinimize;
 				$('.minimize-menu').toggleClass('open');

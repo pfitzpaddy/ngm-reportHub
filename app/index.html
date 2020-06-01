@@ -688,7 +688,31 @@
 										</li>
 									</ul>
 								</div>
-														
+								
+								<!-- MY ADMIN/MASTER -->
+								<li align="center" class="teal z-depth-2"
+									ng-show="ngm.getUserName() !== 'welcome' && 
+																 (ngm.getUser().email === 'farifin@immap.org' || ngm.getUser().email === 'pfitzgerald@immap.org' || ngm.getUser().email ==='tkilkeiev@immap.org' )">
+									<a class="white-text right" ng-click="ngm.openAdmin= !ngm.openAdmin;">
+										<i class="material-icons smedium right">move_to_inbox</i>
+										<i class="material-icons small right icon-arrow"
+											ng-class="{'rotate-icon':ngm.openAdmin === true}">keyboard_arrow_down</i>{{'my_admin' | translate}}</a>
+									</a>
+								</li>
+								<div ng-if="ngm.openAdmin" style="margin-bottom: 5px; background-color: #fff">
+									<ul>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/cluster/admin/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}"
+												ng-click="ngm.toggleNavigationMenu();ngm.openAdmin= !ngm.openAdmin;">
+												<i class="material-icons small right">move_to_inbox</i>{{'my_admin' | translate}}</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/cluster/lists/admin" ng-click="ngm.toggleNavigationMenu();ngm.openAdmin= !ngm.openAdmin;">
+												<i class="material-icons small right">zoom_in</i>LISTS ADMIN</a>
+										</li>
+									</ul>
+								</div>
+
 								<!-- Dashboard -->
 								<li align="center" class="teal z-depth-2">
 									<a class="white-text right" ng-click="ngm.openDashboard= !ngm.openDashboard;">
@@ -1095,6 +1119,12 @@
 		<script src="scripts/modules/country/afghanistan/drought/dashboards/dashboard.drought.admin.js"></script>
 		<!-- <script src="scripts/modules/country/afghanistan/drought/dashboards/dashboard.admin.drought.weekly.js"></script> -->
 		<script src="scripts/modules/country/afghanistan/drought/main/drought.main.js"></script>
+
+		<!-- UI LIST -->
+		<script src="scripts/modules/cluster/lists/cluster.list.admin.js"></script>
+		<script src="scripts/modules/cluster/lists/cluster.list.organizations.js"></script>
+		<script src="scripts/modules/cluster/lists/form/list.org.form.js"></script>
+		
 
 		<!-- endbuild -->
 

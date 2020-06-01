@@ -928,6 +928,28 @@ angular
 					}],
 				}
 			})
+			.when('/cluster/lists/admin/',{
+				redirectTo: '/cluster/lists/admin/all/all'
+			})
+			.when('/cluster/lists/admin/:admin0pcode/:cluster_id', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardListAdminCtrl',
+				resolve: {
+					access: ['ngmAuth', function (ngmAuth) {
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+
+			.when('/cluster/admin/list/organization/:admin0pcode?', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ListOrgCtrl',
+				resolve: {
+					access: ['ngmAuth', function (ngmAuth) {
+						return ngmAuth.isAuthenticated();
+					}]
+				}
+			})
 
 			// FORBIDDEN
 			.when( '/cluster/forbidden', {
