@@ -1,0 +1,298 @@
+<style>
+    .nav-list-search {
+        margin-top: 6px;
+        background-color: white;
+        width: 72px;
+        -webkit-transition: width 1s ease;
+        -moz-transition: width 1s ease;
+        -o-transition: width 1s ease;
+        -ms-transition: width 1s ease;
+        transition: width 1s ease;
+    }
+
+    .nav-list-search.focused {
+        margin-top: 6px;
+        width: 100%;
+        -webkit-transition: width 1s ease;
+        -moz-transition: width 1s ease;
+        -o-transition: width 1s ease;
+        -ms-transition: width 1s ease;
+        transition: width 1s ease;
+    }
+
+    .input-field input[type=search] {
+        font-weight: 300;
+        padding-top: 0px;
+    }
+
+    .add_org.modal {
+        width: 50%;
+        right: auto !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+
+    .btn:disabled {
+        background-color: #DFDFDF !important;
+    }
+
+    .inactive {
+        background-color: #cec9c9;
+    }
+    .modal-footer.addorg{
+        text-align: center;
+    }
+    .card-title.tag.active{
+        color:#6c6c6c;
+        font-weight: 500;
+    }
+     .card-title.tag.not_active{
+        font-weight: 500;
+    }
+</style>
+<div id="add-org-modal" class="add_org modal">
+    <div class="modal-content" style=" padding-top: 0px; padding-left: 0px; padding-right: 0px">
+        <ul class="collection with-header" style="margin-top:0">
+            <li class="collection-header teal lighten-1" style="border-bottom: 0">
+                <h5 style="color: #ffffff;font-weight:300;">
+                    <i class="material-icons left" style="font-size: 25px">add_circle_outline</i>
+                    Add Organization
+                </h5>
+            </li>
+        </ul>
+
+        <div class="row" style="margin: 20px 50px 10px 50px;">
+            <div class="input-field col s12 m12">
+                <input id="ngm-org-name" placeholder="" type="text" ng-model="addOrganizationAtribute.organization_name"
+                    name="ngm-org-name" class="validate">
+                <label class="active" for="ngm-org-name"> Organization Name</label>
+            </div>
+            <div class="input-field col s12 m12">
+                <input id="ngm-org-abbr-name" placeholder="e.g if Organization name is  'Something Organization'  then organization abbereviation can be 'SO'" type="text" ng-model="addOrganizationAtribute.organization"
+                    name="ngm-org-abbr-name" class="validate">
+                <label class="active" for="ngm-org-abbr-name"> Organization Abbreviation </label>
+            </div>
+            <div class="input-field col s12 m12">
+                <input id="ngm-org-tag-name" placeholder="e.g if organization abbrevetiation is 'SO' then organization tag is 'so'" type="text" ng-model="addOrganizationAtribute.organization_tag"
+                    name="ngm-org-tag-name" class="validate">
+                <label class="active" for="ngm-org-tag-name"> Organization Tag </label>
+            </div>
+            <!-- <div class="input-field col s12 m12">
+                <select materialize-select id="ngm-country-id" name="ngm-country-id" class="validate"
+                    ng-options="country.admin0pcode as country.admin0pname for country in master.country"
+                    ng-model="addOrganizationAtribute.admin0pcode" ng-disabled="" required>
+                    <option value="">Select Country</option>
+                </select>
+                <label for="ngm-country-id" class="active" style="transform:translateY(-10%)"> Country</label>
+            </div> -->
+            <div class="input-field col s12 m12">
+                <select materialize-select id="ngm-org-type" name="ngm-org-type" class="validate"
+                    ng-options="country.organization_type as country.organization_type for country in master.type_org"
+                    ng-model="addOrganizationAtribute.organization_type" ng-disabled="" required>
+                    <option value="">Select Organization Type</option>
+                </select>
+                <label for="ngm-org-type" class="active" style="transform:translateY(-10%)"> Organization Type</label>
+            </div>
+        </div>
+                <div class="row" style="margin-left: 50px;margin-right:10px;">
+                    <div class="input-field col s12 m12">
+                        <label for="ngm-org-country" class="active" style="transform:translateY(-120%)"> Country</label>
+                    </div>
+                    <div class="col s6" ng-repeat="c in master.list_country ">
+                        <label>
+                            <input type="checkbox" class="filled-in" id="add-{{c.admin0pcode}}" value={{c.admin0pname}}
+                                ng-checked="addOrganizationAtribute.admin0pcode.indexOf(c.admin0pcode) > -1"
+                                ng-click="master.addCountryOrg(c.admin0pcode)" />
+                            <span style="color: #000000; font-weight: 500;">{{c.admin0pname}}</span>
+                        </label>
+                    </div>
+                
+                </div>
+    </div>
+    <div class="modal-footer addorg" style="margin-bottom: 10px;">
+            <div class="modal-action wave-effects wave-green btn" 
+            ng-disabled="!master.checkValidationOrganization(addOrganizationAtribute)"
+            ng-click="master.addOrganization()">Save
+            </div>
+            <div class="modal-action modal-close red darken-1 btn">Close</div>
+    </div>
+</div>
+
+<div id="edit-org-modal" class="add_org modal">
+    <div class="modal-content" style=" padding-top: 0px; padding-left: 0px; padding-right: 0px">
+        <ul class="collection with-header" style="margin-top:0">
+            <li class="collection-header teal lighten-1" style="border-bottom: 0">
+                <h5 style="color: #ffffff;font-weight:300;">
+                    <i class="material-icons left" style="font-size: 25px">add_circle_outline</i>
+                    Edit {{master.editedOrg.organization_name}} Organization 
+                </h5>
+            </li>
+        </ul>
+
+        <div class="row" style="margin: 20px 50px 10px 50px;">
+            <div class="input-field col s12 m12">
+                <input id="ngm-org-name" placeholder="" type="text" ng-model="master.editedOrg.organization_name"
+                    name="ngm-org-name" class="validate">
+                <label class="active" for="ngm-org-name"> Organization Name</label>
+            </div>
+            <div class="input-field col s12 m12">
+                <input id="ngm-org-abbr-name" placeholder="" type="text" ng-model="master.editedOrg.organization"
+                    name="ngm-org-abbr-name" class="validate">
+                <label class="active" for="ngm-org-abbr-name"> Organization Abbreviation </label>
+            </div>
+            <div class="input-field col s12 m12">
+                <input id="ngm-org-tag-name" placeholder="e.g if organization abbrevetiation is 'SO' then organization tag is 'so'"
+                    type="text" ng-model="master.editedOrg.organization_tag" name="ngm-org-tag-name" class="validate">
+                <label class="active" for="ngm-org-tag-name"> Organization Tag </label>
+            </div>
+            <!-- <div class="input-field col s12 m12">
+                <select materialize-select id="ngm-country-id" name="ngm-country-id" class="validate"
+                    ng-options="country.admin0pcode as country.admin0pname for country in master.country"
+                    ng-model="master.editedOrg.admin0pcode" ng-disabled="" required>
+                    <option value="">Select Country</option>
+                </select>
+                <label for="ngm-country-id" class="active" style="transform:translateY(-10%)"> Country</label>
+            </div> -->
+            <div class="input-field col s12 m12">
+                <select materialize-select id="ngm-org-type" name="ngm-org-type" class="validate"
+                    ng-options="country.organization_type as country.organization_type for country in master.type_org"
+                    ng-model="master.editedOrg.organization_type" ng-disabled="" required>
+                    <option value="">Select Organization Type</option>
+                </select>
+                <label for="ngm-org-type" class="active" style="transform:translateY(-10%)"> Organization Type</label>
+            </div>
+        </div>
+        <div class="row" style="margin-left: 50px;margin-right:10px;">
+            <div class="input-field col s12 m12">
+                <label for="ngm-org-type" class="active" style="transform:translateY(-120%)"> Country</label>
+            </div>
+           
+            <div class="col s6" ng-repeat="c in master.list_country">
+                <label>
+                     <input type="checkbox" class="filled-in" id="edit-{{c.admin0pcode}}" value={{c.admin0pname}}
+                            ng-checked="(master.editedOrg.admin0pcode.indexOf(c.admin0pcode) > -1) && (!master.editedOrg.admin0pcode_inactive || master.editedOrg.admin0pcode_inactive === '' || master.editedOrg.admin0pcode_inactive.indexOf(c.admin0pcode)<0)"
+                            ng-click="master.editCountryOrg(c.admin0pcode)"/>
+                            <span style="color: #000000; font-weight: 500;">{{c.admin0pname}}</span>
+                 </label>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer addorg" style="margin-bottom: 10px;">
+        <div class="modal-action modal-close wave-effects wave-green btn"
+            ng-disabled="!master.checkValidationOrganization(master.editedOrg)" ng-click="master.editOrganization(master.editedOrg)">Save
+        </div>
+        <div class="modal-action modal-close red darken-1 btn">Close</div>
+    </div>
+</div>
+
+<div id="remove-org-modal" class="add_org modal">
+    <div class="modal-content dialog">
+        <h4 class="header-modal red lighten-2"><i class="material-icons small left">delete</i> Delete Organizations
+        </h4>
+        <p style=" font-size:24px;font-weight: 500; text-align: center;">Delete {{ master.removeOrg.organization_name }} ?</p>
+        <p style="color: #f44336; font-weight: 700; text-align: center;">{{'warning_mayus'|translate}}!
+            {{'this_action_can_not_be_undone'|translate}}!</p>
+    </div>
+    <div class="modal-footer addorg" style="margin-bottom: 10px;">
+        <div class="modal-action modal-close wave-effects wave-green btn"
+            ng-click="master.removeOrganization(master.removeOrg.id)">Delete
+        </div>
+        <div class="modal-action modal-close red darken-1 btn">Close</div>
+    </div>
+
+</div>
+
+<div class="" style="position: absolute;
+    right: 110px;
+    top: 180px;">
+    <a class=" btn waves-effect waves-teal waves-teal-lighten-4 indigo lighten-1" ng-click="master.openAddModal()">
+
+        <i class="material-icons left">add</i> Add Organization
+    </a>
+</div>
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="card">
+
+            <ul class="collection with-header">
+                <li class="collection-header indigo lighten-1" style="height:80px;">
+                    <div class="col s12 m6">
+                        <h5 class="report-panel-title white-text">
+                            <i class="material-icons left">attachment</i> Organization List
+
+                        </h5>
+                    </div>
+                    <div ng-if="master.organization.length > master.itemsPerPage" class="col s12 m4 right">
+                        <nav class="nav-list-search right"
+                            ng-class="{'focused':master.search.focused===true || master.search.filter }">
+                            <div class="nav-wrapper" ng-click="list.toggleSearch()">
+                                <form>
+                                    <div class="input-field">
+                                        <input id="search_{{ list.id }}" type="search" ng-model="master.search.filter"
+                                            ng-focus="master.search.focused=true" ng-blur="master.search.focused=false">
+                                        <label for="search_{{ master.listId }}" style="top:-10px" class="search"><i class="material-icons"
+                                                style="color: teal; padding-left:25px;">search</i></label>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                    </div>
+                </li>
+
+                <div>
+                    <li ng-if="master.organization.length>0" class="collection-item avatar"
+                        style="padding-left: 30px;padding-right: 30px">
+                        <div class="row">
+                            <div class="col s12 m4  "
+                                dir-paginate="item in master.organization | filter: master.search.filter | orderBy: list.orderBy : false | itemsPerPage: master.itemsPerPage"
+                                pagination-id="master.listId" style="padding-top:20px;">
+                                <div class="card  darken-1 hoverable"
+                                    ng-class="{'inactive':!master.checkActiveDeactivedOrg(item) }">
+                                    <div class="card-content " style="min-height: 200px;">
+                                        <p class="card-title activator tag truncate" ng-class="{'active':master.checkActiveDeactivedOrg(item), 'not_active':!master.checkActiveDeactivedOrg(item)}"> {{item.organization}} <i class="material-icons right">more_vert</i></p>
+                                        <br>
+                                        <p>{{item.organization_name}}</p>
+                                        <p style="font-style: italic; font-weight: 400;">{{item.organization_type}}</p>
+                                        <br>
+                                        <div class="row switch input-field" style="margin-bottom:10px;margin-top:-8%">
+                                            <label>
+                                                <input ng-checked="master.checkActiveDeactivedOrg(item)" id="{{item.id}}"
+                                                    ng-disabled="master.disabledOrg(item)"
+                                                    type="checkbox" class="filled-in"
+                                                    ng-click="master.changeActiveDeactivedOrgByCountry(item.id)">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="card-reveal">
+                                        <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                                        <div class="center" style="margin-top: 16%;">
+                                            <button class="btn" ng-click="master.setEditedOrg(item)" ng-disabled="master.disabledEditButton(item)">
+                                                <i class="material-icons">create</i>
+                                            </button>
+                                            <button class="btn red" ng-click="master.removeOrgModal(item)" ng-disabled="master.disabledEditButton(item)">
+                                                <i class="material-icons">delete</i>
+                                            </button>
+                                        </div>
+                                       
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="collection-item avatar" ng-if="!master.organization.length">
+                        <p style="font-size: 17px; padding:10px 0px 10px 0px;">
+                            {{'you_have_no_project_documents_yet'|translate}}</p>
+                    </li>
+                    <li class="collection-item avatar" ng-if="master.organization.length > master.itemsPerPage"
+                        style="padding:20px 20px 0px 50px;">
+                        <dir-pagination-controls pagination-id="master.listId"></dir-pagination-controls>
+                    </li>
+                </div>
+
+            </ul>
+        </div>
+    </div>
+</div>
