@@ -86,7 +86,7 @@ angular.module('ngmReportHub')
                                         setTitleResponse: function () { return $scope.master.setTitleResponse() },
                                         showMasterlist: function () { return $scope.master.showMasterlist()}, 
                                         setTag: function(){return $scope.master.setTag()},
-                                        templateUrl: '/scripts/modules/cluster/lists/views/cluster.list.admin.html',
+                                        templateUrl: '/scripts/modules/cluster/views/lists/cluster.list.admin.html',
                                     }
                                 }]
                             }]

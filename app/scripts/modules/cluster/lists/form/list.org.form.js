@@ -5,7 +5,7 @@ angular.module('ngm.widget.form.organization.list', ['ngm.provider'])
                 title: 'Organization Form List',
                 description: 'DOrganization Form List',
                 controller: 'OrganizationFormListCtrl',
-                templateUrl: '/scripts/modules/cluster/lists/views/organization.list.html'
+                templateUrl: '/scripts/modules/cluster/views/lists/organization.list.html'
             });
     })
     .controller('OrganizationFormListCtrl', [
