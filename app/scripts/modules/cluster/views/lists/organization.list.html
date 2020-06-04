@@ -88,7 +88,9 @@
             <div class="input-field col s12 m12">
                 <select materialize-select id="ngm-org-type" name="ngm-org-type" class="validate"
                     ng-options="country.organization_type as country.organization_type for country in master.type_org"
-                    ng-model="addOrganizationAtribute.organization_type" ng-disabled="" required>
+                    ng-model="addOrganizationAtribute.organization_type" ng-disabled="" 
+                    ng-change="master.changeListCountry(addOrganizationAtribute)"
+                    required>
                     <option value="">Select Organization Type</option>
                 </select>
                 <label for="ngm-org-type" class="active" style="transform:translateY(-10%)"> Organization Type</label>
@@ -102,7 +104,25 @@
                         <label>
                             <input type="checkbox" class="filled-in" id="add-{{c.admin0pcode}}" value={{c.admin0pname}}
                                 ng-checked="addOrganizationAtribute.admin0pcode.indexOf(c.admin0pcode) > -1"
+                                ng-disabled="(addOrganizationAtribute.organization_type === 'Government' || addOrganizationAtribute.organization_type ==='National NGO') && addOrganizationAtribute.admin0pcode.indexOf(c.admin0pcode) < 0 && addOrganizationAtribute.admin0pcode !== ''"
                                 ng-click="master.addCountryOrg(c.admin0pcode)" />
+                            <span style="color: #000000; font-weight: 500;">{{c.admin0pname}}</span>
+                        </label>
+                    </div>
+                
+                </div>
+
+                <div ng-if="master.showInactive(addOrganizationAtribute)" class="row"
+                    style="margin-left: 50px;margin-right:10px;margin-top: 20px;">
+                    <div class="input-field col s12 m12">
+                        <label for="ngm-org-type" class="active" style="transform:translateY(-120%)">Inactive Country</label>
+                    </div>
+                
+                    <div class="col s6" ng-repeat="c in master.list_inactive_country">
+                        <label>
+                            <input type="checkbox" class="filled-in" id="add-inactive-{{c.admin0pcode}}" value={{c.admin0pname}}
+                                ng-checked="(ddOrganizationAtribute.admin0pcode_inactive.indexOf(c.admin0pcode) > -1)"
+                                ng-click="master.editInactiveCountry(c.admin0pcode,'add-inactive-',addOrganizationAtribute)" />
                             <span style="color: #000000; font-weight: 500;">{{c.admin0pname}}</span>
                         </label>
                     </div>
@@ -156,7 +176,9 @@
             <div class="input-field col s12 m12">
                 <select materialize-select id="ngm-org-type" name="ngm-org-type" class="validate"
                     ng-options="country.organization_type as country.organization_type for country in master.type_org"
-                    ng-model="master.editedOrg.organization_type" ng-disabled="" required>
+                    ng-model="master.editedOrg.organization_type" ng-disabled=""
+                    ng-change="master.changeListCountry(master.editedOrg)" 
+                    required>
                     <option value="">Select Organization Type</option>
                 </select>
                 <label for="ngm-org-type" class="active" style="transform:translateY(-10%)"> Organization Type</label>
@@ -171,11 +193,28 @@
                 <label>
                      <input type="checkbox" class="filled-in" id="edit-{{c.admin0pcode}}" value={{c.admin0pname}}
                             ng-checked="(master.editedOrg.admin0pcode.indexOf(c.admin0pcode) > -1) && (!master.editedOrg.admin0pcode_inactive || master.editedOrg.admin0pcode_inactive === '' || master.editedOrg.admin0pcode_inactive.indexOf(c.admin0pcode)<0)"
+                            ng-disabled="(master.editedOrg.organization_type === 'Government' || master.editedOrg.organization_type ==='National NGO') && master.editedOrg.admin0pcode.indexOf(c.admin0pcode) < 0 "
                             ng-click="master.editCountryOrg(c.admin0pcode)"/>
                             <span style="color: #000000; font-weight: 500;">{{c.admin0pname}}</span>
                  </label>
             </div>
 
+        </div>
+
+        <div ng-if="master.showInactive(master.editedOrg)" class="row" style="margin-left: 50px;margin-right:10px;margin-top: 20px;">
+            <div class="input-field col s12 m12">
+                <label for="ngm-org-type" class="active" style="transform:translateY(-120%)">Inactive Country</label>
+            </div>
+        
+            <div class="col s6" ng-repeat="c in master.list_inactive_country">
+                <label>
+                    <input type="checkbox" class="filled-in" id="edit-inactive-{{c.admin0pcode}}" value={{c.admin0pname}}
+                        ng-checked="(master.editedOrg.admin0pcode_inactive.indexOf(c.admin0pcode) > -1)"
+                        ng-click="master.editInactiveCountry(c.admin0pcode,'edit-inactive-',master.editedOrg)" />
+                    <span style="color: #000000; font-weight: 500;">{{c.admin0pname}}</span>
+                </label>
+            </div>
+        
         </div>
     </div>
     <div class="modal-footer addorg" style="margin-bottom: 10px;">
@@ -204,7 +243,7 @@
 </div>
 
 <div class="" style="position: absolute;
-    right: 110px;
+    right: 85px;
     top: 180px;">
     <a class=" btn waves-effect waves-teal waves-teal-lighten-4 indigo lighten-1" ng-click="master.openAddModal()">
 
@@ -252,7 +291,7 @@
                                     <div class="card-content " style="min-height: 200px;">
                                         <p class="card-title activator tag truncate" ng-class="{'active':master.checkActiveDeactivedOrg(item), 'not_active':!master.checkActiveDeactivedOrg(item)}"> {{item.organization}} <i class="material-icons right">more_vert</i></p>
                                         <br>
-                                        <p>{{item.organization_name}}</p>
+                                        <p class="truncate">{{item.organization_name}}</p>
                                         <p style="font-style: italic; font-weight: 400;">{{item.organization_type}}</p>
                                         <br>
                                         <div class="row switch input-field" style="margin-bottom:10px;margin-top:-8%">

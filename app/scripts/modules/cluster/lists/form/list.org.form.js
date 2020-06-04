@@ -171,56 +171,118 @@ angular.module('ngm.widget.form.organization.list', ['ngm.provider'])
                     return active
                 },
                 changeActiveDeactivedOrgByCountry: function (id) {
+                    // $scope.IndexOrg = $scope.master.organization.map(x => { return x.id }).indexOf(id);
+                    // if ($scope.master.organization[$scope.IndexOrg].organization_type !== 'International NGO' && $scope.master.organization[$scope.IndexOrg].organization_type !== 'United Nations'){
+                    //     if ($scope.master.organization[$scope.IndexOrg].admin0pcode !== ''){
+                    //         index = $scope.master.organization[$scope.IndexOrg].admin0pcode.indexOf($scope.master.admin0pcode);
+                    //         if (index < 0) {
+                    //             return;
+                    //         }
+                    //     }
+                    // }
+                    // // set deactivate country
+                    // if (!$scope.master.organization[$scope.IndexOrg].admin0pcode_inactive) {
+                    //     $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive ='';
+                    // }
+                    // if (document.getElementById(id).checked) {
+                    //     if ($scope.master.organization[$scope.IndexOrg].admin0pcode === '') {
+                    //         $scope.master.organization[$scope.IndexOrg].admin0pcode = $scope.master.organization[$scope.IndexOrg].admin0pcode += $scope.master.admin0pcode;
+                    //     } else {
+                    //         if ($scope.master.organization[$scope.IndexOrg].admin0pcode.indexOf($scope.master.admin0pcode)<0){
+                    //             $scope.master.organization[$scope.IndexOrg].admin0pcode = ($scope.master.admin0pcode === 'ALL' ?
+                    //                 $scope.master.admin0pcode + ', ' + $scope.master.organization[$scope.IndexOrg].admin0pcode :
+                    //                 $scope.master.organization[$scope.IndexOrg].admin0pcode += ', ' + $scope.master.admin0pcode);
+                    //         }
+
+                    //     }
+                    //     // remove code country from admin0pcode if checked
+                    //     if ($scope.master.organization[$scope.IndexOrg].admin0pcode_inactive !== '') {
+                    //         var copy = $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive
+                    //         var copyarray = copy.replace(/\s/g, '').split(",")
+                    //         var delIndex = copyarray.indexOf($scope.master.admin0pcode);
+                    //         copyarray.splice(delIndex, 1)
+                    //         var copystring = copyarray.join("")
+                    //         $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = copystring
+                    //     }
+                    // } else {
+                    //     // option 1 delete country code if unchecked
+                    //     // var copy = $scope.master.organization[$scope.IndexOrg].admin0pcode
+                    //     // var copyarray = copy.replace(/\s/g, '').split(",")
+                    //     // var delIndex = copyarray.indexOf($scope.master.admin0pcode);
+                    //     // copyarray.splice(delIndex, 1)
+                    //     // var copystring = copyarray.join("")
+                    //     // $scope.master.organization[$scope.IndexOrg].admin0pcode = copystring
+
+                    //     // option 2 put  country code  to admin0pcode_inactive if unchecked
+                    //     if ($scope.master.organization[$scope.IndexOrg].admin0pcode_inactive === '') {
+                    //         $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive += $scope.master.admin0pcode;
+                    //     } else {
+                    //         $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = ($scope.master.admin0pcode === 'ALL' ?
+                    //             $scope.master.admin0pcode + ', ' + $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive :
+                    //             $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive += ', ' + $scope.master.admin0pcode);
+
+                    //     }
+
+                    // }
+
+                    // new flow
                     $scope.IndexOrg = $scope.master.organization.map(x => { return x.id }).indexOf(id);
-                    if ($scope.master.organization[$scope.IndexOrg].organization_type !== 'International NGO' && $scope.master.organization[$scope.IndexOrg].organization_type !== 'United Nations'){
-                        if ($scope.master.organization[$scope.IndexOrg].admin0pcode !== ''){
-                            index = $scope.master.organization[$scope.IndexOrg].admin0pcode.indexOf($scope.master.admin0pcode);
-                            if (index < 0) {
-                                return;
-                            }
-                        }
-                    }
-                    // set deactivate country
-                    if (!$scope.master.organization[$scope.IndexOrg].admin0pcode_inactive) {
-                        $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive ='';
-                    }
                     if (document.getElementById(id).checked) {
-                        if ($scope.master.organization[$scope.IndexOrg].admin0pcode === '') {
-                            $scope.master.organization[$scope.IndexOrg].admin0pcode = $scope.master.organization[$scope.IndexOrg].admin0pcode += $scope.master.admin0pcode;
-                        } else {
-                            if ($scope.master.organization[$scope.IndexOrg].admin0pcode.indexOf($scope.master.admin0pcode)<0){
-                                $scope.master.organization[$scope.IndexOrg].admin0pcode = ($scope.master.admin0pcode === 'ALL' ?
-                                    $scope.master.admin0pcode + ', ' + $scope.master.organization[$scope.IndexOrg].admin0pcode :
-                                    $scope.master.organization[$scope.IndexOrg].admin0pcode += ', ' + $scope.master.admin0pcode);
+                        if ($scope.master.admin0pcode ==='ALL'){
+                            $scope.master.organization[$scope.IndexOrg].admin0pcode = 'ALL';
+                            $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = '';
+                        }else{
+                            if ($scope.master.organization[$scope.IndexOrg].admin0pcode_inactive && 
+                                $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive !== ''){
+                                copy = $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive
+                                copyarray = copy.replace(/\s/g, '').split(",");
+                                delIndex = copyarray.indexOf($scope.master.admin0pcode);
+                                if(delIndex>-1){
+                                    copyarray.splice(delIndex, 1);
+                                    if (copyarray.length < 1) {
+                                        $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = ''
+                                    } else {
+                                        var copystring = copyarray.join(", ")
+                                        $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = copystring
+                                    }
+                                }else{
+                                    if ($scope.master.organization[$scope.IndexOrg].admin0pcode === 'ALL' || $scope.master.organization[$scope.IndexOrg].admin0pcode.indexOf('ALL')>-1){
+                                        $scope.master.organization[$scope.IndexOrg].admin0pcode = $scope.master.admin0pcode;
+                                        $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive ='';
+                                    }
+                                }
+                                
+                            }else{
+                                $scope.master.organization[$scope.IndexOrg].admin0pcode = $scope.master.organization[$scope.IndexOrg].admin0pcode += ", " + $scope.master.admin0pcode;
+                            }
+                            
+                        }
+                    }else{
+
+                        if(!$scope.master.organization[$scope.IndexOrg].admin0pcode_inactive){
+                            $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive='';
+                        }
+
+
+                        if($scope.master.organization[$scope.IndexOrg].organization_type === 'International NGO' || 
+                        $scope.master.organization[$scope.IndexOrg].organization_type === 'United Nations'){
+                            if ($scope.master.admin0pcode ==='ALL'){
+                                $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = 'ALL';
+                            }else{
+                                if ($scope.master.organization[$scope.IndexOrg].admin0pcode_inactive === '') {
+                                    $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive += $scope.master.admin0pcode
+                                } else {
+                                    $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive += ', ' + $scope.master.admin0pcode;
+                                }
                             }
 
-                        }
-                        // remove code country from admin0pcode if checked
-                        if ($scope.master.organization[$scope.IndexOrg].admin0pcode_inactive !== '') {
-                            var copy = $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive
-                            var copyarray = copy.replace(/\s/g, '').split(",")
-                            var delIndex = copyarray.indexOf($scope.master.admin0pcode);
-                            copyarray.splice(delIndex, 1)
-                            var copystring = copyarray.join("")
-                            $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = copystring
-                        }
-                    } else {
-                        // option 1 delete country code if unchecked
-                        // var copy = $scope.master.organization[$scope.IndexOrg].admin0pcode
-                        // var copyarray = copy.replace(/\s/g, '').split(",")
-                        // var delIndex = copyarray.indexOf($scope.master.admin0pcode);
-                        // copyarray.splice(delIndex, 1)
-                        // var copystring = copyarray.join("")
-                        // $scope.master.organization[$scope.IndexOrg].admin0pcode = copystring
-
-                        // option 2 put  country code  to admin0pcode_inactive if unchecked
-                        if ($scope.master.organization[$scope.IndexOrg].admin0pcode_inactive === '') {
-                            $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive += $scope.master.admin0pcode;
-                        } else {
-                            $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = ($scope.master.admin0pcode === 'ALL' ?
-                                $scope.master.admin0pcode + ', ' + $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive :
-                                $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive += ', ' + $scope.master.admin0pcode);
-
+                            
+                        }else{
+                            if ($scope.master.organization[$scope.IndexOrg].admin0pcode_inactive === '') {
+                                $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive += $scope.master.admin0pcode
+                            } else {
+                                $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive = $scope.master.organization[$scope.IndexOrg].admin0pcode_inactive += ', ' + $scope.master.admin0pcode;
+                            }
                         }
 
                     }
@@ -229,22 +291,30 @@ angular.module('ngm.widget.form.organization.list', ['ngm.provider'])
 
                 },
                 disabledOrg: function(item){
-                    if (item.organization_type !== 'International NGO' && item.organization_type !== 'United Nations') {
-                        index = item.admin0pcode.indexOf($scope.master.admin0pcode);
-                        indexall = item.admin0pcode.indexOf('ALL');
-                        if(item.admin0pcode !== ''){
-                            if (index < 0 && indexall < 0) {
-                                return true
-                            }
+                    // if (item.organization_type !== 'International NGO' && item.organization_type !== 'United Nations') {
+                    //     index = item.admin0pcode.indexOf($scope.master.admin0pcode);
+                    //     indexall = item.admin0pcode.indexOf('ALL');
+                    //     if(item.admin0pcode !== ''){
+                    //         if (index < 0 && indexall < 0) {
+                    //             return true
+                    //         }
+                    //     }
+                    //     return false
+                    // }
+                    // return false
+
+                    if (item.organization_type !== 'International NGO' && item.organization_type !== 'United Nations'){
+                        if ($scope.master.admin0pcode ==='ALL'){
+                            return true;
                         }
-                        return false
                     }
                     return false
                 },
                 setEditedOrg:function(org){
-                    $scope.master.editedOrg = org;
+                    $scope.master.editedOrg = angular.copy(org);
                     $('#edit-org-modal').modal({ dismissible: false });
                     $('#edit-org-modal').modal('open');
+                    $scope.master.changeListCountry($scope.master.editedOrg);
                 },
                 editOrganization:function(org){
                     
@@ -291,43 +361,140 @@ angular.module('ngm.widget.form.organization.list', ['ngm.provider'])
                     return false;
                 },
                 editCountryOrg:function(id) {
-                    if (!$scope.master.editedOrg.admin0pcode_inactive) {
-                        $scope.master.editedOrg.admin0pcode_inactive = '';
-                    }
-                    if (document.getElementById('edit-'+id).checked) {
+                    // old flow
+                    // if (!$scope.master.editedOrg.admin0pcode_inactive) {
+                    //     $scope.master.editedOrg.admin0pcode_inactive = '';
+                    // }
+                    // if (document.getElementById('edit-'+id).checked) {
                         
-                        if ($scope.master.editedOrg.admin0pcode === '') {
-                            $scope.master.editedOrg.admin0pcode += id;
+                    //     if ($scope.master.editedOrg.admin0pcode === '') {
+                    //         $scope.master.editedOrg.admin0pcode += id;
+                    //     } else {
+                    //         if ($scope.master.editedOrg.admin0pcode.indexOf(id)<0){
+                    //             $scope.master.editedOrg.admin0pcode = (id === 'ALL' ?
+                    //                 id + ', ' + $scope.master.editedOrg.admin0pcode :
+                    //                 $scope.master.editedOrg.admin0pcode += ', ' + id);
+                    //         }
+                    //     }
+                    //     if ($scope.master.editedOrg.admin0pcode_inactive !== '' && $scope.master.editedOrg.admin0pcode_inactive.indexOf(id)>-1) {
+                    //         var copy = $scope.master.editedOrg.admin0pcode_inactive
+                    //         var copyarray = copy.replace(/\s/g, '').split(",")
+                    //         var delIndex = copyarray.indexOf(id);
+                    //         copyarray.splice(delIndex, 1)
+                    //         var copystring = copyarray.join(", ")
+                    //         $scope.master.editedOrg.admin0pcode_inactive = copystring
+                    //     }
+                    // }else{
+                    // //     var copy =$scope.master.editedOrg.admin0pcode
+                    // //     var copyarray = copy.replace(/\s/g, '').split(",")
+                    // //     var delIndex = copyarray.indexOf(id);
+                    // //     copyarray.splice(delIndex, 1)
+                    // //     var copystring = copyarray.join("")
+                    // //    $scope.master.editedOrg.admin0pcode = copystring
+
+                    //     // option 2 put  country code  to admin0pcode_inactive if unchecked
+                    //     if ($scope.master.editedOrg.admin0pcode_inactive === '') {
+                    //         $scope.master.editedOrg.admin0pcode_inactive = $scope.master.editedOrg.admin0pcode_inactive += id;
+                    //     } else {
+                    //         $scope.master.editedOrg.admin0pcode_inactive = (id === 'ALL' ?
+                    //             id + ', ' + $scope.master.editedOrg.admin0pcode_inactive :
+                    //             $scope.master.editedOrg.admin0pcode_inactive += ', ' + id);
+
+                    //     }
+                    // }
+
+                    // new flow
+                    if (document.getElementById('edit-' + id).checked) {
+                        if ($scope.master.editedOrg.organization_type === 'International NGO' ||
+                            $scope.master.editedOrg.organization_type === 'United Nations') {
+                            // if ALL selected then set admin0pcode just to ALL
+                            if (id === 'ALL') {
+                                $scope.master.editedOrg.admin0pcode = 'ALL';
+                            } else {
+                                // if ALL not selected 
+                                // if empty string
+                                if ($scope.master.editedOrg.admin0pcode === '') {
+                                    $scope.master.editedOrg.admin0pcode += id;
+                                } else {
+                                    // check if ALL is exist
+                                    if ($scope.master.editedOrg.admin0pcode.indexOf('ALL') > -1) {
+                                        var copy = $scope.master.editedOrg.admin0pcode
+                                        var copyarray = copy.replace(/\s/g, '').split(",")
+                                        var delIndex = copyarray.indexOf('ALL');
+                                        copyarray.splice(delIndex, 1)
+                                        var copystring = copyarray.join(", ")
+                                        $scope.master.editedOrg.admin0pcode = copystring
+                                        $scope.master.editedOrg.admin0pcode_inactive='';
+                                    }
+
+                                    if ($scope.master.editedOrg.admin0pcode === '') {
+                                        $scope.master.editedOrg.admin0pcode += id;
+                                    } else {
+                                        $scope.master.editedOrg.admin0pcode = $scope.master.editedOrg.admin0pcode += ', ' + id;
+                                    }
+                                }
+
+                            }
                         } else {
-                            if ($scope.master.editedOrg.admin0pcode.indexOf(id)<0){
-                                $scope.master.editedOrg.admin0pcode = (id === 'ALL' ?
-                                    id + ', ' + $scope.master.editedOrg.admin0pcode :
-                                    $scope.master.editedOrg.admin0pcode += ', ' + id);
+                            // for not International and not UN
+                            if ($scope.master.editedOrg.admin0pcode === '') {
+                                $scope.master.editedOrg.admin0pcode += id;
+                            } else {
+                                // check if ALL is exist
+                                if ($scope.master.editedOrg.admin0pcode.indexOf(id)<0){
+                                    $scope.master.editedOrg.admin0pcode = $scope.master.editedOrg.admin0pcode += ', ' + id;
+                                }else{
+                                    var copy = $scope.master.editedOrg.admin0pcode_inactive
+                                    var copyarray = copy.replace(/\s/g, '').split(",")
+                                    var delIndex = copyarray.indexOf(id);
+                                    copyarray.splice(delIndex, 1)
+                                    if(copyarray.length>0){
+                                        var copystring = copyarray.join(", ")
+                                        $scope.master.editedOrg.admin0pcode_inactive = copystring
+                                        
+                                    }else{
+                                        $scope.master.editedOrg.admin0pcode_inactive = '';
+                                    }
+
+                                }
                             }
                         }
-                        if ($scope.master.editedOrg.admin0pcode_inactive !== '' && $scope.master.editedOrg.admin0pcode_inactive.indexOf(id)>-1) {
-                            var copy = $scope.master.editedOrg.admin0pcode_inactive
-                            var copyarray = copy.replace(/\s/g, '').split(",")
-                            var delIndex = copyarray.indexOf(id);
-                            copyarray.splice(delIndex, 1)
-                            var copystring = copyarray.join(", ")
-                            $scope.master.editedOrg.admin0pcode_inactive = copystring
-                        }
-                    }else{
-                    //     var copy =$scope.master.editedOrg.admin0pcode
-                    //     var copyarray = copy.replace(/\s/g, '').split(",")
-                    //     var delIndex = copyarray.indexOf(id);
-                    //     copyarray.splice(delIndex, 1)
-                    //     var copystring = copyarray.join("")
-                    //    $scope.master.editedOrg.admin0pcode = copystring
 
-                        // option 2 put  country code  to admin0pcode_inactive if unchecked
-                        if ($scope.master.editedOrg.admin0pcode_inactive === '') {
-                            $scope.master.editedOrg.admin0pcode_inactive = $scope.master.editedOrg.admin0pcode_inactive += id;
+
+                    } else {
+                        var copy = $scope.master.editedOrg.admin0pcode
+                        var copyarray = copy.replace(/\s/g, '').split(",")
+                        if (copyarray.length > 1) {
+                            
+                            if (!$scope.master.editedOrg.admin0pcode_inactive) {
+                                $scope.master.editedOrg.admin0pcode_inactive = '';
+                            }
+                            if($scope.master.editedOrg.admin0pcode_inactive ===''){
+                                $scope.master.editedOrg.admin0pcode_inactive = $scope.master.editedOrg.admin0pcode_inactive += id
+                            }else{
+                                $scope.master.editedOrg.admin0pcode_inactive = $scope.master.editedOrg.admin0pcode_inactive += ', ' + id;
+                            }
+
+
+                            
+                           
                         } else {
-                            $scope.master.editedOrg.admin0pcode_inactive = (id === 'ALL' ?
-                                id + ', ' + $scope.master.editedOrg.admin0pcode_inactive :
-                                $scope.master.editedOrg.admin0pcode_inactive += ', ' + id);
+                            if (!$scope.master.editedOrg.admin0pcode_inactive) {
+                                $scope.master.editedOrg.admin0pcode_inactive = '';
+                            }
+                            if ($scope.master.editedOrg.organization_type === 'International NGO' ||
+                                $scope.master.editedOrg.organization_type === 'United Nations'){
+                                    $scope.master.editedOrg.admin0pcode = 'ALL';
+                                    $scope.master.editedOrg.admin0pcode_inactive ='ALL';
+                            }else{
+                                if ($scope.master.editedOrg.admin0pcode_inactive === '') {
+                                    $scope.master.editedOrg.admin0pcode_inactive = $scope.master.editedOrg.admin0pcode_inactive += id
+                                } else {
+                                    if ($scope.master.editedOrg.admin0pcode_inactive.indexOf('AF')){
+                                        $scope.master.editedOrg.admin0pcode_inactive = $scope.master.editedOrg.admin0pcode_inactive += ', ' + id;
+                                    }
+                                }
+                            }
 
                         }
                     }
@@ -335,15 +502,34 @@ angular.module('ngm.widget.form.organization.list', ['ngm.provider'])
                 addCountryOrg: function (id) {
 
                     if (document.getElementById('add-'+id).checked) {
-                        if ($scope.addOrganizationAtribute.admin0pcode === '') {
-                            // if (($scope.addOrganizationAtribute.organization_type === 'International NGO' || $scope.addOrganizationAtribute.organization_type === 'United Nations')&& id !== 'all'){
-                            //     $scope.addOrganizationAtribute.admin0pcode += 'ALL, ';
-                            // }
-                            $scope.addOrganizationAtribute.admin0pcode += id;
-                        } else {
-                            $scope.addOrganizationAtribute.admin0pcode = (id === 'ALL' ?
-                                id + ', ' + $scope.addOrganizationAtribute.admin0pcode :
-                                $scope.addOrganizationAtribute.admin0pcode += ', ' + id);
+                        // if ($scope.addOrganizationAtribute.admin0pcode === '') {
+                        //     // if (($scope.addOrganizationAtribute.organization_type === 'International NGO' || $scope.addOrganizationAtribute.organization_type === 'United Nations')&& id !== 'all'){
+                        //     //     $scope.addOrganizationAtribute.admin0pcode += 'ALL, ';
+                        //     // }
+                        //     $scope.addOrganizationAtribute.admin0pcode += id;
+                        // } else {
+                        //     $scope.addOrganizationAtribute.admin0pcode = (id === 'ALL' ?
+                        //         id + ', ' + $scope.addOrganizationAtribute.admin0pcode :
+                        //         $scope.addOrganizationAtribute.admin0pcode += ', ' + id);
+                        // }
+                        if(id ==='ALL'){
+                            $scope.addOrganizationAtribute.admin0pcode = 'ALL';
+                        }else{
+                            if ($scope.addOrganizationAtribute.admin0pcode.indexOf('ALL') > -1) {
+                                var copy = $scope.addOrganizationAtribute.admin0pcode
+                                var copyarray = copy.replace(/\s/g, '').split(",")
+                                var delIndex = copyarray.indexOf('ALL');
+                                copyarray.splice(delIndex, 1)
+                                var copystring = copyarray.join(", ")
+                                $scope.addOrganizationAtribute.admin0pcode = copystring
+                                $scope.addOrganizationAtribute.admin0pcode_inactive = '';
+                            }
+                            if ($scope.addOrganizationAtribute.admin0pcode === '') {
+                                $scope.addOrganizationAtribute.admin0pcode += id;
+                            }else{
+                                $scope.addOrganizationAtribute.admin0pcode = $scope.addOrganizationAtribute.admin0pcode += ', '+ id;
+                            }
+
                         }
                     } else {
                         var copy = $scope.addOrganizationAtribute.admin0pcode
@@ -379,14 +565,68 @@ angular.module('ngm.widget.form.organization.list', ['ngm.provider'])
                         M.toast({ html: 'Error! Organization not deleted </br>' + err.err, displayLength: 3000, classes: 'error' });
                     })
                 },
+                changeListCountry:function(item){
+                    if (item.organization_type !== 'United Nations' && item.organization_type !== 'International NGO'){
+                        if ($scope.master.admin0pcode ==='ALL'){
+                            $scope.master.list_country = $scope.master.list_country.filter(x => x.admin0pcode !== $scope.master.admin0pcode);
+                        }else{
+                            $scope.master.list_country = $scope.master.list_country.filter(x => x.admin0pcode === $scope.master.admin0pcode);
+                        }
+                    }else{
+                        $scope.master.list_country = $scope.master.country;
+                    }
+                    var role = ngmAuth.userPermissions().reduce(function (max, v) { return v.LEVEL > max.LEVEL ? v : max })['ROLE'];
+                    if (role === 'COUNTRY_ADMIN' || role === 'CLUSTER'){
+                        $scope.master.list_country = $scope.master.list_country.filter(x => x.admin0pcode === $scope.master.admin0pcode);
+                    }
+                },
+                showInactive:function(org){
+                    return org && org.admin0pcode && 
+                          (org.admin0pcode.indexOf('ALL') > -1)
+                          
+                },
+                editInactiveCountry:function(id,prefix,item) {
+                    if (document.getElementById(prefix + id).checked) {
+                        if(!item.admin0pcode_inactive){
+                            item.admin0pcode_inactive ='';
+                        }
+                        if(id ==='ALL'){
+                            item.admin0pcode_inactive = 'ALL';
+                        }else{
+                            if(item.admin0pcode_inactive === ''){
+                                item.admin0pcode_inactive += id;
+                            }else{
+                                item.admin0pcode_inactive = item.admin0pcode_inactive += ', ' +id;
+                            }
+                        }
+                        
+                    }else{
+                        if (id === 'ALL') {
+                            item.admin0pcode_inactive = '';
+                        }else{
+                            var copy = item.admin0pcode_inactive
+                            var copyarray = copy.replace(/\s/g, '').split(",")
+                            var delIndex = copyarray.indexOf(id);
+                            copyarray.splice(delIndex, 1)
+                            if(copyarray.length>0){
+                                var copystring = copyarray.join(", ")
+                                item.admin0pcode_inactive = copystring;
+                            }else{
+                                item.admin0pcode_inactive ='';
+                            }
+                        }
+                    }
+                },
                 init:function(){
                     $scope.master.list_country=[];
+                    $scope.master.list_inactive_country = [];
                     var role = ngmAuth.userPermissions().reduce(function (max, v) { return v.LEVEL > max.LEVEL ? v : max })['ROLE'];
                     if (role === 'SUPERADMIN' || $scope.master.user.email === 'farifin@immap.org' || $scope.master.user.email === 'pfitzgerald@immap.org' || $scope.master.user.email === 'tkilkeiev@immap.org'){
                         $scope.master.list_country = $scope.master.country;
                     }else{
                         $scope.master.list_country = $scope.master.country.filter(x=>x.admin0pcode === $scope.master.admin0pcode);
                     }
+                    $scope.master.list_inactive_country = $scope.master.country;
 
                 }
             }
