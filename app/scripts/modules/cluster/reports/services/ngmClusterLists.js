@@ -897,17 +897,29 @@ angular.module( 'ngmReportHub' )
 
         var organizations;
 
-        if(admin0pcode === 'COL' ){
+      //   if(admin0pcode === 'COL' ){
 
-         organizations = $filter('filter')(ngmLists.getObject( 'lists' ).organizationsList,
-                 {admin0pcode: 'COL'} , {admin0pcode: 'ALL, COL'},true );
+      //    organizations = $filter('filter')(ngmLists.getObject( 'lists' ).organizationsList,
+      //            {admin0pcode: 'COL'} , {admin0pcode: 'ALL, COL'},true );
 
-        }else{
-          organizations = ngmLists.getObject( 'lists' ).organizationsList
-      }
+      //   }else{
+      //     organizations = ngmLists.getObject( 'lists' ).organizationsList
+      // }
 
 
+        organizations = ngmLists.getObject('lists').organizationsList.filter((x) => {
+          if ((x.admin0pcode.indexOf(admin0pcode) > -1) || (x.admin0pcode.indexOf('ALL') > -1)) {
+            // check if organization is inactive or active
+            if (x.admin0pcode_inactive && x.admin0pcode_inactive !== '') {
+              if (x.admin0pcode_inactive.indexOf(admin0pcode) < 0 && x.admin0pcode_inactive.indexOf('ALL') < 0) {
+                return x
+              }
+            } else {
+              return x
+            }
+          }
 
+        });
           return organizations;
 
 
