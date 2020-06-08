@@ -240,7 +240,14 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 					$scope.panel.organizations = $scope.panel.organizations.filter((x)=>{
 						if ((x.admin0pcode.indexOf(country) > -1) || (x.admin0pcode.indexOf('ALL') >-1 )){
-							return x
+							// check if organization is inactive or active
+							if (x.admin0pcode_inactive && x.admin0pcode_inactive !== '' ){
+								if (x.admin0pcode_inactive.indexOf(country) < 0 && x.admin0pcode_inactive.indexOf('ALL') < 0){
+									return x
+								}
+							}else{
+								return x
+							}
 						}
 
 					});
