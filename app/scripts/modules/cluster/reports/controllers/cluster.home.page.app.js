@@ -10,14 +10,14 @@ angular.module( 'ngmReportHub' )
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
-			'Karma' 
+			'Karma'
 		];
 
 		// init empty model
 		$scope.model = $scope.$parent.ngm.dashboard.model;
 
 		// org id
-		var organization_id = 
+		var organization_id =
 				$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
 
 		// report object
@@ -48,7 +48,7 @@ angular.module( 'ngmReportHub' )
 				}
 			},
 
-			// 
+			//
 			init: function(){
 
 				// set model titles
@@ -57,7 +57,7 @@ angular.module( 'ngmReportHub' )
 
 				// set template
 					// SY, CB
-				if ( $scope.report.organization.admin0pcode === 'CB' || $scope.report.organization.admin0pcode === 'SY' ) {
+				if ( $scope.report.organization.admin0pcode === 'CB' ||  $scope.report.organization.admin0pcode === 'PHL' || $scope.report.organization.admin0pcode === 'SY' ) {
 					$scope.report.template += $scope.report.organization.admin0pcode + '.';
 				}
 
@@ -93,12 +93,12 @@ angular.module( 'ngmReportHub' )
 									user: $scope.report.user,
 									organization: $scope.report.organization,
 									template: $scope.report.template,
-									
+
 									// THESE REALLY SHOULD USE ngmAutherntication.js
 
 									// get default team URL
 									getTeamUrl: function(){
-										
+
 										// title, roles
 										var url_base = '#/team/';
 										var roles = $scope.report.user.roles;
@@ -147,8 +147,8 @@ angular.module( 'ngmReportHub' )
 										return url;
 									},
 
-									// get team, sector, country, region panel title 
-									teamTitle: function() {	
+									// get team, sector, country, region panel title
+									teamTitle: function() {
 
 										// title, roles
 										var title;
@@ -194,19 +194,19 @@ angular.module( 'ngmReportHub' )
 											title = 'ReportHub'+' '+$filter('translate')('users') ;
 										}
 
-										// return 
+										// return
 										return title;
 
 									},
-									
+
 									// get project href
 									getProjectsHref: function() {
 										var href = '#/cluster/projects/list';
 										// if ( $route.current.params.organization_id ) { href += '/' + $route.current.params.organization_id }
-										
+
 										return href;
 									},
-									
+
 									// get project href
 									getStocksHref: function() {
 										var href = '#/cluster/stocks';
@@ -247,7 +247,7 @@ angular.module( 'ngmReportHub' )
 		ngmData
 			.get( $scope.report.getOrganization( organization_id ) )
 			.then( function( organization ){
-				
+
 				// set organization
 				$scope.report.organization = organization;
 
@@ -255,5 +255,5 @@ angular.module( 'ngmReportHub' )
 				$scope.report.init();
 
 			});
-		
+
 	}]);
