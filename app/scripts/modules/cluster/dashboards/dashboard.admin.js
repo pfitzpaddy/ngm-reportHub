@@ -416,7 +416,7 @@ angular.module('ngmReportHub')
 								$scope.dashboard.user.roles.indexOf( 'COUNTRY_ADMIN' ) !== -1 ||
 								$scope.dashboard.user.roles.indexOf( 'CLUSTER' ) !== -1 ||
 								$scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1
-							)  
+							)
 						) {
 						downloads = downloads.concat ( ng_wash_dl );
 					}
@@ -848,6 +848,13 @@ angular.module('ngmReportHub')
 								'active': 'pg',
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': '/desk/#/cluster/admin/wpro/pg'
+							},
+							{
+								'title': 'Philippines',
+								'param': 'admin0pcode',
+								'active': 'phl',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/wpro/phl'
 							}]
 						},
 						'afro': {
@@ -961,7 +968,6 @@ angular.module('ngmReportHub')
 							'id': 'search-country',
 							'icon': 'person_pin',
 							'title': $filter('translate')('country'),
-
 							'class': 'teal lighten-1 white-text',
 							'rows': [{
 								'title': 'Papua New Guinea',
@@ -969,6 +975,12 @@ angular.module('ngmReportHub')
 								'active': 'pg',
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': '/desk/#/cluster/admin/wpro/pg'
+							},{
+								'title': 'Philippines',
+								'param': 'admin0pcode',
+								'active': 'phl',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/wpro/phl'
 							}]
 						}
 					}

@@ -5840,6 +5840,35 @@ angular.module( 'ngmReportHub' )
         ]
         }
 
+        // PHL
+        if ( admin0pcode === 'PHL' ) {
+        	beneficiaries = [{
+      		  cluster_id: ngmClusterLists.all_sectors,
+      		  beneficiary_type_id: 'host_communities',
+      		  beneficiary_type_name: 'Host Communities'
+      		},{
+      			cluster_id: ngmClusterLists.all_sectors,
+    			  beneficiary_type_id: 'stakeholders',
+    			  beneficiary_type_name: 'Stakeholders'
+    			},{
+  				  cluster_id: ngmClusterLists.all_sectors,
+  				  beneficiary_type_id: 'idps',
+  				  beneficiary_type_name: 'IDPs'
+  				},{
+  				  cluster_id: ngmClusterLists.all_sectors,
+  				  beneficiary_type_id: 'idp_drought',
+  				  beneficiary_type_name: 'Drought Affected IDPs'
+  				},{
+  				  cluster_id: ngmClusterLists.all_sectors,
+  				  beneficiary_type_id: 'idp_flood',
+  				  beneficiary_type_name: 'Flood Affected IDPs'
+  				},{
+  				  cluster_id: ngmClusterLists.all_sectors,
+  				  beneficiary_type_id: 'idp_natural_disaster',
+  				  beneficiary_type_name: 'Natural Disaster IDPs'
+    			}];
+        }
+
         // admin ET
         if ( admin0pcode === 'ET' ) {
 
@@ -7723,7 +7752,9 @@ angular.module( 'ngmReportHub' )
       // get site implementation
       getSiteImplementation: function( admin0pcode, cluster_id ){
         var site_implementation = [];
-        if ( cluster_id === 'eiewg'  ) {
+
+        // eiewg
+        if ( cluster_id === 'eiewg' ) {
           site_implementation = [{
             site_implementation_id: 'formal',
             site_implementation_name: 'Formal'
@@ -7731,7 +7762,10 @@ angular.module( 'ngmReportHub' )
             site_implementation_id: 'informal',
             site_implementation_name: 'Informal'
           }];
-        } else if ( admin0pcode === 'AF' ){
+        }
+
+        // AF
+        if ( admin0pcode === 'AF' ){
           site_implementation = [{
             cluster_id: ngmClusterLists.all_sectors_minus_protection,
             site_implementation_id: 'community_based',
@@ -7797,28 +7831,32 @@ angular.module( 'ngmReportHub' )
             site_implementation_id: 'other',
             site_implementation_name: 'Other'
           }];
-        } else if( admin0pcode === 'COL' ){
-          site_implementation = [
-          {
+        }
+
+        // COL
+        if( admin0pcode === 'COL' ){
+          site_implementation = [{
             site_implementation_id: 'apoyo_comunitario',
             site_implementation_name: 'Apoyo Comunitario'
-          },
-          {
+          },{
             site_implementation_id: 'apoyo_institucional',
             site_implementation_name: 'Apoyo Institucional'
-          },
-          {
+          },{
             site_implementation_id: 'apoyo_individual_familiar',
             site_implementation_name: 'Apoyo Individual/Familiar'
-          },
-          {
+          },{
             site_implementation_id: 'otro',
             site_implementation_name: 'Otro'
-          }
+          }];
+        }
 
-
-          ];
-
+        // COL
+        if( admin0pcode === 'PHL' ){
+          site_implementation = [{
+          	cluster_id: ngmClusterLists.all_sectors,
+          	site_implementation_id: 'community_based',
+          	site_implementation_name: 'Community Based'
+          }];
         }
 
         else {
@@ -8321,6 +8359,23 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'school',
             site_type_name: 'School'
           }];
+        }
+
+        // ng
+        if ( admin0pcode === 'PHL' ) {
+          site_types = [{
+        	  site_type_id: 'multiple_sites',
+        	  site_type_name: 'Multiple Sites'
+        	},{
+        	  site_type_id: 'host_community',
+        	  site_type_name: 'Host Community'
+        	},{
+        	  site_type_id: 'settlement',
+        	  site_type_name: 'Settlement'
+        	},{
+        	  site_type_id: 'health_facility',
+        	  site_type_name: 'Health Facility'
+        	}];
         }
 
         // et

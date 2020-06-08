@@ -146,7 +146,7 @@ angular.module('ngmReportHub')
 																	'/' + activity_type_id +
 																	'/' + activity_description_id +
 																	'/' + organization_tag +
-																	'/returnee_undocumented+returnee_documented+refugee_pakistani' +																	
+																	'/returnee_undocumented+returnee_documented+refugee_pakistani' +
 																	'/' + $scope.dashboard.startDate +
 																	'/' + $scope.dashboard.endDate;
 					}
@@ -156,7 +156,7 @@ angular.module('ngmReportHub')
 
         // set URL based on user rights
 				setUrl: function(){
-					
+
 					// get url
 					var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id,$scope.dashboard.activity_description_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 
@@ -321,7 +321,7 @@ angular.module('ngmReportHub')
 						request: $scope.dashboard.getRequest( { csv: true, indicator: 'water', report: $scope.dashboard.cluster_id_filename + '_water_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 						metrics: $scope.dashboard.getMetrics( 'water_data', 'csv' )
 					}];
-					
+
 					// NG, wash and Admin
 					if ( $scope.dashboard.admin0pcode === 'ng' &&
 								$scope.dashboard.cluster_id === 'wash' &&
@@ -329,16 +329,16 @@ angular.module('ngmReportHub')
 								$scope.dashboard.user.roles.indexOf( 'COUNTRY_ADMIN' ) !== -1 ||
 								$scope.dashboard.user.roles.indexOf( 'CLUSTER' ) !== -1 ||
 								$scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1
-							)  
+							)
 						) {
 						downloads = downloads.concat ( ng_wash_dl );
 					}
 
 					// blocking download
-					const canDownload = ngmAuth.canDo( 'DASHBOARD_DOWNLOAD', { 
-															adminRpcode: $scope.dashboard.adminRpcode.toUpperCase(), 
-															admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(), 
-															cluster_id: $scope.dashboard.cluster_id, 
+					const canDownload = ngmAuth.canDo( 'DASHBOARD_DOWNLOAD', {
+															adminRpcode: $scope.dashboard.adminRpcode.toUpperCase(),
+															admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(),
+															cluster_id: $scope.dashboard.cluster_id,
 															organization_tag: $scope.dashboard.organization_tag } )
 					// filter downloads list
 					if (!canDownload){
@@ -477,7 +477,6 @@ angular.module('ngmReportHub')
 									'id': 'search-country',
 									'icon': 'person_pin',
 									'title': $filter('translate')('country'),
-
 									'class': 'teal lighten-1 white-text',
 									'rows': [{
 										'title': 'Papua New Guinea',
@@ -485,6 +484,12 @@ angular.module('ngmReportHub')
 										'active': 'pg',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 										'href': '/desk/#/cluster/5w/wpro/pg'
+									},{
+										'title': 'Philippines',
+										'param': 'admin0pcode',
+										'active': 'phl',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/wpro/phl'
 									}]
 								}
 							}
@@ -528,9 +533,9 @@ angular.module('ngmReportHub')
 							'rows': clusterRows
 						});
 
-						// activity menu 
+						// activity menu
 						// if ( $scope.dashboard.cluster_id === 'protection' ) {
-						
+
 						// 	$scope.model.menu.push({
 						// 		'search': false,
 						// 		'id': 'search-cluster-activity',
@@ -628,7 +633,7 @@ angular.module('ngmReportHub')
 
 						// organization & disable if public
 						if ($scope.dashboard.menu_items.includes('organization_tag') && $scope.dashboard.user.username !== 'welcome') {
-				
+
 							$scope.model.menu.push({
 								'search': true,
 								'id': 'search-cluster-organization',
@@ -735,7 +740,7 @@ angular.module('ngmReportHub')
 					// title
 					$scope.dashboard.title = $filter('translate')('5W');
 
-				
+
 					// admin0
 					if ( $scope.dashboard.admin0pcode === 'all' ) {
 						$scope.dashboard.title = $filter('translate')('5W')+' | ' + $scope.dashboard.adminRpcode.toUpperCase()
@@ -831,7 +836,7 @@ angular.module('ngmReportHub')
 					$scope.dashboard.beneficiaries = $route.current.params.beneficiaries.split('+');
 					$scope.dashboard.activity_type_id = $route.current.params.activity_type_id;
 					$scope.dashboard.activity_description_id = $route.current.params.activity_description_id;
-					
+
 
 					// plus dashboard_visits
 					$scope.dashboard.user.dashboard_visits++;
@@ -900,7 +905,7 @@ angular.module('ngmReportHub')
 									request: $scope.dashboard.getRequest({ indicator: 'beneficiaries' })
 								}
 							}]
-						}]						
+						}]
 					}
 
 					// model
@@ -1032,7 +1037,7 @@ angular.module('ngmReportHub')
 												},
 												tooltip: {
 													enabled: false
-												}				
+												}
 											},
 											title: {
 													text: '',
@@ -1051,7 +1056,7 @@ angular.module('ngmReportHub')
 												dataLabels: {
 													enabled: false
 												},
-												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})												
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})
 																						}]
 										}
 									}
@@ -1084,7 +1089,7 @@ angular.module('ngmReportHub')
 												},
 												tooltip: {
 													enabled: false
-												}				
+												}
 											},
 											title: {
 													text: '',
@@ -1103,7 +1108,7 @@ angular.module('ngmReportHub')
 												dataLabels: {
 													enabled: false
 												},
-												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for: 'adult' })												
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for: 'adult' })
 											}]
 										}
 									}
@@ -1136,7 +1141,7 @@ angular.module('ngmReportHub')
 												},
 												tooltip: {
 													enabled: false
-												}				
+												}
 											},
 											title: {
 													text: '',
@@ -1155,7 +1160,7 @@ angular.module('ngmReportHub')
 												dataLabels: {
 													enabled: false
 												},
-												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for: 'elderly' })												
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for: 'elderly' })
 											}]
 										}
 									}
@@ -1252,7 +1257,7 @@ angular.module('ngmReportHub')
 							return obj.id !== 'training_participants';
 						  });
 					}
-					
+
 					// disallow public download
 					if ($scope.dashboard.user.username === 'welcome'){
 						$scope.model.header.download.downloads = $scope.model.header.download.downloads.filter(function( obj ) {

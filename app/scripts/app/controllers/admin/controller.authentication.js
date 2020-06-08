@@ -73,6 +73,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 					{ adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'KE', admin0name: 'Kenya' },
 					{ adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'NG', admin0name: 'Nigeria' },
 					{ adminRpcode: 'WPRO', adminRname: 'WPRO', admin0pcode: 'PG', admin0name: 'Papua New Guinea' },
+					{ adminRpcode: 'WPRO', adminRname: 'WPRO', admin0pcode: 'PHL', admin0name: 'Philippines' },
 					{ adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'SO', admin0name: 'Somalia' },
 					{ adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'SS', admin0name: 'South Sudan' },
 					{ adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'SY', admin0name: 'Syria' },
@@ -235,8 +236,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 
 				orgByCountry:function(){
-					var country = $scope.panel && $scope.panel.user && $scope.panel.user.admin0pcode ? $scope.panel.user.admin0pcode : 'all'; 
-					
+					var country = $scope.panel && $scope.panel.user && $scope.panel.user.admin0pcode ? $scope.panel.user.admin0pcode : 'all';
+
 					$scope.panel.organizations = $scope.panel.organizations.filter((x)=>{
 						if ((x.admin0pcode.indexOf(country) > -1) || (x.admin0pcode.indexOf('ALL') >-1 )){
 							return x

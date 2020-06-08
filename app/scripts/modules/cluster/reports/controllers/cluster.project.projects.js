@@ -48,10 +48,10 @@ angular.module( 'ngmReportHub' )
 
 				// default
 				var url = '/desk/#/cluster/projects/list';
-				
+
 				// url
 				url += '/' + $route.current.params.adminRpcode + '/' + $route.current.params.admin0pcode + '/' + $route.current.params.organization_tag + '/' + cluster_id;
-				
+
 				return url;
 			},
 
@@ -80,7 +80,7 @@ angular.module( 'ngmReportHub' )
 
 			// set the header titles
 			setTitles: function(){
-				
+
 				// if org_id, get org data
 				// if ( $route.current.params.organization_id ) {
 
@@ -88,7 +88,7 @@ angular.module( 'ngmReportHub' )
 				// 	ngmData
 				// 		.get( $scope.report.getOrganization( $scope.report.organization_id ) )
 				// 		.then( function( organization ){
-								
+
 				// 			// set titles
 				// 			$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 				// 			$scope.model.header.title.c = organization.organization + ' | ' + organization.admin0name.toUpperCase().substring( 0, 3 ) + ' | '+$filter('translate')('projects_mayus1');
@@ -103,7 +103,8 @@ angular.module( 'ngmReportHub' )
 						af: 'Afghanistan', bd: 'Bangladesh', cb: 'Cox Bazar',
 						cd: 'Democratic Republic of Congo', et: 'Ethiopia',
 						so: 'Somalia', ss: 'South Sudan', sy: 'Syria', ua: 'Ukraine',
-						ye: 'Yemen', ng: 'Nigeria', col: 'Colombia', pg: 'Papua New Guinea'
+						ye: 'Yemen', ng: 'Nigeria', col: 'Colombia', pg: 'Papua New Guinea',
+						phl: 'Philippines'
 					};
 					$scope.model.header.download.downloads[0].request.data.report = ''
 					$scope.model.header.title.title = '';
@@ -112,7 +113,7 @@ angular.module( 'ngmReportHub' )
 					if ($route.current.params.adminRpcode === 'all'){
 						$scope.model.header.download.downloads[0].request.data.report = 'all'
 						$scope.model.header.title.title = 'HQ'
-						$scope.model.header.subtitle.title = 'All ' + $filter('translate')('projects_for_mayus1') + ' All Region '  
+						$scope.model.header.subtitle.title = 'All ' + $filter('translate')('projects_for_mayus1') + ' All Region '
 						$scope.report.title = 'HQ'
 					}
 					if ($route.current.params.adminRpcode !== 'all' && $route.current.params.admin0pcode === 'all') {
@@ -146,7 +147,7 @@ angular.module( 'ngmReportHub' )
 			},
 
 			// set Region Menu
-			setRegionMenu: function () {				
+			setRegionMenu: function () {
 				url = '/desk/#/cluster/projects/list';
 				var region = ngmClusterHelper.getRegionMenu(url);
 				$scope.model.menu.push(region);
@@ -154,9 +155,9 @@ angular.module( 'ngmReportHub' )
 
 			// set Country Menu
 			setCountryMenu: function (region) {
-				
+
 				var url = '/desk/#/cluster/projects/list/';
-				var menu = ngmClusterHelper.getCountryMenu(url);				
+				var menu = ngmClusterHelper.getCountryMenu(url);
 				$scope.model.menu.push(menu[region]);
 			},
 
@@ -202,8 +203,8 @@ angular.module( 'ngmReportHub' )
 				};
 				ngmData.get(req).then(function (org) {
 
-					
-					
+
+
 					var urlOrganization = '/desk/#/cluster/projects/list/' + $route.current.params.adminRpcode + '/' + $route.current.params.admin0pcode + '/';
 					// org = org.filter((value, index, self) => self.map(x => x.organization_tag).indexOf(value.organization_tag) == index)
 					listOrg = [{
@@ -353,7 +354,7 @@ angular.module( 'ngmReportHub' )
 					$scope.report.user.admin0pcode === "COL" && //delete to enable for all countries
 					admin_org.includes($scope.report.user.organization)) {
 
-					query = {						
+					query = {
 						admin0pcode: $scope.report.user.admin0pcode
 					};
 				}
@@ -361,7 +362,7 @@ angular.module( 'ngmReportHub' )
 			},
 			// fetches request for project list
 			getProjectRequest: function( project_status ) {
-				
+
 				// filter
 				// var filter = {
 				// 		organization_tag: $scope.report.organization_tag,
@@ -405,23 +406,23 @@ angular.module( 'ngmReportHub' )
 
 
 					var admin_org = ["OCHA", "iMMAP"];
-				    if( $scope.report.user.roles.find(rol => rol === "COUNTRY") && 
+				    if( $scope.report.user.roles.find(rol => rol === "COUNTRY") &&
 						$scope.report.user.admin0pcode === "COL" && //delete to enable for all countries
 						admin_org.includes($scope.report.user.organization)){
-					    
+
 					    filter = {
 							project_status: project_status,
-							admin0pcode: $scope.report.user.admin0pcode 
+							admin0pcode: $scope.report.user.admin0pcode
 						};
 					}
-				
+
 				// add cluster
 				// if ( $scope.report.cluster_id !== 'all' ) {
 				// 	filter = angular.merge( filter, { cluster_id: $scope.report.cluster_id } );
 				// }
-				
-				
-				
+
+
+
 				// get projects
 				var request = {
 							method: 'POST',
@@ -432,13 +433,13 @@ angular.module( 'ngmReportHub' )
 				// return
 				return request;
 
-			},			
+			},
 			setUrl:function(){
 				if ($scope.report.userRestricted.length){
 					out_zone =false
 					$scope.report.userRestricted.forEach(function (e) {
 						if($route.current.params[e] !== $scope.report[e]){
-							out_zone = true	
+							out_zone = true
 						}
 					})
 					if(out_zone){
@@ -460,20 +461,20 @@ angular.module( 'ngmReportHub' )
 						$route.current.params.organization_tag ? $route.current.params.organization_tag : ngmUser.get().organization_tag;
 
 				// sector
-				$scope.report.cluster_id = 
+				$scope.report.cluster_id =
 						$route.current.params.cluster_id ? $route.current.params.cluster_id : ngmUser.get().cluster_id;
-				
+
 				// country
 				$scope.report.admin0pcode = $route.current.params.admin0pcode ? $route.current.params.admin0pcode : ngmUser.get().admin0pcode;
 
 				// region
 				$scope.report.adminRpcode = $route.current.params.adminRpcode ? $route.current.params.adminRpcode : ngmUser.get().adminRpcode;
-				
+
 				// restricted zone
-				if ($scope.report.userRestricted.length) {					
+				if ($scope.report.userRestricted.length) {
 					for (const key of $scope.report.userRestricted) {
-						$scope.report[key] = $scope.report.user[key].toLowerCase()						
-					}					
+						$scope.report[key] = $scope.report.user[key].toLowerCase()
+					}
 				}
 				// console.log($)
 				$scope.report.setUrl();
@@ -657,19 +658,19 @@ angular.module( 'ngmReportHub' )
 
 				// set title
 				$scope.report.setTitles();
-				
+
 				// set menus
 				// $scope.report.setMenu();
 				$scope.report.setMenu($scope.report.userMenuItems);
 			}
 
-		}		
+		}
 		// init
 		$scope.report.init();
 		$scope.$on('$locationChangeSuccess', function (evt, absNewUrl, absOldUrl){
-			
+
 			var absOldUrl = absOldUrl.substring(absOldUrl.indexOf("/#") + 1);
 			$rootScope.projecListPreviouseUrl = absOldUrl;
-		}) 
-		
+		})
+
 	}]);

@@ -83,7 +83,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				return ngmClusterHelperCol.run($scope, funct, data);
 			};
 
-			// var for import File 
+			// var for import File
 			$scope.messageFromfile = {project_detail_message :[],target_beneficiaries_message:[],target_locations_message:[]};
 			$scope.inputString = false;
 
@@ -436,7 +436,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							}
 						}else{
 							$scope.project.definition.project_details = [];
-							
+
 						}
 					}
 
@@ -457,7 +457,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 										count_missing += 1;
 									}
 								});
-								
+
 								if(count_missing>0){
 									// set project.lists.project_details same as temp list if some of project_detail_id is missing
 									$scope.project.lists.project_details = temp_list;
@@ -562,7 +562,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				addBeneficiaryFromFile: function (beneficiary, $indexFile) {
 					// set implementing if location has set implementing partner;
 					var beneficiary_default = ngmClusterBeneficiaries.addBeneficiary($scope.project, $scope.project.definition.target_beneficiaries);
-					
+
 					delete beneficiary_default.cluster_id;
 					delete beneficiary_default.cluster;
 					delete beneficiary_default.activity_type_id;
@@ -593,7 +593,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					delete beneficiary_default.mpc_delivery_type_name;
 					delete beneficiary_default.mpc_delivery_type_id;
 					delete beneficiary_default.mpc_mechanism_type_id;
-					
+
 					beneficiary = angular.merge({}, beneficiary_default, beneficiary)
 
 					$scope.project.definition.target_beneficiaries.push(beneficiary);
@@ -610,14 +610,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							beneficiary.unit_type_id = selected_unit[0].unit_type_id;
 						}
 					}
-					
+
 					if (beneficiary.mpc_delivery_type_name && ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['mpc_delivery_type_id']) {
 						selected_mpc_delivery = $filter('filter')(ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['mpc_delivery_type_id'], { mpc_delivery_type_name: beneficiary.mpc_delivery_type_name }, true);
 						if (selected_mpc_delivery.length) {
 							beneficiary.mpc_delivery_type_id = selected_mpc_delivery[0].mpc_delivery_type_id;
 						}
 					}
-					
+
 					if (beneficiary.mpc_mechanism_type_name && ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['mpc_mechanism_type_id']) {
 						selected_mpc_mechanism = $filter('filter')(ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['mpc_mechanism_type_id'], { mpc_mechanism_type_name: beneficiary.mpc_mechanism_type_name, mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }, true);
 						if (selected_mpc_mechanism.length) {
@@ -632,7 +632,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						} else {
 							$scope.messageFromfile.target_beneficiaries_message[$indexFile] = ngmClusterValidation.validationTargetBeneficiariesFromFile(beneficiary, 0, $scope.project.definition.target_beneficiaries.length - 1, $scope.project.definition.admin0pcode, $scope.project.definition.project_hrp_project);
 						}
-						
+
 
 					}
 
@@ -812,7 +812,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 					if ($scope.project.definition.admin0pcode !== 'CB') {
 						var newLocationIndex = $scope.project.definition.target_locations.length - 1;
-						
+
 						// set admin1,2,3 etc for new location added
 						ngmClusterLocations.filterLocations($scope.project, newLocationIndex, $scope.project.definition.target_locations[newLocationIndex]);
 
@@ -829,9 +829,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							delete selected_loc[0].id ;
 							$scope.project.definition.target_locations[newLocationIndex] = angular.merge($scope.project.definition.target_locations[newLocationIndex], selected_loc[0]);
 						}
-						
-						
-						
+
+
+
 					}
 					if ($scope.messageFromfile.target_locations_message[index]) {
 						$scope.messageFromfile.target_locations_message[index] = $scope.messageFromfile.target_locations_message[$index].concat(ngmClusterValidation.validationTargetLocationFromFile($scope.project.definition.target_locations[newLocationIndex], $scope.project.definition.target_locations.length - 1, $scope.detailLocation));
@@ -1151,9 +1151,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								$("#delete_file").attr("disabled", true);
 								$("#switch_btn_file").attr("disabled", true);
 								var ext = drop_zone.getAcceptedFiles()[0].name.split('.').pop();
-								
-								
-								
+
+
+
 								if (ext === 'csv') {
 									var file = drop_zone.getAcceptedFiles()[0],
 										read = new FileReader();
@@ -1272,14 +1272,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 										})
 										document.querySelector(".dz-default.dz-message").style.display = 'none';
 										document.querySelector(".percent-upload").style.display = 'block';
-									
+
 										$timeout(function () {
 											document.querySelector(".percent-upload").style.display = 'none';
 											$('#upload-monthly-file-project').modal('close');
 											drop_zone.removeAllFiles(true);
 
 											$scope.project.setMessageForImportFile($scope.messageFromfile, ngmClusterValidation.fieldProject())
-											
+
 
 											if ((count_error_target_beneficiaries > 0) || (count_error_target_locations > 0)) {
 												if (count_error_target_beneficiaries > 0) {
@@ -1315,7 +1315,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 											$("#upload_file").attr("disabled", true);
 											$("#delete_file").attr("disabled", true);
 											$("#switch_btn_file").attr("disabled", false);
-											
+
 										}, 2000)
 									}
 								} else {
@@ -1518,21 +1518,21 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 														if (index === 1) {
 															temp_location.push(sh);
 														}
-														// if user input excel file that contain sheet name Target Locations 
+														// if user input excel file that contain sheet name Target Locations
 														// it will be overwrite
 														if (sheet.name === 'Target Locations') {
 															temp_location[0] = sh;
 														};
 													// }
 												});
-												
+
 												var header = ngmClusterImportFile.listheaderAttributeInFile('target_location');
 												location = ngmClusterImportFile.transform_to_obj(temp_location[0], header);
 												if (location.length) {
 													angular.forEach(location, function (t_l) {
 														target_locations.push($scope.project.addMissingTargetlocationsFormFile(t_l))
 													})
-													
+
 													for (var i = 0; i < target_locations.length; i++) {
 
 														if ((!target_locations[i].admin1name) || (!target_locations[i].admin1pcode) ||
@@ -1562,7 +1562,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 														}
 													}
 												}
-												
+
 											})
 										}else{
 
@@ -1580,7 +1580,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 															temp_beneficiaries.push(sh);
 														}
 
-														// if user input excel file that contain sheet name Target Locations 
+														// if user input excel file that contain sheet name Target Locations
 														// it will be overwrite
 														if (sheet.name === 'Target Beneficiaries') {
 															temp_beneficiaries[0] = sh;
@@ -1595,9 +1595,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 													angular.forEach(beneficiaries, function (t_l) {
 														target_beneficiaries.push($scope.project.addMissingTargetbeneficiaryFromFile(t_l))
 													})
-													
+
 													for (var b = 0; b < target_beneficiaries.length; b++) {
-														
+
 														if ((!target_beneficiaries[b].cluster_id) || (!target_beneficiaries[b].activity_type_id) || (!target_beneficiaries[b].activity_description_id)) {
 															if (!$scope.messageFromfile.target_beneficiaries_message[b]) { $scope.messageFromfile.target_beneficiaries_message[b] = [] }
 															if (!target_beneficiaries[b].cluster_id) {
@@ -1684,7 +1684,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 											$("#delete_file").attr("disabled", true);
 											$("#switch_btn_file").attr("disabled", false);
 										}, 2000)
-										
+
 									})
 								}
 							});
@@ -1785,7 +1785,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								return
 							};
 
-							
+
 							var values = [];
 							values_obj = [];
 							var target_locations=[];
@@ -1875,7 +1875,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 									}
 								}
 
-								
+
 							}
 
 							$scope.project.setMessageForImportFile($scope.messageFromfile, ngmClusterValidation.fieldProject())
@@ -1920,7 +1920,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								$scope.inputString = false;
 							}, 2000)
 
-							
+
 
 
 
@@ -1956,7 +1956,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}
 					// activity_type
 					if (obj.activity_type_list){
-						
+
 						// map list to array of object
 						temp = obj.activity_type_list.split(';').map((x)=> {
 							x = x.split(',');
@@ -1984,15 +1984,15 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 									temp_intercheck[selected_act_list[0].cluster_id] = true;
 									temp_inter_act.push({ cluster_id: selected_act_list[0].cluster_id, cluster: selected_act_list[0].cluster})
 								}
-								
+
 							}
 						})
-						
+
 						obj.activity_type = temp;
 						obj.inter_cluster_check = temp_intercheck;
 						obj.activity_type_check = temp_check;
 						obj.inter_cluster_activities = temp_inter_act.filter((thing, index, self) => self.findIndex(t => t.cluster_id === thing.cluster_id) === index);
-					
+
 					}
 
 					// implementing partner list
@@ -2002,9 +2002,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						temp = obj.implementing_partners_list.split(';').map((x)=>{return x.trim();});
 
 						angular.forEach(temp, function(e){
-							
+
 							selected_impl = $filter('filter')($scope.project.lists.organizations, { organization_name: e});
-							
+
 							if (selected_impl.length){
 								impl_array.push(selected_impl[0]);
 							}
@@ -2013,17 +2013,17 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}
 					// project donor
 					if (obj.project_donor_list){
-						
+
 						temp_donor = [];
 						temp_donor_check={};
 
 						temp = obj.project_donor_list.split(';').map((x)=> x.trim());
 						 angular.forEach(temp,function(e){
-							 
+
 							selected_donor = $filter('filter')($scope.project.lists.donors,{project_donor_name:e});
 							if(selected_donor.length){
 								temp_donor.push(selected_donor[0]);
-								temp_donor_check[selected_donor[0].project_donor_id]= true; 
+								temp_donor_check[selected_donor[0].project_donor_id]= true;
 							}
 
 						 })
@@ -2031,9 +2031,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						obj.project_donor = temp_donor;
 						obj.project_donor_check = temp_donor_check;
 
-						
+
 					}
-					
+
 					if(obj.project_details_list){
 						temp_project_details =[];
 						temp = obj.project_details_list.split(';').map(x=>x.trim());
@@ -2049,16 +2049,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}
 
 
-					// remove list 
+					// remove list
 					delete obj.activity_type_list;
 					delete obj.implementing_partners_list;
 					delete obj.project_donor_list
-					
+
 					return obj
 
 				},
 				addMissingAttributeProjectDetailFromFile:function(obj){
-					
+
 					if (obj.implementing_partners) {
 						obj.implementing_partners_checked = true;
 						var impl_array = []
@@ -2074,7 +2074,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						})
 						obj.implementing_partners = impl_array;
 					}
-					
+
 					if (obj.project_details) {
 						temp_project_details = [];
 						temp = obj.project_details.split(';').map(x => x.trim());
@@ -2286,7 +2286,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							obj.package_type_id = selected_package[0].package_type_id;
 						}
 					}
-					
+
 					return obj
 				},
 				switchInputFile: function () {
@@ -2323,7 +2323,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 										}
 										message_temp += 'Incorrect value at row ' + (y + 2) + ', ' + list_field[field] + ' : ' + reason + '\n';
 
-										if (field === 'activity_type_check' || field === 'project_donor' || 
+										if (field === 'activity_type_check' || field === 'project_donor' ||
 											field === 'admin1pcode' || field ==='admin1name'|| field ==='admin2pcode'||field ==='admin2name'||
 											field === 'cluster_id' || field === 'activity_type_id' || field === 'activity_description_id'){
 											message_temp += 'Row ' + (y + 2) + ' From Sheet ' + sheetName +' will be not added\n'
@@ -2333,7 +2333,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								}
 
 							}
-							
+
 							$timeout(function () {
 								for (x in messageList) {
 									for (var y = 0; y < messageList[x].length; y++) {
@@ -2348,7 +2348,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 									}
 								}
 							}, 10)
-							
+
 						}
 					}
 					if (message_temp !== '') {
@@ -2449,7 +2449,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// Materialize.toast( $filter('translate')('processing'), 6000, 'note' );
 					M.toast({ html: $filter('translate')('processing'), displayLength: 6000, classes: 'note' });
 
-					
+
 					// details update
 					$http({
 						method: 'POST',

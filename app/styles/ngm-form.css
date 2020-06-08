@@ -36,14 +36,14 @@
 	}
 
 	label {
-		font-size: 1rem !important;	
+		font-size: 1rem !important;
 	}
 	.input-field > label:not(.label-icon).active {
 		-webkit-transform: translateY(-14px) scale(1);
 		transform: translateY(-14px) scale(1);
 		-webkit-transform-origin: 0 0;
 		transform-origin: 0 0;
-		
+
 	}
 	.input-field > label:not(.label-icon).active.down {
 		transform: translateY(10px) scale(1);
@@ -115,7 +115,7 @@
 	/* title for indicator blocks */
 	.indicator-title {
 		padding-left: 10px;
-		font-size: 1.16rem !important;		
+		font-size: 1.16rem !important;
 	}
 
 	/* for displaying beneficiary numbers */
@@ -128,7 +128,7 @@
 	}
 
 
-	
+
 	/* darken inputs */
 	input, .input-field, .checkbox-label {
 		font-weight: 400;
@@ -163,6 +163,13 @@
 	  font-weight: 500;
 	}
 
+
+	/** updated disabled style **/
+	input:not([type]):disabled + label, input:not([type])[readonly="readonly"] + label, input[type=text]:not(.browser-default):disabled + label, input[type=text]:not(.browser-default)[readonly="readonly"] + label, input[type=password]:not(.browser-default):disabled + label, input[type=password]:not(.browser-default)[readonly="readonly"] + label, input[type=email]:not(.browser-default):disabled + label, input[type=email]:not(.browser-default)[readonly="readonly"] + label, input[type=url]:not(.browser-default):disabled + label, input[type=url]:not(.browser-default)[readonly="readonly"] + label, input[type=time]:not(.browser-default):disabled + label, input[type=time]:not(.browser-default)[readonly="readonly"] + label, input[type=date]:not(.browser-default):disabled + label, input[type=date]:not(.browser-default)[readonly="readonly"] + label, input[type=datetime]:not(.browser-default):disabled + label, input[type=datetime]:not(.browser-default)[readonly="readonly"] + label, input[type=datetime-local]:not(.browser-default):disabled + label, input[type=datetime-local]:not(.browser-default)[readonly="readonly"] + label, input[type=tel]:not(.browser-default):disabled + label, input[type=tel]:not(.browser-default)[readonly="readonly"] + label, input[type=number]:not(.browser-default):disabled + label, input[type=number]:not(.browser-default)[readonly="readonly"] + label, input[type=search]:not(.browser-default):disabled + label, input[type=search]:not(.browser-default)[readonly="readonly"] + label, textarea.materialize-textarea:disabled + label, textarea.materialize-textarea[readonly="readonly"] + label { color: #26a69a; }
+	.input-field input:disabled, .select-wrapper input.select-dropdown:disabled, textarea.materialize-textarea:disabled { color:#000;  }
+	input:not([type]):disabled, input:not([type])[readonly="readonly"], input[type=text]:not(.browser-default):disabled, input[type=text]:not(.browser-default)[readonly="readonly"], input[type=password]:not(.browser-default):disabled, input[type=password]:not(.browser-default)[readonly="readonly"], input[type=email]:not(.browser-default):disabled, input[type=email]:not(.browser-default)[readonly="readonly"], input[type=url]:not(.browser-default):disabled, input[type=url]:not(.browser-default)[readonly="readonly"], input[type=time]:not(.browser-default):disabled, input[type=time]:not(.browser-default)[readonly="readonly"], input[type=date]:not(.browser-default):disabled, input[type=date]:not(.browser-default)[readonly="readonly"], input[type=datetime]:not(.browser-default):disabled, input[type=datetime]:not(.browser-default)[readonly="readonly"], input[type=datetime-local]:not(.browser-default):disabled, input[type=datetime-local]:not(.browser-default)[readonly="readonly"], input[type=tel]:not(.browser-default):disabled, input[type=tel]:not(.browser-default)[readonly="readonly"], input[type=number]:not(.browser-default):disabled, input[type=number]:not(.browser-default)[readonly="readonly"], input[type=search]:not(.browser-default):disabled, input[type=search]:not(.browser-default)[readonly="readonly"], textarea.materialize-textarea:disabled, textarea.materialize-textarea[readonly="readonly"] { color:#000;  }
+
+
 	/* input label */
 	.input-field label,
 		.input-field input:disabled + label, .input-field input[type=number] +label,
@@ -177,7 +184,7 @@
 	}
 	/* valid input */
 	.input-field input.valid,
-		textarea.materialize-textarea.valid, md-chips .md-chips.md-focused , 
+		textarea.materialize-textarea.valid, md-chips .md-chips.md-focused ,
 		.input-field input.valid[type='text'], .input-field input.valid[type='number']{
 		color: rgba(0,0,0,0.87) !important;
 		border-bottom: 1px solid #26a69a;
@@ -185,7 +192,7 @@
 	}
 	/* valid input on focus */
 	.input-field input:focus.valid,
-		textarea.materialize-textarea:focus.valid, 
+		textarea.materialize-textarea:focus.valid,
 		.input-field input[type='text']:focus.valid,
 		.input-field input.valid[type=number]:focus.valid {
 		border-bottom: 1px solid #4dd0e1;
@@ -216,7 +223,6 @@
 	/* border for disabled */
 	.input-field input:disabled, .select-wrapper input.select-dropdown:disabled,
 		textarea.materialize-textarea:disabled {
-		color: #616161;
 		box-shadow: none !important;
 		border-bottom: 1px dotted rgba(0, 0, 0, 0.26) !important;
 	}
@@ -233,7 +239,7 @@
 	/* manual class for label error */
 	.input-field.error-label label {
 		color: #e57373;
-		font-weight: 400;		
+		font-weight: 400;
 	}
 
 	/* LOADING*/

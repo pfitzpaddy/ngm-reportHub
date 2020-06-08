@@ -464,6 +464,9 @@ angular
 			.when('/cluster/admin/wpro/pg',{
 				redirectTo: '/cluster/admin/wpro/pg/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
+			.when('/cluster/admin/wpro/phl',{
+				redirectTo: '/cluster/admin/wpro/phl/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
+			})
 
 			// ADMIN
 			.when( '/cluster/admin/:adminRpcode/:admin0pcode/:cluster_id/:activity_type_id/:organization_tag/:report_type/:start/:end', {
@@ -619,6 +622,9 @@ angular
 			})
 			.when('/cluster/5w/wpro/pg',{
 				redirectTo: '/cluster/5w/wpro/pg/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when('/cluster/5w/wpro/phl',{
+				redirectTo: '/cluster/5w/wpro/phl/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
 			})
 
 			// health dashboard
@@ -780,6 +786,9 @@ angular
 			.when( '/cluster/4wprojectplan/wpro/pg', {
 				redirectTo: '/cluster/4wprojectplan/wpro/pg/all/all/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
 			})
+			.when( '/cluster/4wprojectplan/wpro/phl', {
+				redirectTo: '/cluster/4wprojectplan/wpro/phl/all/all/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
+			})
 
 			// health dashboard
 			.when( '/cluster/4wprojectplan/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:cluster_id/:activity_type/:organization_tag/:project_type_component/:hrpplan/:implementer_tag/:donor_tag/:start/:end', {
@@ -916,6 +925,9 @@ angular
 			})
 			.when( '/cluster/dashboard4wplus/wpro/pg', {
 				redirectTo: '/cluster/dashboard4wplus/wpro/pg/all/all/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/dashboard4wplus/wpro/phl', {
+				redirectTo: '/cluster/dashboard4wplus/wpro/phl/all/all/all/all/all/all/all/all/all/2020-01-01/' + moment().format('YYYY-MM-DD')
 			})
 
 
