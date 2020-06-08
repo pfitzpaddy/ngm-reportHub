@@ -185,7 +185,7 @@
 	/* valid input */
 	.input-field input.valid,
 		textarea.materialize-textarea.valid, md-chips .md-chips.md-focused ,
-		.input-field input.valid[type='text'], .input-field input.valid[type='number']{
+		.input-field input.valid[type='text'], .input-field input.valid[type='number'], .input-field input.valid[type='password'], .input-field input.valid[type='textarea']{
 		color: rgba(0,0,0,0.87) !important;
 		border-bottom: 1px solid #26a69a;
 		box-shadow: 0 1px 0 0 #26a69a;
