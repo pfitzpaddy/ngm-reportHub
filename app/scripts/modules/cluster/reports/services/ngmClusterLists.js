@@ -5865,6 +5865,10 @@ angular.module( 'ngmReportHub' )
 				// PHL
 				if ( admin0pcode === 'PHL' ) {
 					beneficiaries = [{
+							cluster_id: ngmClusterLists.all_sectors,
+							beneficiary_type_id: 'general_population',
+							beneficiary_type_name: 'General Population'
+						},{
 						cluster_id: ngmClusterLists.all_sectors,
 						beneficiary_type_id: 'host_communities',
 						beneficiary_type_name: 'Host Communities'
@@ -8386,6 +8390,12 @@ angular.module( 'ngmReportHub' )
 				// ng
 				if ( admin0pcode === 'PHL' ) {
 					site_types = [{
+						site_type_id: 'national',
+						site_type_name: 'National'
+					},{
+						site_type_id: 'regional',
+						site_type_name: 'Regional'
+					},{
 						site_type_id: 'multiple_sites',
 						site_type_name: 'Multiple Sites'
 					},{
