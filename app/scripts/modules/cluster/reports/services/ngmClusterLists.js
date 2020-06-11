@@ -18,7 +18,7 @@ angular.module( 'ngmReportHub' )
 		var ngmClusterLists = {
 
 			// comphrensive list of all sectors - ever
-			all_sectors: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash','child_protection' ],
+			all_sectors: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash','child_protection','gbv' ],
 			all_sectors_minus_protection: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','rnr_chapter','wash' ],
 			all_sectors_minus_smsd: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','nutrition','protection','rnr_chapter','wash' ],
 			all_sectors_minus_esnfi: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash','child_protection' ],
@@ -741,6 +741,9 @@ angular.module( 'ngmReportHub' )
 					},{
 						cluster_id: 'child_protection',
 						cluster: 'Child Protection'
+					},{
+						cluster_id: 'gbv',
+						cluster: 'Gender Based Violence'
 					}];
 				} else if ( admin0pcode.toLowerCase() === 'phl' ) {
 					clusters = [{
@@ -4177,6 +4180,62 @@ angular.module( 'ngmReportHub' )
 							{ project_donor_id: "vsf", "project_donor_name": "Victim Support Fund" },
 							{ project_donor_id: "yipdi", "project_donor_name": "Youth Integrated for Positive Development Initiative" }
 						];
+					} else if(cluster_id === 'gbv'){
+						donors = [
+							{ project_donor_id: "african_development_bank", project_donor_name: "African Development Bank" },
+							{ project_donor_id: "aid_for_africa", project_donor_name: "Aid For Africa" },
+							{ project_donor_id: "australian_high_commission", project_donor_name: "Australian High Commission" },
+							{ project_donor_id: "british_high_commission", project_donor_name: "British High Commission" },
+							{ project_donor_id: "central_emergency_response_fund", project_donor_name: "Central Emergency Response Fund" },
+							{ project_donor_id: "church_of_the_brethren", project_donor_name: "Church of the Brethren" },
+							{ project_donor_id: "conflict_stability_and_security_fund", project_donor_name: "Conflict, Stability and Security Fund" },
+							{ project_donor_id: "danish_international_development_agency", project_donor_name: "Danish International Development Agency" },
+							{ project_donor_id: "department_for_international_development", project_donor_name: "Department for International Development" },
+							{ project_donor_id: "disability_rights_fund", project_donor_name: "Disability Rights Fund" },
+							{ project_donor_id: "dutch_relief_alliance", project_donor_name: "Dutch Relief Alliance" },
+							{ project_donor_id: "dutch_government", project_donor_name: "Dutch Government" },
+							{ project_donor_id: "elma_relief_foundation", project_donor_name: "ELMA Relief Foundation" },
+							{ project_donor_id: "embassy_of_denmark", project_donor_name: "Embassy of Denmark" },
+							{ project_donor_id: "embassy_of_finland", project_donor_name: "Embassy of Finland" },
+							{ project_donor_id: "embassy_of_france", project_donor_name: "Embassy of France" },
+							{ project_donor_id: "embassy_of_israel", project_donor_name: "Embassy of Israel" },
+							{ project_donor_id: "embassy_of_poland", project_donor_name: "Embassy of Poland" },
+							{ project_donor_id: "embassy_of_sweden", project_donor_name: "Embassy of Sweden" },
+							{ project_donor_id: "embassy_of_switzerland", project_donor_name: "Embassy of Switzerland" },
+							{ project_donor_id: "embassy_of_the_kingdom_of_netherlands", project_donor_name: "Embassy of the Kingdom of Netherlands" },
+							{ project_donor_id: "european_commission", project_donor_name: "European Commission" },
+							{ project_donor_id: "european_civil_protection_and_humanitarian_aid_operations", project_donor_name: "European Civil Protection and Humanitarian Aid Operations" },
+							{ project_donor_id: "european_union", project_donor_name: "European Union" },
+							{ project_donor_id: "german_federal_foreign_office", project_donor_name: "German Federal Foreign Office" },
+							{ project_donor_id: "german_federal_ministry_for_economic_coorperation_and_development", project_donor_name: "German Federal Ministry for Economic Coorperation and Development" },
+							{ project_donor_id: "global_affairs_canada", project_donor_name: "Global Affairs Canada" },
+							{ project_donor_id: "global_fund_for_women", project_donor_name: "Global Fund for Women" },
+							{ project_donor_id: "global_fund_observer", project_donor_name: "Global Fund Observer" },
+							{ project_donor_id: "government_of_japan", project_donor_name: "Government of Japan" },
+							{ project_donor_id: "government_of_norway", project_donor_name: "Government of Norway" },
+							{ project_donor_id: "high_commission_of_canada", project_donor_name: "High Commission of Canada" },
+							{ project_donor_id: "international_civil_society_action_network", project_donor_name: "international Civil Society Action Network" },
+							{ project_donor_id: "italian_ministry_of_interior_–_department_for_civil_liberties_and_immigration", project_donor_name: "Italian Ministry of Interior – Department for Civil Liberties and Immigration" },
+							{ project_donor_id: "irish_aid", project_donor_name: "Irish Aid" },
+							{ project_donor_id: "japan_international_cooperation_agency", project_donor_name: "Japan International Cooperation Agency" },
+							{ project_donor_id: "japaneese_embassy", project_donor_name: "Japaneese Embassy" },
+							{ project_donor_id: "korea_international_cooperation_agency", project_donor_name: "Korea International Cooperation Agency" },
+							{ project_donor_id: "leger_foundation", project_donor_name: "Leger Foundation" },
+							{ project_donor_id: "netherlands_refugee_foundation", project_donor_name: "Netherlands Refugee Foundation" },
+							{ project_donor_id: "nigerian_humanitarian_fund", project_donor_name: "Nigerian Humanitarian Fund" },
+							{ project_donor_id: "njr", project_donor_name: "NJR" },
+							{ project_donor_id: "office_of_us_foreign_disaster_assistance_", project_donor_name: "Office of US Foreign Disaster Assistance " },
+							{ project_donor_id: "plan_international_canada", project_donor_name: "Plan International Canada" },
+							{ project_donor_id: "royal_norwegian_embassy", project_donor_name: "Royal Norwegian Embassy" },
+							{ project_donor_id: "sdc", project_donor_name: "SDC" },
+							{ project_donor_id: "swedish_international_development_cooperation_agency", project_donor_name: "Swedish International Development Cooperation Agency" },
+							{ project_donor_id: "swiss_embassy", project_donor_name: "Swiss Embassy" },
+							{ project_donor_id: "trust_africa", project_donor_name: "Trust Africa" },
+							{ project_donor_id: "uk_government", project_donor_name: "UK Government" },
+							{ project_donor_id: "united_states_institute_of_peace", project_donor_name: "United States Institute of Peace" },
+							{ project_donor_id: "united_states_agency_for_international_development", project_donor_name: "United States Agency for International Development" },
+							{ project_donor_id: "world_bank", project_donor_name: "World Bank" }
+						   ]
 					} else {
 						donors = [
 							{ project_donor_id: "africa_development_bank", project_donor_name:"African Development Bank" },
@@ -5819,23 +5878,23 @@ angular.module( 'ngmReportHub' )
 						beneficiary_type_id: 'idps',
 						beneficiary_type_name: 'IDPs'
 					},{
-						cluster_id: excludeSectors(['education','child_protection']),
+						cluster_id: excludeSectors(['education','child_protection', 'gbv']),
 						beneficiary_type_id: 'drought_idps',
 						beneficiary_type_name: 'Drought IDPs'
 					},{
-						cluster_id: excludeSectors(['education','child_protection']),
+						cluster_id: excludeSectors(['education','child_protection', 'gbv']),
 						beneficiary_type_id: 'flood_idps',
 						beneficiary_type_name: 'Flood IDPs'
 					},{
-						cluster_id: excludeSectors(['education','child_protection']),
+						cluster_id: excludeSectors(['education','child_protection', 'gbv']),
 						beneficiary_type_id: 'natural_disaster_idps',
 						beneficiary_type_name: 'Natural Disaster IDPs'
 					},{
-						cluster_id: excludeSectors(['education','child_protection']),
+						cluster_id: excludeSectors(['education','child_protection', 'gbv']),
 						beneficiary_type_id: 'conflict_idps',
 						beneficiary_type_name: 'Conflict IDPs'
 					},{
-						cluster_id: excludeSectors(['education','child_protection']),
+						cluster_id: excludeSectors(['education','child_protection', 'gbv']),
 						beneficiary_type_id: 'refugees',
 						beneficiary_type_name: 'Refugees'
 					},{
@@ -5851,13 +5910,33 @@ angular.module( 'ngmReportHub' )
 						beneficiary_type_id: 'stakeholders',
 						beneficiary_type_name: 'Stakeholders'
 					},{
-						cluster_id: excludeSectors(['education','wash']),
+						cluster_id: excludeSectors(['education','wash','gbv']),
 						beneficiary_type_id: 'idps_in_host_communities',
 						beneficiary_type_name: 'IDPs in Host Communities'
 					},{
-						cluster_id: excludeSectors(['education','wash']),
+						cluster_id: excludeSectors(['education','wash', 'gbv']),
 						beneficiary_type_id: 'idps_in_camps',
 						beneficiary_type_name: 'IDPs in Camps'
+					},
+					{
+						cluster_id: excludeSectors(['education','wash','child_protection']),
+						beneficiary_type_id: 'persons_formerly_abducted_and_or_associated_with_armed_group',
+						beneficiary_type_name: 'Persons formerly abducted and or associated with armed group'
+					},
+					{
+						cluster_id: excludeSectors(['education','wash','child_protection']),
+						beneficiary_type_id: 'persons_With_disabilities',
+						beneficiary_type_name: 'Persons With Disabilities'
+					},
+					{
+						cluster_id: excludeSectors(['education','wash','child_protection']),
+						beneficiary_type_id: 'survivors_of_trafficking',
+						beneficiary_type_name: 'Survivors of Trafficking'
+					},
+					{
+						cluster_id: excludeSectors(['education','wash','child_protection']),
+						beneficiary_type_id: 'early_and_child_marriage',
+						beneficiary_type_name: 'Early and Child marriage'
 					}
 				]
 				}
