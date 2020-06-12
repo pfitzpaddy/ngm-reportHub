@@ -110,13 +110,19 @@ angular.module( 'ngmReportHub' )
 					households:0,
 					families:0,
 					boys_0_5:0,
+					boys_0_12:0,
 					boys_6_11:0,
+					boys_6_12:0,
 					boys_12_17:0,
+					boys_13_17:0,
 					boys:0,
 					girls:0,
 					girls_0_5:0,
+					girls_0_12:0,
 					girls_6_11:0,
+					girls_6_12:0,
 					girls_12_17:0,
+					girls_13_17:0,
 					men:0,
 					women:0,
 					elderly_men:0,
@@ -225,11 +231,17 @@ angular.module( 'ngmReportHub' )
 
 					// calc
 					beneficiary.boys += beneficiary.boys_0_5 +
+																beneficiary.boys_0_12 +
 																beneficiary.boys_6_11 +
-																beneficiary.boys_12_17;
+																beneficiary.boys_6_12 +
+																beneficiary.boys_12_17+
+																beneficiary.boys_13_17;
 					beneficiary.girls += beneficiary.girls_0_5 +
+																beneficiary.girls_0_12 +
 																beneficiary.girls_6_11 +
-																beneficiary.girls_12_17;
+																beneficiary.girls_6_12 +
+																beneficiary.girls_12_17+
+																beneficiary.girls_13_17;
 					// calc totals
 					ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );
 				}, 100 );
