@@ -597,6 +597,7 @@ angular.module( 'ngmReportHub' )
 
 
 
+
 			// clusters
 			getClusters: function( admin0pcode ){
 				var clusters = [];

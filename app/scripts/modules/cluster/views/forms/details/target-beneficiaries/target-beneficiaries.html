@@ -764,6 +764,39 @@
 									</div>
 								</div>
 
+								<div class="row" ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_transfer_category_id' ] && ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_grant_type_id' ]">
+									<!-- transfer per household/individual -->
+									<div class="input-field col s12 m6 l6">
+										<select materialize-select id="ngm-transfer_category_id-{{ $index }}"
+															name="transfer_category_id-{{ $index }}"
+															class="validate"
+															ng-model="beneficiary.transfer_category_id"
+															ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_transfer_category_id' ], 'transfer_category_id', 'transfer_category_name', beneficiary );
+															ngmClusterBeneficiaries.inputChange( 'ngm-transfer_category_id-{{ $index }}' );
+															ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary)"
+															ng-options="a.transfer_category_id as a.transfer_category_name for a in ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_transfer_category_id' ]"
+															ng-disabled="project.definition.project_status === 'complete'">
+											<option value="">{{ 'select' | translate }}</option>
+										</select>
+										<label for="ngm-transfer_category_id-{{ $index }}" class="active" style="transform:translateY(-10%)">Transfer Type</label>
+									</div>
+									<!-- Unconditional, Restricted -->
+									<div class="input-field col s12 m6 l6">
+										<select materialize-select id="ngm-grant_type_id-{{ $index }}"
+															name="grant_type_id-{{ $index }}"
+															class="validate"
+															ng-model="beneficiary.grant_type_id"
+															ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_grant_type_id' ], 'grant_type_id', 'grant_type_name', beneficiary );
+															ngmClusterBeneficiaries.inputChange( 'ngm-grant_type_id-{{ $index }}' );
+															ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary)"
+															ng-options="a.grant_type_id as a.grant_type_name for a in ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_grant_type_id' ]"
+															ng-disabled="project.definition.project_status === 'complete'">
+											<option value="">{{ 'select' | translate }}</option>
+										</select>
+										<label for="ngm-grant_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">Grant Type</label>
+									</div>
+								</div>
+
 								<!-- UNITS -->
 								<div class="row" ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'unit_type_id' ] &&
 																					ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'units' ] &&
@@ -792,7 +825,7 @@
 														class="validate"
 														min="0"
 														ng-model="beneficiary.units"
-														ng-change="ngmCbBeneficiaries.setBeneficiary( 'units', beneficiary );"
+														ng-change="ngmCbBeneficiaries.setBeneficiary( 'units', beneficiary );ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary)"
 														ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'units' ]"
 														required />
 										<label ng-if="!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ]"for="ngm-households-{{ $index }}" class="active" style="transform:translateY(-128%)">{{ 'amount' | translate }}</label>
@@ -828,7 +861,7 @@
 														class="validate"
 														min="0"
 														ng-model="beneficiary.units"
-														ng-change="ngmCbBeneficiaries.setBeneficiary( 'units', beneficiary );"
+														ng-change="ngmCbBeneficiaries.setBeneficiary( 'units', beneficiary );ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary)"
 														ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'units' ]"
 														required />
 										<label ng-if="!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ]"for="ngm-households-{{ $index }}" class="active" style="transform:translateY(-128%)">{{ 'amount' | translate }}</label>
@@ -841,7 +874,8 @@
 															class="validate"
 															ng-model="beneficiary.transfer_type_id"
 															ng-change="ngmClusterBeneficiaries.updateName( project.lists.transfers, 'transfer_type_id', 'transfer_type_value', beneficiary );
-															ngmClusterBeneficiaries.inputChange( 'ngm-transfer_type_id-{{ $index }}' )"
+															ngmClusterBeneficiaries.inputChange( 'ngm-transfer_type_id-{{ $index }}' );
+															ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary)"
 															ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers"
 															ng-disabled="project.definition.project_status === 'complete'">
 											<option value="">{{ 'select' | translate }}</option>
@@ -849,6 +883,8 @@
 										<label for="ngm-transfer_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'transfers' | translate }}</label>
 									</div>
 								</div>
+
+
 
 
 								<!-- HHs / FAMILIES -->
@@ -864,13 +900,15 @@
 														class="validate"
 														min="0"
 														ng-model="beneficiary.households"
-														ng-change="ngmCbBeneficiaries.setBeneficiary( 'households', beneficiary );ngmClusterBeneficiaries.inputChange( 'ngm-households-{{ $index }}' )"
+														ng-change="ngmCbBeneficiaries.setBeneficiary( 'households', beneficiary );ngmClusterBeneficiaries.inputChange( 'ngm-households-{{ $index }}' );ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary)"
 														ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'households' ]"
 														required />
 										<label for="ngm-households-{{ $index }}" class="active">{{ 'households' | translate }}</label>
 									</div>
 
 								</div>
+
+
 
 								<!-- FAMILIES -->
 								<div class="row" ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'families' ]">
@@ -1285,6 +1323,26 @@
 										<label for="ngm-total_beneficiaries-{{ $index }}" class="active">{{ 'total_beneficiaries' | translate }}</label>
 									</div>
 								</div>
+
+
+
+
+								<!-- Total Amount Transfered -->
+								<div class="row" ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ]">
+								
+									<!--total amount transfered -->
+									<div class="input-field col s12 m12 l12 ">
+										<input id="ngm-total_amount-{{ $index }}" 
+													name="ngm-total_amount-{{ $index }}" type="number" class="validate"
+													min="0" 
+													ng-model="beneficiary.total_amount"
+													ng-change="ngmClusterBeneficiaries.inputChange( 'ngm-total_amount-{{ $index }}' )"
+													ng-disabled="true"
+													/>
+										<label for="ngm-total_amount-{{ $index }}" class="active">Total Amount Transfered</label>
+									</div>
+								
+								</div>								
 
 
 
