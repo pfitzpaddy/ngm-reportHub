@@ -482,6 +482,25 @@ angular.module( 'ngmReportHub' )
 				// console.log('targetbeneficiary-complete13');
 				// console.log(complete);
 
+				// TYPE CATEGORY
+				if (ngmClusterBeneficiaries.form[0][i] && ngmClusterBeneficiaries.form[0][i]['mpc_transfer_category_id']) {
+					if (!b.transfer_category_id) {
+						id = "label[for='" + 'ngm-transfer_category_id-' + i + "']";
+						$(id).addClass('error')
+						validation.divs.push(id)
+						complete = false
+					}
+				}
+				// GRANT TYPES
+				if (ngmClusterBeneficiaries.form[0][i] && ngmClusterBeneficiaries.form[0][i]['mpc_grant_type_id']) {
+					if (!b.grant_type_id) {
+						id = "label[for='" + 'ngm-grant_type_id-' + i + "']";
+						$(id).addClass('error')
+						validation.divs.push(id)
+						complete = false
+					}
+				}
+
 				// UNITS
 				if (ngmClusterBeneficiaries.form[0][i] && ngmClusterBeneficiaries.form[0][i]['units']) {
 					if (b.units === null || b.units === undefined || b.units === NaN || b.units < 0) {
@@ -1090,6 +1109,25 @@ angular.module( 'ngmReportHub' )
 				}
 				// console.log( 'complete13' );
 				// console.log( complete );
+
+				// TYPE CATEGORY
+				if (ngmClusterBeneficiaries.form[i] && (ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['mpc_transfer_category_id'])) {
+					if (!b.transfer_category_id) {
+						id = "label[for='" + 'ngm-transfer_category_id-' + i + '-' + j + "']";
+						$(id).addClass('error')
+						validation.divs.push(id)
+						complete = false
+					}
+				}
+				// GRANT TYPES
+				if (ngmClusterBeneficiaries.form[i] && (ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['mpc_grant_type_id'])) {
+					if (!b.grant_type_id){
+						id = "label[for='" + 'ngm-grant_type_id-' + i + '-' + j + "']";
+						$(id).addClass('error')
+						validation.divs.push(id)
+						complete = false
+					}
+				}
 
 				// UNITS
 				if ( ngmClusterBeneficiaries.form[i] && ( ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j][ 'units' ] ) ) {
