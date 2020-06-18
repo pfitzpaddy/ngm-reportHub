@@ -58,7 +58,7 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
             ngmClusterImportFile,
             ngmClusterLists,
             ngmClusterValidation,
-            ngmClusterBeneficiaries,
+            ngmClusterBeneficiaries
         ) {
             /**** SERVICES ****/
 
