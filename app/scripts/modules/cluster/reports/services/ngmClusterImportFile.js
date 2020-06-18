@@ -341,6 +341,18 @@ angular.module('ngmReportHub')
                                     array[0][z] === 'Cash Transfers' ||
                                     array[0][z] === 'Amount' ||
                                     array[0][z] === 'Households' ||
+                                    array[0][z] === 'families' ||
+                                    array[0][z] === 'boys' ||
+                                    array[0][z] === 'girls' ||
+                                    array[0][z] === 'men' ||
+                                    array[0][z] === 'women' ||
+                                    array[0][z] === 'elderly_men' ||
+                                    array[0][z] === 'elderly_women' ||
+                                    array[0][z] === 'total' ||
+                                    array[0][z] === 'transfer_type_value' ||
+                                    array[0][z] === 'units' ||
+                                    array[0][z] === 'households' ||
+                                    array[0][z] === 'site_population' ||
                                     // financial
                                     array[0][z] === 'Project Budget' ||
                                     array[0][z] === 'Ammount Received' ||

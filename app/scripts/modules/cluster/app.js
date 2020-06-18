@@ -963,6 +963,164 @@ angular
 				}
 			})
 
+			.when('/cluster/record-admin/',{
+				redirectTo: '/cluster/record-admin/beneficiaries/hq/all/all/all/'+ this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/', {
+				redirectTo: '/cluster/record-admin/beneficiaries/hq/all/all/all/'+ this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/', {
+				redirectTo: '/cluster/record-admin/stocks/hq/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+	
+			// AFRO
+			.when('/cluster/record-admin/beneficiaries/afro', {
+				redirectTo: '/cluster/record-admin/beneficiaries/afro/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/afro/cd', {
+				redirectTo: '/cluster/record-admin/beneficiaries/afro/cd/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/afro/et', {
+				redirectTo: '/cluster/record-admin/beneficiaries/afro/et/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/afro/ng', {
+				redirectTo: '/cluster/record-admin/beneficiaries/afro/ng/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/afro/ss', {
+				redirectTo: '/cluster/record-admin/beneficiaries/afro/ss/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			// stocks
+			.when('/cluster/record-admin/stocks/afro', {
+				redirectTo: '/cluster/record-admin/stocks/afro/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/afro/cd', {
+				redirectTo: '/cluster/record-admin/stocks/afro/cd/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/afro/et', {
+				redirectTo: '/cluster/record-admin/stocks/afro/et/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/afro/ng', {
+				redirectTo: '/cluster/record-admin/stocks/afro/ng/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/afro/ss', {
+				redirectTo: '/cluster/record-admin/stocks/afro/ss/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			// EMRO
+			.when('/cluster/record-admin/beneficiaries/emro/', {
+				redirectTo: '/cluster/record-admin/beneficiaries/emro/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/emro/af', {
+				redirectTo: '/cluster/record-admin/beneficiaries/emro/af/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/emro/so', {
+				redirectTo: '/cluster/record-admin/beneficiaries/emro/so/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/emro/sy', {
+				redirectTo: '/cluster/record-admin/beneficiaries/emro/sy/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/emro/ur', {
+				redirectTo: '/cluster/record-admin/beneficiaries/emro/ur/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/emro/ye', {
+				redirectTo: '/cluster/record-admin/beneficiaries/emro/ye/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			// stocks
+			.when('/cluster/record-admin/stocks/emro/af', {
+				redirectTo: '/cluster/record-admin/stocks/emro/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/emro/so', {
+				redirectTo: '/cluster/record-admin/stocks/emro/so/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/emro/sy', {
+				redirectTo: '/cluster/record-admin/stocks/emro/sy/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/emro/ur', {
+				redirectTo: '/cluster/record-admin/stocks/emro/ur/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/emro/ye', {
+				redirectTo: '/cluster/record-admin/stocks/emro/ye/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			// EURO
+			.when('/cluster/record-admin/beneficiaries/euro', {
+				redirectTo: '/cluster/record-admin/beneficiaries/euro/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/euro/ua', {
+				redirectTo: '/cluster/record-admin/beneficiaries/euro/ua/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			// stock
+			.when('/cluster/record-admin/stocks/euro', {
+				redirectTo: '/cluster/record-admin/stocks/euro/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/euro/ua', {
+				redirectTo: '/cluster/record-admin/stocks/euro/ua/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+
+			// SEARO
+			.when('/cluster/record-admin/beneficiaries/searo', {
+				redirectTo: '/cluster/record-admin/beneficiaries/searo/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/searo/bd', {
+				redirectTo: '/cluster/record-admin/beneficiaries/searo/bd/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/searo/cb', {
+				redirectTo: '/cluster/record-admin/beneficiaries/searo/cb/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			//stocks
+			.when('/cluster/record-admin/stocks/searo', {
+				redirectTo: '/cluster/record-admin/stocks/searo/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/searo/bd', {
+				redirectTo: '/cluster/record-admin/stocks/searo/bd/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/searo/cb', {
+				redirectTo: '/cluster/record-admin/stocks/searo/cb/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+
+			//AMER
+			.when('/cluster/record-admin/beneficiaries/amer/', {
+				redirectTo: '/cluster/record-admin/beneficiaries/amer/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/amer/col', {
+				redirectTo: '/cluster/record-admin/beneficiaries/amer/col/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+
+			//AMER
+			.when('/cluster/record-admin/stocks/amer', {
+				redirectTo: '/cluster/record-admin/stocks/amer/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/amer/col', {
+				redirectTo: '/cluster/record-admin/stocks/amer/col/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+
+			// WPRO
+			.when('/cluster/record-admin/beneficiaries/wpro', {
+				redirectTo: '/cluster/record-admin/beneficiaries/wpro/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/wpro/pg', {
+				redirectTo: '/cluster/record-admin/beneficiaries/wpro/pg/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/beneficiaries/wpro/phl', {
+				redirectTo: '/cluster/record-admin/beneficiaries/wpro/phl/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/wpro', {
+				redirectTo: '/cluster/record-admin/stocks/wpro/all/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/wpro/pg', {
+				redirectTo: '/cluster/record-admin/stocks/wpro/pg/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/stocks/wpro/phl', {
+				redirectTo: '/cluster/record-admin/stocks/wpro/phl/all/all/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/record-admin/:type/:adminRpcode/:admin0pcode/:cluster_id/:organization_tag/:start/:end',{
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ClusterBenefeciariesStockAdminCtrl',
+				resolve: {
+					access: ['ngmAuth', function (ngmAuth) {
+						return ngmAuth.isAuthenticated();
+					}]
+				}
+			})
+
 			// FORBIDDEN
 			.when( '/cluster/forbidden', {
 				templateUrl: '/views/app/dashboard.html',
