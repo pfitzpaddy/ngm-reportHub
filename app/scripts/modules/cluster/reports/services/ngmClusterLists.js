@@ -7504,6 +7504,11 @@ angular.module( 'ngmReportHub' )
 							beneficiary_type_name: 'Pakistani Refugees',
 							year: 2020
 						},{
+							cluster_id: [ 'fsac' ],
+							beneficiary_type_id: 'covid_19_affected_people',
+							beneficiary_type_name: 'COVID-19 Affected People',
+							year: 2020
+						},{
 
 							// CASH
 
@@ -7663,39 +7668,105 @@ angular.module( 'ngmReportHub' )
 							cluster_id: [ 'nutrition' ],
 							beneficiary_type_id: 'flood_affected_displaced_response',
 							beneficiary_type_name: 'Flood Affected Displaced ( Response )'
-						},{
+						},
+						// {
 
-							// ESNFI
+						// 	// ESNFI 2020 v1
+
+						// 	cluster_id: [ 'esnfi' ],
+						// 	beneficiary_type_id: 'idp',
+						// 	beneficiary_type_name: 'Internally Displaced Persons (IDPs)',
+						// 	description: 'People displaced in 2020'
+						// },{
+						// 	cluster_id: [ 'esnfi' ],
+						// 	beneficiary_type_id: 'shock_affected',
+						// 	beneficiary_type_name: 'Shock Affected Persons ',
+						// 	description: 'People affected by shocks in 2020 (natural disasters and conflict)'
+						// },{
+						// 	cluster_id: [ 'esnfi' ],
+						// 	beneficiary_type_id: 'acutely_vulnerable_persons',
+						// 	beneficiary_type_name: 'Acutely Vulnerable People with Humanitarian Needs',
+						// 	description: 'Acutely vulnerable people with humanitarian needs (protracted IDPs, host community, vulnerable populations at risk etc)'
+						// },{
+						// 	cluster_id: [ 'esnfi' ],
+						// 	beneficiary_type_id: 'returnee_idps',
+						// 	beneficiary_type_name: 'Returnee IDPs',
+						// 	description: 'IDP Returnees in 2020'
+						// },{
+						// 	cluster_id: [ 'esnfi' ],
+						// 	beneficiary_type_id: 'returnee_documented',
+						// 	beneficiary_type_name: 'Afghan Refugee Returnees (Documented)',
+						// 	description: 'Afghan Refugee Returnees (Documented)'
+						// },{
+						// 	cluster_id: [ 'esnfi' ],
+						// 	beneficiary_type_id: 'returnee_undocumented',
+						// 	beneficiary_type_name: 'Afghan Returnees (Undocumented)',
+						// 	description: 'Afghan Returnees (Undocumented)'
+						// },
+
+						{
+
+							// ESNFI v2
 
 							cluster_id: [ 'esnfi' ],
-							beneficiary_type_id: 'idp',
-							beneficiary_type_name: 'Internally Displaced Persons (IDPs)',
-							description: 'People displaced in 2020'
+							beneficiary_type_id: 'conflict_idp_2020',
+							beneficiary_type_name: 'Conflict IDPs (displaced in 2020)',
+							description: 'Conflict IDPs (displaced in 2020)',
+							year: 2020
 						},{
 							cluster_id: [ 'esnfi' ],
-							beneficiary_type_id: 'shock_affected',
-							beneficiary_type_name: 'Shock Affected Persons ',
-							description: 'People affected by shocks in 2020 (natural disasters and conflict)'
+							beneficiary_type_id: 'natural_disaster_idp_2020',
+							beneficiary_type_name: 'Natural Disaster IDPs (displaced in 2020)',
+							description: 'Natural Disaster IDPs (displaced in 2020)',
+							year: 2020
 						},{
 							cluster_id: [ 'esnfi' ],
-							beneficiary_type_id: 'acutely_vulnerable_persons',
-							beneficiary_type_name: 'Acutely Vulnerable People with Humanitarian Needs',
-							description: 'Acutely vulnerable people with humanitarian needs (protracted IDPs, host community, vulnerable populations at risk etc)'
+							beneficiary_type_id: 'undocumented_returnees_settlement_place_of_return',
+							beneficiary_type_name: 'Undocumented Returnees (at settlement or place of return)',
+							description: 'Undocumented returnees (at settlement or place of return)',
+							year: 2020
 						},{
 							cluster_id: [ 'esnfi' ],
-							beneficiary_type_id: 'returnee_idps',
-							beneficiary_type_name: 'Returnee IDPs',
-							description: 'IDP Returnees in 2020'
+							beneficiary_type_id: 'undocumented_returnees_border_or_ec',
+							beneficiary_type_name: 'Undocumented Returnees (at border or EC)',
+							description: 'Undocumented returnees (at border or EC)',
+							year: 2020
 						},{
 							cluster_id: [ 'esnfi' ],
-							beneficiary_type_id: 'returnee_documented',
-							beneficiary_type_name: 'Afghan Refugee Returnees (Documented)',
-							description: 'Afghan Refugee Returnees (Documented)'
+							beneficiary_type_id: 'refugee_returnees_settlement_place_of_return',
+							beneficiary_type_name: 'Refugee Returnees (at settlement or place of return)',
+							description: 'Refugee returnees (at settlement or place of return)',
+							year: 2020
 						},{
 							cluster_id: [ 'esnfi' ],
-							beneficiary_type_id: 'returnee_undocumented',
-							beneficiary_type_name: 'Afghan Returnees (Undocumented)',
-							description: 'Afghan Returnees (Undocumented)'
+							beneficiary_type_id: 'refugee_returnees_border_or_ec',
+							beneficiary_type_name: 'Refugee Returnees (at border or EC)',
+							description: 'Refugee returnees (at border or EC)',
+							year: 2020
+						},{
+							cluster_id: [ 'esnfi' ],
+							beneficiary_type_id: 'conflict_affected_non_displaced',
+							beneficiary_type_name: 'Conflict-Affected (non-displaced)',
+							description: 'Conflict-affected (non-displaced)',
+							year: 2020
+						},{
+							cluster_id: [ 'esnfi' ],
+							beneficiary_type_id: 'natural_disaster_affected_non_displaced',
+							beneficiary_type_name: 'Natural Disaster-Affected (non-displaced)',
+							description: 'Natural disaster-affected (non-displaced)',
+							year: 2020
+						},{
+							cluster_id: [ 'esnfi' ],
+							beneficiary_type_id: 'refugees_asylum_seekers',
+							beneficiary_type_name: 'Refugees & Asylum Seekers',
+							description: 'Refugees & asylum seekers',
+							year: 2020
+						},{
+							cluster_id: [ 'esnfi' ],
+							beneficiary_type_id: 'vulnerable_people_humanitarian_needs',
+							beneficiary_type_name: 'Vulnerable People with Humanitarian Needs (including host community, protracted IDPs etc.)',
+							description: 'Vulnerable people with humanitarian needs (including host community, protracted IDPs etc.)',
+							year: 2020
 						},{
 
 							// Protection
