@@ -119,20 +119,20 @@
 						<div align="{{windowWidth > 600 ?'right':'left'}}" style="padding: 15px 10px;">
 							<button class="btn-floating waves-effect waves-light"
 												title="Save"
-												ng-if="!project.newProject && detailBeneficiaries[$index]"
+												ng-if="!project.newProject && detailBeneficiaries[$index] && project.canEdit"
 												ng-click="project.saveBeneficiary()"
 												ng-disabled="
 													( !project.submit ) ||
-													( project.definition.project_status === 'complete' )">
+													( project.definition.project_status === 'complete' ) || !project.canEdit">
 								<i class="material-icons">save</i>
 							</button>
 							<button class="btn-floating red lighten-2 waves-effect waves-light"
 												title="Remove"
-												ng-if="!project.newProject && beneficiary.id && detailBeneficiaries[$index]"
+												ng-if="!project.newProject && beneficiary.id && detailBeneficiaries[$index] && project.canEdit"
 												ng-click="project.removeTargetBeneficiaryModal( $index )"
 												ng-disabled="
 													( !project.submit ) ||
-													( project.definition.project_status === 'complete' )">
+													( project.definition.project_status === 'complete' ) || !project.canEdit">
 								<i class="material-icons">delete</i>
 							</button>
 							<button class="btn-floating blue lighten-1 waves-effect waves-light"
