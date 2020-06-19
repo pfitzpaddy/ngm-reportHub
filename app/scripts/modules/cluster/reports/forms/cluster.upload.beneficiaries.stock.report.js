@@ -9,11 +9,11 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
                 controller: 'ClusterUploadBeneficiariesStockCtrl',
                 templateUrl: '/scripts/modules/cluster/views/cluster.upload.beneficiaries.stock.report.html',
                 resolve: {
-                    data: function (ngmData, config) {
+                     data: ['ngmData', 'config',function (ngmData, config) {
                         if (config.list_request) {
                             return ngmData.get(config.list_request);
                         }
-                    }
+                    }]
                 }
             });
     })
