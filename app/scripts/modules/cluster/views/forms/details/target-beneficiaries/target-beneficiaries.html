@@ -775,7 +775,7 @@
 															ngmClusterBeneficiaries.inputChange( 'ngm-transfer_category_id-{{ $index }}' );
 															ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary)"
 															ng-options="a.transfer_category_id as a.transfer_category_name for a in ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_transfer_category_id' ]"
-															ng-disabled="project.definition.project_status === 'complete'">
+															ng-disabled="project.definition.project_status === 'complete' || ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_transfer_category_id' ].length < 2">
 											<option value="">{{ 'select' | translate }}</option>
 										</select>
 										<label for="ngm-transfer_category_id-{{ $index }}" class="active" style="transform:translateY(-10%)">Transfer Type</label>
@@ -790,7 +790,7 @@
 															ngmClusterBeneficiaries.inputChange( 'ngm-grant_type_id-{{ $index }}' );
 															ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary)"
 															ng-options="a.grant_type_id as a.grant_type_name for a in ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_grant_type_id' ]"
-															ng-disabled="project.definition.project_status === 'complete'">
+															ng-disabled="project.definition.project_status === 'complete' || ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_grant_type_id' ].length < 2">
 											<option value="">{{ 'select' | translate }}</option>
 										</select>
 										<label for="ngm-grant_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">Grant Type</label>

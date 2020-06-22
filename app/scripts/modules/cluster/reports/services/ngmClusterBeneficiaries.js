@@ -624,10 +624,35 @@ angular.module( 'ngmReportHub' )
  					ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
 				}
 
-
+				if (ngmClusterBeneficiaries.form[$parent][$index] && ngmClusterBeneficiaries.form[$parent][$index]['mpc_transfer_category_id'] && ngmClusterBeneficiaries.form[$parent][$index]['mpc_grant_type_id']){
+					//set default value for 'mpc_transfer_category_id' 'mpc_grant_type_id'
+					ngmClusterBeneficiaries.setDefaultValueBeneficiary($parent, $index, 'mpc_transfer_category_id', beneficiary, 'transfer_category_id', 'transfer_category_name');
+					ngmClusterBeneficiaries.setDefaultValueBeneficiary($parent, $index, 'mpc_grant_type_id', beneficiary, 'grant_type_id', 'grant_type_name');
+				}
 
 			},
 
+
+
+			setDefaultValueBeneficiary: function ($parent, $index, field, beneficiary,key,name){
+				var disabled =false;
+				
+					if (ngmClusterBeneficiaries.form[$parent][$index][field].length < 2 && ngmClusterBeneficiaries.form[$parent][$index][field]) {
+						 disabled = true;
+					}
+					// set value
+					$timeout(function () {
+							if (!beneficiary[key]) {
+								beneficiary[key] = ngmClusterBeneficiaries.form[$parent][$index][field][0][key];
+								beneficiary[name] = ngmClusterBeneficiaries.form[$parent][$index][field][0][name];
+							}
+							ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary);
+					}, 10)
+					
+
+					return disabled
+
+			},
 
 
 			/* REMOVE BENEFICIARIES */
