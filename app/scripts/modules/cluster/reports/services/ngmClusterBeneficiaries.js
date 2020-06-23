@@ -311,7 +311,7 @@ angular.module( 'ngmReportHub' )
 						beneficiary.total_amount = units * transfers_value * hh;
 					}
 				},10)
-				
+
 			},
 
 			// update display name in object on select change
@@ -451,7 +451,10 @@ angular.module( 'ngmReportHub' )
 						delete beneficiary.package_type_name;
 						delete beneficiary.transfer_type_id;
 						delete beneficiary.transfer_type_value;
-						delete beneficiary.transfer_type_name;
+						delete beneficiary.grant_type_id;
+						delete beneficiary.grant_type_name;
+						delete beneficiary.transfer_category_id;
+						delete beneficiary.transfer_category_name;
 
 						// set form
 						ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, $parent, $index, beneficiary );
@@ -586,7 +589,7 @@ angular.module( 'ngmReportHub' )
 						beneficiary.details = [];
 					}
 				}
-        
+
 				// set default form on activity missing
 				if ( typeof ngmClusterBeneficiaries.form[$parent][$index] === 'undefined' ) {
 					ngmClusterBeneficiaries.form[$parent][$index] = angular.copy( ngmClusterBeneficiaries.defaults.form );
@@ -636,7 +639,7 @@ angular.module( 'ngmReportHub' )
 
 			setDefaultValueBeneficiary: function ($parent, $index, field, beneficiary,key,name){
 				var disabled =false;
-				
+
 					if (ngmClusterBeneficiaries.form[$parent][$index][field].length < 2 && ngmClusterBeneficiaries.form[$parent][$index][field]) {
 						 disabled = true;
 					}
@@ -648,7 +651,7 @@ angular.module( 'ngmReportHub' )
 							}
 							ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary);
 					}, 10)
-					
+
 
 					return disabled
 
