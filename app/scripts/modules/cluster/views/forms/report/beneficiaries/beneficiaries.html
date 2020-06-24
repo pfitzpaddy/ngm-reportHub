@@ -190,7 +190,7 @@
 				</div>
 			</div>
 
-			
+
 			<div ng-if="beneficiary.cluster_id === 'wash' && project.definition.admin0pcode === 'AF'" class="row"
 				ng-style="($root.rtl) && { 'padding':'5px 21px 5px 0px' } || { 'padding':'5px 0px 5px 21px' }">
 				<p><i class="material-icons left" style="color: #e57373">info</i></p>
@@ -445,8 +445,10 @@
 								ng-model="beneficiary.hrp_beneficiary_type_id"
 								ng-change="ngmClusterBeneficiaries.updateName( project.lists.hrp_beneficiary_types, 'hrp_beneficiary_type_id', 'hrp_beneficiary_type_name', beneficiary );
 																																									ngmClusterHelperCol.updateIndicatorObjective( project.definition.admin0pcode, beneficiary );
-																																				ngmClusterBeneficiaries.inputChange( 'ngm-hrp_beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );" ng-options="b.hrp_beneficiary_type_id as b.hrp_beneficiary_type_name for b in project.lists.hrp_beneficiary_types
-																																																		: true"
+																																				ngmClusterBeneficiaries.inputChange( 'ngm-hrp_beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );" ng-options="b.hrp_beneficiary_type_id as b.hrp_beneficiary_type_name for b in project.lists.hrp_beneficiary_types |
+																																																		filter: {
+																																																			cluster_id: beneficiary.cluster_id
+																																																		}	: true"
 								ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_description_id">
 								<option value="" disabled>{{ 'select' | translate }}</option>
 							</select>
@@ -828,10 +830,10 @@
 							<div class="input-field col s12 m6 l6" ng-repeat="s in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response']">
 								<p>
 									<label class="checkbox-label" for="{{s.response_id}}">
-										<input type="checkbox" 
-										class="filled-in" 
-										id="{{s.response_id}}" 
-										ng-checked="ngmClusterBeneficiaries.checkSpecific(s.response_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'])" 
+										<input type="checkbox"
+										class="filled-in"
+										id="{{s.response_id}}"
+										ng-checked="ngmClusterBeneficiaries.checkSpecific(s.response_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'])"
 										ng-click="ngmClusterBeneficiaries.setSpecific(s.response_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'])"
 										ng-disabled="project.definition.project_status === 'complete' || !project.canEdit || project.report.report_status === 'complete'" />
 										<span style="left: .75rem;">{{s.response_name}}</span>
@@ -1552,7 +1554,7 @@
 
 
 					<!--==============================  NG CP =============================-->
-					
+
 					<!--============================== NG GBV ===============================-->
 					<!-- SADD excluding elderly_men and including men_18_24 ( slightly very SAD age breakdown - male ) -->
 					<div class="row"
@@ -1912,19 +1914,19 @@
 
 					<!-- Total Amount Transfered -->
 					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]">
-								
+
 						<!--total amount transfered -->
 						<div class="input-field col s12 m12 l12 ">
-							<input id="ngm-total_amount-{{ $index }}" 
+							<input id="ngm-total_amount-{{ $index }}"
 								name="ngm-total_amount-{{ $index }}" type="number" class="validate"
-								min="0" 
+								min="0"
 								ng-model="beneficiary.total_amount"
 								ng-change="ngmClusterBeneficiaries.inputChange( 'ngm-total_amount-{{ $index }}' )"
 								ng-disabled="true"
 							/>
 							<label for="ngm-total_amount-{{ $index }}" class="active">Total Amount Transfered</label>
 						</div>
-								
+
 					</div>
 
 
