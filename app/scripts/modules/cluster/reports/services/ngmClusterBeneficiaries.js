@@ -377,6 +377,9 @@ angular.module( 'ngmReportHub' )
 					delete b.remarks;
 					delete b.createdAt;
 					delete b.updatedAt;
+					if (b.response){
+						b.response =[];
+					}
 					context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ b.cluster_id ] ? defaults[ project.definition.admin0pcode ][ b.cluster_id ] : {}
 					angular.merge( inserted, b, defaults.inputs, context_defaults );
 				}
@@ -629,31 +632,36 @@ angular.module( 'ngmReportHub' )
 
 				if (ngmClusterBeneficiaries.form[$parent][$index] && ngmClusterBeneficiaries.form[$parent][$index]['mpc_transfer_category_id'] && ngmClusterBeneficiaries.form[$parent][$index]['mpc_grant_type_id']){
 					//set default value for 'mpc_transfer_category_id' 'mpc_grant_type_id'
-					ngmClusterBeneficiaries.setDefaultValueBeneficiary($parent, $index, 'mpc_transfer_category_id', beneficiary, 'transfer_category_id', 'transfer_category_name');
-					ngmClusterBeneficiaries.setDefaultValueBeneficiary($parent, $index, 'mpc_grant_type_id', beneficiary, 'grant_type_id', 'grant_type_name');
+					// ngmClusterBeneficiaries.setDefaultValueBeneficiary($parent, $index, 'mpc_transfer_category_id', beneficiary, 'transfer_category_id', 'transfer_category_name');
+					// ngmClusterBeneficiaries.setDefaultValueBeneficiary($parent, $index, 'mpc_grant_type_id', beneficiary, 'grant_type_id', 'grant_type_name');
+					ngmClusterBeneficiaries.setDefaultValueBeneficiary(ngmClusterBeneficiaries.form[$parent][$index]['mpc_transfer_category_id'], beneficiary, 'transfer_category_id', 'transfer_category_name');
+					ngmClusterBeneficiaries.setDefaultValueBeneficiary(ngmClusterBeneficiaries.form[$parent][$index]['mpc_grant_type_id'], beneficiary, 'grant_type_id', 'grant_type_name');
+				}
+
+				if (ngmClusterBeneficiaries.form[$parent][$index] && ngmClusterBeneficiaries.form[$parent][$index][ 'beneficiary_category_type_id' ]){
+					ngmClusterBeneficiaries.setDefaultValueBeneficiary(lists.beneficiary_categories, beneficiary, 'beneficiary_category_id', 'beneficiary_category_name');
 				}
 
 			},
 
 
-
-			setDefaultValueBeneficiary: function ($parent, $index, field, beneficiary,key,name){
-				var disabled =false;
-
-					if (ngmClusterBeneficiaries.form[$parent][$index][field].length < 2 && ngmClusterBeneficiaries.form[$parent][$index][field]) {
-						 disabled = true;
-					}
+			setDefaultValueBeneficiary: function (list, beneficiary, key, name) {
+			// setDefaultValueBeneficiary: function ($parent, $index, field, beneficiary,key,name){
+				// var disabled =false;
+				
+				// 	if (ngmClusterBeneficiaries.form[$parent][$index][field].length < 2 && ngmClusterBeneficiaries.form[$parent][$index][field]) {
+				// 		 disabled = true;
+				// 	}
 					// set value
 					$timeout(function () {
-							if (!beneficiary[key]) {
-								beneficiary[key] = ngmClusterBeneficiaries.form[$parent][$index][field][0][key];
-								beneficiary[name] = ngmClusterBeneficiaries.form[$parent][$index][field][0][name];
+							if (!beneficiary[key] && list && list.length) {
+								beneficiary[key] = list[0][key];
+								beneficiary[name] = list[0][name];
 							}
 							ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary);
 					}, 10)
 
-
-					return disabled
+					// return disabled
 
 			},
 

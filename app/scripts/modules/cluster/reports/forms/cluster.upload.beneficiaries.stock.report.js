@@ -242,6 +242,7 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
                                             url: ngmAuth.LOCATION + url,
                                             data: upload
                                         }).success(function (report) {
+                                            $scope.upload.addUpdatedStatus(report);
                                             $timeout(function () {
                                                 // success
                                                 document.querySelector(".percent-upload").style.display = 'none';
@@ -352,13 +353,13 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
                                                 for (var x = 0; x < values.length; x++) {
                                                     values[x] = $scope.upload.addMissingStockAttibute(values[x]);
 
-                                                    if ((!values[x].cluster_id) || (!values[x].stock_item_type)) {
+                                                    if ((!values[x].cluster) || (!values[x].stock_item_type)) {
                                                         if (!$scope.messageFromfile[x]) {
                                                             $scope.messageFromfile[x] = []
                                                         }
-                                                        if (!values[x].cluster_id) {
+                                                        if (!values[x].cluster) {
                                                             obj = { label: false, property: 'cluster_id', reason: '' }
-                                                            obj.reason = values[x].cluster_id ? values[x].cluster_id : 'missing';
+                                                            obj.reason = values[x].cluster ? values[x].cluster : 'missing';
                                                             $scope.messageFromfile[x].push(obj)
                                                         }
                                                         if (!values[x].stock_item_type) {
@@ -400,6 +401,7 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
                                                 url: ngmAuth.LOCATION + url,
                                                 data: upload
                                             }).success(function (report) {
+                                                $scope.upload.addUpdatedStatus(report);
                                                 $timeout(function () {
                                                     // success
                                                     document.querySelector(".percent-upload").style.display = 'none';
@@ -590,8 +592,8 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
                                             $scope.messageFromfile[x] = []
                                         }
                                         if (!values[x].cluster) {
-                                            obj = { label: false, property: 'cluster', reason: '' }
-                                            obj.reason = values[x].cluster_id ? values[x].cluster_id : 'missing';
+                                            obj = { label: false, property: 'cluster_id', reason: '' }
+                                            obj.reason = values[x].cluster ? values[x].cluster : 'missing';
                                             $scope.messageFromfile[x].push(obj)
                                         }
                                         if (!values[x].stock_item_type) {
@@ -634,6 +636,7 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
                                 url: ngmAuth.LOCATION + url,
                                 data: upload
                             }).success(function (report) {
+                                $scope.upload.addUpdatedStatus(report);
                                 $timeout(function () {
                                     // success
                                     document.querySelector(".percent-upload").style.display = 'none';
@@ -713,6 +716,37 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
                         }
                     }
 
+                    if (obj.beneficiary_id){
+                        // change property beneficiary_id to id
+                        obj.id = obj.beneficiary_id;
+                    }
+                    if(obj.report_month_number){
+                        obj.report_month = obj.report_month_number;
+                    }
+                    // float type
+                    if (obj.admin3lat === '' || obj.admin3lng === '' || obj.admin4lat === '' || obj.admin4lng === '' || obj.admin5lat === '' || obj.admin5lng === ''){
+
+                        if (obj.admin3lng === '') {
+                            delete obj.admin3lng;
+                        }
+                        if (obj.admin3lat === '') {
+                            delete obj.admin3lat;
+                        }
+                        if (obj.admin4lng === '') {
+                            delete obj.admin4lng;
+                        }
+                        if (obj.admin4lat === '') {
+                            delete obj.admin4lat;
+                        }
+                        if (obj.admin5lng === ''){
+                            delete obj.admin5lng;
+                        }
+                        if (obj.admin5lat === '') {
+                            delete obj.admin5lat;
+                        }
+
+                    }
+
                     return obj
                 },
                 addMissingStockAttibute:function(obj){
@@ -731,6 +765,12 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
                         });
 
                     }
+                    if(obj.stock_id){
+                        obj.id = obj.stock_id;
+                    }
+                    if(obj.report_month && typeof obj.report_month === 'string'){
+                       obj.report_month = moment().month(obj.report_month).format("M")
+                    }
                     return obj;
                 },
                 setMessageFromFile: function (messageList, form) {
@@ -741,20 +781,25 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
 
                                 var field = messageList[z][y].property;
                                 var reason = messageList[z][y].reason;
-                                if (form === 'beneficiaries' && (field === 'activity_type_id' || field === 'activity_description_id' || field === 'cluster_id')) {
+                                if(field !== 'status'){
+                                    if (form === 'beneficiaries' && (field === 'activity_type_id' || field === 'activity_description_id' || field === 'cluster_id')) {
+                                        
+                                            message_temp += 'For Incorrect Cluster or Activity Type or Activity Description \nPlease check spelling, or verify that this is a correct value for this report! \n'
+                                    } else if (form === 'stocks' && (field === 'stock_item_type' || field === 'cluster_id')){
                                     
-                                        message_temp += 'For Incorrect Cluster or Activity Type or Activity Description \nPlease check spelling, or verify that this is a correct value for this report! \n'
-                                } else if (form === 'stocks' && (field === 'stock_item_type' || field === 'cluster_id')){
-                                   
-                                        message_temp += 'For Incorrect Stock Type or Cluster \nPlease check spelling, or verify that this is a correct value for this report! \n'
-                                    
-                                } else{
-                                    message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
-                                }
+                                            message_temp += 'For Incorrect Stock Type or Cluster \nPlease check spelling, or verify that this is a correct value for this report! \n'
+                                        
+                                    } else{
+                                        message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
+                                    }
 
-                                        
-                                        
-                                message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + field + ' : ' + reason + '\n';
+                                            
+                                            
+                                    message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + field + ' : ' + reason + '\n';
+                                }else{
+                                    message_temp += 'Row ' + (z + 2) +', '+ field +': '+ reason +'\n';
+                                    message_temp += '================================================'+'\n';
+                                }
                             }
                         }
 
@@ -768,6 +813,24 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
                             $('#message-file-report').modal('open');
                         })
 
+                    }
+                },
+                addUpdatedStatus: function(data) {
+                    if($scope.type === 'beneficiaries'){
+                        data = data.beneficiaries
+                    }else{
+                        data = data.stocks
+                    }
+                    
+                    for (var z = 0; z < data.length; z++) {
+                        if (!$scope.messageFromfile[z]) { $scope.messageFromfile[z]=[]}
+                        obj = { label: false, property: 'status', reason: '' }
+                        if($scope.messageFromfile[z].length<1){
+                            obj.reason =  data[z].updated ? 'Record Updated': 'Not Updated';
+                        }else{
+                            obj.reason = 'Record Not Updated';
+                        }
+                        $scope.messageFromfile[z].push(obj)
                     }
                 },
                 getBeneficiaryTitle: function (beneficiary) {
