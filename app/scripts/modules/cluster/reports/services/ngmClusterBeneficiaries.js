@@ -612,12 +612,14 @@ angular.module( 'ngmReportHub' )
 					}
 					var count_missing = 0;
 					angular.forEach(beneficiary.response,(e) => {
-						missing_index = temp_list.findIndex( value => value.response_id === e.response_id);
-						// if response_id is not in the temp list then push missing response_id to temp list
-						if (missing_index < 0) {
-							temp_list.push(e);
-							count_missing += 1;
-						}
+						if(e !== ''){
+							missing_index = temp_list.findIndex( value => value.response_id === e.response_id);
+							// if response_id is not in the temp list then push missing response_id to temp list
+							if (missing_index < 0) {
+								temp_list.push(e);
+								count_missing += 1;
+							}
+						};
 					});
 					if (count_missing > 0) {
 						// set ngmClusterBeneficiaries.form[$parent][$index]['response'] same as temp list if some of response_id is missing
