@@ -723,28 +723,12 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
                     if(obj.report_month_number){
                         obj.report_month = obj.report_month_number;
                     }
-                    // float type
-                    if (obj.admin3lat === '' || obj.admin3lng === '' || obj.admin4lat === '' || obj.admin4lng === '' || obj.admin5lat === '' || obj.admin5lng === ''){
 
-                        if (obj.admin3lng === '') {
-                            delete obj.admin3lng;
+                    // remove atrribute value is ""/''
+                    for (i in obj){
+                        if(obj[i]===''){
+                            delete obj[i]
                         }
-                        if (obj.admin3lat === '') {
-                            delete obj.admin3lat;
-                        }
-                        if (obj.admin4lng === '') {
-                            delete obj.admin4lng;
-                        }
-                        if (obj.admin4lat === '') {
-                            delete obj.admin4lat;
-                        }
-                        if (obj.admin5lng === ''){
-                            delete obj.admin5lng;
-                        }
-                        if (obj.admin5lat === '') {
-                            delete obj.admin5lat;
-                        }
-
                     }
 
                     return obj
