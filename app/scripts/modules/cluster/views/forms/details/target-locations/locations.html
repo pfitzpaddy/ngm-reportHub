@@ -69,7 +69,8 @@
 					<div class="row">
 						<div class="col s12 card">
 							<div style="padding-top: 10px; padding-left: 40px;">
-							  <table class="bordered responsive-table" ng-show="project.definition.target_locations.length">
+							  <table infinite-scroll='project.addMoreItems()' infinite-scroll-distance='1' class="bordered responsive-table"
+							  	ng-show="project.definition.target_locations.length">
 							    <tr style="font-weight: 400">
 							    	<td></td>
 							    	<td>{{'reporter' | translate}}</td>
@@ -87,7 +88,7 @@
 										<td ng-if="project.definition.implementing_partners_checked">{{'partner'|translate}}</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">{{'edit'|translate}}</td>
 							    </tr>
-							    <tr ng-repeat="location in project.definition.target_locations | orderBy:'createdAt' track by $index" dir="ltr">
+							    <tr ng-repeat="location in paginated_target_locations | orderBy:'createdAt' track by location.id" dir="ltr">
 							    	<td>
 							    		<i class="material-icons" style="color: teal;">person_pin</i>
 							    	</td>
@@ -306,7 +307,11 @@
 							          </button>
 							        </div>
 							      </td>
-							    </tr>
+								</tr>
+								<tr>
+									<td ng-if="isLoading" colspan="15" style="text-align: center" class="text-bold"><strong>Loading More Locations...</strong></td>
+								</tr>
+
 							  </table>
 
 							  <!-- default -->

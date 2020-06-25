@@ -25,6 +25,7 @@ angular
 		'highcharts-ng',
 		'leaflet-directive',
 		'xeditable',
+		'infinite-scroll',
 		// ngm
 		'ngm',
 		'ngm.widget.form.authentication',
