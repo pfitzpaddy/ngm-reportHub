@@ -138,6 +138,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
         text_input: '',
         messageWarning: '',
+        isSaving:false,
 
         // donor
         showDonor: function( $data, $budget ) {
@@ -607,6 +608,8 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         },
 
         save: function(){
+          $scope.project.isSaving = true;
+          M.toast({ html: 'Saving...', displayLength: 3000, classes: 'note' });
 					// Update Project
           ngmData.get({
             method: 'POST',
@@ -621,7 +624,10 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
             // on success
             // Materialize.toast( $filter('translate')('project_budget_item_added')+'!', 3000, 'success');
-            M.toast({ html: $filter('translate')('project_budget_item_added') + '!', displayLength: 3000, classes: 'success' });
+            $timeout(function(){
+              M.toast({ html: $filter('translate')('project_budget_item_added') + '!', displayLength: 3000, classes: 'success' });
+              $scope.project.isSaving = false;
+            },2000);
           });          
 				},
 				

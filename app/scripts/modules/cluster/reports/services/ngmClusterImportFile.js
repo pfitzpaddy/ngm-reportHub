@@ -238,7 +238,10 @@ angular.module('ngmReportHub')
                                 'Elderly Women': 'elderly_women',
                                 'Total': 'total_beneficiaries',
                                 'Created': 'createdAt',
-                                'Last Update': 'updatedAt'
+                                'Last Update': 'updatedAt',
+                                'Transfer Category': 'transfer_category_name',
+                                'Grant Type': 'grant_type_name',
+                                'Total Transferred': 'total_amount'
                             },
                              detail: {
                                  'Project ID': 'id',
@@ -300,6 +303,9 @@ angular.module('ngmReportHub')
                                  'Elderly Men': 'elderly_men',
                                  'Elderly Women': 'elderly_women',
                                  'Total': 'total_beneficiaries',
+                                 'Transfer Category':'transfer_category_name',
+                                 'Grant Type':'grant_type_name',
+                                 'Total Transferred':'total_amount'
                              }
                         }
                         return header[file_type]
@@ -353,6 +359,7 @@ angular.module('ngmReportHub')
                                     array[0][z] === 'units' ||
                                     array[0][z] === 'households' ||
                                     array[0][z] === 'site_population' ||
+                                    array[0][z] === 'Total Transferred'||
                                     // financial
                                     array[0][z] === 'Project Budget' ||
                                     array[0][z] === 'Ammount Received' ||

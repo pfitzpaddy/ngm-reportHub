@@ -376,6 +376,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				setBeneficiaryFromFile: function ($parent, beneficiary,$indexFile){
 					// set implementing if location has set implementing partner;
 					var beneficiary_default = ngmClusterBeneficiaries.addBeneficiary($scope.project, $scope.project.report.locations[$parent].beneficiaries);
+					if (beneficiary.transfer_category_name && beneficiary.grant_type_name) {
+						delete beneficiary_default.transfer_category_id;
+						delete beneficiary_default.transfer_category_name;
+						delete beneficiary_default.grant_type_id;
+						delete beneficiary_default.grant_type_name;
+					}
 					beneficiary= angular.merge({}, beneficiary_default, beneficiary )
 					var message_implementing_partners=''
 					if ($scope.project.report.locations[$parent].implementing_partners && $scope.project.report.locations[$parent].implementing_partners.length > 0) {
@@ -449,6 +455,20 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							beneficiary.mpc_mechanism_type_id = selected_mpc_mechanism[0].mpc_mechanism_type_id;
 						}
 					}
+
+					if (beneficiary.transfer_category_name && ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['mpc_transfer_category_id']) {
+						selected_transfer_category = $filter('filter')(ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['mpc_transfer_category_id'], { transfer_category_name: beneficiary.transfer_category_name }, true);
+						if (selected_transfer_category.length) {
+							beneficiary.transfer_category_id = selected_transfer_category[0].transfer_category_id;
+						}
+					}
+					if (beneficiary.grant_type_name && ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['mpc_grant_type_id']) {
+						selected_grant = $filter('filter')(ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['mpc_grant_type_id'], { grant_type_name: beneficiary.grant_type_name }, true);
+						if (selected_grant.length) {
+							beneficiary.grant_type_id = selected_grant[0].grant_type_id;
+						}
+					}
+					
 					// validation for input from file
 					if(ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]){
 						// $scope.messageFromfile[$indexFile] =[]
@@ -1497,7 +1517,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 									})
 
 								}
-								// perlu diperbaiki
+								// need to fix 
 								if (count_error > 0 || values.length < 1) {
 									if ((count_error === values.length) || (values.length < 1)) {
 										M.toast({ html: 'Import Fail!', displayLength: 2000, classes: 'error' });
@@ -1515,6 +1535,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 
 								document.querySelector("#input-string-area").style.display = 'block';
+								$("#close_input_string").attr("disabled", false);
+								$("#input_string").attr("disabled", false);
+								$("#switch_btn_text").attr("disabled", false);
+								$scope.inputString = false;
 							}, 2000)
 
 
