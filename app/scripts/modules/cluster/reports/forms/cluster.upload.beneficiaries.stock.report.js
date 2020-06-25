@@ -723,6 +723,19 @@ angular.module('ngm.widget.upload.beneficiaries.stock.report', ['ngm.provider'])
                     if(obj.report_month_number){
                         obj.report_month = obj.report_month_number;
                     }
+                    
+                    if (obj.total_amount < 1 || obj.total_amount === '' || obj.total_amount === undefined || obj.total_amount === null || obj.total_amount === NaN){
+                        obj.total_amount = 0;
+                        var units = (obj.units === null || obj.units === undefined || obj.units === NaN || obj.units < 0 || obj.units === '') ? 0 : obj.units;
+                        var transfers_value = (obj.transfer_type_value === null || obj.transfer_type_value === undefined || obj.transfer_type_value === NaN || obj.transfer_type_value < 0 || obj.transfer_type_value === '') ? 0 : obj.transfer_type_value;
+                        var hh = (obj.households === null || obj.households === undefined || obj.households === NaN || obj.households < 0 || obj.households === '') ? 0 : obj.households;
+                        var total_beneficiaries = (obj.total_beneficiaries === null || obj.total_beneficiaries === undefined || obj.total_beneficiaries === NaN || obj.total_beneficiaries < 0 || obj.total_beneficiaries === '') ? 0 : obj.total_beneficiaries;
+                        if (obj.transfer_category_id === 'individual') {
+                            obj.total_amount = units * transfers_value * total_beneficiaries;
+                        } else {
+                            obj.total_amount = units * transfers_value * hh;
+                        }
+                    }
 
                     // remove atrribute value is ""/''
                     for (i in obj){
