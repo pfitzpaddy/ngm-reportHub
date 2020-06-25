@@ -557,7 +557,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
             var temp_array = [] 
             angular.forEach(budget.multi_year_array,function(e,i){
               indexYear = years.findIndex(x => x=== e.year);
-              if(indexYear >0){
+              if(indexYear >-1){
                 temp_array.push(e)
               }else{
                 $scope.messageFromfile[index].push({ label: false, property: 'multi_year_array', reason: 'Year(' + e.year + ') not  match with  this project year(start:' + start_year + ', end: ' + end_year+')'})
@@ -1173,9 +1173,9 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
             if (obj.multi_year_array && obj.multi_year_funding_id === 'yes') {
               
-              obj.multi_year_array = obj.multi_year_array.split(',').map(function (y_a) {
-                y_a.trim();
-                y_a = y_a.split(':')
+              obj.multi_year_array = obj.multi_year_array.split(';').map(function (y_a) {
+                y_a = y_a.trim().split(' ')
+                
                 var year_value = y_a[0].trim() === 'n/a' ? 0 : parseInt(y_a[0].trim());
                 var budget_value = y_a[1].trim() === 'n/a' ? 0 : parseInt(y_a[1].trim());
                 year_budget = {
