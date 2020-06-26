@@ -87,6 +87,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 			$scope.messageFromfile = {project_detail_message :[],target_beneficiaries_message:[],target_locations_message:[]};
 			$scope.inputString = false;
 
+			//Infinite scroll implementation for locations
+			const LOCATION_COUNT = 10;
+			$scope.count = LOCATION_COUNT;
+			$scope.start = 0;
+			$scope.end = LOCATION_COUNT;
+			$scope.paginated_target_locations= [],
+			$scope.isLoading = false;
+
 			// project
 			$scope.project = {
 
@@ -246,6 +254,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					ngmClusterBeneficiaries.setBeneficiariesForm( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries );
 					// set form inputs
 					ngmCbLocations.setLocationsForm( $scope.project, $scope.project.definition.target_locations );
+					// Set limited amount of locations
+					$scope.paginated_target_locations = $scope.project.definition.target_locations.slice($scope.start, $scope.end);
 					// set admin1,2,3,4,5 && site_type && site_implementation
 					ngmClusterLocations.setLocationAdminSelect($scope.project, $scope.project.definition.target_locations);
 					// documents uploads
@@ -330,7 +340,19 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 
 				},
-
+				// Push objects, in chunk of 10s to the location array to make rendering easy
+				addMoreItems: function(){
+					$scope.start = $scope.end;
+					$scope.end += $scope.count;
+					var paginated = $scope.project.definition.target_locations.slice($scope.start, $scope.end);
+					setTimeout(function(){
+						paginated.forEach(function (loc, index) {
+							$scope.paginated_target_locations.push(loc);
+						});
+					},100);
+					// Control loading notification
+					$scope.isLoading = $scope.end >= $scope.project.definition.target_locations.length - 1 ? false : true;
+				},
 				// cofirm exit if changes
 				modalConfirm: function( modal ){
 					if( modal === 'summary-modal' ) {
