@@ -8031,9 +8031,8 @@ angular.module( 'ngmReportHub' )
 						site_implementation_name: 'Other'
 					}];
 				}
-
 				// COL
-				if( admin0pcode === 'COL' ){
+				else if( admin0pcode === 'COL' ){
 					site_implementation = [{
 						site_implementation_id: 'apoyo_comunitario',
 						site_implementation_name: 'Apoyo Comunitario'
@@ -8049,8 +8048,8 @@ angular.module( 'ngmReportHub' )
 					}];
 				}
 
-				// COL
-				if( admin0pcode === 'PHL' ){
+				// PHL
+				else if( admin0pcode === 'PHL' ){
 					site_implementation = [{
 						cluster_id: ngmClusterLists.all_sectors,
 						site_implementation_id: 'community_based',
