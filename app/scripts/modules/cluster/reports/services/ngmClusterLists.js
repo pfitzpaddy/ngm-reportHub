@@ -8011,8 +8011,8 @@ angular.module( 'ngmReportHub' )
 						site_implementation_name: 'Community Center'
 					},{
 						cluster_id: ['protection'],
-						site_implementation_id: 'woman_friendly_space',
-						site_implementation_name: 'Woman Friendly Space'
+						site_implementation_id: 'women_friendly_space',
+						site_implementation_name: 'Women Friendly Space'
 					},{
 						cluster_id: ['protection'],
 						site_implementation_id: 'child_friendly_space',
@@ -8064,20 +8064,20 @@ angular.module( 'ngmReportHub' )
 						site_implementation_name: 'Community Based'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
-						site_implementation_id: 'child_friendly_sapce',
-						site_implementation_name: 'Child Friendly Sapce'
+						site_implementation_id: 'child_friendly_space',
+						site_implementation_name: 'Child Friendly Space'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
-						site_implementation_id: 'women_friendly_sapce',
-						site_implementation_name: 'Women Friendly Sapce'
+						site_implementation_id: 'women_friendly_space',
+						site_implementation_name: 'Women Friendly Space'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
 						site_implementation_id: 'feeding_center',
 						site_implementation_name: 'Feeding Center'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
-						site_implementation_id: 'stabalization_center',
-						site_implementation_name: 'Stabalization Center'
+						site_implementation_id: 'stabilization_center',
+						site_implementation_name: 'Stabilization Center'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
 						site_implementation_id: 'food_distribution_point_gfd',
