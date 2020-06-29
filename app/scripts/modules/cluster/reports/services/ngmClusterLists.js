@@ -7780,15 +7780,37 @@ angular.module( 'ngmReportHub' )
 							beneficiary_type_id: 'shock_affected_non_displaced_conflict_natural_disaster',
 							beneficiary_type_name: 'Shock-Affected Non-Displaced in 2020 (Conflict or Natural Disaster)',
 							year: 2020
+						// not active
+						// },{
+						// 	cluster_id: [ 'protection' ],
+						// 	beneficiary_type_id: 'returnees_return_place',
+						// 	beneficiary_type_name: 'Returnees in 2020 - in their place of return',
+						// 	year: 2020
+						// },{
+						// 	cluster_id: [ 'protection' ],
+						// 	beneficiary_type_id: 'returnees_border_encashment',
+						// 	beneficiary_type_name: 'Returnees in 2020 - at border or in encashment centres',
+						// 	year: 2020
+						// },{
 						},{
 							cluster_id: [ 'protection' ],
-							beneficiary_type_id: 'returnees_return_place',
-							beneficiary_type_name: 'Returnees in 2020 - in their place of return',
+							beneficiary_type_id: 'undocumented_returnees_border_encashment',
+							beneficiary_type_name: 'Undocumented Returnees in 2020 - at border or in encashment centres',
 							year: 2020
 						},{
 							cluster_id: [ 'protection' ],
-							beneficiary_type_id: 'returnees_border_encashment',
-							beneficiary_type_name: 'Returnees in 2020 - at border or in encashment centres',
+							beneficiary_type_id: 'undocumented_returnees_return_place',
+							beneficiary_type_name: 'Undocumented Returnees in 2020 - in their place of return',
+							year: 2020
+						},{
+							cluster_id: [ 'protection' ],
+							beneficiary_type_id: 'refugee_returnees_border_encashment',
+							beneficiary_type_name: 'Refugee Returnees in 2020 - at border or in encashment centres',
+							year: 2020
+						},{
+							cluster_id: [ 'protection' ],
+							beneficiary_type_id: 'refugee_returnees_return_place',
+							beneficiary_type_name: 'Refugee Returnees in 2020 - in their place of return',
 							year: 2020
 						},{
 							cluster_id: [ 'protection' ],
@@ -7989,8 +8011,8 @@ angular.module( 'ngmReportHub' )
 						site_implementation_name: 'Community Center'
 					},{
 						cluster_id: ['protection'],
-						site_implementation_id: 'woman_friendly_space',
-						site_implementation_name: 'Woman Friendly Space'
+						site_implementation_id: 'women_friendly_space',
+						site_implementation_name: 'Women Friendly Space'
 					},{
 						cluster_id: ['protection'],
 						site_implementation_id: 'child_friendly_space',
@@ -8009,9 +8031,8 @@ angular.module( 'ngmReportHub' )
 						site_implementation_name: 'Other'
 					}];
 				}
-
 				// COL
-				if( admin0pcode === 'COL' ){
+				else if( admin0pcode === 'COL' ){
 					site_implementation = [{
 						site_implementation_id: 'apoyo_comunitario',
 						site_implementation_name: 'Apoyo Comunitario'
@@ -8027,8 +8048,8 @@ angular.module( 'ngmReportHub' )
 					}];
 				}
 
-				// COL
-				if( admin0pcode === 'PHL' ){
+				// PHL
+				else if( admin0pcode === 'PHL' ){
 					site_implementation = [{
 						cluster_id: ngmClusterLists.all_sectors,
 						site_implementation_id: 'community_based',
@@ -8043,20 +8064,20 @@ angular.module( 'ngmReportHub' )
 						site_implementation_name: 'Community Based'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
-						site_implementation_id: 'child_friendly_sapce',
-						site_implementation_name: 'Child Friendly Sapce'
+						site_implementation_id: 'child_friendly_space',
+						site_implementation_name: 'Child Friendly Space'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
-						site_implementation_id: 'women_friendly_sapce',
-						site_implementation_name: 'Women Friendly Sapce'
+						site_implementation_id: 'women_friendly_space',
+						site_implementation_name: 'Women Friendly Space'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
 						site_implementation_id: 'feeding_center',
 						site_implementation_name: 'Feeding Center'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
-						site_implementation_id: 'stabalization_center',
-						site_implementation_name: 'Stabalization Center'
+						site_implementation_id: 'stabilization_center',
+						site_implementation_name: 'Stabilization Center'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
 						site_implementation_id: 'food_distribution_point_gfd',
