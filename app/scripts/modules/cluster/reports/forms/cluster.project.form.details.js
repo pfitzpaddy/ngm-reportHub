@@ -41,6 +41,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 		'ngmClusterImportFile',
 		'config',
 		'$translate',
+		'$rootScope',
 
 		function(
 				$scope,
@@ -66,7 +67,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				ngmClusterDocument,
 				ngmClusterImportFile,
 				config,
-				$translate ){
+				$translate,
+				$rootScope ){
 			// set to $scope
 			$scope.ngmClusterHelper = ngmClusterHelper;
 			$scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
@@ -75,6 +77,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 			$scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 			$scope.ngmClusterDocument = ngmClusterDocument;
 			$scope.ngmClusterImportFile = ngmClusterImportFile;
+			
+			// remove location from paginated array
+			$rootScope.$on('remove_location', function(evt, id){
+				$scope.paginated_target_locations = $scope.paginated_target_locations.reduce((p, c) => (c.id !== id && p.push(c), p), []);
+			});
 
 			//ngmClusterHelperCol
 
@@ -792,6 +799,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				addLocation: function() {
 					$scope.inserted = ngmClusterLocations.addLocation( $scope.project.definition, $scope.project.definition.target_locations );
 					$scope.project.definition.target_locations.push( $scope.inserted );
+
+					// add location to paginated array
+					$scope.paginated_target_locations.push($scope.inserted);
 					// open card panel form of new add beneficiaries
 					$scope.detailLocation[$scope.project.definition.target_locations.length - 1] = true;
 					// autoset location groupings
@@ -955,6 +965,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					if ( !$scope.project.definition[ key ][ $index ].id ) {
 						$scope.project.definition[ key ].splice( $index, 1 );
 						ngmClusterBeneficiaries.form[ 0 ].splice( $index, 1 );
+
+						// Cancel edit for paginated array
+						$scope.paginated_target_locations.splice($index, 1);
 						if ( key === 'target_beneficiaries' ) {
 							$timeout(function(){
 								// Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' );

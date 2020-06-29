@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterLocations', [ '$http', '$filter', '$timeout', 'ngmAuth','$translate', 'ngmClusterBeneficiaries', 'ngmCbLocations', function( $http, $filter, $timeout, ngmAuth, $translate, ngmClusterBeneficiaries, ngmCbLocations ) {
+	.factory( 'ngmClusterLocations', [ '$http', '$filter', '$timeout', 'ngmAuth','$translate', '$rootScope', 'ngmClusterBeneficiaries', 'ngmCbLocations', function( $http, $filter, $timeout, ngmAuth, $translate, $rootScope, ngmClusterBeneficiaries, ngmCbLocations ) {
 
 		ngmClusterLocations = {
 
@@ -120,6 +120,8 @@ angular.module( 'ngmReportHub' )
         }).success( function( result ) {
           // Materialize.toast( $filter('translate')('project_location_removed') , 3000, 'success' );
           M.toast({ html: $filter('translate')('project_location_removed'), displayLength: 3000, classes: 'success' });
+          // Broadcast event to notify listeners that a location has been removed
+          $rootScope.$broadcast('remove_location', ngmClusterLocations.remove_id);
         }).error( function( err ) {
           // Materialize.toast( 'Error!', 6000, 'error' );
           M.toast({ html: 'Error!', displayLength: 6000, classes: 'error' });
