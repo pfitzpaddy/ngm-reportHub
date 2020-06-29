@@ -1589,7 +1589,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}
 					// activity_detail
 					if (obj.activity_detail_name){
-						selected_activity_detail = $filter('filter')(project.lists.activity_details,{
+						selected_activity_detail = $filter('filter')($scope.project.lists.activity_details,{
 							cluster_id: obj.cluster_id,
 							activity_type_id: obj.activity_type_id,
 							activity_description_id: obj.activity_description_id,

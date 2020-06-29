@@ -77,7 +77,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 			$scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 			$scope.ngmClusterDocument = ngmClusterDocument;
 			$scope.ngmClusterImportFile = ngmClusterImportFile;
-			
+
 			// remove location from paginated array
 			$rootScope.$on('remove_location', function(evt, id){
 				$scope.paginated_target_locations = $scope.paginated_target_locations.reduce((p, c) => (c.id !== id && p.push(c), p), []);
@@ -2255,7 +2255,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}
 					// activity_detail
 					if (obj.activity_detail_name) {
-						selected_activity_detail = $filter('filter')(project.lists.activity_details, {
+						selected_activity_detail = $filter('filter')($scope.project.lists.activity_details, {
 							cluster_id: obj.cluster_id,
 							activity_type_id: obj.activity_type_id,
 							activity_description_id: obj.activity_description_id,
