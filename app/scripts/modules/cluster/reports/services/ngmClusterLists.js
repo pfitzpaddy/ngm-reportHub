@@ -7906,21 +7906,21 @@ angular.module( 'ngmReportHub' )
 
 				if ( admin0pcode === 'AF' || admin0pcode === 'ET' ){
 					beneficiary_categories = [{
-						beneficiary_category_id: 'general',
-						beneficiary_category_name: 'General'
+						beneficiary_category_id: 'non_disabled',
+						beneficiary_category_name: 'Non-Disabled'
 					},{
-						beneficiary_category_id: 'disabled',
-						beneficiary_category_name: 'Disabled'
+						beneficiary_category_id: 'persons_with_disabilities',
+						beneficiary_category_name: 'Persons with Disabilities'
 					}];
 				}
 
 				if( admin0pcode == 'NG' ){
 					beneficiary_categories = [{
-						beneficiary_category_id: 'general',
-						beneficiary_category_name: 'General'
+						beneficiary_category_id: 'non_disabled',
+						beneficiary_category_name: 'Non-Disabled'
 					},{
-						beneficiary_category_id: 'disabled',
-						beneficiary_category_name: 'Disabled'
+						beneficiary_category_id: 'persons_with_disabilities',
+						beneficiary_category_name: 'Persons with Disabilities'
 					}];
 				}
 				return beneficiary_categories;
