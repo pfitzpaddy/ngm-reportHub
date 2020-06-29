@@ -1893,6 +1893,83 @@
 
 
 
+					<!-- SADD (boys, girls, men, women, elderly_men, elderly_women) -->
+					<div class="row" ng-if="( 
+																		ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'men' ] &&
+																		ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'women' ] &&
+																		ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_men' ] &&
+																		ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_women' ] ) &&
+																	( !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_0_5' ]  &&
+																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_6_11' ] &&
+																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_12_17' ] &&
+																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_0_5' ]  &&
+																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_6_11' ] &&
+																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_12_17' ] &&
+																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys' ] &&
+																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls' ])">
+						<!-- men -->
+						<div class="input-field col s12 m4 l3">
+							<input id="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								name="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}" type="number" class="validate" min="0"
+								ng-model="beneficiary.men" ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );
+																	ngmClusterBeneficiaries.inputChange( 'ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+								ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'men' ]"
+								required />
+							<label ng-if="project.definition.admin0pcode !== 'ET'"
+								for="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'men' | translate }}</label>
+							<label ng-if="project.definition.admin0pcode === 'ET'"
+								for="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								class="active">{{ 'men_et_esnfi' | translate }}</label>
+						</div>
+						<!-- women -->
+						<div class="input-field col s12 m4 l3">
+							<input id="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								name="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}" type="number" class="validate" min="0"
+								ng-model="beneficiary.women" ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );
+																	ngmClusterBeneficiaries.inputChange( 'ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+								ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'women' ]"
+								required />
+							<label ng-if="project.definition.admin0pcode !== 'ET'"
+								for="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								class="active">{{ 'women' | translate }}</label>
+							<label ng-if="project.definition.admin0pcode === 'ET'"
+								for="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								class="active">{{ 'women_et_esnfi' | translate }}</label>
+						</div>
+						<!-- elderly_men -->
+						<div class="input-field col s12 m4 l3">
+							<input id="ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								name="ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}" type="number" class="validate" min="0"
+								ng-model="beneficiary.elderly_men" ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );
+																	ngmClusterBeneficiaries.inputChange( 'ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+								ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_men' ]"
+								required />
+							<label ng-if="project.definition.admin0pcode !== 'ET'"
+								for="ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								class="active">{{ 'eld_men' | translate }}</label>
+							<label ng-if="project.definition.admin0pcode === 'ET'"
+								for="ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								class="active">{{ 'eld_men_et_esnfi' | translate }}</label>
+						</div>
+						<!-- elderly_women -->
+						<div class="input-field col s12 m4 l3">
+							<input id="ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								name="ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}" type="number" class="validate" min="0"
+								ng-model="beneficiary.elderly_women" ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );
+																	ngmClusterBeneficiaries.inputChange( 'ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+								ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_women' ]"
+								required />
+							<label ng-if="project.definition.admin0pcode !== 'ET'"
+								for="ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								class="active">{{ 'eld_women' | translate }}</label>
+							<label ng-if="project.definition.admin0pcode === 'ET'"
+								for="ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								class="active">{{ 'eld_women_et_esnfi' | translate }}</label>
+						</div>
+					</div>
+
+
+
 					<!-- TOTAL -->
 					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'total_beneficiaries' ]">
 
