@@ -597,6 +597,7 @@ angular.module( 'ngmReportHub' )
 
 
 
+
 			// clusters
 			getClusters: function( admin0pcode ){
 				var clusters = [];
@@ -5944,6 +5945,10 @@ angular.module( 'ngmReportHub' )
 				// PHL
 				if ( admin0pcode === 'PHL' ) {
 					beneficiaries = [{
+							cluster_id: ngmClusterLists.all_sectors,
+							beneficiary_type_id: 'general_population',
+							beneficiary_type_name: 'General Population'
+						},{
 						cluster_id: ngmClusterLists.all_sectors,
 						beneficiary_type_id: 'host_communities',
 						beneficiary_type_name: 'Host Communities'
@@ -7499,6 +7504,11 @@ angular.module( 'ngmReportHub' )
 							beneficiary_type_name: 'Pakistani Refugees',
 							year: 2020
 						},{
+							cluster_id: [ 'fsac' ],
+							beneficiary_type_id: 'covid_19_affected_people',
+							beneficiary_type_name: 'COVID-19 Affected People',
+							year: 2020
+						},{
 
 							// CASH
 
@@ -7658,39 +7668,105 @@ angular.module( 'ngmReportHub' )
 							cluster_id: [ 'nutrition' ],
 							beneficiary_type_id: 'flood_affected_displaced_response',
 							beneficiary_type_name: 'Flood Affected Displaced ( Response )'
-						},{
+						},
+						// {
 
-							// ESNFI
+						// 	// ESNFI 2020 v1
+
+						// 	cluster_id: [ 'esnfi' ],
+						// 	beneficiary_type_id: 'idp',
+						// 	beneficiary_type_name: 'Internally Displaced Persons (IDPs)',
+						// 	description: 'People displaced in 2020'
+						// },{
+						// 	cluster_id: [ 'esnfi' ],
+						// 	beneficiary_type_id: 'shock_affected',
+						// 	beneficiary_type_name: 'Shock Affected Persons ',
+						// 	description: 'People affected by shocks in 2020 (natural disasters and conflict)'
+						// },{
+						// 	cluster_id: [ 'esnfi' ],
+						// 	beneficiary_type_id: 'acutely_vulnerable_persons',
+						// 	beneficiary_type_name: 'Acutely Vulnerable People with Humanitarian Needs',
+						// 	description: 'Acutely vulnerable people with humanitarian needs (protracted IDPs, host community, vulnerable populations at risk etc)'
+						// },{
+						// 	cluster_id: [ 'esnfi' ],
+						// 	beneficiary_type_id: 'returnee_idps',
+						// 	beneficiary_type_name: 'Returnee IDPs',
+						// 	description: 'IDP Returnees in 2020'
+						// },{
+						// 	cluster_id: [ 'esnfi' ],
+						// 	beneficiary_type_id: 'returnee_documented',
+						// 	beneficiary_type_name: 'Afghan Refugee Returnees (Documented)',
+						// 	description: 'Afghan Refugee Returnees (Documented)'
+						// },{
+						// 	cluster_id: [ 'esnfi' ],
+						// 	beneficiary_type_id: 'returnee_undocumented',
+						// 	beneficiary_type_name: 'Afghan Returnees (Undocumented)',
+						// 	description: 'Afghan Returnees (Undocumented)'
+						// },
+
+						{
+
+							// ESNFI v2
 
 							cluster_id: [ 'esnfi' ],
-							beneficiary_type_id: 'idp',
-							beneficiary_type_name: 'Internally Displaced Persons (IDPs)',
-							description: 'People displaced in 2020'
+							beneficiary_type_id: 'conflict_idp_2020',
+							beneficiary_type_name: 'Conflict IDPs (displaced in 2020)',
+							description: 'Conflict IDPs (displaced in 2020)',
+							year: 2020
 						},{
 							cluster_id: [ 'esnfi' ],
-							beneficiary_type_id: 'shock_affected',
-							beneficiary_type_name: 'Shock Affected Persons ',
-							description: 'People affected by shocks in 2020 (natural disasters and conflict)'
+							beneficiary_type_id: 'natural_disaster_idp_2020',
+							beneficiary_type_name: 'Natural Disaster IDPs (displaced in 2020)',
+							description: 'Natural Disaster IDPs (displaced in 2020)',
+							year: 2020
 						},{
 							cluster_id: [ 'esnfi' ],
-							beneficiary_type_id: 'acutely_vulnerable_persons',
-							beneficiary_type_name: 'Acutely Vulnerable People with Humanitarian Needs',
-							description: 'Acutely vulnerable people with humanitarian needs (protracted IDPs, host community, vulnerable populations at risk etc)'
+							beneficiary_type_id: 'undocumented_returnees_settlement_place_of_return',
+							beneficiary_type_name: 'Undocumented Returnees (at settlement or place of return)',
+							description: 'Undocumented returnees (at settlement or place of return)',
+							year: 2020
 						},{
 							cluster_id: [ 'esnfi' ],
-							beneficiary_type_id: 'returnee_idps',
-							beneficiary_type_name: 'Returnee IDPs',
-							description: 'IDP Returnees in 2020'
+							beneficiary_type_id: 'undocumented_returnees_border_or_ec',
+							beneficiary_type_name: 'Undocumented Returnees (at border or EC)',
+							description: 'Undocumented returnees (at border or EC)',
+							year: 2020
 						},{
 							cluster_id: [ 'esnfi' ],
-							beneficiary_type_id: 'returnee_documented',
-							beneficiary_type_name: 'Afghan Refugee Returnees (Documented)',
-							description: 'Afghan Refugee Returnees (Documented)'
+							beneficiary_type_id: 'refugee_returnees_settlement_place_of_return',
+							beneficiary_type_name: 'Refugee Returnees (at settlement or place of return)',
+							description: 'Refugee returnees (at settlement or place of return)',
+							year: 2020
 						},{
 							cluster_id: [ 'esnfi' ],
-							beneficiary_type_id: 'returnee_undocumented',
-							beneficiary_type_name: 'Afghan Returnees (Undocumented)',
-							description: 'Afghan Returnees (Undocumented)'
+							beneficiary_type_id: 'refugee_returnees_border_or_ec',
+							beneficiary_type_name: 'Refugee Returnees (at border or EC)',
+							description: 'Refugee returnees (at border or EC)',
+							year: 2020
+						},{
+							cluster_id: [ 'esnfi' ],
+							beneficiary_type_id: 'conflict_affected_non_displaced',
+							beneficiary_type_name: 'Conflict-Affected (non-displaced)',
+							description: 'Conflict-affected (non-displaced)',
+							year: 2020
+						},{
+							cluster_id: [ 'esnfi' ],
+							beneficiary_type_id: 'natural_disaster_affected_non_displaced',
+							beneficiary_type_name: 'Natural Disaster-Affected (non-displaced)',
+							description: 'Natural disaster-affected (non-displaced)',
+							year: 2020
+						},{
+							cluster_id: [ 'esnfi' ],
+							beneficiary_type_id: 'refugees_asylum_seekers',
+							beneficiary_type_name: 'Refugees & Asylum Seekers',
+							description: 'Refugees & asylum seekers',
+							year: 2020
+						},{
+							cluster_id: [ 'esnfi' ],
+							beneficiary_type_id: 'vulnerable_people_humanitarian_needs',
+							beneficiary_type_name: 'Vulnerable People with Humanitarian Needs (including host community, protracted IDPs etc.)',
+							description: 'Vulnerable people with humanitarian needs (including host community, protracted IDPs etc.)',
+							year: 2020
 						},{
 
 							// Protection
@@ -7704,15 +7780,37 @@ angular.module( 'ngmReportHub' )
 							beneficiary_type_id: 'shock_affected_non_displaced_conflict_natural_disaster',
 							beneficiary_type_name: 'Shock-Affected Non-Displaced in 2020 (Conflict or Natural Disaster)',
 							year: 2020
+						// not active
+						// },{
+						// 	cluster_id: [ 'protection' ],
+						// 	beneficiary_type_id: 'returnees_return_place',
+						// 	beneficiary_type_name: 'Returnees in 2020 - in their place of return',
+						// 	year: 2020
+						// },{
+						// 	cluster_id: [ 'protection' ],
+						// 	beneficiary_type_id: 'returnees_border_encashment',
+						// 	beneficiary_type_name: 'Returnees in 2020 - at border or in encashment centres',
+						// 	year: 2020
+						// },{
 						},{
 							cluster_id: [ 'protection' ],
-							beneficiary_type_id: 'returnees_return_place',
-							beneficiary_type_name: 'Returnees in 2020 - in their place of return',
+							beneficiary_type_id: 'undocumented_returnees_border_encashment',
+							beneficiary_type_name: 'Undocumented Returnees in 2020 - at border or in encashment centres',
 							year: 2020
 						},{
 							cluster_id: [ 'protection' ],
-							beneficiary_type_id: 'returnees_border_encashment',
-							beneficiary_type_name: 'Returnees in 2020 - at border or in encashment centres',
+							beneficiary_type_id: 'undocumented_returnees_return_place',
+							beneficiary_type_name: 'Undocumented Returnees in 2020 - in their place of return',
+							year: 2020
+						},{
+							cluster_id: [ 'protection' ],
+							beneficiary_type_id: 'refugee_returnees_border_encashment',
+							beneficiary_type_name: 'Refugee Returnees in 2020 - at border or in encashment centres',
+							year: 2020
+						},{
+							cluster_id: [ 'protection' ],
+							beneficiary_type_id: 'refugee_returnees_return_place',
+							beneficiary_type_name: 'Refugee Returnees in 2020 - in their place of return',
 							year: 2020
 						},{
 							cluster_id: [ 'protection' ],
@@ -7913,8 +8011,8 @@ angular.module( 'ngmReportHub' )
 						site_implementation_name: 'Community Center'
 					},{
 						cluster_id: ['protection'],
-						site_implementation_id: 'woman_friendly_space',
-						site_implementation_name: 'Woman Friendly Space'
+						site_implementation_id: 'women_friendly_space',
+						site_implementation_name: 'Women Friendly Space'
 					},{
 						cluster_id: ['protection'],
 						site_implementation_id: 'child_friendly_space',
@@ -7933,9 +8031,8 @@ angular.module( 'ngmReportHub' )
 						site_implementation_name: 'Other'
 					}];
 				}
-
 				// COL
-				if( admin0pcode === 'COL' ){
+				else if( admin0pcode === 'COL' ){
 					site_implementation = [{
 						site_implementation_id: 'apoyo_comunitario',
 						site_implementation_name: 'Apoyo Comunitario'
@@ -7951,8 +8048,8 @@ angular.module( 'ngmReportHub' )
 					}];
 				}
 
-				// COL
-				if( admin0pcode === 'PHL' ){
+				// PHL
+				else if( admin0pcode === 'PHL' ){
 					site_implementation = [{
 						cluster_id: ngmClusterLists.all_sectors,
 						site_implementation_id: 'community_based',
@@ -7967,20 +8064,20 @@ angular.module( 'ngmReportHub' )
 						site_implementation_name: 'Community Based'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
-						site_implementation_id: 'child_friendly_sapce',
-						site_implementation_name: 'Child Friendly Sapce'
+						site_implementation_id: 'child_friendly_space',
+						site_implementation_name: 'Child Friendly Space'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
-						site_implementation_id: 'women_friendly_sapce',
-						site_implementation_name: 'Women Friendly Sapce'
+						site_implementation_id: 'women_friendly_space',
+						site_implementation_name: 'Women Friendly Space'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
 						site_implementation_id: 'feeding_center',
 						site_implementation_name: 'Feeding Center'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
-						site_implementation_id: 'stabalization_center',
-						site_implementation_name: 'Stabalization Center'
+						site_implementation_id: 'stabilization_center',
+						site_implementation_name: 'Stabilization Center'
 					},{
 						cluster_id: ngmClusterLists.all_sectors,
 						site_implementation_id: 'food_distribution_point_gfd',
@@ -8465,6 +8562,12 @@ angular.module( 'ngmReportHub' )
 				// ng
 				if ( admin0pcode === 'PHL' ) {
 					site_types = [{
+						site_type_id: 'national',
+						site_type_name: 'National'
+					},{
+						site_type_id: 'regional',
+						site_type_name: 'Regional'
+					},{
 						site_type_id: 'multiple_sites',
 						site_type_name: 'Multiple Sites'
 					},{

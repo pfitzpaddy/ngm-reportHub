@@ -272,6 +272,7 @@ angular.module( 'ngmReportHub' )
 						((beneficiary.elderly_women === null || beneficiary.elderly_women === undefined || beneficiary.elderly_women === NaN || beneficiary.elderly_women < 0 || beneficiary.elderly_women === '') ? 0 : beneficiary.elderly_women);
 
 					beneficiary.total_beneficiaries += beneficiary.total_male + beneficiary.total_female;
+					ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary);
 				}, 100 );
 			},
 
@@ -294,6 +295,23 @@ angular.module( 'ngmReportHub' )
 						beneficiary[ name ] = null;
 					}
 				}, 10 );
+			},
+
+			// set total amount transfered
+			updateTotalTransferedAmount:function(beneficiary){
+				$timeout(function(){
+					beneficiary.total_amount = 0;
+					var units = (beneficiary.units === null || beneficiary.units === undefined || beneficiary.units === NaN || beneficiary.units < 0 || beneficiary.units === '') ? 0 : beneficiary.units;
+					var transfers_value = (beneficiary.transfer_type_value === null || beneficiary.transfer_type_value === undefined || beneficiary.transfer_type_value === NaN || beneficiary.transfer_type_value < 0 || beneficiary.transfer_type_value === '') ? 0:beneficiary.transfer_type_value;
+					var hh = (beneficiary.households === null || beneficiary.households === undefined || beneficiary.households === NaN || beneficiary.households < 0 || beneficiary.households === '') ? 0 : beneficiary.households;
+					var total_beneficiaries = (beneficiary.total_beneficiaries === null || beneficiary.total_beneficiaries === undefined || beneficiary.total_beneficiaries === NaN || beneficiary.total_beneficiaries < 0 || beneficiary.total_beneficiaries === '') ? 0 : beneficiary.total_beneficiaries;
+					if (beneficiary.transfer_category_id === 'individual'){
+						beneficiary.total_amount = units * transfers_value * total_beneficiaries;
+					}else{
+						beneficiary.total_amount = units * transfers_value * hh;
+					}
+				},10)
+
 			},
 
 			// update display name in object on select change
@@ -359,6 +377,9 @@ angular.module( 'ngmReportHub' )
 					delete b.remarks;
 					delete b.createdAt;
 					delete b.updatedAt;
+					if (b.response){
+						b.response =[];
+					}
 					context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ b.cluster_id ] ? defaults[ project.definition.admin0pcode ][ b.cluster_id ] : {}
 					angular.merge( inserted, b, defaults.inputs, context_defaults );
 				}
@@ -433,7 +454,10 @@ angular.module( 'ngmReportHub' )
 						delete beneficiary.package_type_name;
 						delete beneficiary.transfer_type_id;
 						delete beneficiary.transfer_type_value;
-						delete beneficiary.transfer_type_name;
+						delete beneficiary.grant_type_id;
+						delete beneficiary.grant_type_name;
+						delete beneficiary.transfer_category_id;
+						delete beneficiary.transfer_category_name;
 
 						// set form
 						ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, $parent, $index, beneficiary );
@@ -568,7 +592,7 @@ angular.module( 'ngmReportHub' )
 						beneficiary.details = [];
 					}
 				}
-        
+
 				// set default form on activity missing
 				if ( typeof ngmClusterBeneficiaries.form[$parent][$index] === 'undefined' ) {
 					ngmClusterBeneficiaries.form[$parent][$index] = angular.copy( ngmClusterBeneficiaries.defaults.form );
@@ -588,12 +612,14 @@ angular.module( 'ngmReportHub' )
 					}
 					var count_missing = 0;
 					angular.forEach(beneficiary.response,(e) => {
-						missing_index = temp_list.findIndex( value => value.response_id === e.response_id);
-						// if response_id is not in the temp list then push missing response_id to temp list
-						if (missing_index < 0) {
-							temp_list.push(e);
-							count_missing += 1;
-						}
+						if(e !== ''){
+							missing_index = temp_list.findIndex( value => value.response_id === e.response_id);
+							// if response_id is not in the temp list then push missing response_id to temp list
+							if (missing_index < 0) {
+								temp_list.push(e);
+								count_missing += 1;
+							}
+						};
 					});
 					if (count_missing > 0) {
 						// set ngmClusterBeneficiaries.form[$parent][$index]['response'] same as temp list if some of response_id is missing
@@ -606,10 +632,40 @@ angular.module( 'ngmReportHub' )
  					ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
 				}
 
+				if (ngmClusterBeneficiaries.form[$parent][$index] && ngmClusterBeneficiaries.form[$parent][$index]['mpc_transfer_category_id'] && ngmClusterBeneficiaries.form[$parent][$index]['mpc_grant_type_id']){
+					//set default value for 'mpc_transfer_category_id' 'mpc_grant_type_id'
+					// ngmClusterBeneficiaries.setDefaultValueBeneficiary($parent, $index, 'mpc_transfer_category_id', beneficiary, 'transfer_category_id', 'transfer_category_name');
+					// ngmClusterBeneficiaries.setDefaultValueBeneficiary($parent, $index, 'mpc_grant_type_id', beneficiary, 'grant_type_id', 'grant_type_name');
+					ngmClusterBeneficiaries.setDefaultValueBeneficiary(ngmClusterBeneficiaries.form[$parent][$index]['mpc_transfer_category_id'], beneficiary, 'transfer_category_id', 'transfer_category_name');
+					ngmClusterBeneficiaries.setDefaultValueBeneficiary(ngmClusterBeneficiaries.form[$parent][$index]['mpc_grant_type_id'], beneficiary, 'grant_type_id', 'grant_type_name');
+				}
 
+				if (ngmClusterBeneficiaries.form[$parent][$index] && ngmClusterBeneficiaries.form[$parent][$index][ 'beneficiary_category_type_id' ]){
+					ngmClusterBeneficiaries.setDefaultValueBeneficiary(lists.beneficiary_categories, beneficiary, 'beneficiary_category_id', 'beneficiary_category_name');
+				}
 
 			},
 
+
+			setDefaultValueBeneficiary: function (list, beneficiary, key, name) {
+			// setDefaultValueBeneficiary: function ($parent, $index, field, beneficiary,key,name){
+				// var disabled =false;
+				
+				// 	if (ngmClusterBeneficiaries.form[$parent][$index][field].length < 2 && ngmClusterBeneficiaries.form[$parent][$index][field]) {
+				// 		 disabled = true;
+				// 	}
+					// set value
+					$timeout(function () {
+							if (!beneficiary[key] && list && list.length) {
+								beneficiary[key] = list[0][key];
+								beneficiary[name] = list[0][name];
+							}
+							ngmClusterBeneficiaries.updateTotalTransferedAmount(beneficiary);
+					}, 10)
+
+					// return disabled
+
+			},
 
 
 			/* REMOVE BENEFICIARIES */

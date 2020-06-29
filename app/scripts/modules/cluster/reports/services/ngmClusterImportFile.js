@@ -238,7 +238,10 @@ angular.module('ngmReportHub')
                                 'Elderly Women': 'elderly_women',
                                 'Total': 'total_beneficiaries',
                                 'Created': 'createdAt',
-                                'Last Update': 'updatedAt'
+                                'Last Update': 'updatedAt',
+                                'Transfer Category': 'transfer_category_name',
+                                'Grant Type': 'grant_type_name',
+                                'Total Transferred': 'total_amount'
                             },
                              detail: {
                                  'Project ID': 'id',
@@ -300,6 +303,9 @@ angular.module('ngmReportHub')
                                  'Elderly Men': 'elderly_men',
                                  'Elderly Women': 'elderly_women',
                                  'Total': 'total_beneficiaries',
+                                 'Transfer Category':'transfer_category_name',
+                                 'Grant Type':'grant_type_name',
+                                 'Total Transferred':'total_amount'
                              }
                         }
                         return header[file_type]
@@ -341,6 +347,19 @@ angular.module('ngmReportHub')
                                     array[0][z] === 'Cash Transfers' ||
                                     array[0][z] === 'Amount' ||
                                     array[0][z] === 'Households' ||
+                                    array[0][z] === 'families' ||
+                                    array[0][z] === 'boys' ||
+                                    array[0][z] === 'girls' ||
+                                    array[0][z] === 'men' ||
+                                    array[0][z] === 'women' ||
+                                    array[0][z] === 'elderly_men' ||
+                                    array[0][z] === 'elderly_women' ||
+                                    array[0][z] === 'total' ||
+                                    array[0][z] === 'transfer_type_value' ||
+                                    array[0][z] === 'units' ||
+                                    array[0][z] === 'households' ||
+                                    array[0][z] === 'site_population' ||
+                                    array[0][z] === 'Total Transferred'||
                                     // financial
                                     array[0][z] === 'Project Budget' ||
                                     array[0][z] === 'Ammount Received' ||

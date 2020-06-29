@@ -59,17 +59,17 @@
 								</div>
 								<button class="btn-floating waves-effect waves-light" title="Save"
 									ng-if="detailFinancial[$index] && project.canEdit && project.definition.project_status !== 'complete'"
-									ng-click="project.validateFinancialDetailsForm()" ng-disabled="!project.canEdit">
+									ng-click="project.validateFinancialDetailsForm()" ng-disabled="!project.canEdit || project.isSaving">
 									<i class="material-icons">save</i>
 								</button>
 								<button class="btn-floating red lighten-2 waves-effect waves-light" title="Remove"
 									ng-if="budget.id && detailFinancial[$index] && project.canEdit && project.definition.project_status !== 'complete'"
-									ng-click="project.removeBudgetModal( $index )" ng-disabled="!project.canEdit">
+									ng-click="project.removeBudgetModal( $index )" ng-disabled="!project.canEdit || project.isSaving">
 									<i class="material-icons">delete</i>
 								</button>
 								<button class="btn-floating blue lighten-1 waves-effect waves-light"
 									ng-if="!budget.id && detailFinancial[$index] && project.canEdit" ng-click="project.cancelEdit($index)"
-									ng-disabled="!project.canEdit">
+									ng-disabled="!project.canEdit || project.isSaving">
 									<i class="material-icons">clear</i>
 								</button>
 								<button id="toggle" class="btn-floating" ng-class="{'rotate': detailFinancial[$index]}"

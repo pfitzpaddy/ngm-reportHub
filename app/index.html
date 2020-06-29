@@ -713,6 +713,29 @@
 									</ul>
 								</div>
 
+								<!-- Record ADMIN  -->
+								<li ng-if="ngm.getUser().admin0pcode === 'AF'" align="center" class="teal z-depth-2"
+									>
+									<a class="white-text right" ng-click="ngm.openBSAdmin= !ngm.openBSAdmin;">
+										<i class="material-icons smedium right">move_to_inbox</i>
+										<i class="material-icons small right icon-arrow"
+											ng-class="{'rotate-icon':ngm.openBSAdmin === true}">keyboard_arrow_down</i>RECORD ADMIN</a>
+									</a>
+								</li>
+								<div ng-if="ngm.openBSAdmin" style="margin-bottom: 5px; background-color: #fff">
+									<ul>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/cluster/record-admin/beneficiaries/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}"
+												ng-click="ngm.toggleNavigationMenu();ngm.openBSAdmin= !ngm.openBSAdmin;">
+												<i class="material-icons small right">move_to_inbox</i>BENEFICIARIES RECORD</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/cluster/record-admin/stocks/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();ngm.openBSAdmin= !ngm.openBSAdmin;">
+												<i class="material-icons small right">zoom_in</i>STOCK RECORD </a>
+										</li>
+									</ul>
+								</div>
+
 								<!-- Dashboard -->
 								<li align="center" class="teal z-depth-2">
 									<a class="white-text right" ng-click="ngm.openDashboard= !ngm.openDashboard;">
@@ -995,6 +1018,8 @@
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.details.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.financials.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.report.js"></script>
+		<script src="scripts/modules/cluster/reports/controllers/cluster.beneficiaries.stock.admin.js"></script>
+		<script src="scripts/modules/cluster/reports/forms/cluster.upload.beneficiaries.stock.report.js"></script>
 
 		<!-- SERVICES -->
 		<script src="scripts/modules/cluster/reports/services/ngmClusterHelper.js"></script>

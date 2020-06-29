@@ -623,6 +623,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					delete beneficiary_default.mpc_delivery_type_id;
 					delete beneficiary_default.mpc_mechanism_type_id;
 
+					if (beneficiary.transfer_category_name && beneficiary.grant_type_name){
+						delete beneficiary_default.transfer_category_id;
+						delete beneficiary_default.transfer_category_name;
+						delete beneficiary_default.grant_type_id;
+						delete beneficiary_default.grant_type_name;
+					}
 					beneficiary = angular.merge({}, beneficiary_default, beneficiary)
 
 					$scope.project.definition.target_beneficiaries.push(beneficiary);
@@ -653,6 +659,19 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							beneficiary.mpc_mechanism_type_id = selected_mpc_mechanism[0].mpc_mechanism_type_id;
 						}
 					}
+					if (beneficiary.transfer_category_name && ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['mpc_transfer_category_id']) {
+						selected_transfer_category = $filter('filter')(ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['mpc_transfer_category_id'], { transfer_category_name: beneficiary.transfer_category_name }, true);
+						if (selected_transfer_category.length) {
+							beneficiary.transfer_category_id = selected_transfer_category[0].transfer_category_id;
+						}
+					}
+					if (beneficiary.grant_type_name && ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['mpc_grant_type_id']) {
+						selected_grant = $filter('filter')(ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['mpc_grant_type_id'], { grant_type_name: beneficiary.grant_type_name }, true);
+						if (selected_grant.length) {
+							beneficiary.grant_type_id = selected_grant[0].grant_type_id;
+						}
+					}
+
 					// validation for input from file
 					if (ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]) {
 

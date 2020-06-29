@@ -138,6 +138,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
         text_input: '',
         messageWarning: '',
+        isSaving:false,
 
         // donor
         showDonor: function( $data, $budget ) {
@@ -557,7 +558,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
             var temp_array = [] 
             angular.forEach(budget.multi_year_array,function(e,i){
               indexYear = years.findIndex(x => x=== e.year);
-              if(indexYear >0){
+              if(indexYear >-1){
                 temp_array.push(e)
               }else{
                 $scope.messageFromfile[index].push({ label: false, property: 'multi_year_array', reason: 'Year(' + e.year + ') not  match with  this project year(start:' + start_year + ', end: ' + end_year+')'})
@@ -607,6 +608,8 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         },
 
         save: function(){
+          $scope.project.isSaving = true;
+          M.toast({ html: 'Saving...', displayLength: 3000, classes: 'note' });
 					// Update Project
           ngmData.get({
             method: 'POST',
@@ -621,7 +624,10 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
             // on success
             // Materialize.toast( $filter('translate')('project_budget_item_added')+'!', 3000, 'success');
-            M.toast({ html: $filter('translate')('project_budget_item_added') + '!', displayLength: 3000, classes: 'success' });
+            $timeout(function(){
+              M.toast({ html: $filter('translate')('project_budget_item_added') + '!', displayLength: 3000, classes: 'success' });
+              $scope.project.isSaving = false;
+            },2000);
           });          
 				},
 				
@@ -1173,9 +1179,9 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
             if (obj.multi_year_array && obj.multi_year_funding_id === 'yes') {
               
-              obj.multi_year_array = obj.multi_year_array.split(',').map(function (y_a) {
-                y_a.trim();
-                y_a = y_a.split(':')
+              obj.multi_year_array = obj.multi_year_array.split(';').map(function (y_a) {
+                y_a = y_a.trim().split(' ')
+                
                 var year_value = y_a[0].trim() === 'n/a' ? 0 : parseInt(y_a[0].trim());
                 var budget_value = y_a[1].trim() === 'n/a' ? 0 : parseInt(y_a[1].trim());
                 year_budget = {

@@ -482,6 +482,25 @@ angular.module( 'ngmReportHub' )
 				// console.log('targetbeneficiary-complete13');
 				// console.log(complete);
 
+				// TYPE CATEGORY
+				if (ngmClusterBeneficiaries.form[0][i] && ngmClusterBeneficiaries.form[0][i]['mpc_transfer_category_id']) {
+					if (!b.transfer_category_id) {
+						id = "label[for='" + 'ngm-transfer_category_id-' + i + "']";
+						$(id).addClass('error')
+						validation.divs.push(id)
+						complete = false
+					}
+				}
+				// GRANT TYPES
+				if (ngmClusterBeneficiaries.form[0][i] && ngmClusterBeneficiaries.form[0][i]['mpc_grant_type_id']) {
+					if (!b.grant_type_id) {
+						id = "label[for='" + 'ngm-grant_type_id-' + i + "']";
+						$(id).addClass('error')
+						validation.divs.push(id)
+						complete = false
+					}
+				}
+
 				// UNITS
 				if (ngmClusterBeneficiaries.form[0][i] && ngmClusterBeneficiaries.form[0][i]['units']) {
 					if (b.units === null || b.units === undefined || b.units === NaN || b.units < 0) {
@@ -1091,6 +1110,25 @@ angular.module( 'ngmReportHub' )
 				// console.log( 'complete13' );
 				// console.log( complete );
 
+				// TYPE CATEGORY
+				if (ngmClusterBeneficiaries.form[i] && (ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['mpc_transfer_category_id'])) {
+					if (!b.transfer_category_id) {
+						id = "label[for='" + 'ngm-transfer_category_id-' + i + '-' + j + "']";
+						$(id).addClass('error')
+						validation.divs.push(id)
+						complete = false
+					}
+				}
+				// GRANT TYPES
+				if (ngmClusterBeneficiaries.form[i] && (ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['mpc_grant_type_id'])) {
+					if (!b.grant_type_id){
+						id = "label[for='" + 'ngm-grant_type_id-' + i + '-' + j + "']";
+						$(id).addClass('error')
+						validation.divs.push(id)
+						complete = false
+					}
+				}
+
 				// UNITS
 				if ( ngmClusterBeneficiaries.form[i] && ( ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j][ 'units' ] ) ) {
 					if (b.units === null || b.units === undefined || b.units === NaN || b.units < 0 || b.units === ''){
@@ -1465,7 +1503,12 @@ angular.module( 'ngmReportHub' )
 					"girls_12_17": "Female 12-17",
 					"girls_13_17": "Male 13-17",
 					'implementing_partners': 'Implementing Partners',
-					'total_beneficiaries':'Total'
+					'total_beneficiaries':'Total',
+					'transfer_category_name': 'Transfer Category',
+					'transfer_category_id': 'Transfer Category',
+					'grant_type_name': 'Grant Type',
+					'grant_type_id': 'Grant Type',
+					'total_amount': 'Total Transferred'
 				}
 				return field
 			},
@@ -1696,6 +1739,28 @@ angular.module( 'ngmReportHub' )
 					// console.log('clear field 8')
 				}
 
+				// TYPE CATEGORY
+				if (ngmClusterBeneficiaries.form[i] && ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['mpc_transfer_category_id']) {
+					if (!b.transfer_category_id) {
+						id = "label[for='" + 'ngm-transfer_category_id-' + i + '-' + j + "']";
+						var obj = { label: id, property: 'transfer_category_id', reason: 'missing value' };
+						if (b.transfer_category_name) {
+							obj.reason = 'not in the list'
+						}
+						validation.push(obj);
+					}
+				}
+				// GRANT TYPES
+				if (ngmClusterBeneficiaries.form[i] && ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['mpc_grant_type_id']) {
+					if (!b.grant_type_id) {
+						id = "label[for='" + 'ngm-grant_type_id-' + i + '-' + j + "']";
+						var obj = { label: id, property: 'grant_type_id', reason: 'missing value' };
+						if (b.grant_type_name) {
+							obj.reason = 'not in the list'
+						}
+						validation.push(obj);
+					}
+				}
 
 				// UNIT TYPE
 				if (ngmClusterBeneficiaries.form[i] && (ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['unit_type_id'])) {
@@ -2184,7 +2249,12 @@ angular.module( 'ngmReportHub' )
 					'women': 'Women',
 					'elderly_men': 'Elderly Men',
 					'elderly_women': 'Elderly Women',
-					'total_beneficiaries': 'Total'
+					'total_beneficiaries': 'Total',
+					'transfer_category_name': 'Transfer Category',
+					'transfer_category_id': 'Transfer Category',
+					'grant_type_name':'Grant Type' ,
+					'grant_type_id': 'Grant Type',
+					'total_amount': 'Total Transferred'
 				}
 				return field;
 			},
@@ -2453,6 +2523,29 @@ angular.module( 'ngmReportHub' )
 					// console.log('clear field 8')
 				}
 
+
+				// TYPE CATEGORY
+				if (ngmClusterBeneficiaries.form[i] && ngmClusterBeneficiaries.form[i]['mpc_transfer_category_id']) {
+					if (!b.transfer_category_id) {
+						id = "label[for='" + 'ngm-transfer_category_id-' + i + "']";
+						var obj = { label: id, property: 'transfer_category_id', reason: 'missing value' };
+						if (b.transfer_category_name) {
+							obj.reason = 'not in the list'
+						}
+						validation.push(obj);
+					}
+				}
+				// GRANT TYPES
+				if (ngmClusterBeneficiaries.form[i] && ngmClusterBeneficiaries.form[i]['mpc_grant_type_id']) {
+					if (!b.grant_type_id) {
+						id = "label[for='" + 'ngm-grant_type_id-' + i + "']";
+						var obj = { label: id, property: 'grant_type_id', reason: 'missing value' };
+						if(b.grant_type_name){
+							obj.reason = 'not in the list'
+						}
+						validation.push(obj);
+					}
+				}
 
 				// UNIT TYPE
 				if (ngmClusterBeneficiaries.form[i] && (ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['unit_type_id'])) {
