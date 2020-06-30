@@ -2116,7 +2116,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					if (obj.implementing_partners) {
 						obj.implementing_partners_checked = true;
 						var impl_array = []
-						temp = obj.implementing_partners.split(';').map((x) => { return x.trim(); });
+						temp = obj.implementing_partners.split(',').map((x) => { return x.trim(); });
 
 						angular.forEach(temp, function (e) {
 
@@ -2131,7 +2131,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 					if (obj.project_details) {
 						temp_project_details = [];
-						temp = obj.project_details.split(';').map(x => x.trim());
+						temp = obj.project_details.split(',').map(x => x.trim());
 
 						angular.forEach(temp, function (e) {
 							selected_p_details = $filter('filter')($scope.project.lists.project_details, { project_detail_name: e });
@@ -2150,7 +2150,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						temp_donor = [];
 						temp_donor_check = {};
 
-						temp = obj.project_donor.split(';').map((x) => x.trim());
+						temp = obj.project_donor.split(',').map((x) => x.trim());
 						angular.forEach(temp, function (e) {
 
 							selected_donor = $filter('filter')($scope.project.lists.donors, { project_donor_name: e });
@@ -2196,7 +2196,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				addMissingTargetlocationsFormFile:function(obj){
 					if (obj.implementing_partners) {
 						var impl_array = []
-						temp = obj.implementing_partners.split(';').map((x) => { return x.trim(); });
+						temp = obj.implementing_partners.split(',').map((x) => { return x.trim(); });
 
 						angular.forEach(temp, function (e) {
 
