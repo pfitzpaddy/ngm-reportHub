@@ -829,12 +829,12 @@
 		border: 1px dotted rgb(158, 158, 158);">
 							<div class="input-field col s12 m6 l6" ng-repeat="s in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response']">
 								<p>
-									<label class="checkbox-label" for="{{s.response_id}}">
+									<label class="checkbox-label" for="{{s.response_id}}-{{$locationIndex}}-{{$beneficiaryIndex}}">
 										<input type="checkbox"
 										class="filled-in"
-										id="{{s.response_id}}"
+										id="{{s.response_id}}-{{$locationIndex}}-{{$beneficiaryIndex}}"
 										ng-checked="ngmClusterBeneficiaries.checkSpecific(s.response_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'])"
-										ng-click="ngmClusterBeneficiaries.setSpecific(s.response_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'])"
+										ng-click="ngmClusterBeneficiaries.setSpecific(($locationIndex+'-'+$beneficiaryIndex),s.response_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'])"
 										ng-disabled="project.definition.project_status === 'complete' || !project.canEdit || project.report.report_status === 'complete'" />
 										<span style="left: .75rem;">{{s.response_name}}</span>
 									</label>

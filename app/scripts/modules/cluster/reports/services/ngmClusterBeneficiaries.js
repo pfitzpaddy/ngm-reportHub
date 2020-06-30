@@ -982,13 +982,13 @@ angular.module( 'ngmReportHub' )
 				}
 				return disabled;
 			},
-			setSpecific: function(id,beneficiary,list){
+			setSpecific: function(index,id,beneficiary,list){
 				var list_project = list;
 
 				if (!beneficiary.response) {
 					beneficiary.response = [];
 				}
-				if (document.getElementById(id).checked) {
+				if (document.getElementById(id+'-'+index).checked) {
 					selected = $filter('filter')(list_project, { response_id: id }, true);
 					if(selected.length){
 						beneficiary.response.push(selected[0]);
