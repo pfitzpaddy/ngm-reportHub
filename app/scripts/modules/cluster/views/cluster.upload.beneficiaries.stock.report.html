@@ -651,10 +651,10 @@
                                                 <div class="input-field col s12 m6 l6"
                                                     ng-repeat="s in ngmClusterBeneficiaries.form[ 0 ][ $indexRecord ]['response']">
                                                     <p>
-                                                        <label class="checkbox-label" for="{{s.response_id}}">
-                                                            <input type="checkbox" class="filled-in" id="{{s.response_id}}"
+                                                        <label class="checkbox-label" for="{{s.response_id}}-{{$indexRecord}}">
+                                                            <input type="checkbox" class="filled-in" id="{{s.response_id}}-{{$indexRecord}}"
                                                                 ng-checked="ngmClusterBeneficiaries.checkSpecific(s.response_id,beneficiary,list_response)"
-                                                                ng-click="ngmClusterBeneficiaries.setSpecific(s.response_id,beneficiary,list_response)"
+                                                                ng-click="ngmClusterBeneficiaries.setSpecific($indexRecord,s.response_id,beneficiary,list_response)"
                                                                 ng-disabled="item.project_status === 'complete'" />
                                                             <span style="left: .75rem;">{{s.response_name}}</span>
                                                         </label>
