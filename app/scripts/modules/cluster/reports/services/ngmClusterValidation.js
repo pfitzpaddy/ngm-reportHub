@@ -2133,7 +2133,7 @@ angular.module( 'ngmReportHub' )
 					validation.push(obj);
 				}
 				if(admin0pcode ==='AF'){
-					console.log('s')
+
 					if (!s.stock_item_purpose_id){
 						var obj = { label: false, property: 'stock_item_purpose_id', reason: 'missing value' };
 						if (s.stock_status_name) {
