@@ -905,22 +905,7 @@ angular.module( 'ngmReportHub' )
 
 
 			getOrganizations: function(admin0pcode){
-
-
-
-
 				var organizations;
-
-			//   if(admin0pcode === 'COL' ){
-
-			//    organizations = $filter('filter')(ngmLists.getObject( 'lists' ).organizationsList,
-			//            {admin0pcode: 'COL'} , {admin0pcode: 'ALL, COL'},true );
-
-			//   }else{
-			//     organizations = ngmLists.getObject( 'lists' ).organizationsList
-			// }
-
-
 				organizations = ngmLists.getObject('lists').organizationsList.filter((x) => {
 					if ((x.admin0pcode.indexOf(admin0pcode) > -1) || (x.admin0pcode.indexOf('ALL') > -1)) {
 						// check if organization is inactive or active
@@ -934,9 +919,7 @@ angular.module( 'ngmReportHub' )
 					}
 
 				});
-					return organizations;
-
-
+				return organizations;
 			},
 
 			getProjectClasifications: function (admin0pcode){
@@ -4360,6 +4343,10 @@ angular.module( 'ngmReportHub' )
 								"project_donor_name":"Agencia de Cooperación Internacional de Corea (KOICA)"
 							},
 							{
+								"project_donor_id":"agencia_de_restablecimiento_y_estandarización",
+								"project_donor_name":"Agencia de Restablecimiento y Estandarización"
+							},
+							{
 								"project_donor_id": "agencia_española_de_cooperación_internacional",
 								"project_donor_name": "Agencia Española de Cooperación Internacional"
 							},
@@ -4567,6 +4554,10 @@ angular.module( 'ngmReportHub' )
 							 {
 								"project_donor_id": "gobierno_de_irlanda",
 								"project_donor_name": "Gobierno de Irlanda"
+							},
+							 {
+								"project_donor_id": "gobierno_de_portugal",
+								"project_donor_name": "Gobierno de Portugal"
 							},
 							{
 								"project_donor_id": "gobierno_del_reino_de_dinamarca",
