@@ -242,6 +242,12 @@ angular.module( 'ngmReportHub' )
 					validation.divs.push(id);
 					complete = false;
 				}
+				if (!l.username) {
+					id = "label[for='" + 'ngm-username-' + i + "']";
+					$(id).addClass('error');
+					validation.divs.push(id);
+					complete = false;
+				}
 				// console.log('targetlocation-complete03');
 				// console.log(complete);
 
@@ -2254,7 +2260,8 @@ angular.module( 'ngmReportHub' )
 					'transfer_category_id': 'Transfer Category',
 					'grant_type_name':'Grant Type' ,
 					'grant_type_id': 'Grant Type',
-					'total_amount': 'Total Transferred'
+					'total_amount': 'Total Transferred',
+					'location_incorrect': 'Location is Incorrect'
 				}
 				return field;
 			},
