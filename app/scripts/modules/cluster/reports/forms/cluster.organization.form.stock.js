@@ -594,6 +594,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 							angular.forEach(l.stocks, function (s, ri) {
 								$scope.inserted = {
 									cluster_id: s.cluster_id,
+									cluster: s.cluster,
 									stock_item_type: s.stock_item_type,
 									stock_item_name: s.stock_item_name,
 									stock_item_purpose_id: s.stock_item_name,
