@@ -497,7 +497,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                 detailRowDisabled = true;
               }
             }
-            if (($data.implementing_partners && !$data.implementing_partners[0].organization_tag) || ($data.donors && !$data.donors[0].donor_id) || detailRowDisabled){
+            if (($data.implementing_partners && !$data.implementing_partners[0] || !$data.implementing_partners[0].organization_tag) || ($data.donors && !$data.donors[0] || !$data.donors[0].donor_id) || detailRowDisabled){
               disabled =true;
             }
 
@@ -594,6 +594,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 							angular.forEach(l.stocks, function (s, ri) {
 								$scope.inserted = {
 									cluster_id: s.cluster_id,
+									cluster: s.cluster,
 									stock_item_type: s.stock_item_type,
 									stock_item_name: s.stock_item_name,
 									stock_item_purpose_id: s.stock_item_name,
@@ -1515,7 +1516,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                 valid = true;
               }
             }
-            if ((stock.implementing_partners && !stock.implementing_partners[0].organization_tag) || (data.donors && !data.donors[0].donor_id) || valid) {
+            if ((stock.implementing_partners && !stock.implementing_partners[0] ||  !stock.implementing_partners[0].organization_tag) || (stock.donors && !stock.donors[0] || !stock.donors[0].donor_id) || valid) {
               disabled = true;
             }
 
@@ -1607,7 +1608,9 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
               }), 200;
             }
 
-          });
+					}, function (err) {
+						M.toast({ html: JSON.stringify(err), displayLength: 6000, classes: 'error' });
+					});
 
         }
       }

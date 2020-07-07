@@ -124,9 +124,9 @@
                 <label for="ngm-stock_status_id-{{$locationIndex}}-{{$stockIndex}}" class="active"
                     style="transform:translateY(-10%)">{{'status_mayus'|translate}}</label>
             </div>
-        
+
             <!-- Implementing Partner -->
-            <div ng-if="report.organization.admin0pcode === 'ET'" class="input-field col s12 m6 l4">
+            <div ng-if="report.organization.admin0pcode === 'ET'" ng-init="!stock.implementing_partners ? stock.implementing_partners=[] : false" class="input-field col s12 m6 l4">
                 <select materialize-select watch id="ngm-implementing_partner-{{$locationIndex}}-{{$stockIndex}}"
                     name="ngm-implementing_partner-{{$locationIndex}}-{{$stockIndex}}" class="validate"
                     ng-options="item.organization_tag as item.organization for item in report.lists.organizations"
@@ -140,7 +140,7 @@
             </div>
             <!-- Donor -->
 
-            <div ng-if="report.organization.admin0pcode === 'ET'" class="input-field col s12 m6 l4">
+            <div ng-if="report.organization.admin0pcode === 'ET'" ng-init="!stock.donors ? stock.donors=[] : false" class="input-field col s12 m6 l4">
                 <select materialize-select watch id="ngm-implementing_partner-{{$locationIndex}}-{{$stockIndex}}"
                     name="ngm-implementing_partner-{{$locationIndex}}-{{$stockIndex}}" class="validate"
                     ng-options="item.project_donor_id as item.project_donor_name for item in report.lists.donors"
