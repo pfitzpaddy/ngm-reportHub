@@ -340,7 +340,7 @@ angular.module( 'ngmReportHub' )
 					url: ngmAuth.LOCATION + '/api/getOrganizationUsers',
 					data: {
 						admin0pcode: project.admin0pcode,
-						cluster_id: project.cluster_id,
+						// cluster_id: project.cluster_id,
 						organization: project.organization,
 						status: 'active'
 					}
