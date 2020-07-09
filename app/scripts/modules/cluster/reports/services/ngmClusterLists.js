@@ -4355,12 +4355,20 @@ angular.module( 'ngmReportHub' )
 								"project_donor_name": "Agencia Noruega de Cooperación para el Desarrollo"
 							},
 							{
+								"project_donor_id": "agencia_para_la_reincorporación_y_l_normalización_arn",
+								"project_donor_name": "Agencia para la Reincorporación y la Normalización (ARN)"
+							},
+							{
 								"project_donor_id": "agencia_sueca_internacional_de_cooperación_al_desarrollo",
 								"project_donor_name": "Agencia Sueca Internacional de Cooperación Al Desarrollo"
 							},
 							{
 								"project_donor_id": "agencia_suiza_para_el_desarrollo_y_la_cooperación",
 								"project_donor_name": "Agencia Suiza para el Desarrollo y La Cooperación"
+							},
+							{
+								"project_donor_id": "alcaldía_de_cali",
+								"project_donor_name": "Alcaldía de Cali"
 							},
 							{
 								"project_donor_id": "alto_comisionado_de_las_naciones_unidas_para_los_refugiados",
@@ -4389,6 +4397,10 @@ angular.module( 'ngmReportHub' )
 							{
 								"project_donor_id": "centro_nacional_de_referencia_sobre_la_violencia",
 								"project_donor_name": "Centro Nacional de Referencia Sobre La Violencia"
+							},
+							{
+								"project_donor_id": "centros_para_el_control_y_la_prevención_de_enfermedades_cdc",
+								"project_donor_name": "Centros para el control y la prevención de enfermedades (CDC)"
 							},
 							{
 								"project_donor_id": "comité_internacional_de_la_cruz_roja",
@@ -4514,7 +4526,6 @@ angular.module( 'ngmReportHub' )
 								"project_donor_id": "fundacion_plan",
 								"project_donor_name": "Fundacion Plan"
 							},
-
 							{
 								"project_donor_id": "german_federal_foreign_office",
 								"project_donor_name": "German Federal Foreign Office"
@@ -4563,7 +4574,11 @@ angular.module( 'ngmReportHub' )
 								"project_donor_id": "gobierno_del_reino_de_dinamarca",
 								"project_donor_name": "Gobierno del Reino de Dinamarca"
 							},
-							 {
+							{
+								"project_donor_id": "gobierno_de_japón",
+								"project_donor_name": "Gobierno de Japón"
+							},
+							{
 								"project_donor_id": "gobierno_del_reino_de_noruega",
 								"project_donor_name": "Gobierno del Reino de Noruega"
 							},
@@ -4605,6 +4620,10 @@ angular.module( 'ngmReportHub' )
 								"project_donor_name": "Instituto Nacional de Vigilancia de Medicamentos y Alimentos"
 							},
 							{
+								"project_donor_id": "jurisdicción_especial_para_la_paz_jep",
+								"project_donor_name": "Jurisdicción Especial para la Paz (JEP)"
+							},
+							{
 								"project_donor_id": "kinder_mission",
 								"project_donor_name": "Kinder Mission"
 							},
@@ -4621,12 +4640,20 @@ angular.module( 'ngmReportHub' )
 								"project_donor_name": "Ministerio de Educación Nacional"
 							},
 							{
+								"project_donor_id": "ministerio_del_interior",
+								"project_donor_name": "Ministerio del Interior"
+							},
+							{
 								"project_donor_id": "ministerio_de_protección_social",
 								"project_donor_name": "Ministerio de Protección Social"
 							},
 							{
 								"project_donor_id": "ministerio_de_salud_y_protección_social",
 								"project_donor_name": "Ministerio de Salud y Protección Social"
+							},
+							{
+								"project_donor_id": "ministerio_de_trabajo",
+								"project_donor_name": "Ministerio de Trabajo"
 							},
 							{
 								"project_donor_id": "office_of_us_foreign_disaster_assistance",
@@ -4703,6 +4730,10 @@ angular.module( 'ngmReportHub' )
 							{
 								"project_donor_id": "united_states_agency_international_development",
 								"project_donor_name": "United States Agency International Development"
+							},
+							{
+								"project_donor_id": "united_way_worldwide",
+								"project_donor_name": "United Way Worldwide"
 							}
 
 
