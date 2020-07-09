@@ -206,7 +206,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 						// update lists
 						$timeout(function () {
+							var userscopy = $scope.project.lists.users;
 							$scope.project.lists = ngmClusterLists.setLists(config.project, $scope.project.definition.project_start_date, $scope.project.definition.project_end_date, 30);
+							$scope.project.lists.users = userscopy;
 						}, 0)
 					}
 				},
@@ -895,7 +897,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						var selected_user=[]
 						if ($scope.project.lists.users.length) {
 							selected_user = $filter('filter')($scope.project.lists.users, { username: loc.username }, true);}
-							
+
 						if (!selected_user.length) {
 							id = "label[for='" + 'ngm-username-' + newLocationIndex + "']";
 							obj = { label: id, property: 'username', reason: 'Reporter not In the List' }
@@ -910,12 +912,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					var match = true;
 					var obj={valid:true,reason :''}
 					if (location.admin5pcode) {
-						
+
 						selected_admin5 = $filter('filter')($scope.project.lists.admin5, { admin5pcode: location.admin5pcode }, true)
 						if (selected_admin5.length) {
-							if (selected_admin5[0].admin1pcode !== location.admin1pcode || 
-								selected_admin5[0].admin2pcode !== location.admin2pcode || 
-								selected_admin5[0].admin3pcode !== location.admin3pcode || 
+							if (selected_admin5[0].admin1pcode !== location.admin1pcode ||
+								selected_admin5[0].admin2pcode !== location.admin2pcode ||
+								selected_admin5[0].admin3pcode !== location.admin3pcode ||
 								selected_admin5[0].admin4pcode !== location.admin4pcode) {
 								obj.reason = '(' + 'admin1pcode: ' + location.admin1pcode + ', '
 									+ 'admin2pcode: ' + location.admin2pcode + ', '
@@ -938,13 +940,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					} else if (location.admin4pcode){
 						selected_admin4 = $filter('filter')($scope.project.lists.admin4, { admin4pcode: location.admin4pcode }, true)
 						if (selected_admin4.length) {
-							if (selected_admin4[0].admin1pcode !== location.admin1pcode || 
-								selected_admin4[0].admin2pcode !== location.admin2pcode || 
+							if (selected_admin4[0].admin1pcode !== location.admin1pcode ||
+								selected_admin4[0].admin2pcode !== location.admin2pcode ||
 								selected_admin4[0].admin3pcode !== location.admin3pcode) {
-								obj.reason = '(' + 'admin1pcode: ' + location.admin1pcode + ', ' 
-												  + 'admin2pcode: ' + location.admin2pcode + ', ' 
-												  + 'admin3pcode: ' + location.admin3pcode + ', ' 
-												  + 'admin4pcode: ' + location.admin4pcode 
+								obj.reason = '(' + 'admin1pcode: ' + location.admin1pcode + ', '
+												  + 'admin2pcode: ' + location.admin2pcode + ', '
+												  + 'admin3pcode: ' + location.admin3pcode + ', '
+												  + 'admin4pcode: ' + location.admin4pcode
 												  + ' not matched)';
 								match = false;
 							}
@@ -962,9 +964,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						selected_admin3 = $filter('filter')($scope.project.lists.admin3, { admin3pcode: location.admin3pcode }, true)
 						if (selected_admin3.length) {
 							if (selected_admin3[0].admin1pcode !== location.admin1pcode || selected_admin3[0].admin2pcode !== location.admin2pcode) {
-								obj.reason = '(' + 'admin1pcode: ' + location.admin1pcode + ', ' 
-												  + 'admin2pcode: ' + location.admin2pcode + ', ' 
-												  + 'admin3pcode: ' + location.admin3pcode 
+								obj.reason = '(' + 'admin1pcode: ' + location.admin1pcode + ', '
+												  + 'admin2pcode: ' + location.admin2pcode + ', '
+												  + 'admin3pcode: ' + location.admin3pcode
 												  +  ' not matched)';
 								match = false;
 							}
@@ -985,12 +987,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								obj.reason = '(' + 'admin1pcode: ' + location.admin1pcode + ', ' + 'admin2pcode: ' + location.admin2pcode + ' not matched)';
 								match = false;
 							}
-							
+
 						}else{
 							obj.reason = '(' + 'admin1pcode: ' + location.admin1pcode + ', ' + 'admin2pcode: ' + location.admin2pcode + ' not matched)';
 							match = false;
 						}
-						
+
 					}
 					obj.valid = match
 					return obj;
@@ -1598,11 +1600,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 												if ($scope.project.lists.users.length) {
 													selected_focal = $filter('filter')($scope.project.lists.users, { name: project_detail[0].name }, true);
 												}
-												
+
 													if (!selected_focal.length) {
 														var id = "ngm-target_contact";
 														var obj_focal = { label: id, property: 'name', reason: 'Focal Point not In the List', file: 'Project Details' }
-														
+
 														$scope.messageFromfile.project_detail_message[0].push(obj_focal);
 														$('#ngm-target_contact').css({ 'color': '#EE6E73' });
 													}
