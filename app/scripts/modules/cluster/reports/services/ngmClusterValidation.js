@@ -1580,7 +1580,7 @@ angular.module( 'ngmReportHub' )
 				}
 				// console.log('complete05');
 
-				if (ngmClusterBeneficiaries.form[i] && ngmClusterBeneficiaries.form[i][j] && (!ngmClusterBeneficiaries.form[i][j]['display_indicator'] && b.indicator_id)) {
+				if (ngmClusterBeneficiaries.form[i] && ngmClusterBeneficiaries.form[i][j] && (!ngmClusterBeneficiaries.form[i][j]['display_indicator'] && b.indicator_id && !ngmClusterBeneficiaries.form[i][j]['indicator_id'] )) {
 					delete b.indicator_id;
 					delete b.indicator_name;
 					var obj = { label: false, property: 'indicator_id', reason: 'should not be reported for the activity' };
@@ -2379,7 +2379,7 @@ angular.module( 'ngmReportHub' )
 				}
 				// console.log('complete05');
 
-				if (ngmClusterBeneficiaries.form[i] && ngmClusterBeneficiaries.form[i][j] && (!ngmClusterBeneficiaries.form[i][j]['display_indicator'] && b.indicator_id)) {
+				if (ngmClusterBeneficiaries.form[i] && ngmClusterBeneficiaries.form[i][j] && (!ngmClusterBeneficiaries.form[i][j]['display_indicator'] && b.indicator_id && !ngmClusterBeneficiaries.form[i][j]['indicator_id'])) {
 					delete b.indicator_id;
 					delete b.indicator_name;
 					var obj = { label: false, property: 'indicator_id', reason: 'should not be reported for the activity' };

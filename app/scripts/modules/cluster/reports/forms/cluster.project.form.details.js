@@ -674,6 +674,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						}
 					}
 
+					var temp_indicator_name ='';
+					if(beneficiary.indicator_name){
+						temp_indicator_name = beneficiary.indicator_name
+					}
 					// validation for input from file
 					if (ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]) {
 
@@ -683,6 +687,19 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							$scope.messageFromfile.target_beneficiaries_message[$indexFile] = ngmClusterValidation.validationTargetBeneficiariesFromFile(beneficiary, 0, $scope.project.definition.target_beneficiaries.length - 1, $scope.project.definition.admin0pcode, $scope.project.definition.project_hrp_project);
 						}
 
+
+					}
+
+					if (!ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['display_indicator'] ){
+						if (ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['indicator_id']){
+
+							beneficiary.indicator_name = ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['indicator_name'];
+							beneficiary.indicator_id = ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['indicator_id'];
+							if (temp_indicator_name && (temp_indicator_name !== ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['indicator_name'])){
+								var notif = { label: false, property: 'indicator_id', reason: 'incorect indicator' };
+								$scope.messageFromfile.target_beneficiaries_message[$indexFile].push(notif)
+							}
+						}
 
 					}
 
