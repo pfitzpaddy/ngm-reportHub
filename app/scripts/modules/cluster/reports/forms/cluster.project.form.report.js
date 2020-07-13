@@ -384,6 +384,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}
 					beneficiary= angular.merge({}, beneficiary_default, beneficiary )
 					var message_implementing_partners=''
+					if ($scope.project.report.locations[$parent].implementing_partners && $scope.project.report.locations[$parent].implementing_partners.length >0){
+						$scope.project.report.locations[$parent].implementing_partners = $scope.project.report.locations[$parent].implementing_partners.filter(x=> x !== '');
+					}
+					
 					if ($scope.project.report.locations[$parent].implementing_partners && $scope.project.report.locations[$parent].implementing_partners.length > 0) {
 						if (beneficiary.implementing_partners && (typeof beneficiary.implementing_partners === 'string')){
 							implementing_partners_string_array = beneficiary.implementing_partners.split(',').map(function (org) {
@@ -468,6 +472,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							beneficiary.grant_type_id = selected_grant[0].grant_type_id;
 						}
 					}
+
+					var temp_indicator_name='';
+					if (beneficiary.indicator_name) {
+						temp_indicator_name = beneficiary.indicator_name
+					}
 					
 					// validation for input from file
 					if(ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]){
@@ -476,6 +485,18 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						if (message_implementing_partners){
 							$scope.messageFromfile[$indexFile].push(message_implementing_partners)
 						}
+					}
+
+					if (!ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['display_indicator']) {
+						if (ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['indicator_id']) {
+							beneficiary.indicator_name = ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['indicator_name'];
+							beneficiary.indicator_id = ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['indicator_id'];
+							if (temp_indicator_name && (temp_indicator_name !== ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['indicator_name'])){
+								var notif = { label: false, property: 'indicator_id', reason: 'incorect indicator' };
+								$scope.messageFromfile[$indexFile].push(notif)
+							}
+						}
+
 					}
 
 					ngmClusterBeneficiaries.updateBeneficiaires(beneficiary)
