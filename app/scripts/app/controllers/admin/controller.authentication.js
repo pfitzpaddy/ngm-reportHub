@@ -469,13 +469,22 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						// success
 						if ( !result.err && !result.summary ){
 							// go to default org page
-							$location.path( result.app_home );
-							$timeout( function(){
+							if (result.status !== 'deactivated'){
+								$location.path( result.app_home );
+								$timeout( function(){
 
-								// Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project'), 6000, 'success' );
-								M.toast({ html: $filter('translate')('welcome') + ' ' + result.username + ', ' + $filter('translate')('time_to_create_a_project'), displayLength: 6000, classes: 'success' });
+									// Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project'), 6000, 'success' );
+									M.toast({ html: $filter('translate')('welcome') + ' ' + result.username + ', ' + $filter('translate')('time_to_create_a_project'), displayLength: 6000, classes: 'success' });
 
-							}, 2000);
+								}, 2000);
+							}else{
+								$location.path('/cluster/pending/');
+								$timeout(function () {
+									M.toast({ html: result.username + ', Not Activated Yet!', displayLength: 6000, classes: 'error'  });
+
+								}, 2000);
+								ngmUser.unset();
+							}
 						}
 
 					})

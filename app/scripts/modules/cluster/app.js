@@ -69,6 +69,16 @@ angular
 					}],
 				}
 			})
+			// reset with token
+			.when('/cluster/pending/', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardPendingUserCtrl',
+				resolve: {
+					access: ['ngmAuth', function (ngmAuth) {
+						return ngmAuth.grantPublicAccess();
+					}],
+				}
+			})
 			// forbidden
 			.when( '/cluster/forbidden', {
 				templateUrl: '/views/app/dashboard.html',
