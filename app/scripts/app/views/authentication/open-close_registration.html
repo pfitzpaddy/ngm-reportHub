@@ -1,0 +1,29 @@
+<div class="row" ng-if="panel.user.admin0pcode === 'AF'">
+    <div class="col s12 m12 l12">
+        <div class="card">
+            <ul class="collection with-header">
+                <li class="collection-header indigo lighten-1">
+                    <h5 class="report-panel-title white-text">
+                        <i class="material-icons left"> assignment_turned_in</i>Closed Registration
+                    </h5>
+                </li>
+                <li class="collection-item avatar" style="padding:30px 20px">                
+                    <div class="row" >                        
+
+                        <!-- <div class="col s4" ng-repeat="org in panel.data | filter: (panel.selected_org === 'all' ? '': {organization_tag: panel.selected_org}): (panel.selected_org !== 'all' || !(panel.user.roles.indexOf('COUNTRY_ADMIN')>-1))"> -->
+                        <div class="col s4"
+                            ng-repeat="org in panel.data | filter: (panel.selected_org === 'all' ? '': {organization_tag: panel.selected_org}): (panel.selected_org !== 'all')">
+                            <label>
+                                <input type="checkbox" class="filled-in" id={{org.organization_tag}} value={{org.organization_tag}}
+                                    ng-checked="panel.checkCloseRegisteration(org.id)" ng-disabled=" panel.disabledOrgcheckCloseRegisteration(org.organization_tag)"
+                                    ng-click="panel.setCloseRegisteration(org.id,org.organization_tag)" />
+                                <span style="color: #000000; font-weight: 500;">{{org.organization}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
