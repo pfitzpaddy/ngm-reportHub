@@ -674,41 +674,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 				},
 
 				setPrivateProfile:function(id){
-					// Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note');
-					M.toast({ html: $filter('translate')('processing') + '...', displayLength: 6000, classes: 'note' });
 					if (document.getElementById(id).checked) {
 						$scope.panel.user.anonymous = true;
 					}else{
 						$scope.panel.user.anonymous = false;
 					}
-					ngmAuth
-						.updateProfile({ user: $scope.panel.user }).success(function (result) {
 
-							// db error!
-							if (result.err || result.summary) {
-								var msg = result.msg ? result.msg : 'error!';
-								// Materialize.toast( msg, 6000, msg );
-								M.toast({ html: msg, displayLength: 6000, classes: 'error' });
-							}
-
-							// success
-							if (result.success) {
-								// set user and localStorage (if updating own profile)
-								if ($scope.panel.user.username === ngmUser.get().username) {
-									$scope.panel.user = angular.merge({}, $scope.panel.user, result.user);
-									ngmUser.set($scope.panel.user);
-								}else{
-									$scope.panel.user.anonymous = result.user.anonymous;
-								}
-								// success message
-								$timeout(function () {
-									// Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('profile_updated'), 6000, 'success' );
-									M.toast({ html: $filter('translate')('success') + ' ' + $filter('translate')('profile_updated'), displayLength: 6000, classes: 'success' });
-									
-								}, 200);
-							}
-
-						});
+					M.toast({ html: 'To Save Changes in Your Profile, Click Update Button', displayLength: 6000, classes: 'note' });
 				}
 
 			}
