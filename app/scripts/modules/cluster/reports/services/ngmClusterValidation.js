@@ -299,7 +299,17 @@ angular.module( 'ngmReportHub' )
 
 						// Materialize.toast($filter('translate')('beneficiaries_contains_errors'), 4000, 'error');
 						M.toast({ html: $filter('translate')('Target Benefecaries Contain Error'), displayLength: 4000, classes: 'error' });
-						$timeout(function () { $(elements[0]).animatescroll() }, 100);
+						$timeout(function () { 
+							if (document.querySelector(elements[0]) === null || document.querySelector(elements[0]) === undefined) {
+								var id_missing = elements[0] ? elements[0] : '';
+								if (id_missing !== '') {
+									id_missing = id_missing.replace(/^"+|"+$/g, '').match(/'[^']*'/g)[0];
+								}
+								M.toast({ html: "Error: no such input: " + id_missing, displayLength: 4000, classes: 'error' });
+							} else{
+								$(elements[0]).animatescroll()
+							}
+						 }, 100);
 					}, 200);
 					return false
 				}
@@ -308,7 +318,16 @@ angular.module( 'ngmReportHub' )
 					ngmClusterValidation.targetBenfeciariesValidatelabel.push(elements[0]);
 					// Materialize.toast($filter('translate')('beneficiaries_contains_errors'), 4000, 'error');
 					M.toast({ html: $filter('translate')('Target Beneficairies Contain Error'), displayLength: 4000, classes: 'error' });
-					$(elements[0]).animatescroll();
+					if (document.querySelector(elements[0]) === null || document.querySelector(elements[0]) === undefined ){
+						var id_missing = elements[0]?elements[0]:'';
+						if (id_missing !== '') {
+							id_missing = id_missing.replace(/^"+|"+$/g, '').match(/'[^']*'/g)[0];
+						}
+						M.toast({ html: "Error: no such input: "+id_missing, displayLength: 4000, classes: 'error' });
+					}else{
+						$(elements[0]).animatescroll();
+					}
+					
 					return false;
 				} else {
 					return true;
@@ -950,7 +969,17 @@ angular.module( 'ngmReportHub' )
 
 						// Materialize.toast($filter('translate')('beneficiaries_contains_errors'), 4000, 'error');
 						M.toast({ html: $filter('translate')('beneficiaries_contains_errors'), displayLength: 4000, classes: 'error' });
-						$timeout(function(){$(elements[0]).animatescroll()},100);
+						$timeout(function(){
+							if (document.querySelector(elements[0]) === null || document.querySelector(elements[0]) === undefined) {
+								var id_missing = elements[0] ? elements[0] : '';
+								if (id_missing !== '') {
+									id_missing = id_missing.replace(/^"+|"+$/g, '').match(/'[^']*'/g)[0];
+								}
+								M.toast({ html: "Error: no such input: " + id_missing, displayLength: 4000, classes: 'error' });
+							} else{
+								$(elements[0]).animatescroll()
+							}
+						},100);
 					}, 200);
 					return false
 				}
@@ -958,7 +987,15 @@ angular.module( 'ngmReportHub' )
 				if (beneficiaryRow !== beneficiaryRowComplete && notDetailOpen.length < 1) {
 					// Materialize.toast($filter('translate')('beneficiaries_contains_errors'), 4000, 'error');
 					M.toast({ html: $filter('translate')('beneficiaries_contains_errors'), displayLength: 4000, classes: 'error' });
-					$(elements[0]).animatescroll();
+					if (document.querySelector(elements[0]) === null || document.querySelector(elements[0]) === undefined) {
+						var id_missing = elements[0] ? elements[0] : '';
+						if(id_missing !== ''){
+							id_missing = id_missing.replace(/^"+|"+$/g, '').match(/'[^']*'/g)[0];
+						}
+						M.toast({ html: "Error: no such input: " + id_missing, displayLength: 4000, classes: 'error' });
+					} else{
+						$(elements[0]).animatescroll();
+					}
 					return false;
 				} else {
 					return true;
