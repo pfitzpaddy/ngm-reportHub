@@ -2943,6 +2943,45 @@ angular.module( 'ngmReportHub' )
 
 			},
 
+			// validate for add New Location
+			validateAddNewLocationMonthlyReport:function(l){
+				var id;
+				var complete = true;
+				var validation = { complete: true, divs: [] };
+
+				if (!l.admin1pcode) {
+					id = "label[for='ngm-new_location-admin1pcode']";
+					$(id).addClass('error');
+					validation.divs.push(id);
+					complete = false;
+				}
+
+				if (!l.admin2pcode) {
+					id = "label[for='ngm-new_location-admin2pcode']";
+					$(id).addClass('error');
+					validation.divs.push(id);
+					complete = false;
+				}
+
+				if (!l.site_name) {
+					id = "label[for='ngm-new_location-site_name']";
+					$(id).addClass('error');
+					validation.divs.push(id);
+					complete = false;
+				}
+				if (!l.username) {
+					id = "label[for='ngm-new_location-username']";
+					$(id).addClass('error');
+					validation.divs.push(id);
+					complete = false;
+				}
+
+				if(!complete){
+					validation.complete = false;
+				}
+				return validation;
+			},
+
 			fieldWarehouse: function () {
 				field = {
 					'admin1pcode': 'Admin1 Pcode',

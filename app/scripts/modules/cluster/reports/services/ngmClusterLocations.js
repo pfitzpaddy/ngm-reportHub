@@ -25,6 +25,8 @@ angular.module( 'ngmReportHub' )
         });
         // trigger form update
         ngmClusterLocations.adminOnChange( project.lists, 'admin3pcode', locations.length-1, ngmClusterLocations.new_location.admin3pcode, ngmClusterLocations.new_location );
+        ngmClusterLocations.filterLocations(project, 0, ngmClusterLocations.new_location)
+        ngmClusterLocations.setSiteTypeAndImplementationSelect(project);
         // lists, pcode, $index, $data, target_location
         ngmClusterLocations.openAddNewLocation = !ngmClusterLocations.openAddNewLocation;
       },

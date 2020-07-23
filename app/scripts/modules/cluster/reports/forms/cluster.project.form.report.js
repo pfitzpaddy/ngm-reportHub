@@ -130,7 +130,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				templatesUrl: '/scripts/modules/cluster/views/forms/report/',
 				// templates
 				locationsUrl: 'location/locations.html',
-				addLocationUrl: 'location/add.location.html',
+				addLocationUrl: 'location/add.location-reform.html',//'location/add.location.html',
 				beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
 				template_activity_date: 'beneficiaries/activity-details/activity-date.html',
 				template_vulnerable_populations: 'beneficiaries/vulnerable-populations/vulnerable-populations.html',
@@ -159,7 +159,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// set beneficiaries form
 					ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
 
-
+					// set list users
+					ngmClusterLists.setOrganizationUsersList($scope.project.lists, config.project);
 					// documents upload
 					$scope.project.setTokenUpload();
 					// for minimize-maximize beneficiary form
@@ -1701,6 +1702,18 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				switchInputFile: function () {
 					$scope.inputString = !$scope.inputString;
 					$scope.project.report.messageWarning ='';
+				},
+
+				validateAddNewLocation:function(){
+					var result = ngmClusterValidation.validateAddNewLocationMonthlyReport(ngmClusterLocations.new_location)
+					if (result.complete){
+						ngmClusterLocations.addNewLocation($scope.project, ngmClusterLocations.new_location); 
+						$scope.project.incrementLocationLimitByOneAutoSelect()
+					}else{
+						var elements = result.divs
+						$(elements[0]).animatescroll();
+					};
+					
 				},
 				// save
 				save: function( complete, display_modal, email_alert ){
