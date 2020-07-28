@@ -6,9 +6,22 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterDetails', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists',
-							function( $http, $filter, $timeout, ngmAuth, ngmClusterLists ) {
-
+	.filter('filterDetails', ['$filter','ngmClusterDetails', function ($filter, ngmClusterDetails) {
+		return function (data, indices) {
+			var res = '';
+			if (data.locations[indices.a]['beneficiaries'][indices.b]['details'] !== undefined){
+				data.locations[indices.a]['beneficiaries'][indices.b]['details'].forEach(function(d,i){
+					res += d.unit_type_name +': '+d.unit_type_quantity+' | ';
+				});
+			}
+			var details = data.locations[indices.a]['beneficiaries'][indices.b]['details'];
+			res = angular.equals(details,[{}] ) || details.length === 0 ? '': res;
+			res = angular.equals(details, [{unit_type_quantity: 0}]) ? 'Please Click Here' : res;
+			return res;
+		}
+	}])
+	.factory('ngmClusterDetails', ['$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists', '$rootScope', '$templateCache', '$templateRequest', '$compile', '$timeout',
+		function ($http, $filter, $timeout, ngmAuth, ngmClusterLists, $rootScope, $templateCache, $templateRequest, $compile, $timeout ) {
 
 		// beneficairy details
 		var ngmClusterDetails = {
@@ -24,6 +37,11 @@ angular.module( 'ngmReportHub' )
 				ngmClusterDetails.setForm( list, locations, timer )
 			},
 
+			selectedDetails: [],
+			openDetails: function (locationIndex, beneficiaryIndex, project) {
+				ngmClusterDetails.selectedDetails = ngmClusterDetails.fetchDetails(locationIndex, beneficiaryIndex, project); 
+				$rootScope.$broadcast('open_details', { id: `dt-${locationIndex}-${beneficiaryIndex}`, details: ngmClusterDetails.selectedDetails, locationIndex: locationIndex, beneficiaryIndex: beneficiaryIndex });
+			},
 			// set input style 
 			inputChange: function( label ){
 				$("label[for='" + label + "']").removeClass('error').addClass('active');
@@ -108,6 +126,30 @@ angular.module( 'ngmReportHub' )
 				}
 			},
 			
+
+			initDetails2: function (list, $locationIndex, $beneficiaryIndex, beneficiary, report) {
+				// add empty 
+				if (!beneficiary.details) {
+					console.log("here")
+					beneficiary.details = [];
+					beneficiary.details.push({ unit_type_quantity: 0 });
+				}
+
+				// reset list
+				if (beneficiary.details) {
+					// set details form
+					angular.forEach(beneficiary.details, function (d, i) {
+						ngmClusterDetails.setList(list, $locationIndex, $beneficiaryIndex, i, d.unit_type_id, beneficiary.details);
+					});
+				}
+			},
+
+			
+			fetchDetails: function($locationIndex,$beneficiaryIndex, project){
+				// console.log(ngmClusterDetails.currentReport.locations);
+				return project.report.locations[$locationIndex]['beneficiaries'][$beneficiaryIndex]['details'];
+			},
+			
 			// manages selections (removes selections from detials list for ET ESNFI partial_kits, kit_details)
 			setList: function( list, $locationIndex, $beneficiaryIndex, $index, unit_type_id, d_list ) {
 				
@@ -158,13 +200,16 @@ angular.module( 'ngmReportHub' )
 				angular.forEach( beneficiary.details, function ( d, i ) {
 					ngmClusterDetails.setList( list, $locationIndex, $beneficiaryIndex, i, d.unit_type_id, beneficiary.details );
 				});
+				$rootScope.$broadcast('add_detail', [list, $locationIndex, $beneficiaryIndex, beneficiary.details]);
 				// set to default
 				ngmClusterDetails.addDetailDisabled = true;
 			},
 
 			removeDetail: function( list, $locationIndex, $beneficiaryIndex, $index, beneficiary ) {
+				
 				if ( beneficiary.details.length >= 1 ) {
 					beneficiary.details.splice( $index, 1 );
+					// ngmClusterDetails.currentReport.locations[$locationIndex]['beneficiaries'][$beneficiaryIndex]['details'].splice($index, 1 );
 					// set details form
 					angular.forEach( beneficiary.details, function ( d, i ) {
 						ngmClusterDetails.setList( list, $locationIndex, $beneficiaryIndex, i, d.unit_type_id, beneficiary.details );
@@ -173,7 +218,11 @@ angular.module( 'ngmReportHub' )
 					M.toast({ html: 'Please save to commit changes!', displayLength: 4000, classes: 'note' });
 					// set to default
 					ngmClusterDetails.addDetailDisabled = false;
+				}else{
+					var container = angular.element(document.querySelector(`#ngm-details-loader-${ $locationIndex }-${ $beneficiaryIndex }`))
+					container.html('');
 				}
+				console.log(beneficiary.details)
 			},
 
 		};

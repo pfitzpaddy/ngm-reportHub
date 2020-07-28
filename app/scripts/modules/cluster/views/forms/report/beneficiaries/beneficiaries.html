@@ -1984,14 +1984,21 @@
 
 
 					<!-- DETAILS ( display if todo and in activities.csv ) -->
-					<div class="row"
+					<div class="row" 
 								ng-if="project.report.report_status === 'todo' && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'display_details' ]"
 								ng-init="ngmClusterDetails.initDetails( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );">
-
+						<!-- Open details -->
+						<a id="btn-loader-{{ $locationIndex }}-{{ $beneficiaryIndex }}" href
+							ng-click="ngmClusterDetails.openDetails($locationIndex, $beneficiaryIndex, project )">
+							{{ project.report | filterDetails: {a: $locationIndex,b: $beneficiaryIndex} }}</a>
+						<hr/>
+							<div id="ngm-details-loader-{{ $locationIndex }}-{{ $beneficiaryIndex }}"></div>
+						<hr/>
 						<!-- get template -->
-						<div class="row" ng-repeat="detail in beneficiary.details">
+						<!-- <div class="row"
+							ng-repeat="detail in beneficiary.details">
 							<div ng-include="project.templatesUrl + project.template_activity_details"></div>
-						</div>
+						</div> -->
 
 						<!-- add details -->
 						<div class="row" style="margin-left:20px;padding-top: 5px;">
@@ -2000,7 +2007,7 @@
 															ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ].length &&
 															( project.definition.project_status !== 'complete' ||
 																	project.report.report_status !== 'complete' )"
-											ng-disabled="ngmClusterDetails.addDetailDisabled"
+											
 											ng-click="ngmClusterDetails.addDetail( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );">
 								<i class="material-icons left">add</i>{{ 'add_details' | translate }}
 							</button>
@@ -2009,16 +2016,17 @@
 					</div>
 
 					<!-- DETAILS ( display if complete and length )  -->
-					<div class="row"
+					<div class="row" id="ngm-details-loader-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 					ng-if="project.report.report_status === 'complete' &&
 									beneficiary.details.length &&
 									ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'display_details' ]"
 								ng-init="ngmClusterDetails.initDetails( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );">
 
 						<!-- get template -->
-						<div class="row" ng-repeat="detail in beneficiary.details">
+						<!-- <div  class="row"
+							ng-repeat="detail in beneficiary.details">
 							<div ng-include="project.templatesUrl + project.template_activity_details"></div>
-						</div>
+						</div> -->
 
 						<!-- add details -->
 						<div class="row" style="margin-left:20px;padding-top: 5px;">

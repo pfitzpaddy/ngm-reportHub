@@ -501,6 +501,12 @@ angular.module( 'ngmReportHub' )
 					ngmClusterDetails.setList( ngmClusterBeneficiaries.form[ $parent ][ $index ].details, $parent, $index, 0, '', [{}] );
 				}
 
+				// clear details
+				var divElement = angular.element(document.querySelector(`#ngm-details-loader-${$parent}-${$index}`));
+				console.log(`ngm-details-loader-${$parent}-${$index}`);
+				divElement.html('');
+				// var btnElem = angular.element(document.querySelector(`#btn-loader-${parent}-${$index}`));
+				// btnElem.html('Load details');
 
 				// clear cash / package / units
 				// angular.forEach( defaults.cash_package_units, function ( i, key ) {
@@ -589,7 +595,7 @@ angular.module( 'ngmReportHub' )
 				} else {
 					// remove if exists
 					if ( beneficiary.details ) {
-						beneficiary.details = [];
+						// beneficiary.details = [];
 					}
 				}
 

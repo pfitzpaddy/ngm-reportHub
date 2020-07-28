@@ -45,7 +45,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 		'ngmClusterDocument',
 		'ngmClusterImportFile',
 		// 'NgTableParams',
-		'config','$translate','$filter',
+		'config','$translate','$filter','$rootScope','$compile',
 
 		function(
 			$scope,
@@ -76,7 +76,37 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			ngmClusterDocument,
 			ngmClusterImportFile,
 			// NgTableParams,
-			config,$translate,$filter ){
+			config, $translate, $filter, $rootScope, $compile ){
+
+			/**** Handle Events ****/
+			$rootScope.$on('open_details', function (evt, data) {
+
+				var divElement = angular.element(document.querySelector('#ngm-details-loader-' + data.locationIndex + '-' + data.beneficiaryIndex));
+				var appendHtml = $compile(`<div id="dt-${data.locationIndex}-${data.beneficiaryIndex}" render-details ng-model="details"   location-index="${data.locationIndex}" beneficiary-index="${data.beneficiaryIndex}" beneficiary="beneficiary" project="project"></div>`)($scope);
+				divElement.html(appendHtml);
+			});
+
+			$rootScope.$on('add_detail', function (evt, data) {
+				let list = data[0];
+				let locationIndex = data[1];
+				let beneficiaryIndex = data[2];
+				
+				if (angular.equals(data[3], [{ unit_type_quantity: 0 }])){
+					$scope.project.report.locations[locationIndex].beneficiaries[beneficiaryIndex].details = [];
+					let copied = angular.copy(list);
+					copied.forEach(function (a,i) {
+						a['unit_type_quantity'] = 0;
+						data[3]
+						$scope.project.report.locations[locationIndex].beneficiaries[beneficiaryIndex].details.push(a);
+					});
+					ngmClusterDetails.initDetails2(list, locationIndex, beneficiaryIndex, $scope.project.report.locations[locationIndex].beneficiaries[beneficiaryIndex], $scope.project.report)
+					// $scope.project.report.locations[locationIndex].beneficiaries[beneficiaryIndex].details = copied;
+				}
+				// var divElement = angular.element(document.querySelector('#ngm-details-loader-' + locationIndex + '-' + beneficiaryIndex));
+				// var appendHtml = $compile(`<div id="dt-${locationIndex}-${beneficiaryIndex}" render-details ng-model="details" location-index="${locationIndex}" beneficiary-index="${beneficiaryIndex}" beneficiary="beneficiary" project="project" ></div>`)($scope);
+				// divElement.append(appendHtml);
+				// ngmClusterDetails.initDetails2(list, locationIndex, beneficiaryIndex, $scope.project.report.locations[locationIndex].beneficiaries[beneficiaryIndex], $scope.project.report)
+			});
 
 
 			/**** SERVICES ****/
@@ -1800,4 +1830,48 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 	}
 
-]);
+])
+	.directive('renderDetails', ['ngmClusterDetails', 'ngmClusterBeneficiaries', 'ngmClusterLists', '$rootScope', '$templateRequest', '$compile', '$interval', function (ngmClusterDetails, ngmClusterBeneficiaries, ngmClusterLists,$rootScope, $templateRequest, $compile, $interval) {
+
+		return {
+			restrict: 'AE',
+			transclude: true,
+			scope: {
+				ngChange: '&',
+				$locationIndex: '=',
+				$beneficiaryIndex: '=',
+				project: '='
+
+			},
+			controller: function(){
+
+			},
+			link: function (scope, element, attrs, $ctrl) {
+				scope.ngmClusterDetails = ngmClusterDetails;
+				scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
+				scope.ngmClusterLists = ngmClusterLists;
+				scope.$locationIndex = attrs.locationIndex;
+				scope.$beneficiaryIndex = attrs.beneficiaryIndex;
+				if (scope.project.report.locations[scope.$locationIndex] !== undefined){
+					if (scope.project.report.locations[scope.$locationIndex]['beneficiaries'][scope.$beneficiaryIndex]['details'] === undefined){
+						scope.project.report.locations[scope.$locationIndex]['beneficiaries'][scope.$beneficiaryIndex]['details'] = [{unit_type_quantity: 0}];
+					}
+					scope.beneficiary = scope.project.report.locations[scope.$locationIndex]['beneficiaries'][scope.$beneficiaryIndex];
+					scope.details = scope.beneficiary['details'];
+				}
+				
+				
+				// Load the html through $templateRequest
+				$templateRequest('/scripts/modules/cluster/views/forms/report/beneficiaries/activity-details/activity-details.html').then(function (html) {
+					// Convert the html to an actual DOM node
+					var template = angular.element(html);
+					// Append it to the directive element
+					element.append(template);
+					// And let Angular $compile it
+					$compile(template)(scope);
+				});
+
+			}
+
+		};
+	}]);
