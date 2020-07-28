@@ -1131,6 +1131,26 @@ angular
 				}
 			})
 
+			.when('/performance', {
+				resolve: {
+					access: ['$location', 'ngmUser', function ($location,ngmUser) {
+						const user = ngmUser.get();
+						const admin0pcode = user.admin0pcode.toLowerCase()
+						const url = '/performance/' + admin0pcode+'/false/' + this.page.start_date() + '/' + this.page.end_date()
+						$location.path(url);
+					}]
+				}
+			})
+			.when('/performance/:admin0pcode/:hrp/:start/:end',{
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardPerformanceCtrl',
+				resolve: {
+					access: ['ngmAuth', function (ngmAuth) {
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+
 			// FORBIDDEN
 			.when( '/cluster/forbidden', {
 				templateUrl: '/views/app/dashboard.html',
