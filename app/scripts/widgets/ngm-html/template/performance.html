@@ -1,0 +1,421 @@
+<style>
+    .stats-card {
+    display:block;
+    position:relative;
+    overflow:hidden;
+  }
+  .stats-card i{
+    position:absolute;
+    font-size:6rem;
+    right:0;
+    bottom:-1rem;
+  }
+  .stats-card .count{
+    position:relative;
+    font-weight:100;
+    font-size:3rem;
+    line-height:3rem;
+  }
+  .stats-card .name{
+    position:relative;
+    font-weight:300;
+    font-size:1.1rem;
+    line-height:1.1rem;
+  }
+  .stats-card .graph{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+  }
+  .progress.tiny {
+    height: 2px;
+  }
+  .stats-card .progress{
+    position:absolute;
+    border-radius:0;
+    margin:0;
+    bottom:0;
+    left:0;
+    right:0;
+    box-shadow:none;
+  }
+  .stats-card .progress.top{
+    bottom:auto;
+    top:0;
+  }
+  .stats-card .progress.background{
+    top:0;
+    height:100%;
+  }
+  .stats-card .progress.background div {
+    height:100%;
+  }
+
+  /*
+   stats card large
+  */
+  .stats-card.large{
+    padding:1.6rem;
+  }
+  .stats-card.large>i{
+    font-size:8rem;
+    bottom:-1.3rem;
+  }
+  .stats-card.large .count{
+    font-size:3rem;
+    line-height:3rem;
+  }
+  .stats-card.large .name{
+    font-size:1.2rem;
+    line-height:1.2rem;
+  }
+
+</style>
+
+<!-- LOCATIONS -->
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.beneficiaries }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                Beneficiaries
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m3 l3">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.locations }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                Locations
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m3 l3">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.organizations }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                Organizations
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m3 l3">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.projects_created }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+               Projects Created
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m3 l3">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.warehouses_created }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                Warehouses Created
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <h2 class="col s12 report-title"
+        style="margin-top: 20px; padding-bottom: 5px; font-size: 2.2rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">
+        Summary</h2>
+</div>
+<div class="row">
+    <div class="input-field col s12 m12 l12">
+        <div class="card" style="padding:20px;">
+            <p>{{panel.data.message}}</p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- List Organizations -->
+
+<div class="row" window-size>
+    <div class="col s12">
+        <ul class="collection with-header z-depth-1">
+            <li class="collection-header teal lighten-2" style="height:80px;">
+                <div class="col s12 m7 l8">
+                    <h4 class="report-work-title white-text">
+                        <i class="material-icons left"></i>Organizations
+                    </h4>
+                </div>
+            </li>
+            <li class="collection-item avatar" style="padding-top:20px;padding-bottom: 20px;">
+                <div class="row">
+                    <p ng-if="panel.data.organizations_reported.length">
+                        <span ng-repeat="shift in panel.data.organizations_reported track by $index ">
+                            {{shift}}{{$last ? '' : ', '}}
+                        </span>
+                    </p>
+                    <p ng-if="!panel.data.organizations_reported.length">
+                        No Organization
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- REPORT -->
+<div class="row">
+    <h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 2.2rem; color: #2196F3; border-bottom: 3px #2196F3 solid;"> Reports</h2>
+</div>
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.reports_total }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                Reports Total
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m6 l6">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.reports }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                Reports
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6 l6">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.reports_stocks }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                Stocks
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m6 l6">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.organizations }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                Number of Organizations Reporting Beneficiaries
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6 l6">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.organizations_stocks }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                Number of Organizations Reporting Stocks
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Reports By Cluster -->
+<div class="row">
+    <h2 class="col s12 report-title"
+        style="margin-top: 20px; padding-bottom: 5px; font-size: 2.2rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">
+        Organization Reports by Cluster</h2>
+</div>
+<div class="row">
+    <div ng-if="panel.data.organizations_reported_by_cluster.length" class="col s12 m3 l3" ng-repeat=" cluster in panel.data.organizations_reported_by_cluster">
+        <!-- <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{cluster.count }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                {{cluster.cluster}}
+            </div>
+            <div class="grey-text text-darken-2">
+                <p>
+                    <span ng-repeat="shift in panel.data.organizations_reported_by_cluster_affiliation | filter: {clusters: cluster.cluster}  track by $index">
+                        {{shift.organization}}{{$last ? '' : ', '}}
+                    </span>
+                </p>
+            </div>
+        </div> -->
+        <div class="card  darken-1 hoverable">
+            <div class="card-content " style="min-height: 200px;">
+                <p class="card-title activator tag truncate black-text"><i class="material-icons right">more_vert</i>
+                   
+                </p>
+                <div class="stats-card center">
+                    <span class="count">
+                        <span value="0" ng-count-to="{{cluster.count }}" duration="1" filter="number">
+                        </span>
+                    </span>
+                    <div class="grey-text text-darken-2">
+                        {{cluster.cluster}}
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                <div class="center" style="margin-top: 16%;">
+                    <p>
+                        <span
+                            ng-repeat="shift in panel.data.organizations_reported_by_cluster_affiliation | filter: {clusters: cluster.cluster}  track by $index">
+                            {{shift.organization}}{{$last ? '' : ', '}}
+                        </span>
+                    </p>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <div ng-if="!panel.data.organizations_reported_by_cluster.length"  class="col s12 m12 l12">
+        <div class="card  darken-1 hoverable">
+            <div class="card-content " style="min-height: 200px;">
+                <p class="card-title activator tag truncate black-text"><i class="material-icons right">more_vert</i>
+        
+                </p>
+                <div class="stats-card center">
+                    <span class="count">
+                        <span value="0" ng-count-to="0" duration="1" filter="number">
+                        </span>
+                    </span>
+                    <div class="grey-text text-darken-2">
+                        No Cluster
+                    </div>
+                </div>
+        
+        
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                <div class="center">
+                    <p>    No Data  </p>
+                </div>
+        
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- USer Statistic -->
+<div class="row">
+    <h2 class="col s12 report-title"
+        style="margin-top: 20px; padding-bottom: 5px; font-size: 2.2rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">
+        User Statistic</h2>
+</div>
+<div class="row">
+    <div class="col s12 m6 l6">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.users }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                Users
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6 l6">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.users_registered }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                Users Registered
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <!-- center -->
+
+    <div class="col s12 m6 l6 " >
+        <div class="card" style="padding-top: 50px;">
+            <highchart class="highchart-promo" config="panel.chartConfigUserbyCluster"
+                style="text-align:center; width:100%; height:100%;">
+            </highchart>
+        </div>
+       
+
+    </div>
+
+    <div class="col s12 m6 l6">
+        <div class="card" style="padding-top: 50px;">
+            <highchart class="highchart-promo" config="panel.chartConfigRegisterdUserbyCluster"
+                style="text-align:center; width:100%; height:100%;">
+            </highchart>
+        </div>
+       
+    
+    </div>
+    
+</div>
+<!-- Metrics -->
+<div class="row">
+    <h2 class="col s12 report-title"
+        style="margin-top: 20px; padding-bottom: 5px; font-size: 2.2rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">
+        Data Accesses
+    </h2>
+</div>
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{panel.data.metrics }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                Data Accesses
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m4 l4" ng-repeat="metric in panel.data.metrics_by_format">
+        <div class="widget card-panel stats-card white grey-text text-darken-2" style="text-align: center;">
+            <span class="count">
+                <span value="0" ng-count-to="{{metric.count }}" duration="1" filter="number">
+                </span>
+            </span>
+            <div class="grey-text text-darken-2">
+                {{metric._id | uppercase}}
+            </div>
+        </div>
+    </div>
+</div>
