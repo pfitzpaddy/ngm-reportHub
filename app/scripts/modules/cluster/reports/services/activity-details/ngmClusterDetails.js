@@ -16,7 +16,7 @@ angular.module( 'ngmReportHub' )
 			}
 			var details = data.locations[indices.a]['beneficiaries'][indices.b]['details'];
 			res = angular.equals(details,[{}] ) || details.length === 0 ? '': res;
-			res = angular.equals(details, [{unit_type_quantity: 0}]) ? 'Please Click Here' : res;
+			res = res.match(/^undefined/) ? 'Please Click Here' : res;
 			return res;
 		}
 	}])
