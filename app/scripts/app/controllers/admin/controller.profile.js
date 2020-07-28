@@ -136,7 +136,26 @@ angular.module('ngmReportHub')
 										}
 										return clusterDisabled;
 									})(),
-									templateUrl: '/scripts/app/views/authentication/profile.html'
+									templateUrl: '/scripts/app/views/authentication/profile.html',
+									showProfile:(function(){
+										var show = false;
+										if(!user.anonymous){
+											show = true;
+											return show
+										}
+										if (user.anonymous &&
+											($scope.dashboard.username === $scope.dashboard.user.username ||
+												(ngmAuth.canDo('EDIT_USER', {
+													adminRpcode: user.adminRpcode,
+													admin0pcode: user.admin0pcode,
+													cluster_id: user.cluster_id,
+													organization_tag: user.organization_tag
+												})))) {
+											show = true;
+										}
+										return show;
+
+									})()
 								}
 							}]
 						}]

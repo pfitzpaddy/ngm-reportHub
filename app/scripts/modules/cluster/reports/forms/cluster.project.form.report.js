@@ -160,7 +160,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				templatesUrl: '/scripts/modules/cluster/views/forms/report/',
 				// templates
 				locationsUrl: 'location/locations.html',
-				addLocationUrl: 'location/add.location.html',
+				addLocationUrl: 'location/add.location-reform.html',//'location/add.location.html',
 				beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
 				template_activity_date: 'beneficiaries/activity-details/activity-date.html',
 				template_vulnerable_populations: 'beneficiaries/vulnerable-populations/vulnerable-populations.html',
@@ -189,7 +189,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// set beneficiaries form
 					ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
 
-
+					// set list users
+					ngmClusterLists.setOrganizationUsersList($scope.project.lists, config.project);
 					// documents upload
 					$scope.project.setTokenUpload();
 					// for minimize-maximize beneficiary form
@@ -414,6 +415,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}
 					beneficiary= angular.merge({}, beneficiary_default, beneficiary )
 					var message_implementing_partners=''
+					if ($scope.project.report.locations[$parent].implementing_partners && $scope.project.report.locations[$parent].implementing_partners.length >0){
+						$scope.project.report.locations[$parent].implementing_partners = $scope.project.report.locations[$parent].implementing_partners.filter(x=> x !== '');
+					}
+					
 					if ($scope.project.report.locations[$parent].implementing_partners && $scope.project.report.locations[$parent].implementing_partners.length > 0) {
 						if (beneficiary.implementing_partners && (typeof beneficiary.implementing_partners === 'string')){
 							implementing_partners_string_array = beneficiary.implementing_partners.split(',').map(function (org) {
@@ -498,6 +503,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							beneficiary.grant_type_id = selected_grant[0].grant_type_id;
 						}
 					}
+
+					var temp_indicator_name='';
+					if (beneficiary.indicator_name) {
+						temp_indicator_name = beneficiary.indicator_name
+					}
 					
 					// validation for input from file
 					if(ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]){
@@ -506,6 +516,18 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						if (message_implementing_partners){
 							$scope.messageFromfile[$indexFile].push(message_implementing_partners)
 						}
+					}
+
+					if (!ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['display_indicator']) {
+						if (ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['indicator_id']) {
+							beneficiary.indicator_name = ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['indicator_name'];
+							beneficiary.indicator_id = ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['indicator_id'];
+							if (temp_indicator_name && (temp_indicator_name !== ngmClusterBeneficiaries.form[$parent][$scope.project.report.locations[$parent].beneficiaries.length - 1]['indicator_name'])){
+								var notif = { label: false, property: 'indicator_id', reason: 'incorect indicator' };
+								$scope.messageFromfile[$indexFile].push(notif)
+							}
+						}
+
 					}
 
 					ngmClusterBeneficiaries.updateBeneficiaires(beneficiary)
@@ -1619,7 +1641,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}
 					// activity_detail
 					if (obj.activity_detail_name){
-						selected_activity_detail = $filter('filter')(project.lists.activity_details,{
+						selected_activity_detail = $filter('filter')($scope.project.lists.activity_details,{
 							cluster_id: obj.cluster_id,
 							activity_type_id: obj.activity_type_id,
 							activity_description_id: obj.activity_description_id,
@@ -1710,6 +1732,18 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				switchInputFile: function () {
 					$scope.inputString = !$scope.inputString;
 					$scope.project.report.messageWarning ='';
+				},
+
+				validateAddNewLocation:function(){
+					var result = ngmClusterValidation.validateAddNewLocationMonthlyReport(ngmClusterLocations.new_location)
+					if (result.complete){
+						ngmClusterLocations.addNewLocation($scope.project, ngmClusterLocations.new_location); 
+						$scope.project.incrementLocationLimitByOneAutoSelect()
+					}else{
+						var elements = result.divs
+						$(elements[0]).animatescroll();
+					};
+					
 				},
 				// save
 				save: function( complete, display_modal, email_alert ){

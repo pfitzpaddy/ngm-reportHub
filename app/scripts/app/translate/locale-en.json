@@ -213,7 +213,7 @@
        "active_sctaff":"Active Staff",
        "active_users":"Active Users",
        "users":"Users",
-        "desactivated_users":"Desactivated Users ",
+        "desactivated_users":"Deactivated Users ",
         "name_mayus":"Name",
         "update_photo":"Update Photo",
         "active_staff":"Active Staff",
@@ -819,7 +819,7 @@
                 "return_to_monthly_progress_list":"Return to Monthly Progress List",
         "desactive_user":"Desactive User",
         "desactive":"Desactive",
-        "desactivate_mayus":"DESACTIVATE",
+        "desactivate_mayus":"DEACTIVATE",
          "activate_mayus":"ACTIVATE",
 
         "yes_desactive_user":"Yes, Desactive User",

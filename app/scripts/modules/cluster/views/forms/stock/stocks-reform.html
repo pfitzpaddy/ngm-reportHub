@@ -1,0 +1,256 @@
+<div ng-repeat="stock in report.report.stocklocations[$locationIndex].stocks track by $index" ng-init="$stockIndex = $index" window-size>
+    <div class="row">
+    
+        <div class="col s12 m12 left-align" dir="ltr">
+            <h5 class="report-beneficiary-title truncate" ng-if="!stock.stock_item_type">
+                <i class="material-icons left">local_grocery_store</i>Stock {{$stockIndex+1}}
+
+            </h5>
+            <h5 class="report-beneficiary-title truncate" ng-if="stock.stock_item_type">
+                <i class="material-icons left">local_grocery_store</i>{{report.getStockTitle(stock)}}
+                </br>
+                <span ng-if="stock.stock_targeted_groups_name"
+                    class="report-beneficiary-second-title">{{ stock.stock_targeted_groups_name }}</span>
+                </br>
+            </h5>
+        </div>
+        <div class="col s12 m12 " ng-class="{'right-align': windowWidth > 600}"
+            ng-style="(windowWidth < 600) && { 'margin-top': '10px' } || { 'margin-top': '-68px' }">
+            <button class="btn-floating waves-effect waves-light" title="Save" ng-if="detailStocks[$locationIndex][$stockIndex] && report.report.report_status !== 'complete'"
+                ng-click="report.validateForm(false)" ng-disabled="!report.canEdit">
+                <i class="material-icons">save</i>
+            </button>
+            <button class="btn-floating blue lighten-1 waves-effect waves-light"
+                ng-if=" !stock.id && detailStocks[$locationIndex][$stockIndex]"
+                ng-click="report.cancelEdit( $locationIndex, $index )" title="Cancel Edit">
+                <i class="material-icons">clear</i>
+            </button>
+            <button class="btn-floating red lighten-2 waves-effect waves-light" title="Remove"
+                ng-if="stock.id && detailStocks[$locationIndex][$stockIndex] && report.report.report_status !== 'complete'" ng-click="report.removeStock( $locationIndex, $stockIndex )" ng-disabled="!report.canEdit ">
+                <i class="material-icons">delete</i>
+            </button>
+            <button id="toggle" class="btn-floating" ng-class="{'rotate': detailStocks[$locationIndex][$stockIndex]}"
+                ng-click="report.openCloseRecord($locationIndex,$stockIndex)" ng-disabled="false">
+                <i class="material-icons">keyboard_arrow_down</i>
+                <md-tooltip md-direction="top" ng-if="detailStocks[$locationIndex][$stockIndex]">
+                    {{ 'Minimize'|translate }}
+                </md-tooltip>
+                <md-tooltip md-direction="top" ng-if="!detailStocks[$locationIndex][$stockIndex]">
+                    {{ 'Click to Expand'|translate }}
+                </md-tooltip>
+            </button>
+        </div>
+    </div>
+    <div id="tb-detail-{{$locationIndex}}-{{$stockIndex}}" class="card-panel" ng-if="detailStocks[$locationIndex][$stockIndex]" dir="ltr">
+        <div class="row">
+            <!-- Cluster -->
+            <div class="input-field col s12 m6 l4">
+                <select materialize-select id="ngm-stocks_cluster_id-{{$locationIndex}}-{{$stockIndex}}"
+                    name="ngm-stocks_cluster_id-{{$locationIndex}}-{{$stockIndex}}" class="validate"
+                    ng-options="c.cluster_id as c.cluster for c in report.lists.clusters" ng-model="stock.cluster_id"
+                    ng-change="report.updateNameStock(report.lists.clusters,'cluster_id','cluster',stock,$locationIndex, $stockIndex)" 
+                    ng-disabled="report.report.report_status === 'complete'"
+                    required>
+                    <option value="">{{ 'select' | translate }}</option>
+                </select>
+                <label for="ngm-stocks_cluster_id-{{$locationIndex}}-{{$stockIndex}}" class="active" style="transform:translateY(-10%)">Cluster
+                    *</label>
+            </div>
+        
+            <!-- stock purpose  -->
+            <div class="input-field col s12 m6 l4" ng-if="stock.admin0pcode !== 'ET'">
+                <select materialize-select id="ngm-stock_item_purpose_id-{{$locationIndex}}-{{$stockIndex}}"
+                    name="ngm-stock_item_purpose_id-{{$locationIndex}}-{{$stockIndex}}" class="validate"
+                    ng-options="sp.stock_item_purpose_id as sp.stock_item_purpose_name for sp in report.lists.stock_item_purpose"
+                    ng-model="stock.stock_item_purpose_id"
+                    ng-change="report.updateNameStock(report.lists.stock_item_purpose,'stock_item_purpose_id','stock_item_purpose_name',stock,$locationIndex, $stockIndex)"
+                    ng-disabled="report.report.report_status === 'complete'">
+                    <option value="">{{ 'select' | translate }}</option>
+                </select>
+                <label for="ngm-stock_item_purpose_id-{{$locationIndex}}-{{$stockIndex}}" class="active"
+                    style="transform:translateY(-10%)">{{'stock_purpose'|translate}}</label>
+            </div>
+        
+            <!-- stock target  -->
+            <div class="input-field col s12 m6 l4">
+                <select materialize-select watch id="ngm-stock_targeted_groups_id-{{$locationIndex}}-{{$stockIndex}}"
+                    name="ngm-stock_targeted_groups_id-{{$locationIndex}}-{{$stockIndex}}" class="validate"
+                    ng-options="st.stock_targeted_groups_id as st.stock_targeted_groups_name for st in report.lists.stock_targeted_groups | filter:{admin0pcode: stock.admin0pcode}"
+                    ng-model="stock.stock_targeted_groups_id"
+                    ng-change="report.updateNameStock(report.lists.stock_targeted_groups,'stock_targeted_groups_id','stock_targeted_groups_name',stock,$locationIndex, $stockIndex)"
+                    ng-disabled="report.report.report_status === 'complete'">
+                    <option value="">{{ 'select' | translate }}</option>
+                </select>
+                <label for="ngm-stock_targeted_groups_id-{{$locationIndex}}-{{$stockIndex}}" class="active"
+                    style="transform:translateY(-10%)">{{'targeted_groups'|translate}}</label>
+            </div>
+        
+            <!-- stock item type  -->
+            <div class="input-field col s12 m6 l4">
+                <select materialize-select watch id="ngm-stock_item_type-{{$locationIndex}}-{{$stockIndex}}" name="ngm-stock_item_type-{{$locationIndex}}-{{$stockIndex}}"
+                    class="validate"
+                    ng-options="s.stock_item_type as s.stock_item_name for s in report.lists.stocks | filter: { cluster_id: stock.cluster_id, admin0pcode: stock.admin0pcode}"
+                    ng-model="stock.stock_item_type"
+                    ng-change="report.updateNameStock(report.lists.stocks,'stock_item_type','stock_item_name',stock,$locationIndex, $stockIndex)"
+                    ng-disabled="!stock.cluster_id || report.report.report_status === 'complete'">
+                    <option value="">{{ 'select' | translate }}</option>
+                </select>
+                <label for="ngm-stock_item_type-{{$locationIndex}}-{{$stockIndex}}" class="active"
+                    style="transform:translateY(-10%)">{{'stock_type' | translate}}*</label>
+            </div>
+        
+            <!-- Type  -->
+            <div class="input-field col s12 m6 l4" ng-if="stock.admin0pcode === 'ET'">
+                <select materialize-select id="ngm-stock_type_id-{{$locationIndex}}-{{$stockIndex}}" name="ngm-stock_type_id-{{$locationIndex}}-{{$stockIndex}}"
+                    class="validate" ng-options="s.stock_type_id as s.stock_type_name for s in report.lists.types"
+                    ng-model="stock.stock_type_id"
+                    ng-change="report.updateNameStock(report.lists.types,'stock_type_id','stock_type_name',stock,$locationIndex, $stockIndex)"
+                    ng-disabled="report.report.report_status === 'complete'">
+                    <option value="">{{ 'select' | translate }}</option>
+                </select>
+                <label for="ngm-stock_type_id-{{$locationIndex}}-{{$stockIndex}}" class="active" style="transform:translateY(-10%)">Type</label>
+            </div>
+        
+            <!-- Status  -->
+            <div class="input-field col s12 m6 l4">
+                <select materialize-select watch id="ngm-stock_status_id-{{$locationIndex}}-{{$stockIndex}}" name="ngm-stock_status_id-{{$locationIndex}}-{{$stockIndex}}"
+                    class="validate"
+                    ng-options="s.stock_status_id as s.stock_status_name for s in report.lists.stock_status| filter: (!stock.stock_type_id ?{admin0pcode: stock.admin0pcode}:{stock_type_id:stock.stock_type_id,admin0pcode: stock.admin0pcode})"
+                    ng-model="stock.stock_status_id"
+                    ng-change="report.updateNameStock(report.lists.stock_status,'stock_status_id','stock_status_name',stock,$locationIndex, $stockIndex)"
+                    ng-disabled="report.report.report_status === 'complete'">
+                    <option value="">{{ 'select' | translate }}</option>
+                </select>
+                <label for="ngm-stock_status_id-{{$locationIndex}}-{{$stockIndex}}" class="active"
+                    style="transform:translateY(-10%)">{{'status_mayus'|translate}}</label>
+            </div>
+
+            <!-- Implementing Partner -->
+            <div ng-if="report.organization.admin0pcode === 'ET'" ng-init="!stock.implementing_partners ? stock.implementing_partners=[] : false" class="input-field col s12 m6 l4">
+                <select materialize-select watch id="ngm-implementing_partner-{{$locationIndex}}-{{$stockIndex}}"
+                    name="ngm-implementing_partner-{{$locationIndex}}-{{$stockIndex}}" class="validate"
+                    ng-options="item.organization_tag as item.organization for item in report.lists.organizations"
+                    ng-model="stock.implementing_partners[0].organization_tag"
+                    ng-change="report.updateNameStockImplementingPartnerDonor(report.lists.organizations,'implementing_partners','organization_tag','organization',stock,$locationIndex, $stockIndex)"
+                    ng-disabled="report.report.report_status === 'complete'">
+                    <option value="">{{ 'select' | translate }}</option>
+                </select>
+                <label for="ngm-implementing_partner-{{$locationIndex}}-{{$stockIndex}}" class="active"
+                    style="transform:translateY(-10%)">Implementing Partner</label>
+            </div>
+            <!-- Donor -->
+
+            <div ng-if="report.organization.admin0pcode === 'ET'" ng-init="!stock.donors ? stock.donors=[] : false" class="input-field col s12 m6 l4">
+                <select materialize-select watch id="ngm-implementing_partner-{{$locationIndex}}-{{$stockIndex}}"
+                    name="ngm-implementing_partner-{{$locationIndex}}-{{$stockIndex}}" class="validate"
+                    ng-options="item.project_donor_id as item.project_donor_name for item in report.lists.donors"
+                    ng-model="stock.donors[0].donor_id"
+                    ng-change="report.updateNameStockImplementingPartnerDonor(report.lists.donors,'donors','donor_id','donor_name',stock,$locationIndex, $stockIndex)"
+                    ng-disabled="report.report.report_status === 'complete'">
+                    <option value="">{{ 'select' | translate }}</option>
+                </select>
+                <label for="ngm-implementing_partner-{{$locationIndex}}-{{$stockIndex}}" class="active"
+                    style="transform:translateY(-10%)">Donor</label>
+            </div>
+
+
+            <!-- Units -->
+            <div class="input-field col s12 m6 l4">
+                <select materialize-select id="ngm-stock_unit_type_id-{{$locationIndex}}-{{$stockIndex}}"
+                    name="ngm-stock_unit_type_id-{{$locationIndex}}-{{$stockIndex}}" class="validate"
+                    ng-options="u.unit_type_id as u.unit_type_name for u in report.lists.units | filter: { cluster_id: stock.cluster_id }"
+                    ng-model="stock.unit_type_id"
+                    ng-change="report.updateNameStock(report.lists.units,'unit_type_id','unit_type_name',stock,$locationIndex, $stockIndex)"
+                    ng-disabled="report.report.report_status === 'complete'">
+                    <option value="">{{ 'select' | translate }}</option>
+                </select>
+                <label for="ngm-stock_unit_type_id-{{$locationIndex}}-{{$stockIndex}}" class="active"
+                    style="transform:translateY(-10%)">{{'units'|translate}}</label>
+            </div>
+            
+        
+            <!-- No Stock -->
+            <div class="input-field col s12 m6 l4">
+                <input id="ngm-number_in_stock-{{$locationIndex}}-{{$stockIndex}}" name="ngm-number_in_stock-{{$locationIndex}}-{{$stockIndex}}" type="number"
+                    class="validate" min="0" ng-model="stock.number_in_stock" ng-change="" ng-disabled="report.report.report_status === 'complete'" required />
+                <label for="ngm-number_in_stock-{{$locationIndex}}-{{$stockIndex}}" class="active">No. {{'in'|translate}} Stock</label>
+            </div>
+        
+            <!--No PipeLine -->
+            <div class="input-field col s12 m6 l4">
+                <input id="ngm-number_in_pipeline-{{$locationIndex}}-{{$stockIndex}}" name="ngm-number_in_pipeline-{{$locationIndex}}-{{$stockIndex}}" type="number"
+                    class="validate" min="0" ng-model="stock.number_in_pipeline" ng-change="" ng-disabled="report.report.report_status === 'complete'" required />
+                <label for="ngm-number_in_pipeline-{{$locationIndex}}-{{$stockIndex}}" class="active">No. {{'in'|translate}}
+                    {{'pipeline'|translate}}</label>
+            </div>
+        
+            
+        
+            <!--Beneficiaries Coverage -->
+            <div class="input-field col s12 m6 l4">
+                <input id="ngm-stock_beneficiaries_covered-{{$locationIndex}}-{{$stockIndex}}"
+                    name="ngm-stock_beneficiaries_covered-{{$locationIndex}}-{{$stockIndex}}" type="number" class="validate" min="0"
+                    ng-model="stock.beneficiaries_covered" ng-change="" ng-disabled="report.report.report_status === 'complete'" required />
+                <label ng-if="stock.admin0pcode !== 'ET'" for="ngm-stock_beneficiaries_covered-{{$locationIndex}}-{{$stockIndex}}"
+                    class="active">{{'beneficiary_coverage'|translate}}</label>
+                <label ng-if="stock.admin0pcode === 'ET'" for="ngm-stock_beneficiaries_covered-{{$locationIndex}}-{{$stockIndex}}"
+                    class="active">Households</label>
+            </div>
+        
+        
+        </div>
+        <div class="row" style="padding: 30px 10px" ng-if="report.detailItem[$locationIndex][$stockIndex]">
+        
+            <div class="row" ng-repeat=" detail in stock.stock_details track by $index ">
+                <div class="col s12 m1" style="text-align:right;">
+                    <p style="font-size:16px; padding-top:26px;">Item {{ $index+1 }} </p>
+                </div>
+        
+                <!-- select -->
+                <div class="input-field col s12 m6">
+                    <select materialize-select watch id="ngm-stock_detail-{{ $locationIndex }}-{{$locationIndex}}-{{$stockIndex}}-{{$index}}"
+                        class="validate" ng-model="detail.unit_type_id"
+                        ng-options="detail.unit_type_id as detail.unit_type_name for detail in report.lists.detail_list[$locationIndex][$stockIndex][$index]"
+                        ng-change="report.selectChangeStockDetail(stock,report.lists.detail_list[$locationIndex][$stockIndex][$index], detail, 'unit_type_id','unit_type_name', $locationIndex,$stockIndex)"
+                        ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || report.report.report_status === 'complete'">
+                        <option value="" selected>{{'select'|translate}}</option>
+        
+                    </select>
+                    <label for="ngm-stock_detail-{{ $locationIndex }}-{{$locationIndex}}-{{$stockIndex}}-{{$index}}" class="active"
+                        style="transform:translateY(-10%)">Item</label>
+                </div>
+        
+                <!-- unit_type_quantity -->
+                <div class="input-field col s12 m4">
+                    <input id="ngm-stock_detail_unit_quantity-{{ $locationIndex }}-{{$locationIndex}}-{{$stockIndex}}-{{$index}}"
+                        name="unit_type_quantity" type="number" class="validate" min="0" ng-model="detail.unit_type_quantity"
+                        ng-change="" ng-disabled="report.report.report_status === 'complete'">
+                    <label for="ngm-stock_detail_unit_quantity-{{ $locationIndex }}-{{$locationIndex}}-{{$stockIndex}}-{{$index}}" class="active"
+                        style="transform:translateY(-128%)">Amount</label>
+                </div>
+        
+                <!-- remove -->
+                <div class="input-field col s12 m1">
+                    <div class="btn-floating waves-effect waves-light red lighten-2" title="Remove"
+                        ng-if="report.report.report_status !== 'complete'"
+                        ng-click="report.removeStockDetail(report.lists.detail_list[$locationIndex][$stockIndex][$index],stock,$locationIndex,$stockIndex,$index)">
+                        <i class="material-icons">clear</i>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row" style="margin-left:20px;padding-top: 5px;">
+                <button class="btn blue lighten-2" ng-disabled="report.addDetailDisabled[$locationIndex][$stockIndex]"
+                    ng-if="report.report.report_status !== 'complete'"
+                    ng-click="report.addDetailStock(stock,$locationIndex,$stockIndex)">
+                    <i class="material-icons left">add</i>{{ 'add_details' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<button class="btn" ng-show="report.report.report_status !== 'complete'" ng-click="report.addStock( $locationIndex )">
+    <i class="material-icons left">add</i>add stock
+</button>

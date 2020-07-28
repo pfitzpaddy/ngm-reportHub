@@ -147,18 +147,25 @@ angular.module( 'ngmReportHub' )
 				// 	beneficiary_type_id: '',
 				// 	beneficiary_type_name: ''
 				// },
-				// cash_package_units: {
-				// 	unit_type_id: '',
-				// 	unit_type_name: '',
-				// 	mpc_delivery_type_id: '',
-				// 	mpc_delivery_type_name: '',
-				// 	mpc_mechanism_type_id: '',
-				// 	mpc_mechanism_type_name: '',
-				// 	package_type_id: '',
-				// 	package_type_name: '',
-				// 	transfer_type_id: '',
-				// 	transfer_type_name: ''
-				// }
+				cash_package_units: {
+					unit_type_id: '',
+					unit_type_name: '',
+					mpc_delivery_type_id: '',
+					mpc_delivery_type_name: '',
+					mpc_mechanism_type_id: '',
+					mpc_mechanism_type_name: '',
+					package_type_id: '',
+					package_type_name: '',
+					transfer_type_id: 0,
+					transfer_type_value: 0,
+					grant_type_id: '',
+					grant_type_name: '',
+					transfer_category_id: '',
+					transfer_category_name: ''
+				},
+				array_inputs: {
+					response: []
+				}
 			},
 
 
@@ -429,11 +436,14 @@ angular.module( 'ngmReportHub' )
 						// angular.merge( beneficiary, defaults.inputs );
 
 						// defaults
-						var defaults = ngmClusterBeneficiaries.defaults;
-						var context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
+						// var defaults = ngmClusterBeneficiaries.defaults;
+						// var context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
 
-						// merge defaults
-						angular.merge( beneficiary, defaults.inputs, context_defaults );
+						// // merge defaults
+						// angular.merge( beneficiary, defaults.inputs, context_defaults );
+
+						// defaults
+						ngmClusterBeneficiaries.setDefaultBeneficiaryAttributes(beneficiary, project.definition.admin0pcode);
 
 						// remove attributes (from previous selections of same record)
 						delete beneficiary.activity_description_id;
@@ -444,25 +454,32 @@ angular.module( 'ngmReportHub' )
 						delete beneficiary.indicator_name;
 						delete beneficiary.beneficiary_type_id;
 						delete beneficiary.beneficiary_type_name;
-						delete beneficiary.unit_type_id;
-						delete beneficiary.unit_type_name;
-						delete beneficiary.mpc_delivery_type_id;
-						delete beneficiary.mpc_delivery_type_name;
-						delete beneficiary.mpc_mechanism_type_id;
-						delete beneficiary.mpc_mechanism_type_name;
-						delete beneficiary.package_type_id;
-						delete beneficiary.package_type_name;
-						delete beneficiary.transfer_type_id;
-						delete beneficiary.transfer_type_value;
-						delete beneficiary.grant_type_id;
-						delete beneficiary.grant_type_name;
-						delete beneficiary.transfer_category_id;
-						delete beneficiary.transfer_category_name;
 
 						// set form
 						ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, $parent, $index, beneficiary );
 					}
 				}
+
+			},
+
+			setDefaultBeneficiaryAttributes: function (beneficiary, admin0pcode) {
+
+				var defaults = ngmClusterBeneficiaries.defaults;
+
+				var context_defaults = admin0pcode && defaults[ admin0pcode ] && defaults[ admin0pcode ][ beneficiary.cluster_id ] ? defaults[ admin0pcode ][ beneficiary.cluster_id ] : {}
+
+				// merge defaults
+				angular.merge( beneficiary, defaults.inputs, context_defaults );
+
+				// reset existing cash related attributes
+				angular.forEach(defaults.cash_package_units, function (value, key) {
+						if (beneficiary[key]) beneficiary[key] = value;
+				});
+
+				// reset existing array attributes
+				angular.forEach(defaults.array_inputs, function (value, key) {
+					if (beneficiary[key]) beneficiary[key] = angular.copy(value);
+				});
 
 			},
 
@@ -480,6 +497,8 @@ angular.module( 'ngmReportHub' )
 					delete beneficiary.indicator_id;
 					delete beneficiary.indicator_name;
 				}
+
+				ngmClusterBeneficiaries.setDefaultBeneficiaryAttributes(beneficiary, project.definition.admin0pcode);
 
 				// set form for beneficiary
 				ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, $parent, $index, beneficiary );
@@ -656,7 +675,7 @@ angular.module( 'ngmReportHub' )
 			setDefaultValueBeneficiary: function (list, beneficiary, key, name) {
 			// setDefaultValueBeneficiary: function ($parent, $index, field, beneficiary,key,name){
 				// var disabled =false;
-				
+
 				// 	if (ngmClusterBeneficiaries.form[$parent][$index][field].length < 2 && ngmClusterBeneficiaries.form[$parent][$index][field]) {
 				// 		 disabled = true;
 				// 	}
@@ -988,13 +1007,13 @@ angular.module( 'ngmReportHub' )
 				}
 				return disabled;
 			},
-			setSpecific: function(id,beneficiary,list){
+			setSpecific: function(index,id,beneficiary,list){
 				var list_project = list;
 
 				if (!beneficiary.response) {
 					beneficiary.response = [];
 				}
-				if (document.getElementById(id).checked) {
+				if (document.getElementById(id+'-'+index).checked) {
 					selected = $filter('filter')(list_project, { response_id: id }, true);
 					if(selected.length){
 						beneficiary.response.push(selected[0]);

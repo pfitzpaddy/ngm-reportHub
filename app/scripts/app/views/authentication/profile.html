@@ -100,7 +100,7 @@ form {
 </div> -->
 
 <!-- form -->
-  <div class="row">
+  <div class="row" ng-if="panel.showProfile">
     <div class="col s12 m12 l8 offset-l2">
 
     	<form name="ngmProfileForm" novalidate style="padding:0px !important;">	
@@ -117,6 +117,15 @@ form {
 		    	<!-- btn as title! -->
 		   	 	<a class="btn button-label" style="left:-1px;position:absolute;pointer-events:none;">{{'profile' | translate}}</a>
 					
+
+									<div class="row" ng-if="!panel.formDisabled && panel.user.admin0pcode === 'AF'">
+										<div class="center col s12 m12 l12">
+											<label>
+												<input type="checkbox" class="filled-in" id="private_profile_checkbox" ng-checked="panel.user.anonymous" ng-disabled="panel.formDisabled" ng-click="panel.setPrivateProfile('private_profile_checkbox')" />
+												<span style="color: #000000; font-weight: 500;">Private?</span>
+											</label>
+										</div>
+									</div>
 					<!-- 
 		      <div class="row">
 		        <div class="input-field col s12">
@@ -493,6 +502,22 @@ form {
 				ng-disabled="panel.btnDisabled">
 				<i class="material-icons left">delete</i>{{'delete_mayus'|translate}}
 		</button>
+	</div>
+
+	<div class="row" ng-if="!panel.showProfile">
+		<div class="col s12 m12 l8 offset-l2">
+			<div class="card z-depth-1" style="padding:0px 20% 5% !important;">
+			
+				<div class="icon center">
+					<div class="card" style="background-color: #fdd835;">
+						<!-- <img title="Profile" src="images/registration.png" width="110%" style="margin-left:-20px;" /> -->
+						<i class="material-icons" style="margin-left:-20px;font-size: 90px;color: #ffffff;">warning</i>
+					</div>
+					<h5 class="title">You Can't See {{panel.user.username}} Profile</h5>
+					<p style="font-weight: 600;"> Because this user set his/her Profile to Private</p>
+				</div>
+			</div>
+		</div>
 	</div>
 
   <!-- </div> -->

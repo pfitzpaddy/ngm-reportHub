@@ -469,13 +469,22 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						// success
 						if ( !result.err && !result.summary ){
 							// go to default org page
-							$location.path( result.app_home );
-							$timeout( function(){
+							if (result.status !== 'deactivated'){
+								$location.path( result.app_home );
+								$timeout( function(){
 
-								// Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project'), 6000, 'success' );
-								M.toast({ html: $filter('translate')('welcome') + ' ' + result.username + ', ' + $filter('translate')('time_to_create_a_project'), displayLength: 6000, classes: 'success' });
+									// Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project'), 6000, 'success' );
+									M.toast({ html: $filter('translate')('welcome') + ' ' + result.username + ', ' + $filter('translate')('time_to_create_a_project'), displayLength: 6000, classes: 'success' });
 
-							}, 2000);
+								}, 2000);
+							}else{
+								$location.path('/cluster/pending/');
+								$timeout(function () {
+									M.toast({ html: result.username + ', Not Activated Yet!', displayLength: 6000, classes: 'error'  });
+
+								}, 2000);
+								ngmUser.unset();
+							}
 						}
 
 					})
@@ -662,6 +671,44 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 					}else{
 						document.getElementById(id).checked = true;
 					}
+				},
+
+				setPrivateProfile:function(id){
+					// Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note');
+					M.toast({ html: $filter('translate')('processing') + '...', displayLength: 6000, classes: 'note' });
+					if (document.getElementById(id).checked) {
+						$scope.panel.user.anonymous = true;
+					}else{
+						$scope.panel.user.anonymous = false;
+					}
+					ngmAuth
+						.updateProfile({ user: $scope.panel.user }).success(function (result) {
+
+							// db error!
+							if (result.err || result.summary) {
+								var msg = result.msg ? result.msg : 'error!';
+								// Materialize.toast( msg, 6000, msg );
+								M.toast({ html: msg, displayLength: 6000, classes: 'error' });
+							}
+
+							// success
+							if (result.success) {
+								// set user and localStorage (if updating own profile)
+								if ($scope.panel.user.username === ngmUser.get().username) {
+									$scope.panel.user = angular.merge({}, $scope.panel.user, result.user);
+									ngmUser.set($scope.panel.user);
+								}else{
+									$scope.panel.user.anonymous = result.user.anonymous;
+								}
+								// success message
+								$timeout(function () {
+									// Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('profile_updated'), 6000, 'success' );
+									M.toast({ html: $filter('translate')('success') + ' ' + $filter('translate')('profile_updated'), displayLength: 6000, classes: 'success' });
+									
+								}, 200);
+							}
+
+						});
 				}
 
 			}

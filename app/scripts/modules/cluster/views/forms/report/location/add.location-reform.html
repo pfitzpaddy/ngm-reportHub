@@ -1,0 +1,570 @@
+<style>
+    .card-panel-expand {
+        margin-top: 1.9rem;
+    }
+
+    .add-padding {
+        padding-bottom: 30px;
+    }
+
+    .md-checkbox-enabled[selected] .md-icon {
+        background-color: rgb(38, 166, 154);
+
+    }
+
+    md-select .md-select-value {
+        border-bottom-color: rgba(0, 0, 0, 0.35);
+    }
+
+    md-select-menu md-content md-option[selected]:focus,
+    md-select-menu md-content md-option[selected] {
+        color: rgb(38, 166, 154);
+    }
+
+    md-select:not([disabled]):focus .md-select-value {
+        border-bottom-color: rgb(38, 166, 154);
+        color: rgba(0, 0, 0, 0.87);
+    }
+</style>
+
+<div class="row" window-size>
+    <div class="col s12 m12 l12">
+        <div class="card">
+            <ul class="collection with-header">
+                <li class="collection-item avatar">
+
+                    <p id="ngm-new_location-target_locations" style="padding:10px; font-weight: 600;">
+                        Please Fill the Form Below to Add Location For this Month!
+                    </p>
+                    <div>
+
+                        <!-- new button and title -->
+                        <div class="row" style="margin-bottom: 15px;">
+                            <div class="col s12 m12 left-align" dir="ltr">
+                                <!-- location -->
+                                <h5 class="report-beneficiary-title" ng-if="!ngmClusterLocations.new_location.admin1name">
+                                    <i class="material-icons left">location_on</i>Location {{ 0+1 }}
+                                </h5>
+                                <h5 class="report-beneficiary-title"
+                                    ng-if="ngmClusterLocations.new_location.admin1name && !ngmClusterLocations.new_location.admin2name">
+                                    <i class="material-icons left">location_on</i>{{ ngmClusterLocations.new_location.admin1name }}
+                                </h5>
+                                <h5 class="report-beneficiary-title"
+                                    ng-if="ngmClusterLocations.new_location.admin1name && ngmClusterLocations.new_location.admin2name && !ngmClusterLocations.new_location.admin3name">
+                                    <i class="material-icons left">location_on</i>{{ ngmClusterLocations.new_location.admin1name }},
+                                    {{ngmClusterLocations.new_location.admin2name }}
+                                </h5>
+                                <h5 class="report-beneficiary-title"
+                                    ng-if="ngmClusterLocations.new_location.admin1name && ngmClusterLocations.new_location.admin2name && ngmClusterLocations.new_location.admin3name && !ngmClusterLocations.new_location.admin4name">
+                                    <i class="material-icons left">location_on</i>{{ ngmClusterLocations.new_location.admin1name }},
+                                    {{ngmClusterLocations.new_location.admin2name }},
+                                    {{ngmClusterLocations.new_location.admin3name }}
+                                </h5>
+                                <h5 class="report-beneficiary-title"
+                                    ng-if="ngmClusterLocations.new_location.admin1name && ngmClusterLocations.new_location.admin2name && ngmClusterLocations.new_location.admin3name && ngmClusterLocations.new_location.admin4name && !ngmClusterLocations.new_location.admin5name">
+                                    <i class="material-icons left">location_on</i>{{ ngmClusterLocations.new_location.admin1name }},
+                                    {{ngmClusterLocations.new_location.admin2name }},
+                                    {{ngmClusterLocations.new_location.admin3name }}, {{ngmClusterLocations.new_location.admin4name }}
+                                </h5>
+                                <h5 class="report-beneficiary-title"
+                                    ng-if="ngmClusterLocations.new_location.admin1name && ngmClusterLocations.new_location.admin2name && ngmClusterLocations.new_location.admin3name && ngmClusterLocations.new_location.admin4name && ngmClusterLocations.new_location.admin5name">
+                                    <i class="material-icons left">location_on</i>{{ ngmClusterLocations.new_location.admin1name }},
+                                    {{ngmClusterLocations.new_location.admin2name }},
+                                    {{ngmClusterLocations.new_location.admin3name }}, {{ngmClusterLocations.new_location.admin4name }}, {{ngmClusterLocations.new_location.admin5name }}
+                                </h5>
+
+                                <!-- location type, name -->
+                                <h5 style="padding-left: 50px;" class="report-beneficiary-second-title"
+                                    ng-if="ngmClusterLocations.new_location.site_type_name && !ngmClusterLocations.new_location.site_name">
+                                    {{ ngmClusterLocations.new_location.site_type_name }}
+                                </h5>
+                                <h5 style="padding-left: 50px;" class="report-beneficiary-second-title"
+                                    ng-if="ngmClusterLocations.new_location.site_type_name && ngmClusterLocations.new_location.site_name">
+                                    {{ ngmClusterLocations.new_location.site_type_name }}: {{ ngmClusterLocations.new_location.site_name }}
+                                </h5>
+                            </div>
+
+                            <!-- btns -->
+                            <div class="col s12 m12"
+                                ng-style="(windowWidth > 600 && ngmClusterLocations.new_location.site_type_name) && { 'margin-top': '-72px' } || (windowWidth > 600 && !ngmClusterLocations.new_location.site_type_name) && {'margin-top': '-40px'} "
+                                ng-class="{'right-align':windowWidth > 600 }">
+
+                                <button class="btn-floating waves-effect waves-light" title="Save"
+                                    ng-if="!project.newProject && project.canEdit"
+                                    ng-click="project.validateAddNewLocation(ngmClusterLocations.new_location)"
+                                    ng-disabled="( project.definition.project_status === 'complete' ) && !project.canEdit">
+
+                                    <i class="material-icons">save</i>
+                                </button>
+                                <button class="btn-floating blue lighten-1 waves-effect waves-light"
+                                    ng-if="(project.newProject || !ngmClusterLocations.new_location.id)"
+                                    ng-click="ngmClusterLocations.new_location = {}; ngmClusterLocations.openAddNewLocation = false;">
+                                    <i class="material-icons">clear</i>
+                                </button>
+
+                            </div>
+                        </div>
+
+                        <!-- detail form reorganize -->
+                        <div class="card-panel">
+
+                            <!-- reporter, site_type -->
+                            <div class="row"
+                                ng-if="!project.lists.site_implementation.length && !project.definition.implementing_partners_checked">
+                                <!-- reporter -->
+                                <div class="input-field col s12 m6">
+                                    <select materialize-select watch id="ngm-new_location-username"
+                                        name="ngm-new_location-username" class="validate" ng-model="ngmClusterLocations.new_location.username"
+                                        ng-options="item.username as item.username for item in project.lists.users"
+                                        ng-change="ngmClusterLocations.updateReporter(project.lists,ngmClusterLocations.new_location)"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="" disabled>{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-username" class="active"
+                                        style="transform:translateY(-10%)">Reporter</label>
+                                </div>
+
+                                <!-- site type -->
+                                <div class="input-field col s12 m6">
+                                    <select materialize-select watch id="ngm-new_location-site_type_id"
+                                        name="ngm-new_location-site_type_id" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.site_type_id"
+                                        ng-options="item.site_type_id as item.site_type_name for item in ngmClusterLocations.site_typeFilter"
+                                        ng-change="ngmClusterLocations.updateSiteType(project.lists,ngmClusterLocations.new_location)"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="">-</option>
+                                    </select>
+                                    <label ng-if="project.definition.admin0pcode !== 'COL'"
+                                        for="ngm-new_location-site_type_id" class="active"
+                                        style="transform:translateY(-10%)">{{'type' | translate}}</label>
+                                    <label ng-if="project.definition.admin0pcode === 'COL'"
+                                        for="ngm-new_location-site_type_id" class="active"
+                                        style="transform:translateY(-10%)">{{'site_type' | translate}}</label>
+                                </div>
+
+                            </div>
+
+                            <!-- reporter, site_type, implementation -->
+                            <div class="row"
+                                ng-if="project.lists.site_implementation.length && !project.definition.implementing_partners_checked">
+                                <!-- reporter -->
+                                <div class="input-field col s12 m4">
+                                    <select materialize-select watch id="ngm-new_location-username"
+                                        name="ngm-new_location-username" class="validate" ng-model="ngmClusterLocations.new_location.username"
+                                        ng-options="item.username as item.username for item in project.lists.users"
+                                        ng-change="ngmClusterLocations.updateReporter(project.lists,ngmClusterLocations.new_location)"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="" disabled>{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-username" class="active"
+                                        style="transform:translateY(-10%)">Reporter</label>
+                                </div>
+
+                                <!-- site type -->
+                                <div class="input-field col s12 m4">
+                                    <select materialize-select watch id="ngm-new_location-site_type_id"
+                                        name="ngm-new_location-site_type_id" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.site_type_id"
+                                        ng-options="item.site_type_id as item.site_type_name for item in ngmClusterLocations.site_typeFilter"
+                                        ng-change="ngmClusterLocations.updateSiteType(project.lists,ngmClusterLocations.new_location)"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="">-</option>
+                                    </select>
+                                    <label ng-if="project.definition.admin0pcode !== 'COL'"
+                                        for="ngm-new_location-site_type_id" class="active"
+                                        style="transform:translateY(-10%)">{{'type' | translate}}</label>
+                                    <label ng-if="project.definition.admin0pcode === 'COL'"
+                                        for="ngm-new_location-site_type_id" class="active"
+                                        style="transform:translateY(-10%)">{{'site_type' | translate}}</label>
+                                </div>
+
+                                <!-- implementation -->
+                                <div class="input-field col s12 m4">
+                                    <select materialize-select watch id="ngm-new_location-site-implementation"
+                                        name="site_implementation" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.site_implementation_id"
+                                        ng-options="item.site_implementation_id as item.site_implementation_name for item in ngmClusterLocations.site_implementationFilter"
+                                        ng-change="ngmClusterLocations.updateSiteImplementation(project.lists,ngmClusterLocations.new_location)"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="">-</option>
+                                    </select>
+                                    <label ng-if="project.definition.admin0pcode !== 'COL'"
+                                        for="ngm-new_location-site_implementation" class="active"
+                                        style="transform:translateY(-10%)">{{'implementation' | translate}}</label>
+                                    <label ng-if="project.definition.admin0pcode === 'COL'"
+                                        for="ngm-new_location-site_implementation" class="active"
+                                        style="transform:translateY(-10%)">{{'implementation_level' | translate}}</label>
+                                </div>
+                            </div>
+
+                            <!-- reporter, site_type, implementation, partners-->
+                            <div class="row"
+                                ng-if="project.lists.site_implementation.length && project.definition.implementing_partners_checked">
+                                <!-- reporter -->
+                                <div class="input-field col s12 l3 m6">
+                                    <select materialize-select watch id="ngm-new_location-username"
+                                        name="ngm-new_location-username" class="validate" ng-model="ngmClusterLocations.new_location.username"
+                                        ng-options="item.username as item.username for item in project.lists.users"
+                                        ng-change="ngmClusterLocations.updateReporter(project.lists,ngmClusterLocations.new_location)"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="" disabled>{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-username" class="active"
+                                        style="transform:translateY(-10%)">Reporter</label>
+                                </div>
+
+                                <!-- site type -->
+                                <div class="input-field col s12 l3 m6">
+                                    <select materialize-select watch id="ngm-new_location-site_type_id"
+                                        name="ngm-new_location-site_type_id" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.site_type_id"
+                                        ng-options="item.site_type_id as item.site_type_name for item in ngmClusterLocations.site_typeFilter"
+                                        ng-change="ngmClusterLocations.updateSiteType(project.lists,ngmClusterLocations.new_location)"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="">-</option>
+                                    </select>
+                                    <label ng-if="project.definition.admin0pcode !== 'COL'"
+                                        for="ngm-new_location-site_type_id" class="active"
+                                        style="transform:translateY(-10%)">{{'type' | translate}}</label>
+                                    <label ng-if="project.definition.admin0pcode === 'COL'"
+                                        for="ngm-new_location-site_type_id" class="active"
+                                        style="transform:translateY(-10%)">{{'site_type' | translate}}</label>
+                                </div>
+
+                                <!-- implementation -->
+                                <div class="input-field col s12 l3 m6">
+                                    <select materialize-select watch id="ngm-new_location-site-implementation"
+                                        name="site_implementation" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.site_implementation_id"
+                                        ng-options="item.site_implementation_id as item.site_implementation_name for item in ngmClusterLocations.site_implementationFilter"
+                                        ng-change="ngmClusterLocations.updateSiteImplementation(project.lists,ngmClusterLocations.new_location)"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="">-</option>
+                                    </select>
+                                    <label ng-if="project.definition.admin0pcode !== 'COL'"
+                                        for="ngm-new_location-site_implementation" class="active"
+                                        style="transform:translateY(-10%)">{{'implementation' | translate}}</label>
+                                    <label ng-if="project.definition.admin0pcode === 'COL'"
+                                        for="ngm-new_location-site_implementation" class="active"
+                                        style="transform:translateY(-10%)">{{'implementation_level' | translate}}</label>
+                                </div>
+
+                                <div class="input-field col s12 l3 m6"
+                                    ng-if="project.definition.implementing_partners_checked">
+
+                                    <md-select style="margin-top: 15px;" ng-model="ngmClusterLocations.new_location.implementing_partners"
+                                        multiple ng-model-options="{trackBy: '$value.organization'}"
+                                        placeholder="{{'not_set'|translate}}">
+                                        <md-option ng-value="partner"
+                                            ng-repeat="partner in project.definition.implementing_partners">
+                                            {{ partner.organization }}</md-option>
+                                    </md-select>
+                                    <label class="active" style="transform:translateY(-128%)"
+                                        for="ngm-new_location-project-implementing_partners">Implementing
+                                        Partners</label>
+                                </div>
+
+
+                            </div>
+
+                            <!-- admin1, admin2 -->
+                            <div class="row"
+                                ng-if="!project.lists.admin3.length && !project.lists.admin4.length && !project.lists.admin5.length">
+
+                                <!-- admin1type_name -->
+                                <div class="input-field col s12 m6">
+                                    <select materialize-select watch id="ngm-new_location-admin1pcode"
+                                        name="ngm-new_location-admin1pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin1pcode"
+                                        ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | filter : { inactive: '!true' }"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin1, 'admin1pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin1pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin1pcode', 0, $data, ngmClusterLocations.new_location );ngmClusterBeneficiaries.inputChange( 'ngm-new_location-admin1pcode' )"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="" disabled>{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin1pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin1[0].admin1type_name }}*</label>
+                                </div>
+
+                                <!-- admin2type_name -->
+                                <div class="input-field col s12 m6">
+                                    <select materialize-select watch id="ngm-new_location-admin2pcode"
+                                        name="ngm-new_location-admin2pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin2pcode"
+                                        ng-options="item.admin2pcode as item.admin2name for item in ngmClusterLocations.admin2Select[0]"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin2, 'admin2pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin2pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin2pcode', 0, $data, ngmClusterLocations.new_location );ngmClusterBeneficiaries.inputChange( 'ngm-new_location-admin2pcode' )"
+                                        ng-disabled="project.definition.project_status === 'complete' || !ngmClusterLocations.new_location.admin1pcode">
+                                        <option value="" disabled>{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin2pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin2[0].admin2type_name }}*</label>
+                                </div>
+
+                            </div>
+                            <!--  END -->
+
+                            <!-- admin1,admin2, admin3 -->
+                            <div class="row"
+                                ng-if="project.lists.admin3.length && !project.lists.admin4.length && !project.lists.admin5.length">
+
+                                <!-- admin1type_name -->
+                                <div class="input-field col s12 m4">
+                                    <select materialize-select watch id="ngm-new_location-admin1pcode"
+                                        name="ngm-new_location-admin1pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin1pcode"
+                                        ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | filter : { inactive: '!true' }"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin1, 'admin1pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin1pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin1pcode', 0, $data, ngmClusterLocations.new_location );ngmClusterBeneficiaries.inputChange( 'ngm-new_location-admin1pcode' )"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="" disabled>{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin1pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin1[0].admin1type_name }}*</label>
+                                </div>
+
+                                <!-- admin2type_name -->
+                                <div class="input-field col s12 m4">
+                                    <select materialize-select watch id="ngm-new_location-admin2pcode"
+                                        name="ngm-new_location-admin2pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin2pcode"
+                                        ng-options="item.admin2pcode as item.admin2name for item in ngmClusterLocations.admin2Select[0]"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin2, 'admin2pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin2pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin2pcode', 0, $data, ngmClusterLocations.new_location );ngmClusterBeneficiaries.inputChange( 'ngm-new_location-admin2pcode' )"
+                                        ng-disabled="project.definition.project_status === 'complete' || !ngmClusterLocations.new_location.admin1pcode">
+                                        <option value="" disabled>{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin2pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin2[0].admin2type_name }}*</label>
+                                </div>
+
+                                <!-- admin3type_name -->
+                                <div class="input-field col s12 m4">
+                                    <select materialize-select watch id="ngm-new_location-admin3pcode"
+                                        name="ngm-new_location-admin3pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin3pcode"
+                                        ng-options="item.admin3pcode as item.admin3name for item in ngmClusterLocations.admin3Select[ 0 ]"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin3, 'admin3pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin3pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin3pcode', 0, $data, ngmClusterLocations.new_location )"
+                                        ng-disabled="project.definition.project_status === 'complete' || !ngmClusterLocations.new_location.admin2pcode">
+                                        <option value="">{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin3pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin3[0].admin3type_name }}</label>
+                                </div>
+
+                            </div>
+                            <!-- END -->
+
+                            <!-- admin1,admin2,admin3, admin4 -->
+                            <div class="row"
+                                ng-if="project.lists.admin3.length && project.lists.admin4.length && !project.lists.admin5.length">
+
+                                <!-- admin1type_name -->
+                                <div class="input-field col s12 m3">
+                                    <select materialize-select watch id="ngm-new_location-admin1pcode"
+                                        name="ngm-new_location-admin1pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin1pcode"
+                                        ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | filter : { inactive: '!true' }"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin1, 'admin1pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin1pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin1pcode', 0, $data, ngmClusterLocations.new_location );ngmClusterBeneficiaries.inputChange( 'ngm-new_location-admin1pcode' )"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="" disabled>{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin1pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin1[0].admin1type_name }}*</label>
+                                </div>
+
+                                <!-- admin2type_name -->
+                                <div class="input-field col s12 m3">
+                                    <select materialize-select watch id="ngm-new_location-admin2pcode"
+                                        name="ngm-new_location-admin2pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin2pcode"
+                                        ng-options="item.admin2pcode as item.admin2name for item in ngmClusterLocations.admin2Select[0]"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin2, 'admin2pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin2pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin2pcode', 0, $data, ngmClusterLocations.new_location );ngmClusterBeneficiaries.inputChange( 'ngm-new_location-admin2pcode' )"
+                                        ng-disabled="project.definition.project_status === 'complete' || !ngmClusterLocations.new_location.admin1pcode">
+                                        <option value="" disabled>{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin2pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin2[0].admin2type_name }}*</label>
+                                </div>
+
+                                <!-- admin3type_name -->
+                                <div class="input-field col s12 m3">
+                                    <select materialize-select watch id="ngm-new_location-admin3pcode"
+                                        name="ngm-new_location-admin3pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin3pcode"
+                                        ng-options="item.admin3pcode as item.admin3name for item in ngmClusterLocations.admin3Select[ 0 ]"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin3, 'admin3pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin3pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin3pcode', 0, $data, ngmClusterLocations.new_location )"
+                                        ng-disabled="project.definition.project_status === 'complete' || !ngmClusterLocations.new_location.admin2pcode">
+                                        <option value="">{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin3pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin3[0].admin3type_name }}</label>
+                                </div>
+
+                                <!-- admin4type_name -->
+                                <div class="input-field col s12 m3">
+                                    <select materialize-select watch id="ngm-new_location-admin4pcode"
+                                        name="ngm-new_location-admin4pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin4pcode"
+                                        ng-options="item.admin4pcode as item.admin4name for item in ngmClusterLocations.admin4Select[ 0 ]"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin4, 'admin4pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin4pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin4pcode', 0, $data, ngmClusterLocations.new_location )"
+                                        ng-disabled="project.definition.project_status === 'complete' || !ngmClusterLocations.new_ngmClusterLocations.new_location.admin3pcode">
+                                        <option value="">{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin4pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin4[0].admin4type_name }}</label>
+                                </div>
+
+                            </div>
+                            <!-- END -->
+
+                            <!-- admin1, admin2, admin3, admin4, admin5 -->
+                            <div class="row"
+                                ng-if="project.lists.admin3.length && project.lists.admin4.length && project.lists.admin5.length">
+
+                                <!-- admin1type_name -->
+                                <div class="input-field col s12 m2">
+                                    <select materialize-select watch id="ngm-new_location-admin1pcode"
+                                        name="ngm-new_location-admin1pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin1pcode"
+                                        ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | filter : { inactive: '!true' }"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin1, 'admin1pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin1pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin1pcode', 0, $data, ngmClusterLocations.new_location );ngmClusterBeneficiaries.inputChange( 'ngm-new_location-admin1pcode' )"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="" disabled>{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin1pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin1[0].admin1type_name }}*</label>
+                                </div>
+
+                                <!-- admin2type_name -->
+                                <div class="input-field col s12 m2">
+                                    <select materialize-select watch id="ngm-new_location-admin2pcode"
+                                        name="ngm-new_location-admin2pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin2pcode"
+                                        ng-options="item.admin2pcode as item.admin2name for item in ngmClusterLocations.admin2Select[0]"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin2, 'admin2pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin2pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin2pcode', 0, $data, ngmClusterLocations.new_location );ngmClusterBeneficiaries.inputChange( 'ngm-new_location-admin2pcode' )"
+                                        ng-disabled="project.definition.project_status === 'complete' || !ngmClusterLocations.new_location.admin1pcode">
+                                        <option value="" disabled>{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin2pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin2[0].admin2type_name }}*</label>
+                                </div>
+
+                                <!-- admin3type_name -->
+                                <div class="input-field col s12 m2">
+                                    <select materialize-select watch id="ngm-new_location-admin3pcode"
+                                        name="ngm-new_location-admin3pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin3pcode"
+                                        ng-options="item.admin3pcode as item.admin3name for item in ngmClusterLocations.admin3Select[ 0 ]"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin3, 'admin3pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin3pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin3pcode', 0, $data, ngmClusterLocations.new_location )"
+                                        ng-disabled="project.definition.project_status === 'complete' || !ngmClusterLocations.new_location.admin2pcode">
+                                        <option value="">{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin3pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin3[0].admin3type_name }}</label>
+                                </div>
+
+                                <!-- admin4type_name -->
+                                <div class="input-field col s12 m2">
+                                    <select materialize-select watch id="ngm-new_location-admin4pcode"
+                                        name="ngm-new_location-admin4pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin4pcode"
+                                        ng-options="item.admin4pcode as item.admin4name for item in ngmClusterLocations.admin4Select[ 0 ]"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin4, 'admin4pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin4pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin4pcode', 0, $data, ngmClusterLocations.new_location )"
+                                        ng-disabled="project.definition.project_status === 'complete' || !ngmClusterLocations.new_location.admin3pcode">
+                                        <option value="">{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin4pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin4[0].admin4type_name }}</label>
+                                </div>
+
+                                <!-- admin5type_name -->
+                                <div class="input-field col s12 m4">
+                                    <select materialize-select watch id="ngm-new_location-admin5pcode"
+                                        name="ngm-new_location-admin5pcode" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.admin5pcode"
+                                        ng-options="item.admin5pcode as item.admin5name for item in ngmClusterLocations.admin5Select[ 0 ]"
+                                        ng-change="ngmClusterLocations.updateLocation(project, 0, project.lists.admin5, 'admin5pcode', ngmClusterLocations.new_location); project.getAdminSites( 'admin5pcode', 0, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin5pcode', 0, $data, ngmClusterLocations.new_location )"
+                                        ng-disabled="project.definition.project_status === 'complete' || !ngmClusterLocations.new_location.admin4pcode">
+                                        <option value="">{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-admin5pcode" class="active"
+                                        style="transform:translateY(-10%)">{{ project.lists.admin5[0].admin5type_name }}</label>
+                                </div>
+
+                            </div>
+                            <!-- END -->
+
+
+                            <!-- site name -->
+                            <div class="row" ng-if="ngmClusterLocations.adminSitesSelect[ 0 ].length > 0">
+
+                                <!-- select site list -->
+                                <div class="input-field col s12 m2">
+                                    <select materialize-select id="ngm-new_location-site_list_select_id"
+                                        name="ngm-new_location-site_list_select_id" class="validate"
+                                        ng-model="ngmClusterLocations.new_location.site_list_select_id"
+                                        ng-options="item.site_list_select_id as item.site_list_select_name for item in project.lists.site_list_select"
+                                        ng-change="ngmClusterLocations.updateYesorNo(project.lists,ngmClusterLocations.new_location)"
+                                        ng-disabled="project.definition.project_status === 'complete'">
+                                        <option value="">{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-site_list_select_id" class="active"
+                                        style="transform:translateY(-10%)">{{'from_list'|translate}}?</label>
+                                </div>
+
+                                <!-- site name -->
+                                <div class="input-field col s12 m10" ng-if="ngmClusterLocations.new_location.site_list_select_id === 'yes'">
+                                    <select materialize-select watch id="ngm-new_location-site_name"
+                                        name="ngm-new_location-site_name" class="validate" ng-model="ngmClusterLocations.new_location.site_id"
+                                        ng-options="item.site_id as item.site_name 
+                                                for item in ngmClusterLocations.adminSitesSelect[ 0 ] | 
+                                                filter:{ site_type_id: ngmClusterLocations.new_location.site_type_id }"
+                                        ng-change="ngmClusterLocations.updateAdminSite( ngmClusterLocations.new_location, 0 );
+                                                        ngmClusterLocations.updateLocation(project, 0, project.lists.admin5, 'admin5pcode', ngmClusterLocations.new_location);
+                                                        ngmClusterBeneficiaries.inputChange( 'ngm-new_location-site_name' )">
+
+                                        <option value="" disabled>{{ 'select' | translate }}</option>
+                                    </select>
+                                    <label for="ngm-new_location-site_name" class="active"
+                                        style="transform:translateY(-10%)">{{'site_name'|translate}}*</label>
+                                </div>
+
+                                <div class="input-field col s12 m10" ng-if="ngmClusterLocations.new_location.site_list_select_id === 'no'">
+                                    <input id="ngm-new_location-site_name" type="text" placeholder="Site Name"
+                                        ng-model="ngmClusterLocations.new_location.site_name" class="validate"
+                                        ng-change="ngmClusterBeneficiaries.inputChange( 'ngm-new_location-site_name' )"
+                                        required>
+                                    <label for="ngm-new_location-site_name" class="active"
+                                        style="">{{'site_name'|translate}}*</label>
+                                </div>
+                                <div class="input-field col s12 m10"
+                                    ng-if="ngmClusterLocations.new_location.site_list_select_id !== 'no' && ngmClusterLocations.new_location.site_list_select_id !== 'yes'">
+                                    <input id="ngm-new_location-site_name" type="text" placeholder="Site Name"
+                                        ng-model="ngmClusterLocations.new_location.site_name" class="validate"
+                                        ng-change="ngmClusterBeneficiaries.inputChange( 'ngm-new_location-site_name' )"
+                                        required>
+                                    <label for="ngm-new_location-site_name" class="active"
+                                        style="">{{'site_name'|translate}}*</label>
+                                </div>
+                            </div>
+
+                            <!-- site name -->
+                            <div class="row" ng-if="ngmClusterLocations.adminSitesSelect[ 0 ].length < 1">
+                                <div class="input-field col s12 m12">
+                                    <input id="ngm-new_location-site_name" type="text" placeholder="Site Name"
+                                        ng-model="ngmClusterLocations.new_location.site_name" class="validate"
+                                        ng-change="ngmClusterBeneficiaries.inputChange( 'ngm-new_location-site_name' )"
+                                        required>
+                                    <label for="ngm-new_location-site_name" class="active"
+                                        style="">{{'site_name'|translate}}*</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</div>

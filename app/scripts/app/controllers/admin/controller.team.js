@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardTeamCtrl', ['$scope', '$route', '$location', 'ngmAuth', 'ngmData', '$translate', '$filter', '$rootScope', function ($scope, $route, $location, ngmAuth, ngmData, $translate, $filter, $rootScope) {
+	.controller('DashboardTeamCtrl', ['$scope', '$route', '$location', 'ngmAuth', 'ngmData', '$translate', '$filter', '$rootScope', 'ngmClusterLists', '$http', function ($scope, $route, $location, ngmAuth, ngmData, $translate, $filter, $rootScope, ngmClusterLists, $http) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -487,6 +487,34 @@ angular.module('ngmReportHub')
 							}]
 						}]
 					},{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'html',
+									config: {
+										templateUrl: '/scripts/app/views/authentication/open-close_registration.html',
+										request: {
+											method: 'POST',
+											url: ngmAuth.LOCATION + '/api/getTeamOrganizationsByFilter',
+											data: {
+												filter: { adminRpcode: $scope.$parent.ngm.getUser().adminRpcode.toLowerCase(), admin0pcode: $scope.$parent.ngm.getUser().admin0pcode.toLowerCase() }
+											}
+										},
+										selected_org: $route.current.params.organization_tag,
+										user : $scope.dashboard.user,
+										setCloseRegisteration:function(org_id,id){
+											$scope.dashboard.setCloseRegisteration(org_id, id)
+										},
+										checkCloseRegisteration:function(id){
+											return $scope.dashboard.checkCloseRegisteration(id)
+										},
+										disabledOrgcheckCloseRegisteration: function(org_tag){
+											return $scope.dashboard.disabledOrgcheckCloseRegisteration(org_tag)
+										}
+									}
+								}]
+							}]
+					},{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
@@ -560,18 +588,72 @@ angular.module('ngmReportHub')
 						}
 					});
 			},
+			setCloseRegisteration:function(org_id,id){
+				var closed_registration_value = false;
+				if (document.getElementById(id).checked) {
+					closed_registration_value = true;
+				}
+				M.toast({ html: 'Processing... !', displayLength: 4000, classes: 'note' });
+				index = $scope.list_organization.findIndex(x => x.id === org_id)
+
+				var org = $scope.list_organization[index];
+				
+
+				$http({
+					method: 'POST',
+					url: ngmAuth.LOCATION + '/api/setOrganizationAttributes',
+					data: {
+						organization: {
+							id : org_id,
+							closed_registration: closed_registration_value
+						}
+					}
+				}).success(function (result) {
+						$scope.list_organization[index] = result[0];
+						M.toast({ html: 'Succeessfully updated... !', displayLength: 4000, classes: 'success' });
+					
+					// success!
+				}).error(function (err) {
+					// Materialize.toast( 'ACBAR Partner Organization Error!', 6000, 'error' );
+					M.toast({ html: 'Close Registeration Failed !', displayLength: 6000, classes: 'error' });
+				});
+
+			},
+			checkCloseRegisteration:function(id){
+				var z = $scope.list_organization.filter(x=>x.id === id)
+				if(z.length){
+					return z[0].closed_registration ? true: false;
+				}
+				
+			},
+			disabledOrgcheckCloseRegisteration:function(orgonization_tag){
+				var canEdit = ngmAuth.canDo('EDIT_ORGANIZATION', { organization_tag: orgonization_tag})
+				var disabled = !canEdit
+				
+				return disabled
+			},
 			btnManageAccessDisabled: false
 
 		}
 
 		// set path, menu and init
 		$scope.dashboard.setPath( $scope.dashboard.getPath() );
+		ngmData.get({
+			method: 'POST',
+			url: ngmAuth.LOCATION + '/api/getTeamOrganizationsByFilter',
+			data: {
+				filter: { adminRpcode: $scope.$parent.ngm.getUser().adminRpcode.toLowerCase(), admin0pcode: $scope.$parent.ngm.getUser().admin0pcode.toLowerCase() }
+			}
+		}).then(function (result) {
+			$scope.list_organization = result;
+		})
 		$scope.dashboard.setMenu();
 		$scope.dashboard.init();
 		$scope.$on('$locationChangeSuccess', function (evt, absNewUrl, absOldUrl) {
 			var absOldUrl = absOldUrl.substring(absOldUrl.indexOf("/#") + 1);
 			$rootScope.teamPreviouseUrl = absOldUrl;
 		})
+
 		
 		
 	}]);

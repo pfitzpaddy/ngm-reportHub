@@ -302,6 +302,11 @@
 				
 						</ul>
 					</div>
+					<!-- performance statistic -->
+					<li class="teal z-depth-2 mobile" ng-show="ngm.getUserName() !== 'welcome'">
+						<a class="white-text right" href="#/performance/">
+							<i class="material-icons smedium right">show_chart</i>PERFORMANCE</a>
+					</li>
 					<!-- contact modal -->
 					<li align="center" class="teal z-depth-2 mobile">
 						<a class="white-text right" ng-click="ngm.contact();">
@@ -811,6 +816,11 @@
 							
 									</ul>
 								</div>
+								<!-- performance statistic -->
+								<li class="teal z-depth-2 mobile" ng-show="ngm.getUserName() !== 'welcome'">
+									<a class="white-text right" href="#/performance/">
+										<i class="material-icons smedium right">show_chart</i>PERFORMANCE</a>
+								</li>
 								<!-- contact modal -->
 								<li align="center" class="teal z-depth-2">
 									<a class="white-text right" ng-click="ngm.contact(); ngm.toggleNavigationMenu()">
@@ -978,6 +988,7 @@
 		<script src="scripts/app/controllers/admin/controller.forbidden.js"></script>
 		<script src="scripts/app/controllers/admin/controller.profile.js"></script>
 		<script src="scripts/app/controllers/admin/controller.team.js"></script>
+		<script src="scripts/app/controllers/admin/controller.pending.js"></script>
 		<!-- help guide -->
 		<script src="scripts/app/controllers/guides/controller.guide.menu.js"></script>
 		<script src="scripts/app/controllers/guides/controller.guide.feedback.js"></script>
@@ -1072,6 +1083,7 @@
 		<script src="scripts/modules/cluster/dashboards/health/dashboard.hct.js"></script>
 		<script src="scripts/modules/cluster/dashboards/health/dashboard.health.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.syria.dashboard.js"></script>
+		<script src="scripts/modules/cluster/dashboards/dashboard.performance.js"></script>
 		<!-- services -->
 		<script src="scripts/modules/cluster/dashboards/services/ngmHctHelper.js"></script>
 
