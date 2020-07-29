@@ -215,7 +215,7 @@
 															beneficiary.activity_detail_id === 'latrine_rehabilitation_emergency'">
 
 			<div class="input-field col s12 m6">
-				<select id="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
+				<select materialize-select id="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
 									name="gender_marking"
 									class="validate"
 									ng-options="type.gender_marking_id as 
@@ -236,7 +236,7 @@
 			</div>
 
 			<div class="input-field col s12 m6">
-				<select id="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
+				<select materialize-select id="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
 									name="lock_installation"
 									class="validate"
 									ng-options="type.lock_installation_id as 
@@ -265,7 +265,7 @@
 															beneficiary.activity_detail_id === 'latrine_lock_installation_emergency'">
 
 			<div class="input-field col s12">
-				<select id="ngm-facility_status-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
+				<select materialize-select id="ngm-facility_status-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
 									name="gender_marking"
 									class="validate"
 									ng-options="type.facility_status_id as 
@@ -291,7 +291,7 @@
 		<div class="row" ng-if="beneficiary.activity_detail_id === 'latrine_desludging_manual'">
 
 			<div class="input-field col s12 m6">
-				<select id="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
+				<select materialize-select id="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
 									name="stipend"
 									class="validate"
 									ng-options="type.stipend_id as 
