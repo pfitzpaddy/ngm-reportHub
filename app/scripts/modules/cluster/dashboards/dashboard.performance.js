@@ -381,7 +381,21 @@ angular.module('ngmReportHub')
                                         }
                                     }]
                                 }]
-                        }]
+                            }, {
+                                columns: [{
+                                    styleClass: 's12 m12 l12',
+                                    widgets: [{
+                                        type: 'html',
+                                        card: 'card-panel',
+                                        style: 'padding:0px; height: 90px; padding-top:10px;',
+                                        config: {
+                                            templateUrl: '/scripts/widgets/ngm-html/template/footer.html',
+                                            lightPrimaryColor: $scope.ngm.style.lightPrimaryColor,
+                                            defaultPrimaryColor: $scope.ngm.style.defaultPrimaryColor,
+                                        }
+                                    }]
+                                }]
+                            }]
                     }
                 }
 
@@ -402,7 +416,14 @@ angular.module('ngmReportHub')
                     $scope.dashboard.hrp = $route.current.params.hrp
                     $scope.dashboard.setMenu();
                     $scope.dashboard.ngm.dashboard.model = $scope.model;
+                    
                 });
+            $scope.$on('$includeContentLoaded', function (eve, htmlpath) {
+                if ($rootScope.$broadcast("preload",{show:true}))
+                if (htmlpath === '/scripts/widgets/ngm-html/template/performance.html'){
+                    $rootScope.$broadcast("preload", { show: false });
+                }
+            });
 
                 
            

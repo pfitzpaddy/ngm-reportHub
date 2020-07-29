@@ -48,6 +48,15 @@ angular.module('ngm.widget.html', ['ngm.provider'])
     'data', 
     'config',
     function($scope, $sce, $element, $location, $timeout, ngmAuth, data, config){
+      // preload
+      $scope.preload = false;
+      $scope.$on("preload", function (event,obj) { 
+        if(obj.show){
+          $scope.preload = true;
+        }else{
+          $scope.preload = false;
+        }
+      });
     
       // statistics widget default config
       $scope.panel = {
