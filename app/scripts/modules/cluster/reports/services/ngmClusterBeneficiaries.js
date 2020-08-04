@@ -608,7 +608,7 @@ angular.module( 'ngmReportHub' )
 				} else {
 					// remove if exists
 					if ( beneficiary.details ) {
-						beneficiary.details = [];
+						// beneficiary.details = [];
 					}
 				}
 
