@@ -117,7 +117,7 @@
 															beneficiary.activity_detail_id === 'shower_rehabilitation_mid_term'">
 
 			<div class="input-field col s12 m6">
-      	<select id="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}" 
+      	<select materialize-select id="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}" 
 	      					name="gender_marking"
 	      					class="validate"
 	      					ng-options="type.gender_marking_id as 
@@ -138,7 +138,7 @@
 			</div>
 
 			<div class="input-field col s12 m6">
-      	<select id="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}" 
+      	<select materialize-select id="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}" 
 	      					name="lock_installation"
 	      					class="validate"
 	      					ng-options="type.lock_installation_id as 
@@ -167,7 +167,7 @@
 															beneficiary.activity_detail_id === 'shower_lock_installation_mid_term'">
 
 			<div class="input-field col s12">
-				<select id="ngm-facility_status-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}" 
+				<select materialize-select id="ngm-facility_status-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}" 
 									name="gender_marking"
 									class="validate"
 									ng-options="type.facility_status_id as 

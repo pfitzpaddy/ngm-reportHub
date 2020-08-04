@@ -164,7 +164,8 @@ angular.module( 'ngmReportHub' )
 					transfer_category_name: ''
 				},
 				array_inputs: {
-					response: []
+					response: [],
+					details: []
 				}
 			},
 
@@ -515,7 +516,7 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// clear
-				if ( beneficiary.details && beneficiary.details.length ) {
+				if ( ngmClusterBeneficiaries.form[ $parent ][ $index ][ 'display_details' ] && ngmClusterBeneficiaries.form[ $parent ][ $index ][ 'details' ] && ngmClusterBeneficiaries.form[ $parent ][ $index ][ 'details' ].length ) {
 					beneficiary.details = [{}];
 					ngmClusterDetails.setList( ngmClusterBeneficiaries.form[ $parent ][ $index ].details, $parent, $index, 0, '', [{}] );
 				}
