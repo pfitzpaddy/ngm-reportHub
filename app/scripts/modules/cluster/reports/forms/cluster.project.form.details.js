@@ -456,6 +456,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$scope.project.definition.project_details.push(selected[0]);
 
 						if (id === 'acbar_partner'){
+							$scope.project.definition.project_acbar_partner = true;
 							$scope.project.updateAcbarOrganization();
 						}
 
@@ -464,6 +465,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							index = $scope.project.definition.project_details.findIndex(value => value.project_detail_id === id);
 							if(index>-1){
 								$scope.project.definition.project_details.splice(index,1);
+								if (id === 'acbar_partner'){
+									$scope.project.definition.project_acbar_partner = false;
+								}
 							}
 						}else{
 							$scope.project.definition.project_details = [];
