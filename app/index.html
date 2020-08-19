@@ -9,10 +9,10 @@
 		<meta name="url" property="og:url" content="https://reporthub.org" />
 		<meta name="image" property="og:image" content="https://reporthub.org/desk/images/log-in.png" />
 		<meta name="author" property="og:author" content="Patrick Fitzgerald, Timur Kilkeiev, Fakhri Hawari" />
-		
+
 		<!-- title -->
 		<title id="title">ReportHub</title>
-		
+
 		<!-- configured in webserver -->
 		<base href="/desk/">
 		<meta name="viewport" content="width=device-width">
@@ -69,7 +69,7 @@
 			<div class="modal-content">
 				<div align="center" ng-include src="'views/modals/loading.html'"></div>
 			</div>
-		</div>	
+		</div>
 
 		<!-- contact modal -->
 		<div id="ngm-contact-modal" class="modal" style="width: 55%;">
@@ -79,8 +79,8 @@
 		<!-- session expire modal -->
 		<div id="ngm-session-modal" class="modal">
 			<div align="center" ng-include src="'views/modals/session.html'"></div>
-		</div>	
-		
+		</div>
+
 		<!--[if lte IE 8]>
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
@@ -109,7 +109,7 @@
 
 			<ul id="nav-mobile" class="sidenav sidenav-fixed hide-on-large-only">
 				<div class="ngm-brand">
-				
+
 					<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:20px;"></div>
 					<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:140px;">
 						<div>
@@ -123,7 +123,7 @@
 										<i class="ngm-profile-icon material-icons smedium right" style="line-height: 56px">keyboard_arrow_down</i>
 									</a>
 								</div>
-								
+
 								<a class="ngm-profile white-text right"
 									ng-onclick="ngm.setNavMenu()">
 									{{ ngm.getUserName() }}
@@ -139,13 +139,13 @@
 						<a class="white-text right" href="#/immap/login" ng-click="ngm.toggleNavigationMenu();">
 							<i class="material-icons smedium right">lock_outline</i>{{'login_mayus' | translate}}</a>
 					</li>
-				
+
 					<!-- user login -->
 					<li align="right" class="teal z-depth-2 mobile" ng-show="ngm.getUserName() === 'welcome' && ngm.style.home !== '#/immap'">
 						<a class="white-text right" href="#/cluster/login">
 							<i class="material-icons smedium right">lock_outline</i>{{'login_mayus' | translate}}</a>
 					</li>
-				
+
 					<!-- user logout -->
 					<li class="teal z-depth-2 mobile" ng-show="ngm.getUserName() !== 'welcome'">
 						<a class="white-text right" ng-click="ngm.logout();">
@@ -164,15 +164,15 @@
 						<ul>
 							<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-repeat="lang in ngm.getLanguage">
 								<a class="" ng-click="ngm.changeFunction( lang.language_id );">{{ lang.language_name }}</a>
-				
+
 								<div style="position:absolute;top:9px;right: 20px" ng-click="ngm.changeFunction( lang.language_id );">
 									<img style="width: 32px;height: 32px;" ng-src="images/{{lang.flag}}">
 								</div>
-				
+
 							</li>
 						</ul>
 					</div>
-				
+
 					<!-- home page -->
 					<li align="center" class="teal z-depth-2 mobile" ng-show="ngm.getUserName() !== 'welcome'">
 						<a class="white-text right" ng-click="ngm.openHome= !ngm.openHome;">
@@ -216,7 +216,7 @@
 							</li>
 						</ul>
 					</div>
-				
+
 					<!-- Dashboard -->
 					<li align="center" class="teal z-depth-2 mobile">
 						<a class="white-text right" ng-click="ngm.openDashboard= !ngm.openDashboard;">
@@ -233,9 +233,9 @@
 									<i class="material-icons small right">move_to_inbox</i>PROJECTS ADMIN</a>
 							</li>
 							<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'"
-								ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
+								ng-show="ngm.getUser().organization.toLowerCase() === 'immap' ||
 																																							ngm.getUser().organization.toLowerCase() === 'moph' ||
-																																							ngm.getUser().organization.toLowerCase() === 'who' || 
+																																							ngm.getUser().organization.toLowerCase() === 'who' ||
 																																							ngm.getUser().organization.toLowerCase() === 'dews'">
 								<a href="#/epr/admin" >
 									<i class="material-icons small right">assignment_turned_in</i>EPR ADMIN</a>
@@ -252,29 +252,29 @@
 									>
 									<i class="material-icons small right">bubble_chart</i>{{'4WDASHBOARD' | translate}}</a>
 							</li>
-				
+
 							<li style="position: relative;border-bottom: 1px solid #f1f1f1">
 								<a href="#/cluster/dashboard4wplus"
 									>
 									<i class="material-icons small right">bubble_chart</i>{{'activities_dashboard' | translate}}</a>
 							</li>
-				
+
 							<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode !== 'COL'">
 								<a href="#/cluster/5w" >
 									<i class="material-icons small right">bubble_chart</i>{{'5WDASHBOARD_mayus' |translate}}</a>
 							</li>
 							<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'"
-								ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
-																																																ngm.getUser().organization.toLowerCase() === 'moph' || 
-																																																ngm.getUser().organization.toLowerCase() === 'who' || 
+								ng-show="ngm.getUser().organization.toLowerCase() === 'immap' ||
+																																																ngm.getUser().organization.toLowerCase() === 'moph' ||
+																																																ngm.getUser().organization.toLowerCase() === 'who' ||
 																																																ngm.getUser().organization.toLowerCase() === 'dews'||
 																																																ngm.getUser().organization.toLowerCase() === 'usaid'">
 								<a href="#/epr" >
 									<i class="material-icons small right">bubble_chart</i>EPR DASHBOARD</a>
 							</li>
 							<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'"
-								ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
-																																																ngm.getUser().organization.toLowerCase() === 'who' || 
+								ng-show="ngm.getUser().organization.toLowerCase() === 'immap' ||
+																																																ngm.getUser().organization.toLowerCase() === 'who' ||
 																																																ngm.getUser().organization.toLowerCase() === 'dews'">
 								<a href="#/who/" >
 									<i class="material-icons small right">bubble_chart</i>DEWS DASHBOARD</a>
@@ -286,8 +286,8 @@
 									>
 									<i class="material-icons small right">bubble_chart</i>{{'drought' | translate}} DASHBOARD</a>
 							</li>
-				
-							<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-show="ngm.getUserName() !== 'welcome' && 
+
+							<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-show="ngm.getUserName() !== 'welcome' &&
 																																							ngm.getUser().admin0pcode.toLowerCase() === 'et' &&
 																																							ngm.getUser().organization.toLowerCase() === 'who'">
 								<a href="#/who/ethiopia" >
@@ -299,7 +299,7 @@
 								<a href="#/immap" >
 									<i class="material-icons small right">important_devices</i>{{'immap_home' | translate}}</a>
 							</li>
-				
+
 						</ul>
 					</div>
 					<!-- performance statistic -->
@@ -314,7 +314,7 @@
 							{{ngm.var4wplusrh}}</span>
 						</a>
 					</li>
-				
+
 				</ul>
 
 					<ul class="ngm-navigation-menu collapsible popout" style="display: none; padding-bottom: 50px;"
@@ -334,15 +334,15 @@
 							</nav>
 							<div class="collapsible-body">
 								<div class="collection" ng-repeat="row in list.rows | filter:ngm.menu.query[list.id] track by $index">
-								
+
 									<a ng-if="row.href" href="{{ row.href }}" id="{{ row.id }}" class="collection-item {{ row.class }}"
 										ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }"
 										ng-bind-html="row.title" ng-cloak></a>
-								
+
 									<a ng-if="!row.href" id="{{ row.id }}" class="collection-item {{ row.class }}"
 										ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }"
 										ng-bind-html="row.title" ng-cloak></a>
-								
+
 								</div>
 							</div>
 						</li>
@@ -355,16 +355,16 @@
 
 			<!-- side navigation -->
 			<div class="ngm-menu z-depth-1 hide-on-med-and-down" ng-cloak>
-				
+
 				<!-- profile menu -->
 				<!-- <div class="ngm-brand z-depth-1"> -->
 				<div class="ngm-brand">
 					<!-- <div style="background: {{ ngm.style.darkPrimaryColor }}; height:20px;"></div>
 					<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:140px;"> -->
-					
+
 					<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:20px;"></div>
 					<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:140px;">
-		
+
 						<!-- logo -->
 						<!-- add logic here for homepage -->
 						<!-- <div class="right">
@@ -391,8 +391,8 @@
 															</div> -->
 								<i class="minimize-menu material-icons right">menu</i>
 							</a>
-							<!-- <div class="textMenu"style="color: #fff !important;font-size: 12px;padding-right: 10px"> 
-															{{ngm.openMinimize ? 'CLOSE':'MENU'}} 
+							<!-- <div class="textMenu"style="color: #fff !important;font-size: 12px;padding-right: 10px">
+															{{ngm.openMinimize ? 'CLOSE':'MENU'}}
 														</div> -->
 						</div>
 						<!-- profile menu btn (implementing jQuery slideToggle() )-->
@@ -414,7 +414,7 @@
 									<i class="ngm-profile-icon material-icons smedium right" style="line-height: 56px">keyboard_arrow_down</i>
 								</a>
 							</div>
-							
+
 							<!-- profile menu dropdown -->
 							<!-- <a class="ngm-profile white-text right" -->
 							<a class="ngm-profile white-text right"
@@ -424,23 +424,23 @@
 							<!-- profile menu dropdown list -->
 							<!-- <ul class="ngm-profile-menu-content dropdown-content z-depth-2">
 
-									<li align="center" class="teal z-depth-2" 
+									<li align="center" class="teal z-depth-2"
 											ng-init="open = false;ngm.setLanguage('col')"
 
 											ng-show="ngm.getUsername() === 'welcome' || (ngm.translate_version )">
-										<a class="white-text right" ng-click="open= !open;"> 
+										<a class="white-text right" ng-click="open= !open;">
 											<i class="material-icons smedium right">translate</i>{{'language'|translate}}</a>
-										</a>										
+										</a>
 									</li>
 									<div ng-if="open" style="margin-bottom: 5px; background-color: #fff">
 										<ul>
 											<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-repeat="lang in ngm.getLanguage">
 												<a class="" ng-click="ngm.changeFunction( lang.language_id );">{{ lang.language_name }}</a>
-											
+
 												<div style="position:absolute;top:9px;right: 20px" ng-click="ngm.changeFunction( lang.language_id );">
 													<img style="width: 32px;height: 32px;" ng-src="images/{{lang.flag}}">
 												</div>
-											
+
 											</li>
 										</ul>
 									</div> -->
@@ -466,7 +466,7 @@
 									</li> -->
 
 									<!-- home page -->
-									<!-- <li align="center" class="teal z-depth-2" 
+									<!-- <li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/organization" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">home</i>{{'my_home' | translate}}</a>
@@ -475,7 +475,7 @@
 									<!-- iMMAP HOME -->
 									<!-- <li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization === 'iMMAP'">
-										<a class="white-text right" href="#/immap" 
+										<a class="white-text right" href="#/immap"
 												ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">important_devices</i>{{'immap_home' | translate}}</a>
 									</li> -->
@@ -496,7 +496,7 @@
 									<!-- 4w Dashboard -->
 									<!-- <li align="center" class="teal z-depth-2">
 										<a class="white-text right" href="#/cluster/4wprojectplan" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">bubble_chart</i>{{'4WDASHBOARD' | translate}}</a> 
+										<i class="material-icons smedium right">bubble_chart</i>{{'4WDASHBOARD' | translate}}</a>
 									</li> -->
 
 									<!-- TEAM -->
@@ -514,32 +514,32 @@
 									</li> -->
 
 									<!-- my projects -->
-									<!-- <li  align="center" class="teal z-depth-2" 
+									<!-- <li  align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/projects/list" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">zoom_in</i>{{'my_projects' | translate}}</a>
 									</li> -->
 
 									<!-- my STOCKS -->
-									
+
 
 									<!-- PRODUCTS -->
 									<!-- <li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization === 'iMMAP'">
-										<a class="white-text right" href="#/immap/products" 
+										<a class="white-text right" href="#/immap/products"
 												ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">crop_original</i>{{'my_products' | translate}}</a>
 									</li> -->
 
 									<!-- assessments -->
-									<!-- <li align="center" class="teal z-depth-2" 
-										ng-show="ngm.getUserName() !== 'welcome' && 
+									<!-- <li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome' &&
 															ngm.getUser().admin0pcode.toLowerCase() === 'et' &&
 															ngm.getUser().organization.toLowerCase() === 'who'">
 										<a class="white-text right" href="#/who/ethiopia" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">assignment_late</i>{{'assessments_mayus' | translate}}</a>
 									</li>
-									<li  align="center" class="teal z-depth-2" 
+									<li  align="center" class="teal z-depth-2"
 										ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'"
 										ng-show="ngm.getUser().cluster_id.toLowerCase() === 'nutrition'||
 														 ngm.getUser().organization.toLowerCase() === 'usaid'">
@@ -550,27 +550,27 @@
 									<!-- EPR -->
 									<!-- <li  align="center" class="teal z-depth-2"
 										ng-if="ngm.getUser().admin0pcode === 'AF'"
-										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
+										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' ||
 															ngm.getUser().organization.toLowerCase() === 'moph' ||
-															ngm.getUser().organization.toLowerCase() === 'who' || 
+															ngm.getUser().organization.toLowerCase() === 'who' ||
 															ngm.getUser().organization.toLowerCase() === 'dews'">
 										<a class="white-text right" href="#/epr/admin" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">assignment_turned_in</i>EPR ADMIN</a>
 									</li>
 									<li  align="center" class="teal z-depth-2"
 										ng-if="ngm.getUser().admin0pcode === 'AF'"
-										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
-															ngm.getUser().organization.toLowerCase() === 'moph' || 
-															ngm.getUser().organization.toLowerCase() === 'who' || 
+										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' ||
+															ngm.getUser().organization.toLowerCase() === 'moph' ||
+															ngm.getUser().organization.toLowerCase() === 'who' ||
 															ngm.getUser().organization.toLowerCase() === 'dews'||
 															ngm.getUser().organization.toLowerCase() === 'usaid'">
 										<a class="white-text right" href="#/epr" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">bubble_chart</i>EPR DASHBOARD</a>
 									</li>
-									<li  align="center" class="teal z-depth-2" 
+									<li  align="center" class="teal z-depth-2"
 										ng-if="ngm.getUser().admin0pcode === 'AF'"
-										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
-															ngm.getUser().organization.toLowerCase() === 'who' || 
+										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' ||
+															ngm.getUser().organization.toLowerCase() === 'who' ||
 															ngm.getUser().organization.toLowerCase() === 'dews'">
 										<a class="white-text right" href="#/who/" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">bubble_chart</i>DEWS DASHBOARD</a>
@@ -589,13 +589,13 @@
 										<i class="material-icons smedium right">help_outline</i>USER GUIDES</a>
 									</li> -->
 
-									<!-- <li  align="center" class="teal z-depth-2" 
+									<!-- <li  align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/stocks" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">assignment_turned_in</i>{{'my_stocks' | translate}}</a>
 									</li>
 
-									<li  align="center" class="teal z-depth-2" 
+									<li  align="center" class="teal z-depth-2"
 										ng-if="ngm.getUser().admin0pcode === 'AF'"
 										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || ngm.getUser().organization.toLowerCase() === 'who' || ngm.getUser().organization.toLowerCase() === 'dews'">
 										<a class="white-text right" href="#/who/" ng-click="ngm.toggleNavigationMenu();">
@@ -608,11 +608,11 @@
 										<i class="material-icons smedium right">perm_phone_msg</i>{{'contact_mayus' | translate}} {{ngm.var4wplusrh}}</span></a>
 									</li>
 
-									
 
-									
 
-									
+
+
+
 
 							</ul> -->
 
@@ -622,13 +622,13 @@
 									<a class="white-text right" href="#/immap/login" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">lock_outline</i>{{'login_mayus' | translate}}</a>
 								</li>
-								
+
 								<!-- user login -->
 								<li align="right" class="teal z-depth-2" ng-show="ngm.getUserName() === 'welcome' && ngm.style.home !== '#/immap'">
 									<a class="white-text right" href="#/cluster/login" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">lock_outline</i>{{'login_mayus' | translate}}</a>
 								</li>
-								
+
 								<!-- user logout -->
 								<li class="teal z-depth-2" ng-show="ngm.getUserName() !== 'welcome'">
 									<a class="white-text right" ng-click="ngm.logout();">
@@ -645,14 +645,14 @@
 									<ul>
 										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-repeat="lang in ngm.getLanguage">
 											<a class="" ng-click="ngm.changeFunction( lang.language_id );">{{ lang.language_name }}</a>
-							
+
 											<div style="position:absolute;top:9px;right: 20px" ng-click="ngm.changeFunction( lang.language_id );">
 												<img style="width: 32px;height: 32px;" ng-src="images/{{lang.flag}}">
 											</div>
-							
+
 										</li>
 									</ul>
-								</div>								
+								</div>
 
 								<!-- home page -->
 								<li align="center" class="teal z-depth-2" ng-show="ngm.getUserName() !== 'welcome'" >
@@ -693,10 +693,10 @@
 										</li>
 									</ul>
 								</div>
-								
+
 								<!-- MY ADMIN/MASTER -->
 								<li align="center" class="teal z-depth-2"
-									ng-show="ngm.getUserName() !== 'welcome' && 
+									ng-show="ngm.getUserName() !== 'welcome' &&
 																 (ngm.getUser().email === 'farifin@immap.org' || ngm.getUser().email === 'pfitzgerald@immap.org' || ngm.getUser().email ==='tkilkeiev@immap.org' )">
 									<a class="white-text right" ng-click="ngm.openAdmin= !ngm.openAdmin;">
 										<i class="material-icons smedium right">move_to_inbox</i>
@@ -755,9 +755,9 @@
 											<a href="#/cluster/admin/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
 												<i class="material-icons small right">move_to_inbox</i>PROJECTS ADMIN</a>
 										</li>
-										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'" ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'" ng-show="ngm.getUser().organization.toLowerCase() === 'immap' ||
 																																			ngm.getUser().organization.toLowerCase() === 'moph' ||
-																																			ngm.getUser().organization.toLowerCase() === 'who' || 
+																																			ngm.getUser().organization.toLowerCase() === 'who' ||
 																																			ngm.getUser().organization.toLowerCase() === 'dews'">
 											<a href="#/epr/admin" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
 												<i class="material-icons small right">assignment_turned_in</i>EPR ADMIN</a>
@@ -781,16 +781,16 @@
 											<a href="#/cluster/5w" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
 												<i class="material-icons small right">bubble_chart</i>{{'5WDASHBOARD_mayus' |translate}}</a>
 										</li>
-										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'" ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
-																																												ngm.getUser().organization.toLowerCase() === 'moph' || 
-																																												ngm.getUser().organization.toLowerCase() === 'who' || 
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'" ng-show="ngm.getUser().organization.toLowerCase() === 'immap' ||
+																																												ngm.getUser().organization.toLowerCase() === 'moph' ||
+																																												ngm.getUser().organization.toLowerCase() === 'who' ||
 																																												ngm.getUser().organization.toLowerCase() === 'dews'||
 																																												ngm.getUser().organization.toLowerCase() === 'usaid'">
 											<a href="#/epr" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
 												<i class="material-icons small right">bubble_chart</i>EPR DASHBOARD</a>
 										</li>
-										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'" ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
-																																												ngm.getUser().organization.toLowerCase() === 'who' || 
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'" ng-show="ngm.getUser().organization.toLowerCase() === 'immap' ||
+																																												ngm.getUser().organization.toLowerCase() === 'who' ||
 																																												ngm.getUser().organization.toLowerCase() === 'dews'">
 											<a href="#/who/" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
 												<i class="material-icons small right">bubble_chart</i>DEWS DASHBOARD</a>
@@ -800,8 +800,8 @@
 											<a href="#/response/afghanistan/drought" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
 												<i class="material-icons small right">bubble_chart</i>{{'drought' | translate}} DASHBOARD</a>
 										</li>
-							
-										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-show="ngm.getUserName() !== 'welcome' && 
+
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-show="ngm.getUserName() !== 'welcome' &&
 																																			ngm.getUser().admin0pcode.toLowerCase() === 'et' &&
 																																			ngm.getUser().organization.toLowerCase() === 'who'">
 											<a href="#/who/ethiopia" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
@@ -813,7 +813,7 @@
 											<a href="#/immap" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
 											<i class="material-icons small right">important_devices</i>{{'immap_home' | translate}}</a>
 										</li>
-							
+
 									</ul>
 								</div>
 								<!-- performance statistic -->
@@ -827,7 +827,7 @@
 										<i class="material-icons smedium right">perm_phone_msg</i>{{'contact_mayus' | translate}} {{ngm.var4wplusrh}}</span>
 									</a>
 								</li>
-							
+
 							</ul>
 						</div>
 					</div>
@@ -862,7 +862,7 @@
 					<!-- <div class="collapsible-body"  style="padding: 0;"> -->
 					<div class="collapsible-body" style="padding: 0px !important;">
 				      <div class="collection" ng-repeat="row in list.rows | filter:ngm.menu.query[list.id] track by $index">
-				      	
+
 				      	<a ng-if="row.href" href="{{ row.href }}"
 				      		id="{{ row.id }}"
 				      		class="collection-item {{ row.class }}"
@@ -900,9 +900,9 @@
 		<main id="ngm-report" ng-class="{'minim':!ngm.openMinimize}">
 			<div class="container">
 				<div id="print" class="expand row row-centered"  style="height:100%">
-					
+
 					<div ng-view autoscroll="false"></div>
-					
+
 				</div>
 			</div>
 		</main>
@@ -933,7 +933,7 @@
 		<!-- bower:js -->
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
-		
+
 		<script src="bower_components/angular-aria/angular-aria.js"></script>
 		<script src="bower_components/angular-material/angular-material.js"></script>
 		<script src="bower_components/angular-animate/angular-animate.js"></script>
@@ -966,9 +966,9 @@
 		<script src="bower_components/ng-table/dist/ng-table.min.js"></script>
 		<script src="bower_components/ng-csv/build/ng-csv.min.js"></script>
 		<script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
-		<script src="bower_components/jquery-animatescroll/dist/animatescroll.js"></script>		
+		<script src="bower_components/jquery-animatescroll/dist/animatescroll.js"></script>
 		<script src="bower_components/angular-translate/angular-translate.js"></script>
-		<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script> 
+		<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
 		<!-- endbower -->
 		<!-- endbuild -->
 
@@ -977,11 +977,11 @@
 		<!-- lib extras -->
 		<!-- app -->
 		<script src="scripts/app/app.js"></script>
-		<!-- services -->			
+		<!-- services -->
 		<script src="scripts/app/services/ngmHelper.js"></script>
 		<script src="scripts/app/services/ngmAuthentication.js"></script>
 		<!-- controllers -->
-		<script src="scripts/app/controllers/admin/controller.authentication.js"></script>		
+		<script src="scripts/app/controllers/admin/controller.authentication.js"></script>
 		<script src="scripts/app/controllers/admin/controller.login.js"></script>
 		<script src="scripts/app/controllers/admin/controller.register.js"></script>
 		<script src="scripts/app/controllers/admin/controller.reset.js"></script>
@@ -993,16 +993,16 @@
 		<script src="scripts/app/controllers/guides/controller.guide.menu.js"></script>
 		<script src="scripts/app/controllers/guides/controller.guide.feedback.js"></script>
 		<!-- ReportHub dashboard -->
-		<script src="scripts/app/dashboards/dashboard.reporthub.js"></script>		
-		
-		
+		<script src="scripts/app/dashboards/dashboard.reporthub.js"></script>
+
+
 		<!-- MODULES -->
-		
+
 		<!-- CLUSTER -->
 		<script src="scripts/modules/cluster/app.js"></script>
 		<!-- APP HOME -->
 		<script src="scripts/modules/cluster/reports/controllers/cluster.home.page.app.js"></script>
-		
+
 		<!-- REPORTING -->
 
 		<!-- DIRECTIVES -->
@@ -1010,7 +1010,7 @@
 		<script src="scripts/app/directives/materialize.datepicker.js"></script>
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/3.8.2/exceljs.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script> -->
-		
+
 		<!-- PROJECTS -->
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.projects.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.summary.js"></script>
@@ -1025,7 +1025,7 @@
 		<!-- MONTHLY -->
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.reports.list.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.reports.group.js"></script>
-		<script src="scripts/modules/cluster/reports/controllers/cluster.project.report.js"></script>		
+		<script src="scripts/modules/cluster/reports/controllers/cluster.project.report.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.details.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.financials.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.report.js"></script>
@@ -1048,7 +1048,7 @@
 
 		<!-- DETAILS -->
 		<script src="scripts/modules/cluster/reports/services/activity-details/ngmClusterDetails.js"></script>
-		
+
 		<!-- AF -->
 		<script src="scripts/modules/cluster/reports/services/AF/ngmClusterHelperAf.js"></script>
 		<!-- CB -->
@@ -1064,7 +1064,7 @@
 		<script src="scripts/modules/cluster/reports/services/NG/ngmClusterHelperNgWashKeys.js"></script>
 		<script src="scripts/modules/cluster/reports/services/NG/ngmClusterHelperNgWashLists.js"></script>
 		<script src="scripts/modules/cluster/reports/services/NG/ngmClusterHelperNgWashValidation.js"></script>
-		
+
 		<!-- STOCKS -->
 		<script src="scripts/modules/cluster/reports/forms/cluster.organization.form.stock.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.organization.form.stocks.list.js"></script>
@@ -1072,7 +1072,7 @@
 		<!-- CLUSTER DASHBOARDS -->
 		<script src="scripts/modules/cluster/dashboards/dashboard.admin.js"></script>
 		<script src="scripts/modules/cluster/dashboards/dashboard.cluster.js"></script>
-		
+
 		<!--new 4w projectplan-->
 		<script src="scripts/modules/cluster/dashboards/dashboard.4wprojectplan.js"></script>
 
@@ -1129,20 +1129,20 @@
 		<script src="scripts/modules/country/afghanistan/dews/app.js"></script>
 		<script src="scripts/modules/country/afghanistan/dews/upload/upload.dews.js"></script>
 		<script src="scripts/modules/country/afghanistan/dews/dashboards/dashboard.dews.js"></script>
-		
+
 		<!-- DRR -->
 		<script src="scripts/modules/country/afghanistan/drr/app.js"></script>
 		<script src="scripts/modules/country/afghanistan/drr/dashboards/dashboard.baseline.js"></script>
 		<script src="scripts/modules/country/afghanistan/drr/dashboards/dashboard.flood.risk.js"></script>
 		<script src="scripts/modules/country/afghanistan/drr/dashboards/dashboard.flood.forecast.js"></script>
-		
+
 		<!-- WATCHKEEPER -->
 		<script src="scripts/modules/immap/app.js"></script>
 		<script src="scripts/modules/immap/controllers/immap.home.js"></script>
 		<script src="scripts/modules/immap/controllers/immap.products.js"></script>
 		<script src="scripts/modules/immap/controllers/immap.products.new.js"></script>
 		<script src="scripts/modules/immap/dashboards/dashboard.watchkeeper.js"></script>
-		
+
 		<!-- NUTRITION -->
 		<script src="scripts/modules/country/afghanistan/nutrition/app.js"></script>
 		<script src="scripts/modules/country/afghanistan/nutrition/services/ngmNutritionHelper.js"></script>
@@ -1162,22 +1162,22 @@
 		<script src="scripts/modules/cluster/lists/cluster.list.admin.js"></script>
 		<script src="scripts/modules/cluster/lists/cluster.list.organizations.js"></script>
 		<script src="scripts/modules/cluster/lists/form/list.org.form.js"></script>
-		
+
 
 		<!-- endbuild -->
 
 
 		<!-- widgets -->
-		<script src="scripts/widgets/ngm-calHeatmap/calHeatmap.js"></script>		
+		<script src="scripts/widgets/ngm-calHeatmap/calHeatmap.js"></script>
 		<script src="scripts/widgets/ngm-dropzone/dropzone.js"></script>
-		<script src="scripts/widgets/ngm-highchart/highchart.js"></script>		
+		<script src="scripts/widgets/ngm-highchart/highchart.js"></script>
 		<script src="scripts/widgets/ngm-html/html.js"></script>
 		<script src="scripts/widgets/ngm-leaflet/leaflet.js"></script>
 		<script src="scripts/widgets/ngm-list/list.js"></script>
 		<script src="scripts/widgets/ngm-modal/modal.js"></script>
 		<script src="scripts/widgets/ngm-stats/stats.js"></script>
 		<script src="scripts/widgets/ngm-table/table.js"></script>
-		
+
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/3.8.2/exceljs.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
 		<script>
@@ -1186,6 +1186,8 @@
 				$('.sidenav').sidenav();
 			});
 		</script>
-
+		<!-- Start of HubSpot Embed Code -->
+		<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8304831.js"></script>
+		<!-- End of HubSpot Embed Code -->
 	</body>
 </html>
