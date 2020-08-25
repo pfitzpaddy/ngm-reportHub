@@ -178,7 +178,7 @@ angular.module( 'ngmReportHub' )
 				// show distribution date
 				initActivityDate: function( report, beneficiary ){
 					// set values
-					if ( !beneficiary.activity_start_date ) {
+					if ( !beneficiary.activity_start_date && !beneficiary.id ) {
 						beneficiary.activity_status = 'ongoing';
 						beneficiary.activity_start_date = moment( report.reporting_period ).startOf( 'M' ).format( 'YYYY-MM-DD' );
 						beneficiary.activity_end_date = '';
@@ -195,9 +195,13 @@ angular.module( 'ngmReportHub' )
 				},
 				// activity start date, end date
 				activityStartOnClose: function( location, $beneficiaryIndex, $index, value ) {
-					location.beneficiaries[ $beneficiaryIndex ].activity_start_date = moment( new Date( value ) ).format( 'YYYY-MM-DD' );
-					if ( moment().format( 'YYYY-MM-DD' ) >= moment( location.beneficiaries[ $beneficiaryIndex ].activity_start_date ).format( 'YYYY-MM-DD' ) ) {
-						location.beneficiaries[ $beneficiaryIndex ].activity_status = 'ongoing';
+					if ( value ){
+						location.beneficiaries[ $beneficiaryIndex ].activity_start_date = moment( new Date( value ) ).format( 'YYYY-MM-DD' );
+						if ( moment().format( 'YYYY-MM-DD' ) >= moment( location.beneficiaries[ $beneficiaryIndex ].activity_start_date ).format( 'YYYY-MM-DD' ) ) {
+							location.beneficiaries[ $beneficiaryIndex ].activity_status = 'ongoing';
+						} else {
+							location.beneficiaries[ $beneficiaryIndex ].activity_status = 'planned';
+						}
 					} else {
 						location.beneficiaries[ $beneficiaryIndex ].activity_status = 'planned';
 					}
