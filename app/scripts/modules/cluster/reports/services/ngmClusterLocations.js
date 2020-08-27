@@ -17,6 +17,7 @@ angular.module( 'ngmReportHub' )
       // open new locaiton form in monthly report 
       openNewLocation: function( project, locations ) {
         ngmClusterLocations.new_location = ngmClusterLocations.addLocation( project.definition, locations );
+        ngmClusterLocations.new_location.target_location_reference_id = ngmClusterLocations.new_location.project_id
         // set adminSitesSelect
         angular.forEach( project.report.locations, function( d, i ) {
           if ( !project.lists.adminSitesSelect[ i ] ) {
