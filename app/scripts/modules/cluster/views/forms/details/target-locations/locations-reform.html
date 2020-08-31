@@ -27,7 +27,42 @@
         color: rgba(0, 0, 0, 0.87);
     }
 </style>
+<div id="custom-location-group-modal" class="modal">
+    <div class="modal-content dialog">
+        <h4 class="header-modal teal lighten-2"><i class="material-icons left small">info_outline</i>Change Custom
+            Grouping</h4>
+        
+        <div class="row" style="margin-left: 10px;margin-right:10px;">
+            <div class="col s4" ng-repeat="g in project.definition.location_groups track by $index">
+                <label>
+                    <input type="checkbox" class="filled-in" id={{role}} value={{role}}
+                        ng-checked="g.location_group_id === editedLocation.location_group_id"
+                        ng-click="project.changeCustomLocationGroup(g,editedLocation)" />
+                    <span style="color: #000000; font-weight: 500;">{{g.location_group_name}}</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a ng-click="project.saveChangeCustomLocation()" class=" modal-action modal-close waves-effect waves-green btn">{{'yes'|translate}}</a>
+        <a class="modal-close waves-effect waves-green btn-flat">{{'cancel_mayus' | translate}}</a>
+    </div>
+</div>
+<div id="notif-deleted-group" class="modal">
+    <div class="modal-content dialog">
+        <h4 class="header-modal teal lighten-2"><i class="material-icons left small">info_outline</i> Delete
+            Group?</h4>
+        <p>Are you sure want to delete this group?</p>
+        <p>If You delete this Group, All Location that assigned to this group will be moved to default custom group </p>
+        <p> Click Yes if you aggree </p>
 
+    </div>
+    <div class="modal-footer">
+        <a ng-click="project.removeLocationGroupingCustom(indexGroupDeleted)"
+            class=" modal-action modal-close waves-effect waves-green btn">{{'yes'|translate}}</a>
+        <a class="modal-close waves-effect waves-green btn-flat">{{'cancel_mayus' | translate}}</a>
+    </div>
+</div>
 <div class="row" window-size>
     <div class="col s12 m12 l12">
         <div class="card">
@@ -55,6 +90,89 @@
                     <p id="ngm-target_locations" style="padding:10px;">
                         {{'enter_the_target_locations_of_your_project_in_the_form_below' | translate}};
                     </p>
+
+                    <!-- GROUP LOCATION -->
+                    <div ng-if="project.definition.target_locations.length && project.definition.admin0pcode === 'AF'">
+                        <div class="row">
+                            <div class="input-field col s12 m6 l6">
+                                <label class="active">Group Location ?</label>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 20px; margin-left:0px;margin-right:0px;
+                    										border: 1px dotted rgb(158, 158, 158);">
+                            <div class="input-field col s12 m4 l4">
+                                <p ng-if="true" style="padding-left:12px;cursor:pointer;">
+                                    <label class="checkbox-label" for="show_location_groupings_by_admin1pcode">
+                                        <input type="checkbox" class="filled-in" id="show_location_groupings_by_admin1pcode"
+                                            ng-checked="project.checkedLocationGroupingBy('admin1pcode')"
+                                            ng-click="project.showLocationGroupingsModal( $event,'admin1pcode' )" />
+                                        <span style="color:#757575 font-size: 1.2rem;">Group Target Locations by {{project.definition.admin0pcode === 'ET'?'Region':'Province'}}</span>
+                                    </label>
+                                </p>
+                            </div>
+                            <div class="input-field col s12 m4 l4">
+                                <p ng-if="true" style="padding-left:12px;cursor:pointer;">
+                                    <label class="checkbox-label" for="show_location_groupings_by_admin2pcode">
+                                        <input type="checkbox" class="filled-in" id="show_location_groupings_by_admin2pcode"
+                                            ng-checked="project.checkedLocationGroupingBy('admin2pcode')"
+                                            ng-click="project.showLocationGroupingsModal( $event,'admin2pcode' )" />
+                                        <span style="color:#757575 font-size: 1.2rem;">Group Target Locations by {{project.definition.admin0pcode === 'ET'?'Zone':'District'}}</span>
+                                    </label>
+                                </p>
+                            </div>
+                            <div class="input-field col s12 m4 l4">
+                                <p ng-if="true" style="padding-left:12px;cursor:pointer;">
+                                    <label class="checkbox-label" for="show_location_groupings_by_custom">
+                                        <input type="checkbox" class="filled-in" id="show_location_groupings_by_custom"
+                                            ng-checked="project.checkedLocationGroupingBy('custom')"
+                                            ng-click="project.showLocationGroupingsModal( $event,'custom' )" />
+                                        <span style="color:#757575 font-size: 1.2rem;">Group Target Locations Custom</span>
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card-panel" ng-if="project.definition.location_grouping_by === 'custom'">
+                            <div class="row" ng-repeat="group in project.definition.location_groups track by $index" ng-init="$groupIndex=$index">
+                                <div class="col s12 m1" style="text-align:right;">
+                                    <p style="font-size:16px; padding-top:26px;"> Group </p>
+                                </div>
+
+                                <div class="input-field col s12 m4">
+                                    <input id="group-name-{{$groupIndex}}" type="text" placeholder=""
+                                        ng-model="group.location_group_name" class="validate" 
+                                        ng-change="ngmClusterBeneficiaries.inputChange( 'group-name-{{$groupIndex}}' )"
+                                        ng-disabled="group.location_group_name === 'Default Custom'"
+                                        >
+                                    <label for="group-name-{{$groupIndex}}" class="active"
+                                        style="">Group Name*</label>
+                                </div>
+                                <!-- <div class="input-field col s12 m4">
+                                    <input id="group-type-{{$groupIndex}}" type="text" placeholder=""
+                                        ng-model="group.location_group_type" class="validate" 
+                                        ng-change="ngmClusterBeneficiaries.inputChange( 'group-type-{{$groupIndex}}' )"
+                                        ng-disabled="group.location_group_name === 'Default Custom'"
+                                        >
+                                    <label for="group-type-{{$groupIndex}}" class="active"
+                                        style="">Group Type*</label>
+                                </div> -->
+                                <div class="input-field col s12 m2" ng-hide="group.location_group_name === 'Default Custom'">
+                                    <div class="btn-floating waves-effect waves-light blue lighten-2" title="Remove"
+                                    ng-click="project.removeLocationGroupingModal($groupIndex)">
+                                        <i class="material-icons">clear</i>
+                                    </div>
+                                    <div ng-if="!group.location_group_id" class="btn-floating waves-effect waves-light " title="Remove"
+                                    ng-click="project.saveLocationGroupingCustom()" ng-disabled="">
+                                        <i class="material-icons">save</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- default -->
+                            <button class="btn" style="margin:20px 0px;" ng-click="project.addLocationGroupingCustom()">
+                                <i class="material-icons left">add</i> Add Group
+                            
+                            </button>
+                        </div>
+                    </div>
                     <div ng-repeat="location in project.definition.target_locations | orderBy:'createdAt' track by $index"
                         ng-class="{'add-padding': !detailLocation[$index]}">
 
@@ -138,6 +256,13 @@
                         <!-- detail form reorganize -->
                         <div class="card-panel" ng-if="detailLocation[$index]"
                             ng-class="{'card-panel-expand':detailLocation[$index]}">
+
+                            <!-- if group location by custom is true ng-if="project.definition.location_grouping_by !== 'custom'"-->
+                            <div  class="row" style="margin-bottom: 20px" ng-if="project.definition.location_grouping_by === 'custom'">
+                                <button class="btn" style="margin:20px 0px;" ng-click="project.changeLocationModal(location)">
+                                    <i class="material-icons left">add</i> change location group
+                                </button>
+                            </div>
 
                             <!-- reporter, site_type -->
                             <div class="row"

@@ -1704,11 +1704,129 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					$scope.project.report.messageWarning ='';
 				},
 
+				addLocationGroupingsforNewLocation: function () {
+					// function to save Location
+					var saveLocation = function(){
+						// update project details of report + locations + beneficiaries
+						$scope.project.report =
+							ngmClusterHelper.getCleanReport($scope.project.definition, $scope.project.report);
+
+
+
+						// msg
+						// Materialize.toast( $filter('translate')('processing_report') , 6000, 'note');
+						M.toast({ html: "Adding Location", displayLength: 6000, classes: 'note' });
+
+						// setReportRequest
+						var setReportRequest = {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/cluster/report/setReport',
+							data: { email_alert: false, report: $scope.project.report }
+						}
+
+						// set report
+						$http(setReportRequest).success(function (report) {
+							$scope.project.report = report;
+						})
+					};
+
+					// function to add new Group
+					var saveNewGroup = function(){
+						$http({
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/cluster/project/setProject',
+							data: { project: $scope.project.definition }
+						}).success(function (project) {
+							// add id to client json
+							M.toast({ html: "Please Wait ... we will redirect you to Group,</br> Because New Location not Match with this Group ", displayLength: 6000, classes: 'note' });
+							$scope.project.definition = angular.merge($scope.project.definition, project);
+							var path = '/cluster/projects/group/' + $scope.project.definition.id + '/' + $scope.project.report.id;
+							$location.path(path)
+						})
+					};
+
+					if ($scope.project.definition.location_grouping_by) {
+						var newGroupCount = 0;
+						if ($scope.project.definition.location_grouping_by === 'admin1pcode') {
+							angular.forEach($scope.project.report.locations, function (location, i) {
+								// location group
+								if (!location.id) {
+									location.location_group_id = location.admin1pcode;
+									location.location_group_type = location.admin1type_name;
+									location.location_group_name = location.admin1name;
+									location.beneficiaries =[];
+
+									if ($scope.project.definition.location_groups.findIndex(group => group.location_group_id === location.admin1pcode) < 0) {
+										
+										var new_group = {
+											location_group_id: location.admin1pcode,
+											location_group_type: location.admin1type_name,
+											location_group_name: location.admin1name
+										}
+										newGroupCount += 1
+										$scope.project.definition.location_groups.push(new_group);
+									}
+								}
+
+							});
+							saveLocation();
+
+
+						} else if ($scope.project.definition.location_grouping_by === 'admin2pcode') {
+
+							angular.forEach($scope.project.report.locations, function (location, i) {
+								// location group
+								if (!location.id) {
+									location.location_group_id = location.admin2pcode;
+									location.location_group_type = location.admin2type_name;
+									location.location_group_name = location.admin2name;
+									location.beneficiaries = [];
+
+									if ($scope.project.definition.location_groups.findIndex(group => group.location_group_id === location.admin2pcode) < 0) {
+										var new_group = {
+											location_group_id: location.admin2pcode,
+											location_group_type: location.admin2type_name,
+											location_group_name: location.admin2name
+										}
+										newGroupCount += 1
+										$scope.project.definition.location_groups.push(new_group);
+									}
+								}
+							});
+
+							saveLocation();
+
+						} else {
+							// show modal
+							angular.forEach($scope.project.report.locations, function (location, i) {
+								// location group
+								if (!location.id) {
+									// location group
+									location.location_group_id = 'default_custom_group_' + $scope.project.user.username;
+									location.location_group_type = 'Custom';
+									location.location_group_name = 'Default Custom';
+									location.beneficiaries = [];
+								}
+							});
+
+							saveLocation();
+							
+						}
+
+						if (newGroupCount > 0) {
+							saveNewGroup();
+						}
+
+						
+					}
+				},
+
 				validateAddNewLocation:function(){
 					var result = ngmClusterValidation.validateAddNewLocationMonthlyReport(ngmClusterLocations.new_location)
 					if (result.complete){
 						ngmClusterLocations.addNewLocation($scope.project, ngmClusterLocations.new_location); 
 						$scope.project.incrementLocationLimitByOneAutoSelect()
+						$scope.project.addLocationGroupingsforNewLocation()
 					}else{
 						var elements = result.divs
 						$(elements[0]).animatescroll();

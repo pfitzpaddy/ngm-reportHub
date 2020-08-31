@@ -75,6 +75,29 @@ angular.module( 'ngmReportHub' )
 
 			},
 
+			validateLocationGroupingCustom: function (project) {
+				ngmClusterValidation.group_custom = [];
+				if (project.location_groups.length && project.location_grouping_by === 'custom') {
+					angular.forEach(project.location_groups, function (group, i) {
+						if (group.location_group_type === '' || group.location_group_name === '') {
+							if (group.location_group_type === '') {
+								var id = "label[for='" + 'group-type-' + i + "']";
+								$(id).addClass('error');
+								ngmClusterValidation.group_custom.push(id);
+							}
+							if (group.location_group_name === '') {
+								var id = "label[for='" + 'group-name-' + i + "']";
+								$(id).addClass('error');
+								ngmClusterValidation.group_custom.push(id);
+							}
+
+						}
+					})
+
+				}
+				return !ngmClusterValidation.group_custom.length;
+			},
+
 			// validate if ONE activity type
 			activity_type_valid: function( project ) {
 
@@ -822,6 +845,7 @@ angular.module( 'ngmReportHub' )
 				var desc = ngmClusterValidation.projectDescription(project);
 				var d = ngmClusterValidation.targetBeneficiariesValidate(project,detailBeneficiaries);
 				var e = project.admin0pcode !== 'AF' ? ngmClusterValidation.target_locations_valid(project) : ngmClusterValidation.targetLocationsValidate(project,detailLocations);
+				var f = project.admin0pcode === 'AF' ? ngmClusterValidation.validateLocationGroupingCustom(project): true;
 				// locations invalid!
 				if ( !e ) {
 					$('#ngm-target_locations').addClass('error');
@@ -848,6 +872,10 @@ angular.module( 'ngmReportHub' )
 					scrollDiv = $('#ngm-project-description');
 				}
 
+				if(!f){
+					scrollDiv = $(ngmClusterValidation.group_custom[0]);
+				}
+
 				// donor
 				angular.forEach( ngmClusterValidation.project_donor_valid_labels, function( l,i ){
 					$('label[for=' + l + ']').addClass('error');
@@ -868,7 +896,7 @@ angular.module( 'ngmReportHub' )
 				});
 
 				// popup
-				if ( a && b && c && desc && d && e ) {
+				if ( a && b && c && desc && d && e && f) {
 					if(display_modal){
 						// $( '#save-modal' ).openModal( { dismissible: false } );
 						$('#save-modal').modal({ dismissible: false });
@@ -909,6 +937,10 @@ angular.module( 'ngmReportHub' )
 					/*Materialize.toast($('<a class="btn-flat waves-effect waves-teal" style=" color:white">'+'C<span style="text-transform: lowercase">lick aquí para cerrar mensajes de error</span> </a>').on('click', function (e) {
 					   $('.toast').hide();
 					}));*/
+
+					if(f === false){
+						M.toast({ html: 'Please Fill Group Name & Group Type', displayLength: 10000, classes: 'error' });
+					}
 
 					return false;
 
