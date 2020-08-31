@@ -131,7 +131,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						'protection': { cluster: 'Protection' },
 						'rnr_chapter': { cluster: 'R&R Chapter' },
 						'wash': { cluster: 'WASH' },
-						'child_protection':{ cluster: 'Child Protection' }
+						'child_protection':{ cluster: 'Child Protection' },
+						'gbv': { cluster: 'Gender Based Violence' }
 					}
 				},
 

@@ -55,7 +55,7 @@ angular.module( 'ngmReportHub' )
 					strategic_objectives: ngmClusterLists.getStrategicObjectives( project.admin0pcode, moment( project.project_start_date ).year(), moment( project.project_end_date ).year() ),
 					category_types: ngmClusterLists.getCategoryTypes(),
 					beneficiary_types: ngmClusterLists.getBeneficiaries( moment( project.project_end_date ).year(), project.admin0pcode, project.cluster_id ),
-					beneficiary_categories: ngmClusterLists.getBeneficiariesCategories(project.admin0pcode),
+					beneficiary_categories: ngmClusterLists.getBeneficiariesCategories(project.admin0pcode, project.cluster_id),
 					hrp_beneficiary_types: ngmClusterLists.getHrpBeneficiaries(project.admin0pcode, moment(project.project_end_date).year()),
 					// location_groups: ngmClusterLists.getLocationGroups(),
 					currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
@@ -439,7 +439,17 @@ angular.module( 'ngmReportHub' )
 							delivery_type_id: 'not_disabled',
 							delivery_type_name: 'Not Disabled'
 						}];
-					}else{
+					}
+					else if(cluster_id === 'gbv'){
+						delivery = [{
+							delivery_type_id: 'newly_reached',
+							delivery_type_name: 'Newly Reached'
+						}, {
+							delivery_type_id: 'not_newly_reached',
+							delivery_type_name: 'Not Newly Reached'
+						}];
+					}
+					else{
 						delivery = [{
 							delivery_type_id: 'completed',
 							delivery_type_name: 'Completed'
@@ -5940,26 +5950,6 @@ angular.module( 'ngmReportHub' )
 						cluster_id: excludeSectors(['education','wash', 'gbv']),
 						beneficiary_type_id: 'idps_in_camps',
 						beneficiary_type_name: 'IDPs in Camps'
-					},
-					{
-						cluster_id: excludeSectors(['education','wash','child_protection']),
-						beneficiary_type_id: 'persons_formerly_abducted_and_or_associated_with_armed_group',
-						beneficiary_type_name: 'Persons formerly abducted and or associated with armed group'
-					},
-					{
-						cluster_id: excludeSectors(['education','wash','child_protection']),
-						beneficiary_type_id: 'persons_With_disabilities',
-						beneficiary_type_name: 'Persons With Disabilities'
-					},
-					{
-						cluster_id: excludeSectors(['education','wash','child_protection']),
-						beneficiary_type_id: 'survivors_of_trafficking',
-						beneficiary_type_name: 'Survivors of Trafficking'
-					},
-					{
-						cluster_id: excludeSectors(['education','wash','child_protection']),
-						beneficiary_type_id: 'early_and_child_marriage',
-						beneficiary_type_name: 'Early and Child marriage'
 					}
 				]
 				}
@@ -7893,7 +7883,7 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-			getBeneficiariesCategories: function(admin0pcode){
+			getBeneficiariesCategories: function (admin0pcode, cluster_id){
 				var beneficiary_categories = [];
 
 				if(admin0pcode === 'COL'){
@@ -7947,13 +7937,34 @@ angular.module( 'ngmReportHub' )
 				}
 
 				if( admin0pcode == 'NG' ){
-					beneficiary_categories = [{
-						beneficiary_category_id: 'general',
-						beneficiary_category_name: 'General'
-					},{
-						beneficiary_category_id: 'disabled',
-						beneficiary_category_name: 'Disabled'
-					}];
+					if(cluster_id === 'gbv'){
+						beneficiary_categories = [
+							{
+								beneficiary_category_id: 'persons_formerly_abducted_and_or_associated_with_armed_group',
+								beneficiary_category_name: 'Persons formerly abducted and or associated with armed group'
+							},
+							{
+								beneficiary_category_id: 'persons_With_disabilities',
+								beneficiary_category_name: 'Persons With Disabilities'
+							},
+							{
+								beneficiary_category_id: 'survivors_of_trafficking',
+								beneficiary_category_name: 'Survivors of Trafficking'
+							},
+							{
+								beneficiary_category_id: 'early_and_child_marriage',
+								beneficiary_category_name: 'Early and Child marriage'
+							}
+						];
+					}else{
+						beneficiary_categories = [{
+							beneficiary_category_id: 'general',
+							beneficiary_category_name: 'General'
+						}, {
+							beneficiary_category_id: 'disabled',
+							beneficiary_category_name: 'Disabled'
+						}];
+					}
 				}
 				return beneficiary_categories;
 
@@ -8087,6 +8098,32 @@ angular.module( 'ngmReportHub' )
 						site_implementation_id: 'community_based',
 						site_implementation_name: 'Community Based'
 					}];
+				}
+
+				// NG GBV
+				else if (admin0pcode === 'NG' && cluster_id === 'gbv' ){
+					site_implementation = [
+						{
+							site_implementation_id: 'women_and_girl_friendly_space/empowerment_centre/integrated_centre',
+							site_implementation_name: 'Women and Girl Friendly Space/Empowerment Centre/Integrated Centre'
+						},
+						{
+							site_implementation_id: 'one_stop_centre/SARC_(Sexual_Assualt_Referral_Centre)',
+							site_implementation_name: 'One Stop Centre/SARC (Sexual Assualt Referral Centre)'
+						},
+						{
+							site_implementation_id: 'child_friendly_space',
+							site_implementation_name: 'Child Friendly Space'
+						},
+						{
+							site_implementation_id: 'school/education_or_learning_facility',
+							site_implementation_name: 'School/Education or Learning Facility'
+						},
+						{
+							site_implementation_id: 'non_facility_based',
+							site_implementation_name: 'Non-Facility Based'
+						}
+					];
 				}
 
 				else {
