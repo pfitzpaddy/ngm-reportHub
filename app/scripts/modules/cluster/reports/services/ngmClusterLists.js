@@ -4725,7 +4725,11 @@ angular.module( 'ngmReportHub' )
 								"project_donor_id": "secretaría_distrital_de_salud",
 								"project_donor_name": "Secretaría Distrital de Salud"
 							},
-							 {
+							{
+								"project_donor_id": "un_habitat",
+								"project_donor_name": "UN Habitat"
+							},
+							{
 								"project_donor_id": "unidad_para_la_atencion_y_reparacion_integral_a_las_victimas",
 								"project_donor_name": "Unidad para la Atención y Reparación Integral a las Víctimas"
 							},
@@ -4745,8 +4749,6 @@ angular.module( 'ngmReportHub' )
 								"project_donor_id": "united_way_worldwide",
 								"project_donor_name": "United Way Worldwide"
 							}
-
-
 					 ]
 
 
