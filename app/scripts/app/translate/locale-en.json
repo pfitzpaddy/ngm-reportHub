@@ -782,7 +782,7 @@
         "download_project_financial_report_as_csv":"Download Project Financial Report as CSV",
         "add_location_groups": "Add Location Groups",
         "remove_location_groups": "Remove Location Groups",
-        "add_location_groups_message": "Split Target Locations into Location Groups to make monthly reporting easier",
+        "add_location_groups_message": "Would you like to use that grouping?",
         "remove_location_groups_message": "Are you sure you want to remove Location Groups from your project?",
 
 
