@@ -1906,7 +1906,8 @@
 																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_6_12' ] &&
 																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_13_17' ] &&
 																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys' ] &&
-																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls' ])">
+																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls' ])
+																		&& ( project.definition.admin0pcode !== 'NG' && project.definition.cluster_id !== 'gbv')">
 						<!-- men -->
 						<div class="input-field col s12 m4 l3">
 							<input id="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
