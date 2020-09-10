@@ -9,6 +9,7 @@
 angular
 	.module('ngmReportHub', [
 		// vendor
+		'ngRaven',
 	    'pascalprecht.translate',
 		'ngAnimate',
 		'ngCookies',
