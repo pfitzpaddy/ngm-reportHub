@@ -187,11 +187,17 @@ angular.module('ngmReportHub')
                 },
 
                 // set dashboard
-                init: function (data) {
-                    var data_user_by_cluster = data.users_by_cluster.map(x=>x.count);
-                    var cluster_user_by_cluster = data.users_by_cluster.map(x => x.cluster);
-                    var registered_data_user_by_cluster = data. users_registered_by_cluster.map(x => x.count);
-                    var registered_cluster_user_by_cluster = data. users_registered_by_cluster.map(x => x.cluster);
+                // init: function (data) {
+                init: function () {
+                    var startDate = $route.current.params.start;
+                    var endDate = $route.current.params.end;
+                    var admin0pcode = $route.current.params.admin0pcode
+                    var hrp = $route.current.params.hrp
+                    var req = '/api/metrics/getPerformanceStatistics?admin0pcode=' + admin0pcode + '&hrp=' + hrp + '&start_date=' + startDate + '&end_date=' + endDate;
+                    // var data_user_by_cluster = data.users_by_cluster.map(x=>x.count);
+                    // var cluster_user_by_cluster = data.users_by_cluster.map(x => x.cluster);
+                    // var registered_data_user_by_cluster = data.users_registered_by_cluster.map(x => x.count);
+                    // var registered_cluster_user_by_cluster = data.users_registered_by_cluster.map(x => x.cluster);
                     
                     // model
                     $scope.model = {
@@ -296,7 +302,7 @@ angular.module('ngmReportHub')
                                         style: 'margin:15px; padding-bottom:30px;',
                                         config: {
                                             id: 'performance_page',
-                                            data: data,
+                                            // data: data,
                                             templateUrl: '/scripts/widgets/ngm-html/template/performance.html',
                                             chartConfigUserbyCluster: {
                                                 options: {
@@ -322,7 +328,7 @@ angular.module('ngmReportHub')
                                                                 color: '#000',
                                                             }
                                                         },
-                                                        categories: cluster_user_by_cluster,
+                                                        categories: []//cluster_user_by_cluster,
                                                     },
                                                     yAxis: {
                                                         title: {
@@ -335,7 +341,7 @@ angular.module('ngmReportHub')
                                                 },
                                                 series: [{
                                                     name: 'User',
-                                                    data: data_user_by_cluster
+                                                    data: []//data_user_by_cluster
                                                 }],
                                             },
                                             chartConfigRegisterdUserbyCluster: {
@@ -362,7 +368,7 @@ angular.module('ngmReportHub')
                                                                 color: '#000',
                                                             }
                                                         },
-                                                        categories: registered_cluster_user_by_cluster,
+                                                        categories: []//registered_cluster_user_by_cluster,
                                                     },
                                                     yAxis: {
                                                         title: {
@@ -375,9 +381,19 @@ angular.module('ngmReportHub')
                                                 },
                                                 series: [{
                                                     name: 'User',
-                                                    data: registered_data_user_by_cluster
+                                                    data: []//registered_data_user_by_cluster
                                                 }],
-                                            }
+                                            },
+                                            setChart: function(data,chart,prop){
+                                                var getValue = function (data, prop, prop_src){
+                                                    x = data[prop].map(x => x[prop_src])
+                                                    return x
+                                                }
+                                                chart.options.xAxis.categories = getValue(data, prop, 'cluster');
+                                                chart.series[0].data = getValue(data, prop, 'count');
+                                                return chart
+                                            },
+                                            request: { method: 'GET', url: ngmAuth.LOCATION + req }
                                         }
                                     }]
                                 }]
@@ -397,33 +413,38 @@ angular.module('ngmReportHub')
                                 }]
                             }]
                     }
-                }
-
-            };
-
-            var startDate= $route.current.params.start;
-            var endDate = $route.current.params.end;
-            var admin0pcode = $route.current.params.admin0pcode
-            var hrp = $route.current.params.hrp
-            var req = '/api/metrics/getPerformanceStatistics?admin0pcode=' + admin0pcode+'&hrp='+hrp+'&start_date='+startDate+'&end_date='+endDate;
-            ngmData
-                .get({ method: 'GET', url: ngmAuth.LOCATION + req })
-                .then(function (data) {
-                    // load data
-                    $scope.dashboard.init(data.data);
-                   
                     $scope.dashboard.admin0pcode = $route.current.params.admin0pcode
                     $scope.dashboard.hrp = $route.current.params.hrp
                     $scope.dashboard.setMenu();
                     $scope.dashboard.ngm.dashboard.model = $scope.model;
-                    
-                });
-            $scope.$on('$includeContentLoaded', function (eve, htmlpath) {
-                if ($rootScope.$broadcast("preload",{show:true}))
-                if (htmlpath === '/scripts/widgets/ngm-html/template/performance.html'){
-                    $rootScope.$broadcast("preload", { show: false });
                 }
-            });
+
+            };
+
+            // var startDate= $route.current.params.start;
+            // var endDate = $route.current.params.end;
+            // var admin0pcode = $route.current.params.admin0pcode
+            // var hrp = $route.current.params.hrp
+            // var req = '/api/metrics/getPerformanceStatistics?admin0pcode=' + admin0pcode+'&hrp='+hrp+'&start_date='+startDate+'&end_date='+endDate;
+            // ngmData
+            //     .get({ method: 'GET', url: ngmAuth.LOCATION + req })
+            //     .then(function (data) {
+            //         // load data
+            //         $scope.dashboard.init(data.data);
+                   
+            //         $scope.dashboard.admin0pcode = $route.current.params.admin0pcode
+            //         $scope.dashboard.hrp = $route.current.params.hrp
+            //         $scope.dashboard.setMenu();
+            //         $scope.dashboard.ngm.dashboard.model = $scope.model;
+                    
+            //     });
+            // $scope.$on('$includeContentLoaded', function (eve, htmlpath) {
+            //     if ($rootScope.$broadcast("preload",{show:true}))
+            //     if (htmlpath === '/scripts/widgets/ngm-html/template/performance.html'){
+            //         $rootScope.$broadcast("preload", { show: false });
+            //     }
+            // });
+            $scope.dashboard.init();
 
                 
            

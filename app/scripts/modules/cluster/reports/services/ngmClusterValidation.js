@@ -77,7 +77,7 @@ angular.module( 'ngmReportHub' )
 
 			validateLocationGroupingCustom: function (project) {
 				ngmClusterValidation.group_custom = [];
-				if (project.location_groups.length && project.location_grouping_by === 'custom') {
+				if (project.location_groups && project.location_groups.length && project.location_grouping_by === 'custom') {
 					angular.forEach(project.location_groups, function (group, i) {
 						if (group.location_group_type === '' || group.location_group_name === '') {
 							if (group.location_group_type === '') {
