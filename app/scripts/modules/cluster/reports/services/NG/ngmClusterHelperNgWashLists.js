@@ -48,6 +48,13 @@ angular.module( 'ngmReportHub' )
 					lock_installation_id: 'yes',
 					lock_installation_name: 'Yes',
 				}],
+				contractor_ratings: [
+					{ rating_id: 1, rating_name: 1 },
+					{ rating_id: 2, rating_name: 2 },
+					{ rating_id: 3, rating_name: 3 },
+					{ rating_id: 4, rating_name: 4 },
+					{ rating_id: 5, rating_name: 5 }
+				],
 				borehole_water_facility_types: [{
 					borehole_water_facility_type_id:'solar',
 					borehole_water_facility_type_name:'Solar'

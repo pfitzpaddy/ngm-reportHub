@@ -92,6 +92,8 @@ angular.module('ngm.widget.html', ['ngm.provider'])
       // Merge defaults with config
       $scope.panel = angular.merge({}, $scope.panel, config);
 
+      
+
       // trust html
       $scope.panel.html = $sce.trustAsHtml($scope.panel.html);
 

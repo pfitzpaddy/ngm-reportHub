@@ -237,6 +237,35 @@
 		</div>
 
 		<div class="row">
+			<div class="input-field col s12 m6">
+				<input id="ngm-contractor-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+					name="contractor"
+					type="text" step="any" class="validate" ng-model="borehole.contractor"
+					ng-change="ngmClusterHelperNgWash.inputChange(
+					'ngm-contractor-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+					ng-disabled="project.report.report_status === 'complete' " required>
+				<label for="ngm-contractor-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+					class="active">Name of Contractor</label>
+			</div>
+
+			<div class="input-field col s12 m6">
+				<select materialize-select id="ngm-contractor_rating-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+					name="contractor_rating" class="validate" ng-options="rating.rating_id as rating.rating_name for
+					rating in ngmClusterHelperNgWashLists.lists.contractor_ratings"
+					ng-model="borehole.contractor_rating" ng-change="ngmClusterHelperNgWash.selectChange( borehole,
+	      																			'contractor_ratings',
+	      																			'rating_id', 
+	      																			'rating_name',
+	      																			'ngm-contractor_rating-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+					ng-disabled="project.report.report_status === 'complete' " required>
+					<option value="">{{'select'|translate}}</option>
+				</select>
+				<label for="ngm-contractor_rating-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active"
+					style="transform:translateY(-10%)">Contractor Rating</label>
+			</div>
+		</div>
+
+		<div class="row">
 
       <div class="input-field col s12 m6">
         <input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
